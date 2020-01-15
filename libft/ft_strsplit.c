@@ -6,69 +6,71 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:59:10 by mtuomine          #+#    #+#             */
-/*   Updated: 2019/10/17 07:42:09 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/15 18:10:06 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
-static int	sc(char const *s, char c)
+static int	ft_len(char const *str, char c)
 {
-	int	strings;
 	int i;
 
 	i = 0;
-	strings = 0;
-	while (s[i])
-	{
-		if (s[i] == c && (s[i + 1] != c && s[i + 1] != '\0'))
-			strings++;
+	while (str[i] && str[i] != c)
 		i++;
-	}
-	if (s[0] != '\0')
-		strings++;
-	return (strings);
+	return (i);
 }
 
-static int	cc(char const *s, char c)
+static int	ft_splits(char const *str, char c)
 {
-	int count;
+	int	i;
+	int flag;
+	int words;
 
-	count = 0;
-	while (*s)
+	i = 0;
+	flag = 0;
+	words = 0;
+	while (str[i])
 	{
-		if (*s != c)
-			count++;
-		s++;
+		if (str[i] != c && !flag)
+		{
+			words++;
+			flag = 1;
+		}
+		else if (str[i] == c)
+			flag = 0;
+		i++;
 	}
-	return (count);
+	return (words);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
+	char	**arr;
 	int		i;
 	int		j;
-	char	**a;
+	int		flag;
 
+	if (!s || !(arr = (char **)malloc(sizeof(char *) * (ft_splits(s, c) + 1))))
+		return (NULL);
 	i = 0;
 	j = 0;
-	if (!s || !c || (!(a = (char **)malloc(sizeof(char *) * sc(s, c) + 1))))
-		return (NULL);
-	while (*s)
+	flag = 0;
+	while (s[i])
 	{
-		while (*s == c && *s)
-			s++;
-		if (*s != c && *s)
+		if (s[i] != c && !flag)
 		{
-			if (!s || (!(a[i] = (char *)malloc(sizeof(char) * cc(s, c) + 1))))
-				return (NULL);
-			while (*s != c && *s)
-				a[i][j++] = (char)*s++;
-			a[i][j] = '\0';
-			i++;
-			j = 0;
+			flag = 1;
+			arr[j] = ft_memalloc(ft_len(&s[i], c) + 1);
+			ft_strncpy(arr[j], &s[i], ft_len(&s[i], c));
+			j++;
 		}
+		else if (s[i] == c)
+			flag = 0;
+		i++;
 	}
-	a[i] = NULL;
-	return (a);
+	arr[j] = 0;
+	return (arr);
 }
