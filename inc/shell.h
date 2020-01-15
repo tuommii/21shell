@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 21:30:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/15 23:38:50 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@
 # include "../libft/libft.h"
 # include "setup.h"
 # include "keyboard.h"
+# include "editor.h"
 
 # define OUTPUT STDOUT_FILENO
-
-# define INPUT_BUFFER 4096
 
 void		startup_banner(void);
 
