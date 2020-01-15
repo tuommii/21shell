@@ -6,12 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 13:32:52 by srouhe            #+#    #+#             */
-/*   Updated: 2019/11/04 11:25:18 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/01/15 19:10:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft.h"
 
 static int	yield_line(int fd, int n_read, char **line, char **s)
 {
@@ -39,7 +38,7 @@ static int	yield_line(int fd, int n_read, char **line, char **s)
 	}
 }
 
-int			ft_get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
 	static char	*s[1024];
 	char		buf[BUFF_SIZE + 1];

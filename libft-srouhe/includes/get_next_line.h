@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 13:33:06 by srouhe            #+#    #+#             */
-/*   Updated: 2019/12/05 17:38:17 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/01/15 19:10:17 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+#include "libft.h"
 
 #endif

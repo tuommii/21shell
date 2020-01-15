@@ -6,7 +6,7 @@ OBJ_DIR = obj/
 LIBFT_DIR = libft/
 
 FLAGS = -Wall -Wextra -Werror -g
-INC = -I ./inc/
+INC = -I ./inc/ -I $(LIBFT_DIR)/inc/
 
 SRC_NAME = main.c \
 setup.c \

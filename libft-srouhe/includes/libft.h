@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 16:29:36 by srouhe            #+#    #+#             */
-/*   Updated: 2020/01/10 21:01:22 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/01/15 19:05:10 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ char				*ft_itoa_base(uint64_t nb, int base);
 */
 
 int					ft_printf(int fd, const char *restrict format, ...);
-int					ft_get_next_line(const int fd, char **line);
+int					get_next_line(const int fd, char **line);
 
 /*
 ** -------- ADDITIONAL FUNCTIONS --------

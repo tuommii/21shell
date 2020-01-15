@@ -6,9 +6,11 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 20:17:39 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/15 20:20:21 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "shell.h"
 
 int	keyboard(void)
 {
