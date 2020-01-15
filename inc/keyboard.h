@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyboard.c                                         :+:      :+:    :+:   */
+/*   keyboard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 20:29:15 by mtuomine         ###   ########.fr       */
+/*   Created: 2020/01/15 20:26:14 by mtuomine          #+#    #+#             */
+/*   Updated: 2020/01/15 20:28:29 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#ifndef KEYBOARD_H
+# define KEYBOARD_H
 
-int	keyboard(void)
-{
-	int		i;
-	int		code;
-	char	seq[KEYBOARD_BUFF_LEN + 1];
+# define KEYBOARD_BUFF_LEN 4
 
-	ft_bzero(seq, KEYBOARD_BUFF_LEN);
-	read(STDIN_FILENO, &seq, KEYBOARD_BUFF_LEN);
-	seq[KEYBOARD_BUFF_LEN] = '\0';
-	i = 0;
-	code = 0;
-	while (seq[i])
-	{
-		code += seq[i];
-		i++;
-	}
-	return (code);
-}
+int	keyboard(void);
+
+#endif

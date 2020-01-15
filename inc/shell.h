@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 20:22:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/15 20:30:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@
 
 # include "../libft/libft.h"
 # include "setup.h"
+# include "keyboard.h"
 
-# define KEYBOARD_BUFF_LEN 4
-# define OUTPUT STDIN_FILENO
+# define OUTPUT STDOUT_FILENO
+
+void		startup_banner(void);
 
 int g_kill;
 
