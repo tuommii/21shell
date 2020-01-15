@@ -6,18 +6,18 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 09:00:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/10 09:05:00 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/15 18:27:22 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tabelems(char **tab)
+int	ft_tabelems(char **table)
 {
 	int i;
 
 	i = 0;
-	if (!tab)
+	if (!table)
 		return (0);
-	while (tab[i])
+	while (table[i])
 		i++;
 	return (i);
 }

@@ -8,7 +8,10 @@ LIBFT_DIR = libft/
 FLAGS = -Wall -Wextra -Werror -g
 INC = -I ./inc/
 
-SRC_NAME = main.c
+SRC_NAME = main.c \
+setup.c \
+signals.c \
+editor.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
