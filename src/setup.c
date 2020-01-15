@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 19:09:59 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/15 20:12:08 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	config_terminal(int reset)
 	}
 }
 
-void	check_terminal_config(void)
+void	check_tty(void)
 {
 	char buffer[2048];
 	char *name;

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   keyboard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 20:13:54 by mtuomine         ###   ########.fr       */
+/*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
+/*   Updated: 2020/01/15 20:17:39 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
-
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/ioctl.h>
-# include <signal.h>
-# include <term.h>
-// # include <termios.h>
-// # include <termio.h>
-
-#include "../libft/libft.h"
-#include "setup.h"
-
-# define KEYBOARD_BUFF_LEN 4
-# define OUTPUT STDIN_FILENO
-
-int g_kill;
-
-#endif
+int	keyboard(void)
+{
+	int		i;
+	int		code;
+	char	seq[KEYBOARD_BUFF_LEN + 1];
+	ft_bzero(seq, KEYBOARD_BUFF_LEN);
+	read(STDIN_FILENO, &seq, KEYBOARD_BUFF_LEN);
+	seq[KEYBOARD_BUFF_LEN] = '\0';
+	i = 0;
+	code = 0;
+	while (seq[i])
+	{
+		code += seq[i];
+		i++;
+	}
+	ft_printf("%d\n", code);
+}
