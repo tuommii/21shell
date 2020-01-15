@@ -1,0 +1,5 @@
+*.o
+obj
+21shell
+a.out
+.vscode
