@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 20:15:51 by srouhe           ###   ########.fr       */
+/*   Created: 2020/01/15 20:11:39 by srouhe            #+#    #+#             */
+/*   Updated: 2020/01/15 20:16:19 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "shell.h"
 
-# include <sys/ioctl.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <fcntl.h>
-# include <signal.h>
-# include <term.h>
-# include <termios.h>
+void		startup_banner(void)
+{
+	int		fd;
+	char	*line;
 
-#include "libft.h"
-#include "setup.h"
-
-# define KEYBOARD_BUFF_LEN 4
-
-#endif
+	if ((fd = open(".boot", O_RDWR)) < 0)
+		return ;
+	while (get_next_line(fd, &line))
+		ft_putendl_fd(line, OUTPUT);
+	close(fd);
+}
