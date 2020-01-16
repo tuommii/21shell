@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 16:14:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:26:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_input *create_input(void)
 	// TODO: If doesn't exist
 	input->username = getenv("LOGNAME");
 	input->username_len = ft_strlen(input->username);
-	input->extra = " ⚡> ";
+	input->extra = "$>";
 	input->extra_len = ft_strlen(input->extra);
 	input->prompt_len = input->username_len + input->extra_len;
 	input->x = input->prompt_len;

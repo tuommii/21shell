@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 16:17:09 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:25:41 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,29 +85,28 @@ static void loop(t_input *input)
 	{
 		listen_signals();
 		print_prompt(input);
-		print_debug(input);
+		// print_debug(input);
 		while ((code = keypress()) != ENTER)
 		{
 			watch_kill();
-			print_debug(input);
 			// ft_printf(FT_RESET);
 			if (ft_isprint(code))
 			{
 				input->value[input->i] = (char)code;
 				ft_printf("%c", input->value[input->i]);
 				input->i++;
-				// input->x++;
+				input->x++;
 				input->len++;
 			}
 			if (code == LEFT)
 			{
-				ft_printf("\033[D");
 				input->x -= 1;
+				ft_printf("\033[D");
 			}
 			if (code == RIGHT)
 			{
-				ft_printf("\033[C");
 				input->x++;
+				ft_printf("\033[C");
 			}
 			else if (code == ESC)
 			{
@@ -121,6 +120,7 @@ static void loop(t_input *input)
 				input->x = input->prompt_len;
 				break ;
 			}
+			print_debug(input);
 		}
 		reset_input(input, code);
 	}
