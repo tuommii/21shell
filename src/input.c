@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 12:31:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:14:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ t_input *create_input(void)
 	input->x = input->prompt_len;
 	ft_bzero(input->value, INPUT_BUFFER);
 	return (input);
-}
-
-
-void print_debug(t_input *input)
-{
-	ft_printf("%d@%d, %d\n", input->i, input->x, input->y);
 }
 
 int	keypress(void)

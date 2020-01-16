@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 13:25:21 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:17:09 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,53 @@ static void reset_input(t_input *input, int code)
 	ft_bzero(input->value, INPUT_BUFFER);
 }
 
+/*
+
+- Position the Cursor:
+  \033[<L>;<C>H
+     Or
+  \033[<L>;<C>f
+  puts the cursor at line L and column C.
+- Move the cursor up N lines:
+  \033[<N>A
+- Move the cursor down N lines:
+  \033[<N>B
+- Move the cursor forward N columns:
+  \033[<N>C
+- Move the cursor backward N columns:
+  \033[<N>D
+
+- Clear the screen, move to (0,0):
+  \033[2J
+- Erase to end of line:
+  \033[K
+
+- Save cursor position:
+  \033[s
+- Restore cursor position:
+  \033[u
+*/
+static void print_debug(t_input *input)
+{
+	ft_printf("\033[s");
+	ft_printf("\033[1;1f CURSOR: [%d, %d]\033[u", input->x, input->y);
+	ft_printf("\033[2;1f INDEX: [%d]\033[u", input->i);
+	ft_printf("\033[u");
+}
+
 static void loop(t_input *input)
 {
 	int	code;
 	while (1)
 	{
-		ft_printf("%d, %d, %d\n", input->x, input->y, input->i);
-		print_prompt(input);
 		listen_signals();
+		print_prompt(input);
+		print_debug(input);
 		while ((code = keypress()) != ENTER)
 		{
 			watch_kill();
+			print_debug(input);
+			// ft_printf(FT_RESET);
 			if (ft_isprint(code))
 			{
 				input->value[input->i] = (char)code;
@@ -65,24 +101,13 @@ static void loop(t_input *input)
 			}
 			if (code == LEFT)
 			{
-				input->i = '\0';
-				// ft_printf("DASADSDSA");
-				// if (input->x > input->prompt_len)
-				// {
-					// input->x--;
-					 ft_printf("\033[D");
-					// ft_printf(tgoto(CM, input->x-1, input->y));
-				// }
+				ft_printf("\033[D");
+				input->x -= 1;
 			}
 			if (code == RIGHT)
 			{
-				// ft_printf("DASADSDSA");
-				if (input->x - input->prompt_len < input->len)
-				{
-					 ft_printf("\033[C");
-					input->x++;
-					// ft_printf(tgoto(CM, input->x, input->y));
-				}
+				ft_printf("\033[C");
+				input->x++;
 			}
 			else if (code == ESC)
 			{
@@ -108,44 +133,5 @@ int	main(int argc, char **argv, char **environment)
 	init(argc, argv, environment);
 	t_input *input = create_input();
 	loop(input);
-	// int code = 0;
-	// while (1)
-	// {
-	// 	print_prompt(input);
-	// 	listen_signals();
-	// 	// print_debug(input);
-	// 	while ((code = keypress()) != ENTER)
-	// 	{
-	// 		watch_kill();
-	// 		if (ft_isprint(code))
-	// 		{
-	// 			input->value[input->i] = (char)code;
-	// 			ft_printf("%c", input->value[input->i]);
-	// 			input->i++;
-	// 			input->x++;
-	// 			input->len++;
-	// 		}
-	// 		else if (code == LEFT)
-	// 		{
-	// 			// ft_printf("DASADSDSA");
-	// 			if (input->x > input->prompt_len)
-	// 			{
-	// 				input->x--;
-	// 				ft_printf(tgoto(CM, input->x-1, input->y));
-	// 			}
-	// 		}
-	// 		if (code == ESC)
-	// 		{
-	// 			ft_printf("\n");
-	// 			return (0) ;
-	// 		}
-	// 	}
-	// 	reset_input(input);
-	// 	// input->y++;
-	// 	// input->i = 0;
-	// 	// input->x = input->prompt_len;
-	// 	// ft_printf("\t[%s]", input->value);
-	// 	// ft_bzero(input->value, INPUT_BUFFER);
-	// }
 	cleanup(input);
 }

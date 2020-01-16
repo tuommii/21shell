@@ -32,6 +32,10 @@ clean:
 	@make -C $(LIBFT_DIR)/ clean
 	rm -rf $(OBJ_DIR)
 
+main:
+	make
+	./21sh
+
 fclean: clean
 	make -C $(LIBFT_DIR)/ fclean
 	rm -rf $(NAME)

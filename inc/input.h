@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 23:21:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 12:20:32 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 16:14:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 
 # define CM (tgetstr("cm", NULL))
 
+#define cursorforward(x) printf("\033[%dC", (x))
+#define cursorbackward(x) printf("\033[%dD", (x))
+
 typedef struct	s_input
 {
 				char value[INPUT_BUFFER];
@@ -48,7 +51,6 @@ typedef struct	s_input
 }				t_input;
 
 t_input *create_input();
-void print_debug(t_input *input);
 
 
 /*
