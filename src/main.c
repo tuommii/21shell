@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 19:26:35 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:53:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,53 +78,60 @@ static void print_debug(t_shell *sh)
 	ft_printf("\033[u");
 }
 
+static int read_input(t_shell *sh)
+{
+	int code = 0;
+	while ((code = keypress()) != ENTER)
+	{
+		watch_kill();
+		if (ft_isprint(code))
+		{
+			sh->input[sh->i] = (char)code;
+			ft_printf("%c", sh->input[sh->i]);
+			sh->i++;
+			sh->x++;
+			sh->len++;
+		}
+		if (code == LEFT)
+		{
+			sh->x -= 1;
+			ft_putstr("\033[D");
+		}
+		if (code == RIGHT)
+		{
+			sh->x++;
+			ft_putstr("\033[C");
+		}
+		else if (code == ESC)
+		{
+			ft_printf("\n");
+			return (ESC);
+		}
+		else if (code == CTRL_L)
+		{
+			tputs(tgetstr("cl", NULL), 1, print_char);
+			sh->y = 0;
+			sh->x = sh->prompt_len;
+			return (CTRL_L) ;
+		}
+		print_debug(sh);
+	}
+	return (ENTER);
+}
+
+
 static void loop(t_shell *sh)
 {
-	int	code;
+	int	code = 0;
 	while (1)
 	{
 		listen_signals();
 		print_prompt(sh);
 		print_debug(sh);
-		while ((code = keypress()) != ENTER)
-		{
-			watch_kill();
-			// ft_printf(FT_RESET);
-			if (ft_isprint(code))
-			{
-				sh->input[sh->i] = (char)code;
-				ft_printf("%c", sh->input[sh->i]);
-				sh->i++;
-				sh->x++;
-				sh->len++;
-			}
-			if (code == LEFT)
-			{
-				sh->x -= 1;
-				ft_putstr("\033[D");
-			}
-			if (code == RIGHT)
-			{
-				sh->x++;
-				ft_putstr("\033[C");
-			}
-			else if (code == ESC)
-			{
-				ft_printf("\n");
-				return ;
-			}
-			else if (code == CTRL_L)
-			{
-				tputs(tgetstr("cl", NULL), 1, print_char);
-				sh->y = 0;
-				sh->x = sh->prompt_len;
-				break ;
-			}
-			print_debug(sh);
-		}
+		if ((code = read_input(sh)) == ESC)
+			return ;
 		reset_shell(sh, code);
 	}
-
 }
 
 int	main(int argc, char **argv, char **environment)
