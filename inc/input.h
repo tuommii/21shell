@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 23:21:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 10:41:43 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 12:20:32 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,9 @@ int process_key(int code, t_input *input);
 void		startup_banner(void);
 void		print_prompt(t_input *input);
 void		prompt_len(t_input *input);
+
+
+int process(int code, t_input *input);
+
 
 #endif

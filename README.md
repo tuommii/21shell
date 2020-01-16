@@ -1,14 +1,6 @@
 # 21shell
 
-## Notes
-Tähän voi kirjottaa kommentteja toiselle
-
-### Modules
-* Parser
-* Editor
-* Executor
-
-Tulee äkkiseltään mieleen. Jokaselle vois tehä oman header-filen.
+Shell
 
 <div align='center'>
     <sub>Created by <a href='https://github.com/rouhija'>Sami Rouhe (srouhe) <a href='https://github.com/tuommii'>Miikka Tuominen (mtuomine)</a></sub>

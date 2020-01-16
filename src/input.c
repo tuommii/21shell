@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 11:18:16 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 12:31:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,37 @@ int	keypress(void)
 	return (code);
 }
 
+int process(int code, t_input *input)
+{
+	while (code != ENTER)
+	{
+		watch_kill();
+		if (ft_isprint(code))
+		{
+			input->value[input->i] = (char)code;
+			ft_printf("%c", input->value[input->i]);
+			input->i++;
+			input->x++;
+			input->len++;
+		}
+		else if (code == LEFT)
+		{
+			// ft_printf("DASADSDSA");
+			if (input->x > input->prompt_len)
+			{
+				input->x--;
+				ft_printf(tgoto(CM, input->x-1, input->y));
+			}
+		}
+		if (code == ESC)
+		{
+			ft_printf("\n");
+			return (-1) ;
+		}
+	}
+	return (0);
+}
+
 
 int process_key(int code, t_input *input)
 {
@@ -84,13 +115,6 @@ int process_key(int code, t_input *input)
 		input->y+=3;
 		ft_printf("\n");
 		return (-10);
-	}
-
-	else if (code == CTRL_L)
-	{
-		tputs(tgetstr("cl", NULL), 1, print_char);
-		input->y = 0;
-		input->x = input->prompt_len;
 	}
 
 	else if (code == ESC)

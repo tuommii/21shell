@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 11:19:52 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 12:47:00 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ void		startup_banner(void)
 
 void	print_prompt(t_input *input)
 {
-	static int started = 0;
-
-	if (started)
-		ft_printf("\n");
-	started = 1;
 	// char	host[INPUT_BUFFER + 1];
 	//char	cwd[INPUT_BUFFER + 1];
 	if (!input)
