@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 12:47:00 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:28:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,29 @@ void		startup_banner(void)
 	close(fd);
 }
 
-void	print_prompt(t_input *input)
+void	print_prompt(t_shell *shell)
 {
-	// char	host[INPUT_BUFFER + 1];
-	//char	cwd[INPUT_BUFFER + 1];
-	if (!input)
+	// char	host[shell_BUFFER + 1];
+	//char	cwd[shell_BUFFER + 1];
+	if (!shell)
 	{
 
 	}
 	char *logname = getenv("LOGNAME");
-	// gethostname(host, INPUT_BUFFER);
-	//getcwd(cwd, INPUT_BUFFER);
+	// gethostname(host, shell_BUFFER);
+	//getcwd(cwd, shell_BUFFER);
 	ft_printf(FT_GREEN);
 	ft_printf("%s", logname);
 
-	// input->prompt_len += ft_strlen(logname);
-	// input->prompt_len += ft_strlen(cwd);
-	// input->prompt_len += 3;
-	// prompt_len(input);
+	// shell->prompt_len += ft_strlen(logname);
+	// shell->prompt_len += ft_strlen(cwd);
+	// shell->prompt_len += 3;
+	// prompt_len(shell);
 
 
 	// ft_printf("@");
 	// ft_printf(FT_BOLD_BLUE);
 	// ft_printf("%s: ", host);
 	ft_printf(FT_RESET);
-	ft_printf("%s", input->extra);
+	ft_printf("%s", shell->extra);
 }

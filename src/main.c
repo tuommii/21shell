@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 16:25:41 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:30:57 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@ static void init(int argc, char **argv, char **environment)
 	startup_banner();
 }
 
-static void cleanup(t_input *input)
+static void cleanup(t_shell *shell)
 {
 	// TODO: Free fields aldo
-	free(input);
+	free(shell);
 	config_terminal(1);
 	return exit(EXIT_SUCCESS);
 }
 
 
-static void reset_input(t_input *input, int code)
+static void reset_shell(t_shell *shell, int code)
 {
 	if (code == ENTER)
 	{
-		ft_printf("\t[%s]\n", input->value);
-		input->y++;
+		ft_printf("\t[%s]\n", shell->input);
+		shell->y++;
 	}
-	input->i = 0;
-	input->x = input->prompt_len;
-	ft_bzero(input->value, INPUT_BUFFER);
+	shell->i = 0;
+	shell->x = shell->prompt_len;
+	ft_bzero(shell->input, shell_BUFFER);
 }
 
 /*
@@ -70,43 +70,43 @@ static void reset_input(t_input *input, int code)
 - Restore cursor position:
   \033[u
 */
-static void print_debug(t_input *input)
+static void print_debug(t_shell *shell)
 {
 	ft_printf("\033[s");
-	ft_printf("\033[1;1f CURSOR: [%d, %d]\033[u", input->x, input->y);
-	ft_printf("\033[2;1f INDEX: [%d]\033[u", input->i);
+	ft_printf("\033[1;1f CURSOR: [%d, %d]\033[u", shell->x, shell->y);
+	ft_printf("\033[2;1f INDEX: [%d]\033[u", shell->i);
 	ft_printf("\033[u");
 }
 
-static void loop(t_input *input)
+static void loop(t_shell *shell)
 {
 	int	code;
 	while (1)
 	{
 		listen_signals();
-		print_prompt(input);
-		// print_debug(input);
+		print_prompt(shell);
+		print_debug(shell);
 		while ((code = keypress()) != ENTER)
 		{
 			watch_kill();
 			// ft_printf(FT_RESET);
 			if (ft_isprint(code))
 			{
-				input->value[input->i] = (char)code;
-				ft_printf("%c", input->value[input->i]);
-				input->i++;
-				input->x++;
-				input->len++;
+				shell->input[shell->i] = (char)code;
+				ft_printf("%c", shell->input[shell->i]);
+				shell->i++;
+				shell->x++;
+				shell->len++;
 			}
 			if (code == LEFT)
 			{
-				input->x -= 1;
-				ft_printf("\033[D");
+				shell->x -= 1;
+				ft_putstr("\033[D");
 			}
 			if (code == RIGHT)
 			{
-				input->x++;
-				ft_printf("\033[C");
+				shell->x++;
+				ft_putstr("\033[C");
 			}
 			else if (code == ESC)
 			{
@@ -116,13 +116,13 @@ static void loop(t_input *input)
 			else if (code == CTRL_L)
 			{
 				tputs(tgetstr("cl", NULL), 1, print_char);
-				input->y = 0;
-				input->x = input->prompt_len;
+				shell->y = 0;
+				shell->x = shell->prompt_len;
 				break ;
 			}
-			print_debug(input);
+			print_debug(shell);
 		}
-		reset_input(input, code);
+		reset_shell(shell, code);
 	}
 
 }
@@ -131,7 +131,7 @@ int	main(int argc, char **argv, char **environment)
 {
 	// TODO: Needs check if space available
 	init(argc, argv, environment);
-	t_input *input = create_input();
-	loop(input);
-	cleanup(input);
+	t_shell *shell = create_shell();
+	loop(shell);
+	cleanup(shell);
 }
