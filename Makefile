@@ -11,7 +11,6 @@ INC = -I ./inc/ -I $(LIBFT_DIR)/inc/
 SRC_NAME = main.c \
 setup.c \
 signals.c \
-utils.c \
 prompt.c \
 move.c \
 input.c

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 20:30:28 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 21:20:28 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 ** KEYBOARD
 */
 # define INPUT_BUFFER 4096
-# define KEYBOARD_BUFF_LEN 4
+# define KEYBOARD_BUFFER 4
 
 # define TAB 9
 # define ENTER 10
@@ -73,8 +73,8 @@ typedef struct	s_shell
 				int extra_len;
 }				t_shell;
 
+void 	init_shell(int argc, char **argv, char **environment);
 t_shell *create_shell();
-
 
 /*
 ** KEYBOARD
@@ -85,15 +85,17 @@ int process_key(int code, t_shell *sh);
 /*
 ** PROMPT
 */
-void		startup_banner(void);
+void		ascii_art(void);
 void		print_prompt(t_shell *sh);
+void		print_debug(t_shell *sh);
+
 
 /*
 ** SETUP
 */
 void	config_terminal(int reset);
 void	check_tty(void);
-int		print_char(int c);
+
 
 void	listen_signals(void);
 void	watch_kill();
@@ -103,5 +105,9 @@ void	watch_kill();
 */
 void move_left(t_shell *sh);
 void move_right(t_shell *sh);
+
+
+
+int		print_char(int c);
 
 #endif

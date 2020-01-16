@@ -6,22 +6,11 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 20:31:04 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 21:20:19 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static void init(int argc, char **argv, char **environment)
-{
-	if (!argc || !argv || !environment)
-		exit(EXIT_FAILURE);
-	g_kill = 0;
-	check_tty();
-	config_terminal(0);
-	tputs(tgetstr("cl", NULL), 1, print_char);
-	startup_banner();
-}
 
 static void cleanup(t_shell *sh)
 {
@@ -70,13 +59,6 @@ static void reset_shell(t_shell *sh, int code)
 - Restore cursor position:
   \033[u
 */
-static void print_debug(t_shell *sh)
-{
-	ft_printf("\033[s");
-	ft_printf("\033[1;1f CURSOR: [x:%d, y:%d]\033[u", sh->x, sh->y);
-	ft_printf("\033[2;1f INDEX: [%d]\033[u", sh->i);
-	ft_printf("\033[u");
-}
 
 static int read_input(t_shell *sh)
 {
@@ -135,7 +117,7 @@ static void loop(t_shell *sh)
 int	main(int argc, char **argv, char **environment)
 {
 	// TODO: Needs check if space available
-	init(argc, argv, environment);
+	init_shell(argc, argv, environment);
 	t_shell *sh = create_shell();
 	loop(sh);
 	cleanup(sh);

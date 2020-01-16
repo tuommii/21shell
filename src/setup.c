@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 19:16:17 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 21:21:05 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,34 @@ void	check_tty(void)
 		ft_dprintf(OUTPUT, "No database or No entry found\n");
 		exit(1);
 	}
+}
+
+void init_shell(int argc, char **argv, char **environment)
+{
+	if (!argc || !argv || !environment)
+		exit(EXIT_FAILURE);
+	g_kill = 0;
+	check_tty();
+	config_terminal(0);
+	tputs(tgetstr("cl", NULL), 1, print_char);
+	ascii_art();
+}
+
+t_shell *create_shell(void)
+{
+	t_shell *sh;
+
+	sh = (t_shell *)ft_memalloc(sizeof(t_shell));
+	sh->i = 0;
+	sh->y = 13;
+	sh->len = 0;
+	// TODO: If doesn't exist
+	sh->username = getenv("LOGNAME");
+	sh->username_len = ft_strlen(sh->username);
+	sh->extra = "$>";
+	sh->extra_len = ft_strlen(sh->extra);
+	sh->prompt_len = sh->username_len + sh->extra_len;
+	sh->x = sh->prompt_len;
+	ft_bzero(sh->input, INPUT_BUFFER);
+	return (sh);
 }
