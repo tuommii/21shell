@@ -11,9 +11,9 @@ INC = -I ./inc/ -I $(LIBFT_DIR)/inc/
 SRC_NAME = main.c \
 setup.c \
 signals.c \
-keyboard.c \
 utils.c \
-editor.c
+prompt.c \
+input.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))

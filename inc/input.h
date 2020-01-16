@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyboard.h                                         :+:      :+:    :+:   */
+/*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 20:26:14 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 23:39:33 by mtuomine         ###   ########.fr       */
+/*   Created: 2020/01/15 23:21:19 by mtuomine          #+#    #+#             */
+/*   Updated: 2020/01/16 10:41:43 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYBOARD_H
-# define KEYBOARD_H
+#ifndef EDITOR_H
+# define EDITOR_H
 
-#include "editor.h"
-
+# define INPUT_BUFFER 4096
 # define KEYBOARD_BUFF_LEN 4
 
 # define TAB 9
@@ -30,8 +29,40 @@
 
 # define CM (tgetstr("cm", NULL))
 
-int	keypress(void);
-int process_key(int code, t_editor *cur);
+typedef struct	s_input
+{
+				char value[INPUT_BUFFER];
+				// Cursor
+				int x;
+				int y;
+				// Index
+				int i;
+				// Input len
+				int len;
+				// Prompt data
+				char *username;
+				char *extra;
+				int prompt_len;
+				int username_len;
+				int extra_len;
+}				t_input;
 
+t_input *create_input();
+void print_debug(t_input *input);
+
+
+/*
+** KEYBOARD
+*/
+int	keypress(void);
+int process_key(int code, t_input *input);
+
+/*
+** PROMPT
+*/
+
+void		startup_banner(void);
+void		print_prompt(t_input *input);
+void		prompt_len(t_input *input);
 
 #endif
