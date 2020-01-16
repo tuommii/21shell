@@ -1,5 +1,5 @@
 
-NAME = 21shell
+NAME = 21sh
 
 SRC_DIR = src/
 OBJ_DIR = obj/

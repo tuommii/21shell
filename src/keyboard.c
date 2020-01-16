@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 23:41:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 08:52:13 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,15 @@ int process_key(int code, t_editor *cur)
 		ft_dprintf(0, tgoto(CM, cur->x, cur->y));
 	}
 
+	else if (code == RIGHT)
+	{
+		if (cur->x < cur->len)
+		{
+			cur->x++;
+		}
+		ft_dprintf(0, tgoto(CM, cur->x, cur->y));
+	}
+
 	else if (ft_isprint(code))
 	{
 		if (cur->i == cur->x)
@@ -95,6 +104,7 @@ int process_key(int code, t_editor *cur)
 		ft_printf("%c", cur->input[cur->i]);
 		cur->i++;
 		cur->x++;
+		cur->len++;
 	}
 	return (0);
 }

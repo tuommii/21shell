@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 23:37:57 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 08:48:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static void init(int argc, char **argv, char **environment)
 	startup_banner();
 }
 
-static void cleanup()
+static void cleanup(t_editor *cur)
 {
+	free(cur);
 	config_terminal(1);
 	return exit(EXIT_SUCCESS);
 }
@@ -41,5 +42,5 @@ int	main(int argc, char **argv, char **environment)
 		watch_kill();
 		process_key(keypress(), cur);
 	}
-	cleanup();
+	cleanup(cur);
 }

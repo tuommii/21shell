@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:19:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 23:41:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 08:47:31 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_editor *create_editor(void)
 	cursor->i = 0;
 	cursor->x = 0;
 	cursor->y = 13;
+	cursor->len = 0;
 	ft_bzero(cursor->input, INPUT_BUFFER);
 	return (cursor);
 }
