@@ -6,14 +6,14 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 19:11:53 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 20:25:17 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 
-t_shell *create_sh(void)
+t_shell *create_shell(void)
 {
 	t_shell *sh;
 

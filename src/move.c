@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.h                                            :+:      :+:    :+:   */
+/*   move.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 17:00:15 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/15 20:22:36 by mtuomine         ###   ########.fr       */
+/*   Created: 2020/01/16 20:00:35 by mtuomine          #+#    #+#             */
+/*   Updated: 2020/01/16 20:03:31 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SETUP_H
-# define SETUP_H
+#include "shell.h"
 
-void	config_terminal(int reset);
-void	check_tty(void);
-int		print_char(int c);
+void move_left(t_shell *sh)
+{
+	if (sh->x > sh->prompt_len)
+	{
+		sh->x--;
+		ft_putstr("\033[D");
+	}
+}
 
-void	listen_signals(void);
-void	watch_kill();
-
-void		startup_banner(void);
-
-
-#endif
+void move_right(t_shell *sh)
+{
+	if (sh->len + sh->prompt_len > sh->x)
+	{
+		sh->x++;
+		ft_putstr("\033[C");
+	}
+}

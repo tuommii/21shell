@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 19:53:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 20:31:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,15 @@ static void reset_shell(t_shell *sh, int code)
 static void print_debug(t_shell *sh)
 {
 	ft_printf("\033[s");
-	ft_printf("\033[1;1f CURSOR: [%d, %d]\033[u", sh->x, sh->y);
+	ft_printf("\033[1;1f CURSOR: [x:%d, y:%d]\033[u", sh->x, sh->y);
 	ft_printf("\033[2;1f INDEX: [%d]\033[u", sh->i);
 	ft_printf("\033[u");
 }
 
 static int read_input(t_shell *sh)
 {
-	int code = 0;
+	int code;
+
 	while ((code = keypress()) != ENTER)
 	{
 		watch_kill();
@@ -93,15 +94,9 @@ static int read_input(t_shell *sh)
 			sh->len++;
 		}
 		if (code == LEFT)
-		{
-			sh->x -= 1;
-			ft_putstr("\033[D");
-		}
+			move_left(sh);
 		if (code == RIGHT)
-		{
-			sh->x++;
-			ft_putstr("\033[C");
-		}
+			move_right(sh);
 		else if (code == ESC)
 		{
 			ft_printf("\n");
@@ -130,6 +125,9 @@ static void loop(t_shell *sh)
 		print_debug(sh);
 		if ((code = read_input(sh)) == ESC)
 			return ;
+
+		// Sami, sh->input contains input string! Parse that!
+
 		reset_shell(sh, code);
 	}
 }
@@ -138,7 +136,7 @@ int	main(int argc, char **argv, char **environment)
 {
 	// TODO: Needs check if space available
 	init(argc, argv, environment);
-	t_shell *sh = create_sh();
+	t_shell *sh = create_shell();
 	loop(sh);
 	cleanup(sh);
 }

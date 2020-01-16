@@ -13,6 +13,7 @@ setup.c \
 signals.c \
 utils.c \
 prompt.c \
+move.c \
 input.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
