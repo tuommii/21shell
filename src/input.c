@@ -6,30 +6,30 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 17:33:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:11:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 
-t_shell *create_shell(void)
+t_shell *create_sh(void)
 {
-	t_shell *shell;
+	t_shell *sh;
 
-	shell = (t_shell *)ft_memalloc(sizeof(t_shell));
-	shell->i = 0;
-	shell->y = 13;
-	shell->len = 0;
+	sh = (t_shell *)ft_memalloc(sizeof(t_shell));
+	sh->i = 0;
+	sh->y = 13;
+	sh->len = 0;
 	// TODO: If doesn't exist
-	shell->username = getenv("LOGNAME");
-	shell->username_len = ft_strlen(shell->username);
-	shell->extra = "$>";
-	shell->extra_len = ft_strlen(shell->extra);
-	shell->prompt_len = shell->username_len + shell->extra_len;
-	shell->x = shell->prompt_len;
-	ft_bzero(shell->input, shell_BUFFER);
-	return (shell);
+	sh->username = getenv("LOGNAME");
+	sh->username_len = ft_strlen(sh->username);
+	sh->extra = "$>";
+	sh->extra_len = ft_strlen(sh->extra);
+	sh->prompt_len = sh->username_len + sh->extra_len;
+	sh->x = sh->prompt_len;
+	ft_bzero(sh->input, INPUT_BUFFER);
+	return (sh);
 }
 
 int	keypress(void)
