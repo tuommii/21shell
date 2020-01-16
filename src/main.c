@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 11:28:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/16 11:55:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	main(int argc, char **argv, char **environment)
 	{
 		print_prompt(input);
 		listen_signals();
-		watch_kill();
 		// print_debug(input);
 		while ((code = keypress()) != ENTER)
 		{
+			watch_kill();
 			if (ft_isprint(code))
 			{
 				input->value[input->i] = (char)code;
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **environment)
 				{
 					input->x--;
 					ft_printf(tgoto(CM, input->x-1, input->y));
-					continue ;
+					// continue ;
 					//ft_dprintf(0, tgoto(CM, input->x, input->y));
 				}
 				// t_printf("dsadsadas");
@@ -74,6 +74,8 @@ int	main(int argc, char **argv, char **environment)
 		input->y++;
 		input->i = 0;
 		input->x = input->prompt_len;
+		ft_printf("\t[%s]", input->value);
+		ft_bzero(input->value, INPUT_BUFFER);
 	}
 	cleanup(input);
 }
