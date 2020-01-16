@@ -13,7 +13,7 @@ setup.c \
 signals.c \
 prompt.c \
 move.c \
-input.c
+keyboard.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
