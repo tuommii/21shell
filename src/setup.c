@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 11:58:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:42:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_shell *create_shell(void)
 
 	sh = (t_shell *)ft_memalloc(sizeof(t_shell));
 	sh->i = 0;
-	sh->y = 13;
+	sh->y = 0;
 	sh->len = 0;
 	sh->key = 0;
 	// TODO: If doesn't exist
