@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 21:24:02 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 11:47:13 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,21 @@ int	keypress(void)
 		i++;
 	}
 	return (code);
+}
+
+void handle_printable(t_shell *sh)
+{
+	if (ft_isprint(sh->key))
+	{
+		if (sh->x - sh->prompt_len < sh->len)
+		{
+			ft_insert(sh->input, sh->x - sh->prompt_len + 1, (char)sh->key);
+		}
+		else if (sh->x - sh->prompt_len == sh->len)
+		{
+			sh->input[sh->i] = (char)sh->key;
+		}
+		sh->len++;
+		move_right(sh);
+	}
 }

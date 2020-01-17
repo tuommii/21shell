@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 11:41:27 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 11:49:01 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,14 @@ static int read_input(t_shell *sh)
 	while ((sh->key = keypress()) != ENTER)
 	{
 		watch_kill();
-		if (ft_isprint(sh->key))
-		{
-			if (sh->x - sh->prompt_len < sh->len)
-			{
-				ft_insert(sh->input, sh->x - sh->prompt_len + 1, (char)sh->key);
-			}
-			else if (sh->x - sh->prompt_len == sh->len)
-				sh->input[sh->i] = (char)sh->key;
-			//ft_printf("%c", sh->input[sh->i]);
-			//sh->i++;
-			sh->len++;
-			move_right(sh);
-		}
-		else if (sh->key == LEFT)
+		handle_printable(sh);
+		if (sh->key == LEFT)
 			move_left(sh);
 		else if (sh->key == RIGHT)
 			move_right(sh);
 		else if (sh->key == BACKSPACE)
 		{
 			ft_insert(sh->input, sh->i, 0);
-			// sh->input[sh->i] = 0;
-			// sh->i--;
 			move_left(sh);
 			print_input(sh);
 			sh->len--;

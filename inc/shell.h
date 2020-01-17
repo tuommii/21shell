@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 07:50:34 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:21:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 */
 #define CURSOR_RIGHT(x) ft_putstr("\033[%dC", (x))
 #define CURSOR_LEFT(x) ft_putstr("\033[%dD", (x))
+#define CURSOR(x, y) ft_printf("\033[%d;%df%-s\033", sh->rows, sh->cols, sh->input);
 
 
 int g_kill;
@@ -65,6 +66,9 @@ typedef struct	s_shell
 				int i;
 				// sh len
 				int len;
+				// terminal columns & rows
+				int rows;
+				int cols;
 				// Prompt data
 				char *username;
 				char *extra;
@@ -81,7 +85,7 @@ t_shell *create_shell();
 ** KEYBOARD
 */
 int	keypress(void);
-int process_key(int code, t_shell *sh);
+void handle_printable(t_shell *sh);
 
 /*
 ** PROMPT
@@ -90,6 +94,7 @@ void		ascii_art(void);
 void		print_prompt(t_shell *sh);
 void		print_debug(t_shell *sh);
 void		print_input(t_shell *sh);
+void		get_shell_size(t_shell *sh);
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 07:51:16 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 11:58:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ t_shell *create_shell(void)
 	sh->prompt_len = sh->username_len + sh->extra_len;
 	sh->x = sh->prompt_len;
 	ft_bzero(sh->input, INPUT_BUFFER);
+	get_shell_size(sh);
 	return (sh);
 }

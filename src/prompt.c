@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 11:39:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:25:40 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		ascii_art(void)
+void	ascii_art(void)
 {
 	int		fd;
 	char	*line;
@@ -40,7 +40,7 @@ void	print_prompt(t_shell *sh)
 	ft_printf("%s", sh->extra);
 }
 
-void print_debug(t_shell *sh)
+void	print_debug(t_shell *sh)
 {
 	ft_printf("\033[s");
 	ft_printf("\033[1;1f CURSOR: [x:%d, y:%d]\033[u", sh->x, sh->y);
@@ -50,9 +50,25 @@ void print_debug(t_shell *sh)
 	ft_printf("\033[u");
 }
 
-void print_input(t_shell *sh)
+void	print_input(t_shell *sh)
 {
 	ft_printf("\033[s");
-	ft_printf("\033[24;11f%-*s\033[u", sh->len, sh->input);
-	ft_printf("\033[u");
+
+
+	// CURSOR(24, 11);
+	// ft_printf("%s", sh->input);
+	// ft_printf("\033[u");
+
+
+	// ft_printf("\033[24;11f%-*s\033[u", sh->len, sh->input);
+	ft_printf("\033[%d;%df%-*s\033[u", 10, 10, sh->len, sh->input);
+}
+
+void	get_shell_size(t_shell *sh)
+{
+	struct winsize w;
+
+	ioctl(OUTPUT, TIOCGSIZE, &w);
+	sh->rows = w.ws_row;
+	sh->cols = w.ws_col;
 }
