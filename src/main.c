@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 11:49:01 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:13:19 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ static void reset_shell(t_shell *sh)
 	}
 	sh->i = 0;
 	sh->x = sh->prompt_len;
+	sh->y++;
+	if (sh->y > sh->rows)
+		sh->y = sh->rows;
 	sh->len = 0;
 	ft_bzero(sh->input, INPUT_BUFFER);
 }
@@ -77,12 +80,15 @@ static int read_input(t_shell *sh)
 			move_left(sh);
 		else if (sh->key == RIGHT)
 			move_right(sh);
+		else if (sh->key == TAB)
+			tputs(tgetstr("vb", NULL), 1, print_char);
 		else if (sh->key == BACKSPACE)
 		{
 			ft_insert(sh->input, sh->i, 0);
 			move_left(sh);
 			print_input(sh);
-			sh->len--;
+			if (sh->len > 0)
+				sh->len--;
 		}
 		else if (sh->key == ESC)
 		{

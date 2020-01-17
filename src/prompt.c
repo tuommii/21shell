@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 12:41:43 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 13:22:13 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ void	print_prompt(t_shell *sh)
 void	print_debug(t_shell *sh)
 {
 	ft_printf("\033[s");
-	ft_printf("\033[1;1f CURSOR: [x:%d, y:%d]\033[u", sh->x, sh->y);
-	ft_printf("\033[2;1f INDEX: [%d]\033[u", sh->i);
-	ft_printf("\033[3;1f INPUT: [%-70s]\033[u", sh->input);
-	ft_printf("\033[4;1f KEY: [%d]\033[u", sh->key);
+	ft_printf("\033[1;1f %10s: [%3d]\033[u", "CURSOR X", sh->x);
+	ft_printf("\033[2;1f %10s: [%3d]\033[u", "INDEX", sh->i);
+	ft_printf("\033[3;1f %10s: [%3d]\033[u", "KEY", sh->key);
+	ft_printf("\033[4;1f %10s: [%-70s]\033[u", "INPUT", sh->input);
 	ft_printf("\033[u");
 }
 
 void	print_input(t_shell *sh)
 {
 	ft_printf("\033[s");
-	ft_printf("\033[%d;%df%-*s\033[u", sh->rows, sh->prompt_len + 1, sh->len, sh->input);
+	ft_printf("\033[%d;%df%-*s\033[u", sh->y + 1, sh->prompt_len + 1, sh->len, sh->input);
 }
 
 void	get_shell_size(t_shell *sh)

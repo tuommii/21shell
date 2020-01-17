@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 12:21:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:42:35 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ typedef struct	s_shell
 				int extra_len;
 				int key;
 }				t_shell;
+
+typedef struct	s_hist
+{
+
+}				t_hist;
 
 void 	init_shell(int argc, char **argv, char **environment);
 t_shell *create_shell();
