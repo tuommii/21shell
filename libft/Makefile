@@ -6,7 +6,7 @@
 #    By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 12:40:34 by mtuomine          #+#    #+#              #
-#    Updated: 2020/01/14 16:41:59 by mtuomine         ###   ########.fr        #
+#    Updated: 2020/01/16 22:05:10 by mtuomine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ ft_pad_right.c \
 ft_cut_left.c \
 ft_tabelems.c \
 ft_free_arr.c \
+ft_insert.c \
 ft_ishex.c
 
 GNL_PATH = gnl/

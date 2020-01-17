@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:28 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 07:50:34 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_shell
 				int prompt_len;
 				int username_len;
 				int extra_len;
+				int key;
 }				t_shell;
 
 void 	init_shell(int argc, char **argv, char **environment);
@@ -88,6 +89,7 @@ int process_key(int code, t_shell *sh);
 void		ascii_art(void);
 void		print_prompt(t_shell *sh);
 void		print_debug(t_shell *sh);
+void		print_input(t_shell *sh);
 
 
 /*

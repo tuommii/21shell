@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:19 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/17 07:53:29 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,22 @@ static void cleanup(t_shell *sh)
 	return exit(EXIT_SUCCESS);
 }
 
-
-static void reset_shell(t_shell *sh, int code)
+// After ENTER pressed, reset variables
+static void reset_shell(t_shell *sh)
 {
-	if (code == ENTER)
+	// Define position for this
+	// if (code == ENTER)
+	// {
+	// 	ft_printf("\t[%s]\n", sh->input);
+	// 	sh->y++;
+	// }
+	if (sh->key == ENTER)
 	{
-		ft_printf("\t[%s]\n", sh->input);
-		sh->y++;
+		ft_printf("\n");
 	}
 	sh->i = 0;
 	sh->x = sh->prompt_len;
+	sh->len = 0;
 	ft_bzero(sh->input, INPUT_BUFFER);
 }
 
@@ -62,29 +68,34 @@ static void reset_shell(t_shell *sh, int code)
 
 static int read_input(t_shell *sh)
 {
-	int code;
 
-	while ((code = keypress()) != ENTER)
+	while ((sh->key = keypress()) != ENTER)
 	{
 		watch_kill();
-		if (ft_isprint(code))
+		if (ft_isprint(sh->key))
 		{
-			sh->input[sh->i] = (char)code;
-			ft_printf("%c", sh->input[sh->i]);
+			sh->input[sh->i] = (char)sh->key;
+			//ft_printf("%c", sh->input[sh->i]);
 			sh->i++;
-			sh->x++;
 			sh->len++;
-		}
-		if (code == LEFT)
-			move_left(sh);
-		if (code == RIGHT)
 			move_right(sh);
-		else if (code == ESC)
+		}
+		else if (sh->key == LEFT)
+			move_left(sh);
+		else if (sh->key == RIGHT)
+			move_right(sh);
+		else if (sh->key == BACKSPACE)
+		{
+			ft_insert(sh->input, 1, 0);
+			sh->i--;
+			move_left(sh);
+		}
+		else if (sh->key == ESC)
 		{
 			ft_printf("\n");
 			return (ESC);
 		}
-		else if (code == CTRL_L)
+		else if (sh->key == CTRL_L)
 		{
 			tputs(tgetstr("cl", NULL), 1, print_char);
 			sh->y = 0;
@@ -92,6 +103,7 @@ static int read_input(t_shell *sh)
 			return (CTRL_L) ;
 		}
 		print_debug(sh);
+		print_input(sh);
 	}
 	return (ENTER);
 }
@@ -99,18 +111,17 @@ static int read_input(t_shell *sh)
 
 static void loop(t_shell *sh)
 {
-	int	code = 0;
 	while (1)
 	{
 		listen_signals();
 		print_prompt(sh);
 		print_debug(sh);
-		if ((code = read_input(sh)) == ESC)
+		if ((sh->key = read_input(sh)) == ESC)
 			return ;
 
 		// Sami, sh->input contains input string! Parse that!
 
-		reset_shell(sh, code);
+		reset_shell(sh);
 	}
 }
 
