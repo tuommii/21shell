@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 06:58:41 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 07:01:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static int read_input(t_shell *sh)
 		else if (sh->key == CTRL_L)
 		{
 			tputs(tgetstr("cl", NULL), 1, print_char);
-			sh->y = 0;
+			sh->y = -1;
 			sh->x = sh->prompt_len;
 			return (CTRL_L) ;
 		}
