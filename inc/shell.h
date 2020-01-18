@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 06:25:09 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 08:12:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,25 @@ typedef struct	s_shell
 				int key;
 }				t_shell;
 
-// typedef struct	s_hist
-// {
-// 	char **items;
-// 	int	count;
-// }				t_hist;
+typedef struct	s_hist
+{
+	char			*str;
+	int				i;
+	struct s_hist	*prev;
+	struct s_hist	*next;
+}					t_hist;
 
 void 	init_shell(int argc, char **argv, char **environment);
 t_shell *create_shell();
+
+
+
+
+/*
+** HISTORY
+*/
+void hist_append(t_hist **head, char *str);
+void hist_print(t_hist *node);
 
 /*
 ** KEYBOARD

@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 07:01:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 08:12:19 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void cleanup(t_shell *sh)
+ void cleanup(t_shell *sh)
 {
 	// TODO: Free fields aldo
 
@@ -22,7 +22,7 @@ static void cleanup(t_shell *sh)
 }
 
 // After ENTER pressed, reset variables
-static void reset_shell(t_shell *sh)
+ void reset_shell(t_shell *sh)
 {
 	// Define position for this
 	// if (code == ENTER)
@@ -70,7 +70,7 @@ static void reset_shell(t_shell *sh)
   \033[u
 */
 
-static int read_input(t_shell *sh)
+ int read_input(t_shell *sh)
 {
 
 	while ((sh->key = keypress()) != ENTER)
@@ -110,7 +110,7 @@ static int read_input(t_shell *sh)
 }
 
 
-static void loop(t_shell *sh)
+ void loop(t_shell *sh)
 {
 	while (1)
 	{
@@ -128,9 +128,17 @@ static void loop(t_shell *sh)
 
 int	main(int argc, char **argv, char **environment)
 {
+	// Testing history
+	t_hist *hh = NULL;
+	hist_append(&hh, "Eka");
+	hist_append(&hh, "Toka");
+	hist_append(&hh, "Kolmas");
+	hist_print(hh);
+
+	if (argc || argv || environment) {}
 	// TODO: Needs check if space available
-	init_shell(argc, argv, environment);
-	t_shell *sh = create_shell();
-	loop(sh);
-	cleanup(sh);
+	// init_shell(argc, argv, environment);
+	// t_shell *sh = create_shell();
+	// loop(sh);
+	// cleanup(sh);
 }

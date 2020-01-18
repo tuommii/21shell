@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 07:05:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 08:09:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	print_prompt(t_shell *sh)
 	char *logname = getenv("LOGNAME");
 	// gethostname(host, INPUT_BUFFER);
 	//getcwd(cwd, INPUT_BUFFER);
+	// ft_printf("\033[%d;%df\033", sh->y+1, 0);
 	ft_printf(FT_GREEN);
 	ft_printf("%s", logname);
 	// ft_printf("@");
