@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 11:47:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 09:43:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	keypress(void)
 	return (code);
 }
 
-void handle_printable(t_shell *sh)
+int handle_printable(t_shell *sh)
 {
 	if (ft_isprint(sh->key))
 	{
@@ -45,5 +45,33 @@ void handle_printable(t_shell *sh)
 		}
 		sh->len++;
 		move_right(sh);
+		return (1);
 	}
+	return (0);
+}
+
+int handle_arrow_keys(t_shell *sh)
+{
+	if (sh->key == LEFT)
+		move_left(sh);
+	else if (sh->key == RIGHT)
+		move_right(sh);
+	else if (sh->key == UP)
+	{
+		if (sh->hist && sh->hist->prev)
+		{
+			ft_bzero(sh->input, INPUT_BUFFER);
+			ft_strcpy(sh->input, sh->hist->prev->str);
+			sh->len = ft_strlen(sh->input);
+			// sh->x = sh->prompt_len + sh->len;
+			while (sh->x < sh->prompt_len + sh->len)
+			{
+				// ft_printf("\033[<%d>", 5);
+				move_right(sh);
+			}
+		}
+	}
+	if (sh->key == LEFT || sh->key == RIGHT || sh->key == UP)
+		return (1);
+	return (0);
 }

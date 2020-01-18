@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 09:18:15 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 09:34:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ static int read_input(t_shell *sh)
 	while ((sh->key = keypress()) != ENTER)
 	{
 		watch_kill();
-		handle_printable(sh);
-		if (sh->key == LEFT)
-			move_left(sh);
-		else if (sh->key == RIGHT)
-			move_right(sh);
+		if (handle_printable(sh))
+			;
+		else if (handle_arrow_keys(sh))
+			;
 		else if (sh->key == TAB)
 			tputs(tgetstr("vb", NULL), 1, print_char);
 		else if (sh->key == BACKSPACE)

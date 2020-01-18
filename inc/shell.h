@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 08:32:29 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 09:33:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void hist_print(t_hist *node);
 ** KEYBOARD
 */
 int	keypress(void);
-void handle_printable(t_shell *sh);
+int handle_printable(t_shell *sh);
+int handle_arrow_keys(t_shell *sh);
 
 /*
 ** PROMPT
