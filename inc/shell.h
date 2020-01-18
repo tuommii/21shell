@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 08:12:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 08:32:29 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct	s_shell
 				int username_len;
 				int extra_len;
 				int key;
+				struct s_hist *hist;
 }				t_shell;
 
 typedef struct	s_hist

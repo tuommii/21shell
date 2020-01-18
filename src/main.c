@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 08:12:19 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 09:18:15 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
- void cleanup(t_shell *sh)
+static void cleanup(t_shell *sh)
 {
 	// TODO: Free fields aldo
 
@@ -22,7 +22,7 @@
 }
 
 // After ENTER pressed, reset variables
- void reset_shell(t_shell *sh)
+static void reset_shell(t_shell *sh)
 {
 	// Define position for this
 	// if (code == ENTER)
@@ -70,7 +70,7 @@
   \033[u
 */
 
- int read_input(t_shell *sh)
+static int read_input(t_shell *sh)
 {
 
 	while ((sh->key = keypress()) != ENTER)
@@ -99,18 +99,21 @@
 		else if (sh->key == CTRL_L)
 		{
 			tputs(tgetstr("cl", NULL), 1, print_char);
-			sh->y = -1;
+			sh->y = 0;
 			sh->x = sh->prompt_len;
 			return (CTRL_L) ;
 		}
 		print_debug(sh);
 		print_input(sh);
 	}
+
+	hist_append(&sh->hist, sh->input);
+
 	return (ENTER);
 }
 
 
- void loop(t_shell *sh)
+static void loop(t_shell *sh)
 {
 	while (1)
 	{
@@ -122,6 +125,9 @@
 
 		// Sami, sh->input contains input string! Parse that!
 
+		// hist_print(sh->hist);
+		if (sh->hist->prev)
+			ft_printf("INDEX: %d, LAST: %s", sh->hist->prev->i, sh->hist->prev->str);
 		reset_shell(sh);
 	}
 }
@@ -129,16 +135,18 @@
 int	main(int argc, char **argv, char **environment)
 {
 	// Testing history
-	t_hist *hh = NULL;
-	hist_append(&hh, "Eka");
-	hist_append(&hh, "Toka");
-	hist_append(&hh, "Kolmas");
-	hist_print(hh);
+	// t_hist *hh = NULL;
+	// hist_append(&hh, "Eka");
+	// hist_append(&hh, "Toka");
+	// hist_append(&hh, "Kolmas");
+	// hist_print(hh);
+	// if (argc || argv || environment) {}
+	init_shell(argc, argv, environment);
+	t_shell *sh = create_shell();
+	loop(sh);
 
-	if (argc || argv || environment) {}
-	// TODO: Needs check if space available
-	// init_shell(argc, argv, environment);
-	// t_shell *sh = create_shell();
-	// loop(sh);
-	// cleanup(sh);
+	// Debugging hist
+	// hist_print(sh->hist);
+
+	cleanup(sh);
 }

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 14:35:40 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 08:16:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 09:16:41 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ static t_hist *new_hist_item(char *str)
 	{
 		// TODO: Use global exit func or dont close app
 		ft_printf("History item failed\n");
-		exit(0);
+		return (NULL);
+		// exit(0);
 	}
 
 	new->str = ft_strdup(str);
-	new->prev = NULL;
+	new->prev = new;
 	new->next = NULL;
 	new->i = 0;
 
@@ -74,8 +75,9 @@ void hist_append(t_hist **head, char *str)
 	if (!(new = new_hist_item(str)))
 	{
 		// TODO: Use global exit func or dont close app
-		ft_printf("History item failed\n");
-		exit(0);
+		// ft_printf("History item failed\n");
+		return ;
+		// exit(0);
 	}
 
 	if (*head == NULL)
@@ -92,6 +94,7 @@ void hist_append(t_hist **head, char *str)
 	}
 	curr->next = new;
 	new->prev = curr;
+	(*head)->prev = new;
 }
 
 void hist_print(t_hist *node)

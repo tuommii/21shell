@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 08:09:47 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 08:29:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_debug(t_shell *sh)
 void	print_input(t_shell *sh)
 {
 	// ft_printf("\033[s");
-	ft_printf("\033[%d;%df%-*s\033[u", sh->y+1, sh->prompt_len + 1, sh->len, sh->input);
+	ft_printf("\033[%d;%df%-*s\033[u", sh->y, sh->prompt_len + 1, sh->len, sh->input);
 }
 
 void	get_shell_size(t_shell *sh)
