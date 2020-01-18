@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 12:09:53 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 15:37:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 */
 #define CURSOR_RIGHT(x) ft_printf("\033[%dC", (x))
 #define CURSOR_LEFT(x) ft_printf("\033[%dD", (x))
-#define CURSOR(x, y) ft_printf("\033[%d;%df%-s\033", sh->rows, sh->cols, sh->input);
+// #define CURSOR(x, y) ft_printf("\033[%d;%df%-s\033", sh->rows, sh->cols, sh->input);
 
 
 int g_kill;
@@ -139,7 +139,11 @@ void	watch_kill();
 void move_left(t_shell *sh);
 void move_right(t_shell *sh);
 
-
+/*
+** EDIT
+*/
+void end_of_input(t_shell *sh);
+void start_of_input(t_shell *sh);
 
 int		print_char(int c);
 

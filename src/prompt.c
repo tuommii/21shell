@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 10:53:28 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 14:41:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	print_debug(t_shell *sh)
 	ft_printf("\033[s");
 	ft_printf("\033[1;1f %10s: [%3d]\033[u", "CURSOR X", sh->x);
 	ft_printf("\033[2;1f %10s: [%3d]\033[u", "INDEX", sh->i);
-	ft_printf("\033[3;1f %10s: [%3d]\033[u", "KEY", sh->key);
+	// ft_printf("\033[3;1f %10s: [%3d]\033[u", "KEY", sh->key);
+	ft_printf("\033[3;1f %10s: [%3d]\033[u", "LEN", sh->len);
 	ft_printf("\033[4;1f %10s: [%-70s]\033[u", "INPUT", sh->input);
 	ft_printf("\033[u");
 }

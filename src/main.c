@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 12:19:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 15:38:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,22 @@ static int read_input(t_shell *sh)
 		else if (sh->key == UP)
 		{
 			ft_bzero(sh->input, INPUT_BUFFER);
-			sh->len = 0;
-			sh->x -= 5;
-			CURSOR_LEFT(5);
+			end_of_input(sh);
+			start_of_input(sh);
+			// if (sh->i < sh->len)
+			// {
+			// 	CURSOR_RIGHT(sh->len - sh->i);
+			// 	sh->x += sh->len - sh->i;
+			// 	sh->i = sh->len;
+			// }
+			// if (sh->len)
+			// 	CURSOR_LEFT(sh->len);
+			// sh->i -= sh->len;
+			// sh->x -= sh->len;
+			// sh->len = 0;
+			// if (sh->len)
 			ft_printf("\033[K");
-			sh->i = 0;
-			// tputs(tgetstr("ce", NULL), 1, print_char);
-			// print_input(sh);
-			// break ;
 		}
-
 		else if (handle_arrow_keys(sh))
 			;
 		else if (sh->key == TAB)
