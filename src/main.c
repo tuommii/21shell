@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 12:13:07 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 12:19:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@ static int read_input(t_shell *sh)
 		{
 			ft_bzero(sh->input, INPUT_BUFFER);
 			sh->len = 0;
+			sh->x -= 5;
 			CURSOR_LEFT(5);
 			ft_printf("\033[K");
+			sh->i = 0;
 			// tputs(tgetstr("ce", NULL), 1, print_char);
 			// print_input(sh);
 			// break ;
