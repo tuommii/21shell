@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 19:41:05 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 06:58:41 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void cleanup(t_shell *sh)
 {
 	// TODO: Free fields aldo
+
 	free(sh);
 	config_terminal(1);
 	return exit(EXIT_SUCCESS);
@@ -98,7 +99,7 @@ static int read_input(t_shell *sh)
 		else if (sh->key == CTRL_L)
 		{
 			tputs(tgetstr("cl", NULL), 1, print_char);
-			sh->y = -1;
+			sh->y = 0;
 			sh->x = sh->prompt_len;
 			return (CTRL_L) ;
 		}

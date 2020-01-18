@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 18:25:12 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 06:25:09 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@
 # define DOWN 184
 # define BACKSPACE 127
 # define DELETE 295
+
+/*
+** LINUX SUPPORT
+*/
+# ifndef TIOCGSIZE
+#  define TIOCGSIZE TIOCGWINSZ
+# endif
 
 /*
 ** CURSOR MOTION

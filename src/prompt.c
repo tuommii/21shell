@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/17 13:22:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 06:57:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	ascii_art(void)
 	if ((fd = open(".boot", O_RDWR)) < 0)
 		return ;
 	while (get_next_line(fd, &line))
+	{
 		ft_putendl_fd(line, OUTPUT);
+		ft_strdel(&line);
+	}
 	close(fd);
 }
 
