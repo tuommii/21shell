@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 09:43:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 12:01:48 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,26 @@ int handle_arrow_keys(t_shell *sh)
 		move_left(sh);
 	else if (sh->key == RIGHT)
 		move_right(sh);
-	else if (sh->key == UP)
-	{
-		if (sh->hist && sh->hist->prev)
-		{
-			ft_bzero(sh->input, INPUT_BUFFER);
-			ft_strcpy(sh->input, sh->hist->prev->str);
-			sh->len = ft_strlen(sh->input);
-			// sh->x = sh->prompt_len + sh->len;
-			while (sh->x < sh->prompt_len + sh->len)
-			{
-				// ft_printf("\033[<%d>", 5);
-				move_right(sh);
-			}
-		}
-	}
-	if (sh->key == LEFT || sh->key == RIGHT || sh->key == UP)
+	// else if (sh->key == UP)
+	// {
+	// 	ft_printf(tgetstr("ce", NULL));
+	// 	if (sh->hist && sh->hist->prev)
+	// 	{
+	// 		ft_bzero(sh->input, INPUT_BUFFER);
+	// 		sh->len = 0;
+	// 		return (1);
+	// 		// print_input(sh);
+	// 		// ft_strcpy(sh->input, sh->hist->prev->str);
+	// 		// sh->len = ft_strlen(sh->input);
+	// 		// // TODO: handle case if input is longer than history
+	// 		// while (sh->x < sh->prompt_len + sh->len)
+	// 		// {
+	// 		// 	// ft_printf("\033[<%d>", 5);
+	// 		// 	move_right(sh);
+	// 		// }
+	// 	}
+	// }
+	if (sh->key == LEFT || sh->key == RIGHT)
 		return (1);
 	return (0);
 }

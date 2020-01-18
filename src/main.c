@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 10:50:12 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 12:13:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,17 @@ static int read_input(t_shell *sh)
 		watch_kill();
 		if (handle_printable(sh))
 			;
+		else if (sh->key == UP)
+		{
+			ft_bzero(sh->input, INPUT_BUFFER);
+			sh->len = 0;
+			CURSOR_LEFT(5);
+			ft_printf("\033[K");
+			// tputs(tgetstr("ce", NULL), 1, print_char);
+			// print_input(sh);
+			// break ;
+		}
+
 		else if (handle_arrow_keys(sh))
 			;
 		else if (sh->key == TAB)
@@ -105,8 +116,8 @@ static int read_input(t_shell *sh)
 		print_debug(sh);
 		print_input(sh);
 	}
-
-	hist_append(&sh->hist, sh->input);
+	if (sh->input)
+		hist_append(&sh->hist, sh->input);
 
 	return (ENTER);
 }
@@ -125,7 +136,7 @@ static void loop(t_shell *sh)
 		// Sami, sh->input contains input string! Parse that!
 
 		// hist_print(sh->hist);
-		if (sh->hist->prev)
+		if (sh->hist && sh->hist->prev)
 			ft_printf("INDEX: %d, LAST: %s", sh->hist->prev->i, sh->hist->prev->str);
 		reset_shell(sh);
 	}

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 09:33:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/18 12:09:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@
 /*
 ** CURSOR MOTION
 */
-#define CURSOR_RIGHT(x) ft_putstr("\033[%dC", (x))
-#define CURSOR_LEFT(x) ft_putstr("\033[%dD", (x))
+#define CURSOR_RIGHT(x) ft_printf("\033[%dC", (x))
+#define CURSOR_LEFT(x) ft_printf("\033[%dD", (x))
 #define CURSOR(x, y) ft_printf("\033[%d;%df%-s\033", sh->rows, sh->cols, sh->input);
 
 
