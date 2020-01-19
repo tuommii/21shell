@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 07:31:29 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 07:56:02 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,13 @@ int handle_arrow_keys(t_shell *sh)
 		erase_input(sh);
 		if (sh->hist && sh->hist->prev)
 		{
-			ft_strcpy(sh->input, sh->hist->prev->str);
+			t_hist *node = hist_pop(&sh->hist, sh->hist_i);
+			ft_strcpy(sh->input, node->str);
 			sh->len = ft_strlen(sh->input);
 			CURSOR_RIGHT(sh->prompt_len + sh->len - sh->x);
 			sh->x = sh->prompt_len + sh->len;
 			sh->i = sh->len;
+			sh->hist_i++;
 		}
 	}
 	if (sh->key == LEFT || sh->key == RIGHT || sh->key == UP)

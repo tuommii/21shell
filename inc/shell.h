@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 07:18:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 07:53:03 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct	s_shell
 				int y;
 				// Index
 				int i;
+				int hist_i;
 				// sh len
 				int len;
 				// terminal columns & rows
@@ -107,6 +108,8 @@ t_shell *create_shell();
 */
 void hist_append(t_hist **head, char *str);
 void hist_print(t_hist *node);
+t_hist *hist_pop(t_hist **head, int index);
+
 
 /*
 ** KEYBOARD

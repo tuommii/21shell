@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 14:35:40 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 09:16:41 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 07:51:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,24 @@ void hist_append(t_hist **head, char *str)
 	curr->next = new;
 	new->prev = curr;
 	(*head)->prev = new;
+}
+
+t_hist *hist_pop(t_hist **head, int index)
+{
+	t_hist *node;
+
+	if (!(node = (*head)->prev))
+		return (NULL);
+	if (!index)
+		return (node);
+	else
+	{
+		while (index-- > 0 && node)
+		{
+			node = node->prev;
+		}
+	}
+	return (node);
 }
 
 void hist_print(t_hist *node)
