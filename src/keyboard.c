@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 10:30:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 11:22:41 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	keypress(void)
 		code += seq[i];
 		i++;
 	}
+	// if (!(ft_strcmp(seq, "[1;5D") == 0))
+	// 	ft_printf("%s", seq);
+	// else
+	// 	ft_printf("CTRL+LEFT", seq);
 	return (code);
 }
 
@@ -101,6 +105,21 @@ int handle_command_keys(t_shell *sh)
 	return (0);
 }
 
+int handle_nav_keys(t_shell *sh)
+{
+	if (sh->key == HOME_KEY)
+	{
+		start_of_input(sh);
+		return (1);
+	}
+	else if (sh->key == END_KEY)
+	{
+		end_of_input(sh);
+		return (1);
+	}
+	return (0);
+}
+
 int which_key(t_shell *sh)
 {
 	if (handle_printable(sh))
@@ -109,6 +128,8 @@ int which_key(t_shell *sh)
 		;
 	else if (handle_command_keys(sh) == ESC)
 		return (ESC);
+	else if (handle_nav_keys(sh) == ESC)
+		;
 	else if (sh->key == CTRL_L)
 	{
 		tputs(tgetstr("cl", NULL), 1, print_char);

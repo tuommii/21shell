@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:11:32 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 07:24:52 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 11:25:27 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void start_of_input(t_shell *sh)
 		CURSOR_LEFT(sh->len);
 		sh->i -= sh->len;
 		sh->x -= sh->len;
-		sh->len = 0;
+		// sh->len = 0;
 	}
 }
 

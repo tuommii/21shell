@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 07:53:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 11:19:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@
 ** KEYBOARD
 */
 # define INPUT_BUFFER 4096
-# define KEYBOARD_BUFFER 4
+# define KEYBOARD_BUFFER 6
 
 # define TAB 9
 # define ENTER 10
-# define CTRL_L 12
 # define ESC 27
 # define LEFT 186
 # define UP 183
@@ -45,6 +44,15 @@
 # define DOWN 184
 # define BACKSPACE 127
 # define DELETE 295
+
+# define CTRL_L 12
+# define CTRL_LEFT 347
+# define CTRL_RIGHT 346
+# define CTRL_DOWN 345
+# define CTRL_UP 344
+
+# define HOME_KEY 190
+# define END_KEY 188
 
 /*
 ** LINUX SUPPORT
