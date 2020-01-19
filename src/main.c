@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 06:35:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 10:42:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int read_input(t_shell *sh)
 		print_debug(sh);
 		print_input(sh);
 	}
+	end_of_input(sh);
 	if (sh->input)
 		hist_append(&sh->hist, sh->input);
 
