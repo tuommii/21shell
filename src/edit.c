@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:11:32 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 11:36:35 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:01:40 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void start_of_input(t_shell *sh)
 	int delta;
 
 	delta = sh->x - sh->prompt_len;
-	if (sh->len)
+	if (sh->len && sh->i)
 	{
 		CURSOR_LEFT(delta);
 		sh->i -= delta;

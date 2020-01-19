@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 07:53:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:55:40 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ t_shell *create_shell(void)
 	ft_bzero(sh->input, INPUT_BUFFER);
 	get_shell_size(sh);
 	// Or ascii art rows + 1
-	sh->y = 24;
+	sh->y = 14;
 	return (sh);
 }
