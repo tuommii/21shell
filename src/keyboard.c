@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 11:22:41 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:12:52 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int handle_arrow_keys(t_shell *sh)
 	else if (sh->key == UP)
 	{
 		// If no history, delete line. just placeholder action
-		erase_input(sh);
 		if (sh->hist && sh->hist->prev)
 		{
+			erase_input(sh);
 			t_hist *node = hist_pop(&sh->hist, sh->hist_i);
 			ft_strcpy(sh->input, node->str);
 			sh->len = ft_strlen(sh->input);
