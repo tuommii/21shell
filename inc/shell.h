@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 11:19:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:58:14 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // # include <termios.h>
 // # include <termio.h>
 
-# include "../libft/libft.h"
+# include "libft.h"
 
 # define OUTPUT STDOUT_FILENO
 
@@ -164,5 +164,11 @@ void erase_input(t_shell *sh);
 
 
 int		print_char(int c);
+
+/*
+** 		EXECUTION
+*/
+
+void	fire(char *input);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 12:03:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:59:59 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int read_input(t_shell *sh)
 	// TODO: Prevent adding same than last
 	end_of_input(sh);
 	sh->hist_i = 0;
-	if (sh->input)
+	if (*sh->input)
 		hist_append(&sh->hist, sh->input);
 
 	return (ENTER);
@@ -69,6 +69,7 @@ static void run_shell(t_shell *sh)
 			return ;
 
 		// Sami, sh->input contains input string! Parse that!
+		fire(sh->input); // -- cmd.c (first lexical analysis, then execution)
 
 		// hist_print(sh->hist);
 		if (sh->hist && sh->hist->prev)

@@ -1,24 +1,25 @@
 
-NAME = 21sh
+NAME 		= 	21sh
 
-SRC_DIR = src/
-OBJ_DIR = obj/
-LIBFT_DIR = libft/
+SRC_DIR 	= 	src/
+OBJ_DIR 	= 	obj/
+LIBFT_DIR 	= 	libft/
 
-FLAGS = -Wall -Wextra -Werror -g
-INC = -I ./inc/ -I $(LIBFT_DIR)/inc/
+FLAGS 		= 	-Wall -Wextra -Werror -g
+INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
-SRC_NAME = main.c \
-setup.c \
-signals.c \
-prompt.c \
-move.c \
-history.c \
-edit.c \
-keyboard.c
+SRC_NAME 	= 	main.c \
+				setup.c \
+				signals.c \
+				prompt.c \
+				move.c \
+				history.c \
+				edit.c \
+				keyboard.c \
+				cmd.c
 
-SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
-OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
+SRCS 		= 	$(addprefix $(SRC_DIR), $(SRC_NAME))
+OBJS 		= 	$(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
 
 all: $(NAME)
 
