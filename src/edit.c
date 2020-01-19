@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:11:32 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 11:25:27 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 11:36:35 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ void end_of_input(t_shell *sh)
 
 void start_of_input(t_shell *sh)
 {
+	int delta;
+
+	delta = sh->x - sh->prompt_len;
 	if (sh->len)
 	{
-		CURSOR_LEFT(sh->len);
-		sh->i -= sh->len;
-		sh->x -= sh->len;
+		CURSOR_LEFT(delta);
+		sh->i -= delta;
+		sh->x -= delta;
 		// sh->len = 0;
 	}
 }
