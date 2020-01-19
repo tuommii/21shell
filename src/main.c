@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 15:38:04 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 06:35:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void cleanup(t_shell *sh)
 {
 	// TODO: Free fields aldo
-
 	free(sh);
 	config_terminal(1);
 	return exit(EXIT_SUCCESS);
@@ -24,12 +23,6 @@ static void cleanup(t_shell *sh)
 // After ENTER pressed, reset variables
 static void reset_shell(t_shell *sh)
 {
-	// Define position for this
-	// if (code == ENTER)
-	// {
-	// 	ft_printf("\t[%s]\n", sh->input);
-	// 	sh->y++;
-	// }
 	if (sh->key == ENTER)
 	{
 		ft_printf("\n");
@@ -43,84 +36,15 @@ static void reset_shell(t_shell *sh)
 	ft_bzero(sh->input, INPUT_BUFFER);
 }
 
-/*
-
-- Position the Cursor:
-  \033[<L>;<C>H
-     Or
-  \033[<L>;<C>f
-  puts the cursor at line L and column C.
-- Move the cursor up N lines:
-  \033[<N>A
-- Move the cursor down N lines:
-  \033[<N>B
-- Move the cursor forward N columns:
-  \033[<N>C
-- Move the cursor backward N columns:
-  \033[<N>D
-
-- Clear the screen, move to (0,0):
-  \033[2J
-- Erase to end of line:
-  \033[K
-
-- Save cursor position:
-  \033[s
-- Restore cursor position:
-  \033[u
-*/
 
 static int read_input(t_shell *sh)
 {
-
 	while ((sh->key = keypress()) != ENTER)
 	{
 		watch_kill();
-		if (handle_printable(sh))
-			;
-		else if (sh->key == UP)
-		{
-			ft_bzero(sh->input, INPUT_BUFFER);
-			end_of_input(sh);
-			start_of_input(sh);
-			// if (sh->i < sh->len)
-			// {
-			// 	CURSOR_RIGHT(sh->len - sh->i);
-			// 	sh->x += sh->len - sh->i;
-			// 	sh->i = sh->len;
-			// }
-			// if (sh->len)
-			// 	CURSOR_LEFT(sh->len);
-			// sh->i -= sh->len;
-			// sh->x -= sh->len;
-			// sh->len = 0;
-			// if (sh->len)
-			ft_printf("\033[K");
-		}
-		else if (handle_arrow_keys(sh))
-			;
-		else if (sh->key == TAB)
-			tputs(tgetstr("vb", NULL), 1, print_char);
-		else if (sh->key == BACKSPACE)
-		{
-			ft_insert(sh->input, sh->i, 0);
-			move_left(sh);
-			print_input(sh);
-			if (sh->len > 0)
-				sh->len--;
-		}
-		else if (sh->key == ESC)
-		{
-			ft_printf("\n");
-			return (ESC);
-		}
-		else if (sh->key == CTRL_L)
-		{
-			tputs(tgetstr("cl", NULL), 1, print_char);
-			sh->y = 0;
-			sh->x = sh->prompt_len;
-			return (CTRL_L) ;
-		}
+
+		which_key(sh);
+
 		print_debug(sh);
 		print_input(sh);
 	}
@@ -131,7 +55,7 @@ static int read_input(t_shell *sh)
 }
 
 
-static void loop(t_shell *sh)
+static void run_shell(t_shell *sh)
 {
 	while (1)
 	{
@@ -152,19 +76,9 @@ static void loop(t_shell *sh)
 
 int	main(int argc, char **argv, char **environment)
 {
-	// Testing history
-	// t_hist *hh = NULL;
-	// hist_append(&hh, "Eka");
-	// hist_append(&hh, "Toka");
-	// hist_append(&hh, "Kolmas");
-	// hist_print(hh);
-	// if (argc || argv || environment) {}
-	init_shell(argc, argv, environment);
-	t_shell *sh = create_shell();
-	loop(sh);
-
-	// Debugging hist
-	// hist_print(sh->hist);
-
+	t_shell *sh;
+	setup(argc, argv, environment);
+	sh = create_shell();
+	run_shell(sh);
 	cleanup(sh);
 }

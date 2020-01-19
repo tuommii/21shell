@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 09:12:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 06:34:19 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	check_tty(void)
 	}
 }
 
-void init_shell(int argc, char **argv, char **environment)
+void setup(int argc, char **argv, char **environment)
 {
 	if (!argc || !argv || !environment)
 		exit(EXIT_FAILURE);

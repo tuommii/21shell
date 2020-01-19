@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/18 15:37:33 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 06:34:54 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ typedef struct	s_hist
 	struct s_hist	*next;
 }					t_hist;
 
-void 	init_shell(int argc, char **argv, char **environment);
+
+
+void 	setup(int argc, char **argv, char **environment);
 t_shell *create_shell();
-
-
 
 
 /*
@@ -110,8 +110,11 @@ void hist_print(t_hist *node);
 ** KEYBOARD
 */
 int	keypress(void);
+int which_key(t_shell *sh);
 int handle_printable(t_shell *sh);
 int handle_arrow_keys(t_shell *sh);
+int handle_command_keys(t_shell *sh);
+
 
 /*
 ** PROMPT
