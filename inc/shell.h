@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 06:34:54 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 07:18:13 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@
 
 /*
 ** CURSOR MOTION
+** Maybe we should use something with tgetstr?
 */
-#define CURSOR_RIGHT(x) ft_printf("\033[%dC", (x))
-#define CURSOR_LEFT(x) ft_printf("\033[%dD", (x))
+# define CURSOR_RIGHT(x) ft_printf("\033[%dC", (x))
+# define CURSOR_LEFT(x) ft_printf("\033[%dD", (x))
+# define ERASE_TO_EOL ft_printf("\033[K")
 // #define CURSOR(x, y) ft_printf("\033[%d;%df%-s\033", sh->rows, sh->cols, sh->input);
 
 
@@ -147,6 +149,8 @@ void move_right(t_shell *sh);
 */
 void end_of_input(t_shell *sh);
 void start_of_input(t_shell *sh);
+void erase_input(t_shell *sh);
+
 
 int		print_char(int c);
 

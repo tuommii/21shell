@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 06:28:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/19 07:31:29 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	keypress(void)
 	return (code);
 }
 
+// TODO: Multiline support
 int handle_printable(t_shell *sh)
 {
 	if (ft_isprint(sh->key))
@@ -58,42 +59,17 @@ int handle_arrow_keys(t_shell *sh)
 		move_right(sh);
 	else if (sh->key == UP)
 	{
-		ft_bzero(sh->input, INPUT_BUFFER);
-		end_of_input(sh);
-		start_of_input(sh);
-		// if (sh->i < sh->len)
-		// {
-		// 	CURSOR_RIGHT(sh->len - sh->i);
-		// 	sh->x += sh->len - sh->i;
-		// 	sh->i = sh->len;
-		// }
-		// if (sh->len)
-		// 	CURSOR_LEFT(sh->len);
-		// sh->i -= sh->len;
-		// sh->x -= sh->len;
-		// sh->len = 0;
-		// if (sh->len)
-		ft_printf("\033[K");
+		// If no history, delete line. just placeholder action
+		erase_input(sh);
+		if (sh->hist && sh->hist->prev)
+		{
+			ft_strcpy(sh->input, sh->hist->prev->str);
+			sh->len = ft_strlen(sh->input);
+			CURSOR_RIGHT(sh->prompt_len + sh->len - sh->x);
+			sh->x = sh->prompt_len + sh->len;
+			sh->i = sh->len;
+		}
 	}
-	// else if (sh->key == UP)
-	// {
-	// 	ft_printf(tgetstr("ce", NULL));
-	// 	if (sh->hist && sh->hist->prev)
-	// 	{
-	// 		ft_bzero(sh->input, INPUT_BUFFER);
-	// 		sh->len = 0;
-	// 		return (1);
-	// 		// print_input(sh);
-	// 		// ft_strcpy(sh->input, sh->hist->prev->str);
-	// 		// sh->len = ft_strlen(sh->input);
-	// 		// // TODO: handle case if input is longer than history
-	// 		// while (sh->x < sh->prompt_len + sh->len)
-	// 		// {
-	// 		// 	// ft_printf("\033[<%d>", 5);
-	// 		// 	move_right(sh);
-	// 		// }
-	// 	}
-	// }
 	if (sh->key == LEFT || sh->key == RIGHT || sh->key == UP)
 		return (1);
 	return (0);
