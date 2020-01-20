@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 14:13:24 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 17:35:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ static void run_shell(t_shell *sh)
 			return ;
 
 		// Sami, sh->input contains input string! Parse that!
-		fire(sh->input); // -- cmd.c (first lexical analysis, then execution)
+		//fire(sh->input); // -- cmd.c (first lexical analysis, then execution)
 
 		// hist_print(sh->hist);
-		if (sh->hist && sh->hist->prev)
-			ft_printf("INDEX: %d, LAST: %s", sh->hist->prev->i, sh->hist->prev->str);
+		// if (sh->hist && sh->hist->prev)
+		// 	ft_printf("INDEX: %d, LAST: %s", sh->hist->prev->i, sh->hist->prev->str);
 		reset_shell(sh);
 	}
 }
