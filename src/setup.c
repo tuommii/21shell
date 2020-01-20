@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 15:55:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:01:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_shell *create_shell(void)
 	sh->hist_i = 0;
 	sh->len = 0;
 	sh->key = 0;
+	sh->hist_count = 0;
 	// TODO: If doesn't exist
 	sh->username = getenv("LOGNAME");
 	sh->username_len = ft_strlen(sh->username);

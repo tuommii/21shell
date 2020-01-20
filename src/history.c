@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 14:35:40 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 07:51:49 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:14:02 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_hist *new_hist_item(char *str)
 }
 
 // NULL to head creates new node as head
-void hist_append(t_hist **head, char *str)
+int hist_append(t_hist **head, char *str)
 {
 	t_hist *new;
 	t_hist *curr;
@@ -76,14 +76,13 @@ void hist_append(t_hist **head, char *str)
 	{
 		// TODO: Use global exit func or dont close app
 		// ft_printf("History item failed\n");
-		return ;
+		return (0);
 		// exit(0);
 	}
-
 	if (*head == NULL)
 	{
 		*head = new;
-		return ;
+		return (1);
 	}
 
 	new->i++;
@@ -92,9 +91,15 @@ void hist_append(t_hist **head, char *str)
 		new->i++;
 		curr = curr->next;
 	}
+	if (!ft_strcmp(str, curr->str))
+	{
+		free(new);
+		return (0);
+	}
 	curr->next = new;
 	new->prev = curr;
 	(*head)->prev = new;
+	return (1);
 }
 
 t_hist *hist_pop(t_hist **head, int index)

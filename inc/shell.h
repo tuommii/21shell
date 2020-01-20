@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 15:58:14 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/01/20 14:13:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct	s_shell
 				int y;
 				// Index
 				int i;
-				int hist_i;
 				// sh len
 				int len;
 				// terminal columns & rows
@@ -93,8 +92,13 @@ typedef struct	s_shell
 				int prompt_len;
 				int username_len;
 				int extra_len;
+				// Key pressed
 				int key;
+
+				// History data
 				struct s_hist *hist;
+				int hist_i;
+				int hist_count;
 }				t_shell;
 
 typedef struct	s_hist
@@ -114,7 +118,7 @@ t_shell *create_shell();
 /*
 ** HISTORY
 */
-void hist_append(t_hist **head, char *str);
+int	hist_append(t_hist **head, char *str);
 void hist_print(t_hist *node);
 t_hist *hist_pop(t_hist **head, int index);
 
