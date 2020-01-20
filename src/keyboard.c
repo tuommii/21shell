@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 14:13:04 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:55:30 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ int handle_arrow_keys(t_shell *sh)
 			sh->hist_i++;
 		}
 	}
+	else if (sh->key == DOWN)
+	{
+		// If started rolling history
+		// change
+		// if no next
+		// empty input
+	}
 	if (sh->key == LEFT || sh->key == RIGHT || sh->key == UP)
 		return (1);
 	return (0);
@@ -117,13 +124,23 @@ int handle_nav_keys(t_shell *sh)
 		end_of_input(sh);
 		return (1);
 	}
+	else if (sh->key == CTRL_LEFT)
+	{
+		ft_printf("DSADSDSDS");
+	}
 	return (0);
 }
 
 int which_key(t_shell *sh)
 {
+	if (sh->key != UP && sh->key != DOWN)
+	{
+		sh->hist_i = 0;
+	}
 	if (handle_printable(sh))
-		;
+	{
+
+	}
 	else if (handle_arrow_keys(sh))
 		;
 	else if (handle_command_keys(sh) == ESC)
