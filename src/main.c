@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 17:35:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 20:15:27 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void cleanup(t_shell *sh)
+void cleanup(t_shell *sh)
 {
 	// TODO: Free fields aldo
 	free(sh);

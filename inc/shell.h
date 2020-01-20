@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 14:13:36 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 20:15:48 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define BACKSPACE 127
 # define DELETE 295
 
+# define CTRL_D 4
 # define CTRL_L 12
 # define CTRL_LEFT 347
 # define CTRL_RIGHT 346
@@ -110,7 +111,7 @@ typedef struct	s_hist
 }					t_hist;
 
 
-
+void cleanup(t_shell *sh);
 void 	setup(int argc, char **argv, char **environment);
 t_shell *create_shell();
 

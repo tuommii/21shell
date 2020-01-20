@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 17:29:33 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 20:22:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,30 @@ int handle_nav_keys(t_shell *sh)
 	}
 	else if (sh->key == CTRL_LEFT)
 	{
-		ft_printf("DSADSDSDS");
+		return (1);
+	}
+	else if (sh->key == CTRL_D)
+	{
+		if (sh->len && (sh->x - sh->prompt_len) < sh->len)
+		{
+			ft_insert(sh->input, sh->i+1, 0);
+			// move_left(sh);
+			print_input(sh);
+			if (sh->len > 0)
+				sh->len--;
+			return (1);
+		}
+		else if (!sh->len)
+		{
+			// TODO: Global exit func
+			cleanup(sh);
+		}
+
 	}
 	return (0);
 }
 
+// TODO: Ctrl+D deletes selected char
 int which_key(t_shell *sh)
 {
 	if (sh->key != UP && sh->key != DOWN)
