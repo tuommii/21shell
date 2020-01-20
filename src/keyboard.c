@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 14:55:30 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 17:19:23 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,15 @@ int handle_arrow_keys(t_shell *sh)
 	}
 	else if (sh->key == DOWN)
 	{
+		if (sh->hist_i == 1)
+		{
+			sh->hist_i--;
+			erase_input(sh);
+		}
+		if (sh->hist_i > 1)
+		{
+			sh->hist_i--;
+		}
 		// If started rolling history
 		// change
 		// if no next

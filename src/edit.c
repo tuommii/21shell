@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:11:32 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 16:01:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 17:15:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void erase_input(t_shell *sh)
 	end_of_input(sh);
 	start_of_input(sh);
 	ERASE_TO_EOL;
+	sh->len = 0;
 }
