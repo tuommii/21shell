@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 17:19:23 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/20 17:29:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ int handle_arrow_keys(t_shell *sh)
 		if (sh->hist_i > 1)
 		{
 			sh->hist_i--;
+			erase_input(sh);
+			t_hist *node = hist_pop(&sh->hist, sh->hist_i-1);
+			ft_strcpy(sh->input, node->str);
+			sh->len = ft_strlen(sh->input);
+			CURSOR_RIGHT(sh->prompt_len + sh->len - sh->x);
+			sh->x = sh->prompt_len + sh->len;
+			sh->i = sh->len;
+			// sh->hist_i++;
 		}
 		// If started rolling history
 		// change
