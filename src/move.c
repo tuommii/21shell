@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 20:00:35 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/19 06:10:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/21 12:02:39 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,15 @@ void move_left(t_shell *sh)
 
 void move_right(t_shell *sh)
 {
-	if (sh->len + sh->prompt_len > sh->x)
+	static int new_row = 0;
+	if (!new_row)
+		new_row += sh->cols;
+	if (sh->len + sh->prompt_len + 4 > new_row)
+	{
+		ft_printf(tgetstr("do", NULL));
+		new_row += sh->cols;
+	}
+	else if (sh->len + sh->prompt_len > sh->x)
 	{
 		sh->x++;
 		sh->i++;
