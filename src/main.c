@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 20:15:27 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:44:50 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void run_shell(t_shell *sh)
 			return ;
 
 		// Sami, sh->input contains input string! Parse that!
-		//fire(sh->input); // -- cmd.c (first lexical analysis, then execution)
+		fire(sh->input); // -- cmd.c (first lexical analysis, then execution)
 
 		// hist_print(sh->hist);
 		// if (sh->hist && sh->hist->prev)
