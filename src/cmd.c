@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/01/22 11:53:38 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/01/23 16:57:51 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "lexer.h"
 
 // static int		run_cmd(char *path, char **args)
 // {
@@ -113,6 +114,12 @@
 // 	ft_putendl(cmd[0]);
 // 	return (0);
 // }
+
+
+void	tokenize(char *input)
+{
+	
+}
 
 
 void	fire(char *input)
