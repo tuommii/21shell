@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/22 11:44:50 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/01/23 15:35:19 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int read_input(t_shell *sh)
 
 		which_key(sh);
 
-		print_debug(sh);
+		//print_debug(sh);
 		print_input(sh);
 	}
 	// TODO: Prevent adding same than last
@@ -65,8 +65,8 @@ static void run_shell(t_shell *sh)
 	while (1)
 	{
 		listen_signals();
+		//print_debug(sh);
 		print_prompt(sh);
-		print_debug(sh);
 		if ((sh->key = read_input(sh)) == ESC)
 			return ;
 

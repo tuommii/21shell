@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/21 11:59:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:34:50 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ void	print_input(t_shell *sh)
 	// }
 	// int cols = sh->cols;
 	// static int len = sh->len
-	//ft_printf("\033[s");
+	ft_printf("\033[s");
 	ft_printf(tgoto(tgetstr("cm", NULL), sh->prompt_len, sh->y));
 	// Wthout len backspaace deleteing char dooesnt print?
 	ft_printf("%-*s", sh->len, sh->input);
+	ft_printf("\033[u");
 	// ft_printf("\033[%d;%df%-*s\033[u", sh->y, sh->prompt_len + 1, sh->len, sh->input);
 	//ft_printf("\033[u");
 }
