@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/01/24 15:27:36 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:47:54 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ static void	print_lex(t_lexer *lexer, char *input)
 	ft_printf("\033[u");
 }
 
-void	hop(char **input)
+int		add_token(t_lexer *lexer, char *op)
 {
-	char	*cpy;
-
-	cpy = *input;
-	while (*cpy == ' ' || *cpy == '\n' || *cpy == '\t' || *cpy == '\r' || *cpy == '\v')
-		cpy++;
+	// add new token to lexer and update info
+	(void)lexer;
+	return (ft_strlen(op));
 }
 
 int		get_operator(t_lexer *lexer, char *input)
@@ -44,7 +42,7 @@ int		get_operator(t_lexer *lexer, char *input)
 		if (ft_strnequ(input, operator[i], ft_strlen(operator[i])))
 		{
 			print_lex(lexer, input);
-			return (ft_strlen(operator[i]));
+			return (add_token(lexer, operator[i]));
 		}
 		++i;
 	}
@@ -61,7 +59,7 @@ void	tokenize(t_shell *sh)
 	input = sh->input;
 	while (*input)
 	{
-		if (ft_strchr(OPERATORS, *input))
+		if (ft_strchr(OPERATORS, *input)) // different functions for different tokens
 			input += get_operator(lexer, input);
 		// else if (ft_isprint(*input) && !ft_isspace(*input) && !ft_strchr(OPERATORS, *input))
 		// 	add_word(lexer, input);
