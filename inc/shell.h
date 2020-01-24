@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 20:15:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:55:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,25 @@
 
 # define HOME_KEY 190
 # define END_KEY 188
+
+/*
+** Definitions of termcaps tuples:
+**  CM: cursor motion
+**  CL: clear screen
+**  CE: clear line
+**  VI: invisible cursor
+**  VE: visible cursor
+**  TI: full screen
+**  TE: return to normal mode
+*/
+
+# define CM (tgetstr("cm", NULL))
+# define CL (tgetstr("cl", NULL))
+# define CE (tgetstr("ce", NULL))
+# define VI (tgetstr("vi", NULL))
+# define VE (tgetstr("ve", NULL))
+# define TI (tgetstr("ti", NULL))
+# define TE (tgetstr("te", NULL))
 
 /*
 ** LINUX SUPPORT
@@ -110,10 +129,13 @@ typedef struct	s_hist
 	struct s_hist	*next;
 }					t_hist;
 
-
+/*
+** UTILITIES
+*/
 void cleanup(t_shell *sh);
 void 	setup(int argc, char **argv, char **environment);
 t_shell *create_shell();
+void reset_shell(t_shell *sh);
 
 
 /*
@@ -171,9 +193,15 @@ void erase_input(t_shell *sh);
 int		print_char(int c);
 
 /*
-** 		EXECUTION
+** EXECUTION
 */
 
-void	fire(char *input);
+void	fire(t_shell *sh);
+
+/*
+** ERROR
+*/
+
+void	exit_error(t_shell *sh, int errno);
 
 #endif

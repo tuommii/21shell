@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/01/23 17:10:17 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/01/24 15:02:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEXER_H
 
 # include "libft.h"
+# include "shell.h"
 
 # define T_S_COL			(1 << 0)
 # define T_PIPE				(1 << 1)
@@ -26,13 +27,22 @@
 
 # define MASK 0b111111
 
+# define OPERATORS ";|&<>"
+
 typedef struct			s_token
 {
 	int					id;
-	char				*s;
+	char				*data;
 	struct s_token		*next;
 }						t_token;
 
-void					tokenize(char *input);
+typedef struct			s_lexer
+{
+	int					flags;
+	struct s_token		*head;
+	struct s_token		*last;
+}						t_lexer;
+
+void					tokenize(t_shell *sh);
 
 #endif

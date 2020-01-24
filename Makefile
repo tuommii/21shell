@@ -5,7 +5,7 @@ SRC_DIR 	= 	src/
 OBJ_DIR 	= 	obj/
 LIBFT_DIR 	= 	libft/
 
-FLAGS 		= 	-Wall -Wextra -Werror -g
+FLAGS 		= 	-g
 INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
 SRC_NAME 	= 	main.c \
@@ -16,7 +16,8 @@ SRC_NAME 	= 	main.c \
 				history.c \
 				edit.c \
 				keyboard.c \
-				cmd.c
+				cmd.c \
+				lexer.c
 				# builtins/cd.c \
 				# builtins/echo.c \
 				# builtins/env_utils.c \

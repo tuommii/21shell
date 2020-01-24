@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/23 15:35:19 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:19:36 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+// free mem also
+void	exit_error(t_shell *sh, int errno)
+{
+	reset_shell(sh);
+	errno == 2 ? ft_putendl("malloc error.") : NULL;
+	exit(errno);
+}
 
 void cleanup(t_shell *sh)
 {
@@ -21,7 +29,7 @@ void cleanup(t_shell *sh)
 }
 
 // After ENTER pressed, reset variables
-static void reset_shell(t_shell *sh)
+void reset_shell(t_shell *sh)
 {
 	if (sh->key == ENTER)
 	{
@@ -71,7 +79,7 @@ static void run_shell(t_shell *sh)
 			return ;
 
 		// Sami, sh->input contains input string! Parse that!
-		fire(sh->input); // -- cmd.c (first lexical analysis, then execution)
+		fire(sh); // -- cmd.c (first lexical analysis, then execution)
 
 		// hist_print(sh->hist);
 		// if (sh->hist && sh->hist->prev)
