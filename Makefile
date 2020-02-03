@@ -1,12 +1,10 @@
 
 NAME 		= 	21sh
-
 SRC_DIR 	= 	src/
 OBJ_DIR 	= 	obj/
 LIBFT_DIR 	= 	libft/
-
 FLAGS 		= 	-g
-INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
+INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/includes
 
 SRC_NAME 	= 	main.c \
 				setup.c \
@@ -39,15 +37,15 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 clean:
 	@make -C $(LIBFT_DIR)/ clean
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
 main:
 	make
 	./21sh
 
 fclean: clean
-	make -C $(LIBFT_DIR)/ fclean
-	rm -rf $(NAME)
+	@make -C $(LIBFT_DIR)/ fclean
+	@rm -rf $(NAME)
 
 test:
 	@make -C test/
