@@ -10,12 +10,13 @@ SRC_NAME 	= 	main.c \
 				setup.c \
 				signals.c \
 				prompt.c \
-				move.c \
-				history.c \
-				edit.c \
-				keyboard.c \
-				cmd.c \
-				lexer.c
+				debug/debug.c \
+				input/move.c \
+				input/history.c \
+				input/edit.c \
+				input/keyboard.c \
+				lexer/lexer.c \
+				lexer/token.c
 				# builtins/cd.c \
 				# builtins/echo.c \
 				# builtins/env_utils.c \
@@ -27,29 +28,17 @@ OBJS 		= 	$(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME):
 	@make -C $(LIBFT_DIR)
-	@gcc $(FLAGS) $(OBJS) $(INC) -L $(LIBFT_DIR) -lft -o $(NAME) -ltermcap
-
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p obj
-	@gcc -c $(FLAGS) $(INC) $< -o $@
+	@gcc $(FLAGS) $(SRCS) $(INC) -L $(LIBFT_DIR) -lft -o $(NAME) -ltermcap
 
 clean:
 	@make -C $(LIBFT_DIR)/ clean
-	@rm -rf $(OBJ_DIR)
-
-main:
-	make
-	./21sh
 
 fclean: clean
 	@make -C $(LIBFT_DIR)/ fclean
 	@rm -rf $(NAME)
 
-test:
-	@make -C test/
-
 re: fclean all
 
-.PHONY: all, clean, fclean, re, test
+.PHONY: all, clean, fclean, re

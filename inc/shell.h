@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/24 14:55:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/04 20:08:30 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void cleanup(t_shell *sh);
 void 	setup(int argc, char **argv, char **environment);
 t_shell *create_shell();
 void reset_shell(t_shell *sh);
+void	print_debug(t_shell *sh);
 
 
 /*

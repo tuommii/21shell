@@ -6,11 +6,12 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/03 21:28:58 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/04 22:30:25 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "lexer.h"
 
 // free mem also
 void	exit_error(t_shell *sh, int errno)
@@ -50,9 +51,7 @@ static int read_input(t_shell *sh)
 	while ((sh->key = keypress()) != ENTER)
 	{
 		watch_kill();
-
 		which_key(sh);
-
 		//print_debug(sh);
 		print_input(sh);
 	}
@@ -63,13 +62,14 @@ static int read_input(t_shell *sh)
 	{
 		sh->hist_count += hist_append(&sh->hist, sh->input);
 	}
-
 	return (ENTER);
 }
 
 
 static void run_shell(t_shell *sh)
 {
+	t_lexer	*lexer;
+	
 	while (1)
 	{
 		listen_signals();
@@ -77,9 +77,10 @@ static void run_shell(t_shell *sh)
 		print_prompt(sh);
 		if ((sh->key = read_input(sh)) == ESC)
 			return ;
-
-		// Sami, sh->input contains input string! Parse that!
-		fire(sh); // -- cmd.c (first lexical analysis, then execution)
+		tokenize(&lexer, sh->input);
+		lexer_debug(lexer);
+		// Parse tokens
+		// Execute
 
 		// hist_print(sh->hist);
 		// if (sh->hist && sh->hist->prev)
