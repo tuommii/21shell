@@ -16,7 +16,8 @@ SRC_NAME 	= 	main.c \
 				input/edit.c \
 				input/keyboard.c \
 				lexer/lexer.c \
-				lexer/token.c
+				lexer/token.c \
+				lexer/utils.c
 				# builtins/cd.c \
 				# builtins/echo.c \
 				# builtins/env_utils.c \

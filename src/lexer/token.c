@@ -6,13 +6,13 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:10:05 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/04 23:03:30 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/05 10:01:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_token	*new_token(char *data)
+t_token		*new_token(char *data)
 {
 	t_token		*new;
 	if (!(new = ft_memalloc(sizeof(t_token))))
@@ -21,7 +21,7 @@ t_token	*new_token(char *data)
 	new->next = NULL;
 }
 
-int		add_token(t_lexer *lexer, char *data)
+void		add_token(t_lexer *lexer, char *data)
 {
 	// add new token to lexer and update info, keep track of head and last
 	t_token	*token;
@@ -43,5 +43,4 @@ int		add_token(t_lexer *lexer, char *data)
 		lexer->last = token;
 	}
 	lexer->count++;
-	return (ft_strlen(data));
 }
