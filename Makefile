@@ -8,16 +8,20 @@ LIBFT_DIR 	= 	libft/
 FLAGS 		= 	-g
 INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
+LINE_DIR = line/
+LINE_SRC = move.c \
+setup.c
+LINE_SRCS = $(addprefix $(LINE_DIR), $(SRC_NAME))
+
 SRC_NAME 	= 	main.c \
-				setup.c \
-				signals.c \
-				prompt.c \
-				move.c \
-				history.c \
-				edit.c \
-				keyboard.c \
-				cmd.c \
-				lexer.c
+				# setup.c \
+				# signals.c \
+				# prompt.c \
+				# history.c \
+				# edit.c \
+				# keyboard.c \
+				# cmd.c \
+				# lexer.c
 				# builtins/cd.c \
 				# builtins/echo.c \
 				# builtins/env_utils.c \
@@ -25,7 +29,9 @@ SRC_NAME 	= 	main.c \
 				# builtins/unsetenv.c
 
 SRCS 		= 	$(addprefix $(SRC_DIR), $(SRC_NAME))
+SRCS 		+= 	$(addprefix $(LINE_DIR), $(LINE_SRC))
 OBJS 		= 	$(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
+OBJS 		+= 	$(addprefix $(OBJ_DIR), $(LINE_SRC:.c=.o))
 
 all: $(NAME)
 
