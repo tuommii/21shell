@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/05 15:49:43 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/05 16:32:46 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,15 @@
 # define T_SRARR		(1 << 4)
 # define T_SLARR		(1 << 5)
 # define T_STR			(1 << 9)
-# define MASK 			0b111111
 
-# define UNDEFINED		0
-# define OP				1
-# define STRING			9
+# define MASK_OP 		0b11
+# define MASK_REDIR 	0b111100
 
 # define OPERATORS 		";|<>"
 # define OPERATOR_ARR 	"|", ";", ">>", "<<", ">", "<"
 # define OP_SLOTS		6
 # define OP_LEN			3
+# define STRING			9
 
 typedef struct			s_token
 {
@@ -46,7 +45,7 @@ typedef struct			s_lexer
 	struct s_token		*last;
 }						t_lexer;
 
-int						valid_str(char c);
+int						str_valid_char(char c);
 int						next_quote(char *input, int q);
 void					add_token(t_lexer *lexer, char *data, int flag);
 void					tokenize(t_lexer **lexer, char *input);

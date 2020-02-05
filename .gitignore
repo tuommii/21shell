@@ -3,3 +3,5 @@ obj
 21sh
 a.out
 .vscode
+21sh.dSYM/
+libft.a*

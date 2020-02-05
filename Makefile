@@ -43,4 +43,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re
+push:
+	git push origin srouhe
+
+.PHONY: all, clean, fclean, re, push

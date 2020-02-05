@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:10:05 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/05 15:50:24 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/05 16:02:57 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,7 @@ static t_token	*new_token(char *data, int flag)
 		return (NULL);
 	new->data = ft_strdup(data);
 	new->next = NULL;
-	if (flag < OP_SLOTS)
-		new->type = OP;
-	else if (flag == STRING)
-		new->type = STRING;
-	else
-		new->type = UNDEFINED;
+	new->type |= (1 << flag);
 	return (new);
 }
 
