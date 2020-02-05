@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 09:45:18 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/05 14:30:05 by srouhe           ###   ########.fr       */
+/*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
+/*   Updated: 2020/02/05 15:50:48 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-/*
-**	Checks if c is printable, excluding space and not an operator
-*/
-
-int		valid_str(char c)
+int		parse_tokens(t_lexer **lexer)
 {
-	return ((c <= 126 && c > 32) && !ft_strchr(OPERATORS, c) ? 1 : 0);
-}
-
-/*
-**	Jumps to next single or double quote
-**	to-do: Handle open quotes
-*/
-
-int		next_quote(char *input, int q)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] && input[i] != q)
-		i++;
-	// ft_printf("inside quotes [%d] ", i);
-	return (i);
+	// perform checks, like nbr tokens and syntax errors
+	if (!lexer || !*lexer || !(*lexer)->count)
+		return (0);
+	return (1);
 }

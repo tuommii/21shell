@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/04 22:30:25 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/05 15:31:19 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ static void run_shell(t_shell *sh)
 			return ;
 		tokenize(&lexer, sh->input);
 		lexer_debug(lexer);
-		// Parse tokens
+		parse_tokens(&lexer);
+		// parser debug
 		// Execute
 
 		// hist_print(sh->hist);
 		// if (sh->hist && sh->hist->prev)
 		// 	ft_printf("INDEX: %d, LAST: %s", sh->hist->prev->i, sh->hist->prev->str);
+		// free parser and lexer structs
 		reset_shell(sh);
 	}
 }

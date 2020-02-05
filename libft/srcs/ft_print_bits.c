@@ -23,5 +23,4 @@ void	ft_print_bits(uint64_t bits, int len)
 		if (len % 8 == 0)
 			write(1, " ", 1);
 	}
-	write(1, "\n", 1);
 }

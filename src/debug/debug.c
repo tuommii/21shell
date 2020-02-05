@@ -6,22 +6,24 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/04 22:06:40 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/05 15:23:27 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include "lexer.h"
 
 void	lexer_debug(t_lexer *lexer)
 {
 	int	i;
 
-	i = 1;
+	i = 2;
 	ft_putstr_fd(tgoto(CM, 40, 0), 0);
 	tputs(CE, 1, print_char);
 	ft_printf("%20s: [%d]", "token count", lexer->count);
 	ft_putstr_fd(tgoto(CM, 40, 1), 0);
+	tputs(CE, 1, print_char);
+	ft_print_bits(lexer->flags, 16);
+	ft_putstr_fd(tgoto(CM, 40, 2), 0);
 	tputs(CE, 1, print_char);
 	while (lexer->head)
 	{

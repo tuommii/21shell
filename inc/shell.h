@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/04 20:08:30 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/05 14:27:06 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 // # include <termio.h>
 
 # include "libft.h"
+# include "lexer.h"
+# include "parser.h"
 
 # define OUTPUT STDOUT_FILENO
 

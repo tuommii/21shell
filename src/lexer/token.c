@@ -6,29 +6,35 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:10:05 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/05 10:01:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/05 15:50:24 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "shell.h"
 
-t_token		*new_token(char *data)
+static t_token	*new_token(char *data, int flag)
 {
 	t_token		*new;
 	if (!(new = ft_memalloc(sizeof(t_token))))
 		return (NULL);
 	new->data = ft_strdup(data);
 	new->next = NULL;
+	if (flag < OP_SLOTS)
+		new->type = OP;
+	else if (flag == STRING)
+		new->type = STRING;
+	else
+		new->type = UNDEFINED;
+	return (new);
 }
 
-void		add_token(t_lexer *lexer, char *data)
+void			add_token(t_lexer *lexer, char *data, int flag)
 {
-	// add new token to lexer and update info, keep track of head and last
 	t_token	*token;
 	t_token	*tmp;
 
-	// ft_printf("                        adding new token with: %s\n", data);
-	token = new_token(data);
+	// ft_printf("adding new token with: %s\n", data);
+	token = new_token(data, flag);
 	if (!lexer->head)
 	{
 		lexer->head = token;
@@ -42,5 +48,7 @@ void		add_token(t_lexer *lexer, char *data)
 		tmp->next = token;
 		lexer->last = token;
 	}
+	lexer->flags |= (1 << flag);
 	lexer->count++;
+	ft_strdel(&data);
 }
