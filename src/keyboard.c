@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 20:22:53 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/05 10:23:16 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ int	keypress(void)
 		code += seq[i];
 		i++;
 	}
-	// if (!(ft_strcmp(seq, "[1;5D") == 0))
-	// 	ft_printf("%s", seq);
-	// else
-	// 	ft_printf("CTRL+LEFT", seq);
 	return (code);
 }
 
@@ -93,12 +89,7 @@ int handle_arrow_keys(t_shell *sh)
 			CURSOR_RIGHT(sh->prompt_len + sh->len - sh->x);
 			sh->x = sh->prompt_len + sh->len;
 			sh->i = sh->len;
-			// sh->hist_i++;
 		}
-		// If started rolling history
-		// change
-		// if no next
-		// empty input
 	}
 	if (sh->key == LEFT || sh->key == RIGHT || sh->key == UP)
 		return (1);

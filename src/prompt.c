@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/23 15:34:50 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/05 12:02:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,35 +46,22 @@ void	print_prompt(t_shell *sh)
 
 void	print_debug(t_shell *sh)
 {
-	// (void)sh;
-	ft_printf("\033[s");
-	ft_printf("\033[1;1f %10s: [%3d]\033[u", "CURSOR X", sh->x);
-	ft_printf("\033[2;1f %10s: [%3d]\033[u", "INDEX", sh->i);
-	ft_printf("\033[3;1f %10s: [%3d]\033[u", "KEY", sh->key);
-	ft_printf("\033[4;1f %10s: [%3d]\033[u", "LEN", sh->len);
-	ft_printf("\033[5;1f %10s: [%-70s]\033[u", "INPUT", sh->input);
-	// t_hist *hist = sh->hist
-	ft_printf("\033[6;1f %10s: [%3d, %3d]\033[u", "HIST", sh->hist_i, sh->hist_count);
-	ft_printf("\033[u");
+	// ft_printf("\033[s");
+	// ft_printf("\033[1;1f %10s: [%3d, %3d]\033[u", "CURSOR X", sh->x, sh->y);
+	// ft_printf("\033[2;1f %10s: [%3d]\033[u", "INDEX", sh->i);
+	// ft_printf("\033[3;1f %10s: [%3d]\033[u", "KEY", sh->key);
+	// ft_printf("\033[4;1f %10s: [%3d]\033[u", "LEN", sh->len);
+	// ft_printf("\033[5;1f %10s: [%-70s]\033[u", "INPUT", sh->input);
+	// ft_printf("\033[6;1f %10s: [%3d, %3d]\033[u", "HIST", sh->hist_i, sh->hist_count);
+	// ft_printf("\033[u");
 }
 
 void	print_input(t_shell *sh)
 {
-	// ft_printf("%-s", sh->input);
-
-	// if (sh->len + sh->prompt_len > 20)
-	// {
-	// 	ft_printf(tgoto(tgetstr("cm", NULL), sh->prompt_len + 1, sh->y));
-	// }
-	// int cols = sh->cols;
-	// static int len = sh->len
 	ft_printf("\033[s");
 	ft_printf(tgoto(tgetstr("cm", NULL), sh->prompt_len, sh->y));
-	// Wthout len backspaace deleteing char dooesnt print?
 	ft_printf("%-*s", sh->len, sh->input);
 	ft_printf("\033[u");
-	// ft_printf("\033[%d;%df%-*s\033[u", sh->y, sh->prompt_len + 1, sh->len, sh->input);
-	//ft_printf("\033[u");
 }
 
 void	get_shell_size(t_shell *sh)

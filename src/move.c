@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 20:00:35 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/23 14:43:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/05 12:02:55 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,29 @@ void move_left(t_shell *sh)
 	if (sh->x > sh->prompt_len)
 	{
 		sh->x--;
-		CURSOR_LEFT(1);
+		// CURSOR_LEFT(1);
+		ft_putstr(tgetstr("le", NULL));
 		sh->i--;
 	}
 }
 
 void move_right(t_shell *sh)
 {
+	// TODO: Prevent going over MAX INT
 	static int new_row = 0;
 	if (!new_row)
 		new_row += sh->cols;
-	if (sh->len + sh->prompt_len + 4 > new_row)
+	if (sh->len + sh->prompt_len > new_row)
 	{
-		ft_printf(tgetstr("do", NULL));
+		ft_putstr(tgetstr("do", NULL));
 		new_row += sh->cols;
+		// sh->x++;
 	}
 	else if (sh->len + sh->prompt_len > sh->x)
 	{
-		sh->x++;
-		sh->i++;
-		CURSOR_RIGHT(1);
+		ft_putstr(tgetstr("nd", NULL));
+		// CURSOR_RIGHT(1);
 	}
+	sh->x++;
+	sh->i++;
 }
