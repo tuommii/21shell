@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/05 12:02:24 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/05 12:28:34 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	print_prompt(t_shell *sh)
 {
 	// char	host[INPUT_BUFFER + 1];
 	//char	cwd[INPUT_BUFFER + 1];
+	ft_putstr(tgoto(tgetstr("cm", NULL), 0, sh->y+1));
 	char *logname = getenv("LOGNAME");
 	// gethostname(host, INPUT_BUFFER);
 	//getcwd(cwd, INPUT_BUFFER);
@@ -46,8 +47,9 @@ void	print_prompt(t_shell *sh)
 
 void	print_debug(t_shell *sh)
 {
+	// ft_putstr(tgoto(tgetstr("cm", NULL), sh->prompt_len, 0));
+	// ft_printf("CURSOR X, Y: [%3d, %3d]", sh->x, sh->y);
 	// ft_printf("\033[s");
-	// ft_printf("\033[1;1f %10s: [%3d, %3d]\033[u", "CURSOR X", sh->x, sh->y);
 	// ft_printf("\033[2;1f %10s: [%3d]\033[u", "INDEX", sh->i);
 	// ft_printf("\033[3;1f %10s: [%3d]\033[u", "KEY", sh->key);
 	// ft_printf("\033[4;1f %10s: [%3d]\033[u", "LEN", sh->len);
@@ -59,7 +61,7 @@ void	print_debug(t_shell *sh)
 void	print_input(t_shell *sh)
 {
 	ft_printf("\033[s");
-	ft_printf(tgoto(tgetstr("cm", NULL), sh->prompt_len, sh->y));
+	ft_printf(tgoto(tgetstr("cm", NULL), sh->prompt_len, sh->y + 1));
 	ft_printf("%-*s", sh->len, sh->input);
 	ft_printf("\033[u");
 }
