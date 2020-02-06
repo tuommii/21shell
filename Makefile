@@ -18,7 +18,8 @@ SRC_NAME 	= 	main.c \
 				lexer/lexer.c \
 				lexer/token.c \
 				lexer/utils.c \
-				parser/parser.c
+				parser/parser.c \
+				parser/syntax.c
 				# builtins/cd.c \
 				# builtins/echo.c \
 				# builtins/env_utils.c \
@@ -46,4 +47,7 @@ re: fclean all
 push:
 	git push origin srouhe
 
-.PHONY: all, clean, fclean, re, push
+pull:
+	git pull origin srouhe
+
+.PHONY: all, clean, fclean, re, push, pull
