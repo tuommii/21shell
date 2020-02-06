@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:51:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/05 18:06:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/06 06:51:02 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 /*
 ** KEYBOARD
 */
-// int	keypress(void);
+int	keypress(void);
 // int which_key(t_shell *sh);
 // int handle_printable(t_shell *sh);
 // int handle_arrow_keys(t_shell *sh);

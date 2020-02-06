@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/05 18:04:56 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/06 07:06:29 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ typedef struct	s_hist
 ** UTILITIES
 */
 void cleanup(t_shell *sh);
-void 	setup(int argc, char **argv, char **environment);
 t_shell *create_shell();
 void reset_shell(t_shell *sh);
 
@@ -125,8 +124,6 @@ void	watch_kill();
 /*
 ** MOVE
 */
-void move_left(t_shell *sh);
-void move_right(t_shell *sh);
 
 /*
 ** EDIT

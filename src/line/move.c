@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:02:45 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/05 18:03:01 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/06 07:05:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // TODO: Use tgetstr for better support ?
 
-void move_left(t_shell *sh)
+void move_left()
 {
 	// if (sh->x > sh->prompt_len)
 	// {
@@ -29,7 +29,7 @@ void move_left(t_shell *sh)
 	ft_putstr(tgetstr("le", NULL));
 }
 
-void move_right(t_shell *sh)
+void move_right()
 {
 	// TODO: Prevent going over MAX INT
 	// static int new_row = 0;
