@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/06 21:42:01 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/06 22:32:47 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 enum					e_cmd_type
 {
+	BUILTIN,
 	EXEC,
 	REDIR,
 	PIPE
@@ -32,6 +33,6 @@ typedef struct			s_cmd
 }						t_cmd;
 
 int						check_syntax(t_lexer *lexer);
-int						parser(t_lexer **lexer);
+t_cmd					*parser(t_lexer **lexer);
 
 #endif

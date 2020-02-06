@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/05 16:27:19 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/06 22:08:34 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void run_shell(t_shell *sh)
 {
 	int		ret_parser;
 	t_lexer	*lexer;
+	t_cmd	*cmd;
 	
 	while (1)
 	{
@@ -80,7 +81,7 @@ static void run_shell(t_shell *sh)
 			return ;
 		tokenize(&lexer, sh->input);
 		// lexer_debug(lexer);
-		if ((ret_parser = parser(&lexer)) == PARSER_OK)
+		if ((cmd = parser(&lexer)))
 			ft_printf("\t[pseudo execute]");
 		// parser_debug()
 		// fire_commands()
