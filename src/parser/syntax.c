@@ -6,15 +6,15 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 21:12:44 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/06 21:48:26 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/07 10:39:51 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	syntax_error(char *token)
+static void		syntax_error(char *token)
 {
-	ft_printf("\t21sh: syntax error near unexpected token `%s'", token);
+	ft_printf("\n21sh: syntax error near unexpected token `%s'", token);
 }
 
 /*
@@ -22,7 +22,7 @@ void	syntax_error(char *token)
 **	to-do: check differences between shells (bash / zsh)
 */
 
-int 	check_stack(int prev, int curr)
+static int 		check_stack(int prev, int curr, int max)
 {
 	// ft_printf("  stack prev [%d]", prev);
 	// ft_printf("  stack curr [%d]", curr);
@@ -37,11 +37,10 @@ int 	check_stack(int prev, int curr)
 **	Loop over tokens and check the syntax
 */
 
-int		check_syntax(t_lexer *lexer)
+int				check_syntax(t_lexer *lexer)
 {
 	int		top;
 	int		stack[4096];
-	char	*data;
 	t_token *token;
 
 	top = 0;
@@ -49,19 +48,13 @@ int		check_syntax(t_lexer *lexer)
 	token = lexer->head;
 	while (token)
 	{
-		data = token->data;
 		stack[++top] = token->type;
-		if ((check_stack(stack[top - 1], stack[top])) == PARSER_ERROR)
+		if ((check_stack(stack[top - 1], stack[top], lexer->count)) == PARSER_ERROR)
 		{
-			syntax_error(data);
+			syntax_error(token->data);
 			return (PARSER_ERROR);
 		}
 		token = token->next;
-	}
-	if (stack[top] & MASK_OP || stack[top] & MASK_REDIR)
-	{
-		syntax_error(data);
-		return (PARSER_ERROR);
 	}
 	return (PARSER_OK);
 }

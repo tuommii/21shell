@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/05 16:32:46 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/07 11:45:05 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int						str_valid_char(char c);
 int						next_quote(char *input, int q);
 void					add_token(t_lexer *lexer, char *data, int flag);
 void					tokenize(t_lexer **lexer, char *input);
-void					lexer_debug(t_lexer *lexer);
 
 #endif

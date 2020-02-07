@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/06 22:08:34 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/07 11:56:55 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void run_shell(t_shell *sh)
 		// lexer_debug(lexer);
 		if ((cmd = parser(&lexer)))
 			ft_printf("\t[pseudo execute]");
-		// parser_debug()
+		parser_debug(cmd);
 		// fire_commands()
 
 		// hist_print(sh->hist);

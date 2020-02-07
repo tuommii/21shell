@@ -6,11 +6,34 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/05 15:23:27 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/07 12:24:49 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void	parser_debug(t_cmd *cmd)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	ft_putstr_fd(tgoto(CM, 40, 0), 0);
+	tputs(CE, 1, print_char);
+	while (cmd)
+	{
+		ft_putstr_fd(tgoto(CM, 40, i), 0);
+		while (cmd->args[j])
+		{
+			ft_printf("\targ no. %d: [%s]", j, cmd->args[j]);
+			j++;
+		}
+		cmd = cmd->next;
+		i++;
+	}
+	ft_printf("\033[u");	
+}
 
 void	lexer_debug(t_lexer *lexer)
 {

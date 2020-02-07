@@ -19,7 +19,8 @@ SRC_NAME 	= 	main.c \
 				lexer/token.c \
 				lexer/utils.c \
 				parser/parser.c \
-				parser/syntax.c
+				parser/syntax.c \
+				parser/utils.c
 				# builtins/cd.c \
 				# builtins/echo.c \
 				# builtins/env_utils.c \
@@ -44,10 +45,15 @@ fclean: clean
 
 re: fclean all
 
+norm:
+	norminette src/*.c
+	norminette inc/*.h
+	make norm -C libft
+
 push:
 	git push origin srouhe
 
 pull:
 	git pull origin srouhe
 
-.PHONY: all, clean, fclean, re, push, pull
+.PHONY: all, clean, fclean, re, norm, push, pull

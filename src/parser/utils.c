@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/07 11:55:01 by srouhe           ###   ########.fr       */
+/*   Created: 2020/02/07 11:34:01 by srouhe            #+#    #+#             */
+/*   Updated: 2020/02/07 11:36:10 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "shell.h"
 
-# define PARSER_OK 		0
-# define PARSER_ERROR 	1
-
-enum					e_cmd_type
+int		args_count(t_token *token)
 {
-	BUILTIN,
-	EXEC,
-	REDIR,
-	PIPE
-};
+	int	i;
 
-typedef enum e_cmd_type	t_cmd_type;
-
-typedef struct			s_cmd
-{
-	t_cmd_type			type;
-	char				**args;
-	struct s_cmd		*next;
-}						t_cmd;
-
-int						args_count(t_token *token);
-int						check_syntax(t_lexer *lexer);
-t_cmd					*parser(t_lexer **lexer);
-
-#endif
+	i = 0;
+	while (token && token->type & T_STR)
+	{
+		i++;
+		token = token->next;
+	}
+	return (i);
+}
