@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/01/19 16:27:12 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/09 21:16:53 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,22 @@ static int		bins(char **cmd)
 	return (0);
 }
 
-static int		builtins(char **cmd)
-{
-	if (ft_strequ(cmd[0], "exit"))
-		return (-1);
-	else if (ft_strequ(cmd[0], "echo"))
-		return (echo_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "cd"))
-		return (cd_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "setenv"))
-		return (setenv_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "unsetenv"))
-		return (unsetenv_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "env"))
-		return (display_env());
-	return (0);
-}
+// static int		builtins(char **cmd)
+// {
+// 	if (ft_strequ(cmd[0], "exit"))
+// 		return (-1);
+// 	else if (ft_strequ(cmd[0], "echo"))
+// 		return (echo_builtin(cmd + 1));
+// 	else if (ft_strequ(cmd[0], "cd"))
+// 		return (cd_builtin(cmd + 1));
+// 	else if (ft_strequ(cmd[0], "setenv"))
+// 		return (setenv_builtin(cmd + 1));
+// 	else if (ft_strequ(cmd[0], "unsetenv"))
+// 		return (unsetenv_builtin(cmd + 1));
+// 	else if (ft_strequ(cmd[0], "env"))
+// 		return (display_env());
+// 	return (0);
+// }
 
 /*
 **		Executes commands in minishell.
@@ -95,20 +95,20 @@ static int		builtins(char **cmd)
 **			4. Check for binaries in PWD.
 */
 
-int				exec_cmd(char **cmd)
+int				exec_cmd(t_cmd *cmd)
 {
 	int				r;
 	struct stat		attr;
 
-	if ((r = builtins(cmd)) == 1)
+	// if ((r = builtins(cmd->args)) == 1)
+	// 	return (0);
+	// else if (r == -1)
+	// 	return (-1);
+	if (bins(cmd->args) == 1)
 		return (0);
-	else if (r == -1)
-		return (-1);
-	else if (bins(cmd) == 1)
-		return (0);
-	else if (!lstat(cmd[0], &attr))
-		return (check_binary(ft_strdup(cmd[0]), cmd, attr));
+	else if (!lstat(cmd->args[0], &attr))
+		return (check_binary(cmd->args[0], cmd->args, attr));
 	ft_putstr("21sh: command not found: ");
-	ft_putendl(cmd[0]);
+	ft_putendl(cmd->args[0]);
 	return (0);
 }

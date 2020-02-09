@@ -20,7 +20,7 @@ SRC_NAME 	= 	main.c \
 				lexer/utils.c \
 				parser/parser.c \
 				parser/syntax.c \
-				parser/utils.c
+				parser/utils.c \
 				# builtins/cd.c \
 				# builtins/echo.c \
 				# builtins/env_utils.c \

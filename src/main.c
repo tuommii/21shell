@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/07 11:56:55 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/09 21:17:36 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void run_shell(t_shell *sh)
 {
 	int		ret_parser;
 	t_lexer	*lexer;
-	t_cmd	*cmd;
+	t_cmd	*cmd_lst;
 	
 	while (1)
 	{
@@ -81,11 +81,10 @@ static void run_shell(t_shell *sh)
 			return ;
 		tokenize(&lexer, sh->input);
 		// lexer_debug(lexer);
-		if ((cmd = parser(&lexer)))
+		if ((cmd_lst = parser(&lexer)))
 			ft_printf("\t[pseudo execute]");
-		parser_debug(cmd);
-		// fire_commands()
-
+		parser_debug(cmd_lst);
+		// exec_cmd(cmd_lst);
 		// hist_print(sh->hist);
 		// if (sh->hist && sh->hist->prev)
 		// 	ft_printf("INDEX: %d, LAST: %s", sh->hist->prev->i, sh->hist->prev->str);
