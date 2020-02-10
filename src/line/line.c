@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/10 10:27:55 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/10 11:41:16 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void prompt(char *input) {
+static void prompt() {
 	ft_printf("%-*s", 2, "$>");
 	ft_putstr(tgetstr("sc", NULL));
 }
@@ -20,7 +20,7 @@ static void prompt(char *input) {
 void start_line_editor() {
 	char input[INPUT_BUFFER];
 	ft_bzero(input, INPUT_BUFFER);
-	prompt(input);
+	prompt();
 
 	int prompt_len = 2;
 	int x = prompt_len;
@@ -30,14 +30,7 @@ void start_line_editor() {
 	while (1) {
 		listen_signals();
 		watch_kill();
-
-		int j = 0;
-
-		ft_putstr(tgetstr("rc", NULL));
-		while (j < len) {
-			ft_putchar(input[j]);
-			j++;
-		}
+		// ft_printf("%-*s", len, input);
 		int key = keypress();
 		if (key == ESC)
 		{
@@ -45,23 +38,24 @@ void start_line_editor() {
 		}
 		else if (ft_isprint(key)) {
 			// ft_putchar(key);
-			if ((x - prompt_len) < prompt_len)
-			{
-				ft_insert(input, x - prompt_len + 1, (char)key);
-			}
-			else if (x - prompt_len == len)
-			{
-				input[i] = (char)key;
-				i++;
-			}
+			// if ((x - prompt_len) < prompt_len)
+			// {
+			// 	ft_insert(input, x - prompt_len + 1, (char)key);
+			// }
+			// else if (x - prompt_len == len)
+			// {
+				// i++;
+			input[i] = (char)key;
+			i++;
 			len++;
-			// ft_putchar(key);
-			// ft_insert(input, x, (char)key);
 			x++;
+			ft_putstr(tgetstr("rc", NULL));
+			ft_printf("%-*s", len, input);
 		}
 		else if (key == ENTER) {
 			//ft_printf("\tINPUT: %s\n", input);
 			ft_putstr(tgetstr("do", NULL));
+			ft_putstr(tgetstr("sc", NULL));
 			ft_bzero(input, INPUT_BUFFER);
 			x = prompt_len;
 			len = 0;
@@ -69,15 +63,21 @@ void start_line_editor() {
 			prompt(input);
 		}
 		else if (key == LEFT) {
-			if (x > prompt_len) {
+			//if (x > prompt_len) {
+				// ft_putstr(tgetstr("sc", NULL));
 				move_left();
 				x--;
-			}
+			//}
 		}
 		else if (key == RIGHT) {
 			move_right();
 			x++;
 		}
+		// while (j < len) {
+		// 	ft_putchar(input[j]);
+		// 	j++;
+		// }
+		// ft_putstr(tgetstr("sc", NULL));
 	}
 
 }
