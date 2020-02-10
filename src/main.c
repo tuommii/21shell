@@ -6,12 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/09 21:17:36 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:15:19 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include "lexer.h"
 
 // free mem also
 void	exit_error(t_shell *sh, int errno)
@@ -66,11 +65,20 @@ static int read_input(t_shell *sh)
 }
 
 
+static void	fire_commands(t_lexer *lexer)
+{
+	t_ast	*ast;
+
+	ast = create_ast(&lexer->head);
+	if (lexer->flags & DEBUG_AST)
+		ft_printf("debug ast");
+	ft_printf("\t[pseudo execute]");
+}
+
 static void run_shell(t_shell *sh)
 {
-	int		ret_parser;
+	int		r;
 	t_lexer	*lexer;
-	t_cmd	*cmd_lst;
 	
 	while (1)
 	{
@@ -80,10 +88,12 @@ static void run_shell(t_shell *sh)
 		if ((sh->key = read_input(sh)) == ESC)
 			return ;
 		tokenize(&lexer, sh->input);
-		// lexer_debug(lexer);
-		if ((cmd_lst = parser(&lexer)))
-			ft_printf("\t[pseudo execute]");
-		parser_debug(cmd_lst);
+		// ft_printf("    first token: [%s] last token: [%s]", lexer->head->data, lexer->last->data);
+		if (lexer->flags & DEBUG_LEXER)
+			lexer_debug(lexer);
+		if ((r = parser(&lexer)) == PARSER_OK)
+			fire_commands(lexer);
+		// parser_debug(ast);
 		// exec_cmd(cmd_lst);
 		// hist_print(sh->hist);
 		// if (sh->hist && sh->hist->prev)

@@ -18,6 +18,8 @@ SRC_NAME 	= 	main.c \
 				lexer/lexer.c \
 				lexer/token.c \
 				lexer/utils.c \
+				parser/ast.c \
+				parser/command.c \
 				parser/parser.c \
 				parser/syntax.c \
 				parser/utils.c \

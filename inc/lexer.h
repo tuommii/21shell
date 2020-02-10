@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/07 11:45:05 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 16:16:43 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define T_SRARR		(1 << 4)
 # define T_SLARR		(1 << 5)
 # define T_STR			(1 << 9)
+# define DEBUG_LEXER	(1 << 10)
+# define DEBUG_AST		(1 << 11)
 
 # define MASK_OP 		0b11
 # define MASK_REDIR 	0b111100
@@ -29,6 +31,9 @@
 # define OP_SLOTS		6
 # define OP_LEN			3
 # define STRING			9
+
+# define OPT_LEXER		"--lexer"
+# define OPT_AST		"--ast"
 
 typedef struct			s_token
 {

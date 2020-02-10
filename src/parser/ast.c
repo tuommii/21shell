@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/07 11:34:01 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/10 14:06:45 by srouhe           ###   ########.fr       */
+/*   Created: 2020/02/10 14:15:49 by srouhe            #+#    #+#             */
+/*   Updated: 2020/02/10 17:16:23 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		args_count(t_token *token)
+t_ast		*new_leaf(t_token **token)
 {
-	int	i;
+	t_ast	*new;
 
-	i = 0;
-	while (token && token->type & T_STR)
-	{
-		i++;
-		token = token->next;
-	}
-	return (i);
+	if (!(new = ft_memalloc(sizeof(t_ast))))
+		return (NULL);
+	new->token = *token;
+	new->parent = NULL;
+	new->left = NULL;
+	new->right = NULL;
+	new->type = (*token)->type;
+	return (new);
 }
 
-int		get_next_operator(t_lexer **lexer)
+t_ast		*create_ast(t_token **token)
 {
-	(void)lexer;
-	return (0);
+	t_ast	*root;
+
+	root = new_leaf(token);
+	return (root);
 }

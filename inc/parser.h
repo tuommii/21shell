@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/09 16:33:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:16:54 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define PARSER_OK 		0
 # define PARSER_ERROR 	1
+# define AST_COUNT		10
 
 enum					e_cmd_type
 {
@@ -26,15 +27,19 @@ enum					e_cmd_type
 
 typedef enum e_cmd_type	t_cmd_type;
 
-typedef struct			s_cmd
+typedef struct			s_ast
 {
-	t_cmd_type			type;
-	char				**args;
-	struct s_cmd		*next;
-}						t_cmd;
+	t_token				*token;
+	struct s_ast		*parent;
+	struct s_ast		*left;
+	struct s_ast		*right;
+	int					type;
+	int					operator;
+}						t_ast;
 
 int						args_count(t_token *token);
 int						check_syntax(t_lexer *lexer);
-t_cmd					*parser(t_lexer **lexer);
+int						parser(t_lexer **lexer);
+t_ast					*create_ast(t_token **token);
 
 #endif

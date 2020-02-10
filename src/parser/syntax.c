@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 21:12:44 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/07 10:39:51 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 11:19:17 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		syntax_error(char *token)
 {
-	ft_printf("\n21sh: syntax error near unexpected token `%s'", token);
+	ft_printf("\t\t21sh: syntax error near unexpected token `%s'", token);
 }
 
 /*
