@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/10 17:29:39 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 19:04:53 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,12 +198,6 @@ void erase_input(t_shell *sh);
 
 
 int		print_char(int c);
-
-/*
-** EXECUTION
-*/
-
-void	fire(t_shell *sh);
 
 /*
 ** ERROR

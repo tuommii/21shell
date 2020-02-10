@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/10 17:47:27 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:51:52 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define DEBUG_LEXER	(1 << 10)
 # define DEBUG_AST		(1 << 11)
 
+# define MASK_STR		0b1000000000
 # define MASK_OP 		0b11
 # define MASK_REDIR 	0b111100
 # define MASK_CTRL		0b111111

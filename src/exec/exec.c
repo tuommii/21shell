@@ -6,109 +6,41 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/09 21:16:53 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 19:40:00 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int		run_cmd(char *path, char **args)
+void			lnr_exection(t_ast *ast, int *r)
 {
-	pid_t	pid;
-
-	pid = fork();
-	signal(SIGINT, signal_handler);
-	if (!pid)
-		execve(path, args, g_env);
-	else if (pid < 0)
-	{
-		ft_putendl("21sh: failed to create child process.");
-		return (-1);
-	}
-	wait(&pid);
-	free(path);
-	return (1);
+	if (ast == NULL)
+		return ;
+	lnr_exection(ast->left, r);
+	if (ast->token->type & MASK_CTRL)
+		ft_printf(" | passing [%s]", ast->token->data);
+	else if (!ast->parent)
+		ft_printf(" | execute [%s]", ast->token->data);
+	else if (ast->parent && ast->parent->right)
+		ft_printf(" | execute [%s %s %s]", ast->token->data, ast->parent->token->data, ast->parent->right->token->data);
+	// kato parent node. Tokenin perusteella oikee execute function pointer (tsekkaa printf)
+	// lnr_exection(ast->right, r);
 }
-
-static int		check_binary(char *path, char **args, struct stat attr)
-{
-	if (attr.st_mode & S_IFREG)
-	{
-		if (attr.st_mode & S_IXUSR)
-			return (run_cmd(path, args));
-		else
-		{
-			ft_putstr("minishell: permission denied: ");
-			ft_putendl(path);
-		}
-		return (1);
-	}
-	return (0);
-}
-
-static int		bins(char **cmd)
-{
-	int				i;
-	char			**path;
-	char			*exec;
-	struct stat		attr;
-
-	i = 0;
-	path = ft_strsplit(get_env("PATH"), ':');
-	while (path && path[i])
-	{
-		exec = ft_pathjoin(path[i], cmd[0]);
-		if (!lstat(exec, &attr))
-		{
-			ft_freestrarr(path);
-			return (check_binary(exec, cmd, attr));
-		}
-		free(exec);
-		i++;
-	}
-	ft_freestrarr(path);
-	return (0);
-}
-
-// static int		builtins(char **cmd)
-// {
-// 	if (ft_strequ(cmd[0], "exit"))
-// 		return (-1);
-// 	else if (ft_strequ(cmd[0], "echo"))
-// 		return (echo_builtin(cmd + 1));
-// 	else if (ft_strequ(cmd[0], "cd"))
-// 		return (cd_builtin(cmd + 1));
-// 	else if (ft_strequ(cmd[0], "setenv"))
-// 		return (setenv_builtin(cmd + 1));
-// 	else if (ft_strequ(cmd[0], "unsetenv"))
-// 		return (unsetenv_builtin(cmd + 1));
-// 	else if (ft_strequ(cmd[0], "env"))
-// 		return (display_env());
-// 	return (0);
-// }
 
 /*
-**		Executes commands in minishell.
-**			1. Check for built in commands.
-**			2. Check if exit command.
-**			3. Check for system binaries.
-**			4. Check for binaries in PWD.
+**		Executes commands in 21sh.
+**			- Infix travel through the tree while executing
 */
 
-int				exec_cmd(t_cmd *cmd)
+int				execute(t_ast *ast)
 {
-	int				r;
-	struct stat		attr;
+	int	r;
 
-	// if ((r = builtins(cmd->args)) == 1)
-	// 	return (0);
-	// else if (r == -1)
-	// 	return (-1);
-	if (bins(cmd->args) == 1)
-		return (0);
-	else if (!lstat(cmd->args[0], &attr))
-		return (check_binary(cmd->args[0], cmd->args, attr));
-	ft_putstr("21sh: command not found: ");
-	ft_putendl(cmd->args[0]);
-	return (0);
+	r = 0;
+	if (!ast)
+		return (EXEC_OK);
+	lnr_exection(ast, &r);
+	if (r == EXEC_ERROR)
+		return (EXEC_ERROR);
+	return (EXEC_OK);
 }

@@ -11,6 +11,7 @@ SRC_NAME 	= 	main.c \
 				signals.c \
 				prompt.c \
 				debug/debug.c \
+				exec/exec.c \
 				input/move.c \
 				input/history.c \
 				input/edit.c \
@@ -19,6 +20,7 @@ SRC_NAME 	= 	main.c \
 				lexer/token.c \
 				lexer/utils.c \
 				parser/ast.c \
+				parser/astadd.c \
 				parser/command.c \
 				parser/parser.c \
 				parser/syntax.c \

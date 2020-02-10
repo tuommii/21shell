@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/10 17:36:32 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 18:55:37 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void 	array_debug(char **arr)
 		i++;
 	}
 }
+
+/*
+**	Apply infix traversal to print AST (grows to the right)
+*/
 
 void	ast_debug(t_ast *root, int ws)
 {
