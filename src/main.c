@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/10 17:15:19 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:31:33 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ static void	fire_commands(t_lexer *lexer)
 
 	ast = create_ast(&lexer->head);
 	if (lexer->flags & DEBUG_AST)
-		ft_printf("debug ast");
+	{
+		tputs(tgetstr("cl", NULL), 1, print_char);
+		ast_debug(ast, 0);
+	}
 	ft_printf("\t[pseudo execute]");
 }
 

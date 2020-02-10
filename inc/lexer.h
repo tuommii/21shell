@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/10 16:16:43 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:47:27 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define MASK_OP 		0b11
 # define MASK_REDIR 	0b111100
+# define MASK_CTRL		0b111111
 
 # define OPERATORS 		";|<>"
 # define OPERATOR_ARR 	"|", ";", ">>", "<<", ">", "<"

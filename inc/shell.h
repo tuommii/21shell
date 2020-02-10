@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/10 12:03:22 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:29:39 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	print_debug(t_shell *sh);
 void	parser_debug(t_ast *ast);
 void	lexer_debug(t_lexer *lexer);
 void 	array_debug(char **arr);
+void	ast_debug(t_ast *root, int ws);
 
 
 /*
