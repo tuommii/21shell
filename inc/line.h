@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:56:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/06 07:11:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:40:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_line
 
 void 	setup(void);
 
-void move_left();
-void move_right();
+void move_left(t_line *line);
+void move_right(t_line *line);
 
 void start_line_editor();
 

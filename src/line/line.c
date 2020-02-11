@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 09:44:22 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:41:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,29 @@ static void prompt() {
 	ft_putstr(tgetstr("sc", NULL));
 }
 
+t_line *create_line_editor(void)
+{
+	t_line *line;
+
+	// TODO: Check malloc
+	line = (t_line *)ft_memalloc(sizeof(t_line));
+	line->i = 0;
+	// TODO: Make this dynamic
+	line->prompt_len = 2;
+	line->x = line->prompt_len;
+	line->len = 0;
+	return (line);
+}
+
 void start_line_editor() {
 	char input[INPUT_BUFFER];
 	ft_bzero(input, INPUT_BUFFER);
 	prompt();
 
-	int prompt_len = 2;
-	int x = prompt_len;
-	int len = 0;
-	int i = 0;
+	t_line *line;
+
+	// TODO: Free memory
+	line = create_line_editor();
 
 	while (1) {
 		listen_signals();
@@ -36,41 +50,42 @@ void start_line_editor() {
 			return ;
 		}
 		else if (ft_isprint(key)) {
-			if (x - prompt_len < len)
+			if (line->x - line->prompt_len < line->len)
 			{
-				ft_insert(input, x - prompt_len + 1, (char)key);
+				ft_insert(input, line->x - line->prompt_len + 1, (char)key);
 			}
-			else if (x - prompt_len == len)
+			else if (line->x - line->prompt_len == line->len)
 			{
-				input[i] = (char)key;
+				input[line->i] = (char)key;
 			}
-			int delta = len - (x - prompt_len);
-			len++;
-			x++;
-			i++;
+			int delta = line->len - (line->x - line->prompt_len);
+			line->len++;
+			line->x++;
+			line->i++;
 			ft_putstr(tgetstr("rc", NULL));
-			ft_printf("%-*s", len, input);
+			ft_printf("%-*s", line->len, input);
 
 			while (delta-- > 0)
-				move_left();
+				ft_putstr(tgetstr("le", NULL));
+				// move_left(line);
 
 		}
 		else if (key == ENTER) {
 			ft_putstr(tgetstr("do", NULL));
 			ft_bzero(input, INPUT_BUFFER);
-			x = prompt_len;
-			len = 0;
-			i = 0;
+			line->x = line->prompt_len;
+			line->len = 0;
+			line->i = 0;
 			prompt();
 		}
 		else if (key == LEFT) {
-				move_left();
+				move_left(line);
 				// i--;
-				x--;
+				// line->x--;
 		}
 		else if (key == RIGHT) {
-			move_right();
-			x++;
+			move_right(line);
+			// line->x++;
 		}
 	}
 

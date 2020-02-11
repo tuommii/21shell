@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:02:45 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 09:19:08 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:39:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // TODO: Use tgetstr for better support ?
 
-void move_left()
+void move_left(t_line *line)
 {
 	// if (sh->x > sh->prompt_len)
 	// {
@@ -26,10 +26,15 @@ void move_left()
 	// ft_printf(tgoto(tgetstr("cm", NULL), 10, sh->y));
 	// sh->x--;
 	// sh->i--;
-	ft_putstr(tgetstr("le", NULL));
+	if (line->x > line->prompt_len)
+	{
+		ft_putstr(tgetstr("le", NULL));
+		line->x--;
+		line->i--;
+	}
 }
 
-void move_right()
+void move_right(t_line *line)
 {
 	// TODO: Prevent going over MAX INT
 	// static int new_row = 0;
@@ -43,7 +48,12 @@ void move_right()
 	// }
 	// else if (sh->len + sh->prompt_len > sh->x)
 	// {
-	ft_putstr(tgetstr("nd", NULL));
+	if (line->len + line->prompt_len > line->x)
+	{
+		ft_putstr(tgetstr("nd", NULL));
+		line->x++;
+		line->i++;
+	}
 		// ft_putstr(tgetstr("nd", NULL));
 		// CURSOR_RIGHT(1);
 	// sh->x++;
