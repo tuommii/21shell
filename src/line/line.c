@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 11:21:23 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 12:02:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_line *create_line_editor(void)
 
 void start_line_editor() {
 	t_line *line;
-
+	int offset = 0;
 	// TODO: Free memory
 	line = create_line_editor();
 	ft_bzero(line->input, INPUT_BUFFER);
@@ -75,11 +75,19 @@ void start_line_editor() {
 		else if (key == BACKSPACE) {
 			ft_insert(line->input, line->i, 0);
 			print_input(line);
-			move_left(line);
+			if (line->x - line->prompt_len == line->len)
+			{
+				move_left(line);
+			}
+			// test
+			else {
+				ft_putstr(tgetstr("do", NULL));
+			}
+
 			// FIX CURSOR GOING END
 			if (line->len > 0)
 				line->len--;
-			continue;
+			//continue;
 		}
 		else if (key == ENTER) {
 			ft_putstr(tgetstr("do", NULL));
