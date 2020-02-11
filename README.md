@@ -1,7 +1,8 @@
 # 21sh
 
 ### Reading
-- [control ops](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
+- [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
+- [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
 
 ### To-do
 - CTRL-L handling to clear screen

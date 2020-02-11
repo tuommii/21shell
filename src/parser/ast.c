@@ -6,14 +6,14 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:15:49 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/11 19:26:44 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/11 23:04:09 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
-** ============== Grammar (BNF) ==============
+** ============== Grammar (Backus–Naur form) ==============
 **
 ** 	semicol:			pipe ((T_SCOL) pipe)*
 ** 	pipe: 				command ((T_PIPE) command)*

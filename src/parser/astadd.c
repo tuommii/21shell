@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 18:09:49 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/11 18:55:03 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/11 23:01:42 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_ast		*new_leaf(t_token **token)
 {
 	int		bp;
 	t_ast	*new;
-	t_token	*stopper;
+	// t_token	*stopper;
 
 	if (!(new = ft_memalloc(sizeof(t_ast))))
 		return (NULL);
@@ -35,7 +35,7 @@ t_ast		*new_leaf(t_token **token)
 		bp = MASK_CTRL;
 	while ((*token)->next && !((*token)->type & bp))
 	{
-		stopper = *token;
+		// stopper = *token;
 		*token = (*token)->next;
 	}
 	// stopper->next = NULL;
