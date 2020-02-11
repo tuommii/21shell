@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 11:09:32 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 11:21:23 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_line *create_line_editor(void)
 	line->prompt_len = 2;
 	line->x = line->prompt_len;
 	line->len = 0;
+	line->delta = 0;
 	return (line);
 }
 
@@ -61,17 +62,24 @@ void start_line_editor() {
 			{
 				line->input[line->i] = (char)key;
 			}
-			int delta = line->len - (line->x - line->prompt_len);
+			line->delta = line->len - (line->x - line->prompt_len);
 			line->len++;
 			line->x++;
 			line->i++;
 
 			print_input(line);
 
-			while (delta-- > 0)
-				ft_putstr(tgetstr("le", NULL));
 				// move_left(line);
 
+		}
+		else if (key == BACKSPACE) {
+			ft_insert(line->input, line->i, 0);
+			print_input(line);
+			move_left(line);
+			// FIX CURSOR GOING END
+			if (line->len > 0)
+				line->len--;
+			continue;
 		}
 		else if (key == ENTER) {
 			ft_putstr(tgetstr("do", NULL));
@@ -90,6 +98,8 @@ void start_line_editor() {
 			move_right(line);
 			// line->x++;
 		}
+		while (line->delta-- > 0)
+			ft_putstr(tgetstr("le", NULL));
 	}
 
 }
