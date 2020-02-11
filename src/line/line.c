@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/10 11:47:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 09:44:22 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,24 @@ void start_line_editor() {
 			return ;
 		}
 		else if (ft_isprint(key)) {
-			input[i] = (char)key;
-			i++;
+			if (x - prompt_len < len)
+			{
+				ft_insert(input, x - prompt_len + 1, (char)key);
+			}
+			else if (x - prompt_len == len)
+			{
+				input[i] = (char)key;
+			}
+			int delta = len - (x - prompt_len);
 			len++;
 			x++;
+			i++;
 			ft_putstr(tgetstr("rc", NULL));
 			ft_printf("%-*s", len, input);
+
+			while (delta-- > 0)
+				move_left();
+
 		}
 		else if (key == ENTER) {
 			ft_putstr(tgetstr("do", NULL));
@@ -53,6 +65,7 @@ void start_line_editor() {
 		}
 		else if (key == LEFT) {
 				move_left();
+				// i--;
 				x--;
 		}
 		else if (key == RIGHT) {
