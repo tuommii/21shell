@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/06 07:06:29 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:52:21 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ t_hist *hist_pop(t_hist **head, int index);
 /*
 ** PROMPT
 */
-void		ascii_art(void);
-void		print_prompt(t_shell *sh);
-void		print_debug(t_shell *sh);
-void		print_input(t_shell *sh);
-void		get_shell_size(t_shell *sh);
+// void		ascii_art(void);
+// void		print_prompt(t_shell *sh);
+// void		print_debug(t_shell *sh);
+// void		print_input(t_shell *sh);
+// void		get_shell_size(t_shell *sh);
 
 
 /*

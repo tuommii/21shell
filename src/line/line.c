@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 10:41:36 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 11:09:32 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ static void prompt() {
 	ft_putstr(tgetstr("sc", NULL));
 }
 
-t_line *create_line_editor(void)
+static void print_input(t_line *line) {
+	ft_putstr(tgetstr("rc", NULL));
+	ft_printf("%-*s", line->len, line->input);
+}
+
+static t_line *create_line_editor(void)
 {
 	t_line *line;
 
@@ -32,14 +37,12 @@ t_line *create_line_editor(void)
 }
 
 void start_line_editor() {
-	char input[INPUT_BUFFER];
-	ft_bzero(input, INPUT_BUFFER);
-	prompt();
-
 	t_line *line;
 
 	// TODO: Free memory
 	line = create_line_editor();
+	ft_bzero(line->input, INPUT_BUFFER);
+	prompt();
 
 	while (1) {
 		listen_signals();
@@ -52,18 +55,18 @@ void start_line_editor() {
 		else if (ft_isprint(key)) {
 			if (line->x - line->prompt_len < line->len)
 			{
-				ft_insert(input, line->x - line->prompt_len + 1, (char)key);
+				ft_insert(line->input, line->x - line->prompt_len + 1, (char)key);
 			}
 			else if (line->x - line->prompt_len == line->len)
 			{
-				input[line->i] = (char)key;
+				line->input[line->i] = (char)key;
 			}
 			int delta = line->len - (line->x - line->prompt_len);
 			line->len++;
 			line->x++;
 			line->i++;
-			ft_putstr(tgetstr("rc", NULL));
-			ft_printf("%-*s", line->len, input);
+
+			print_input(line);
 
 			while (delta-- > 0)
 				ft_putstr(tgetstr("le", NULL));
@@ -72,7 +75,7 @@ void start_line_editor() {
 		}
 		else if (key == ENTER) {
 			ft_putstr(tgetstr("do", NULL));
-			ft_bzero(input, INPUT_BUFFER);
+			ft_bzero(line->input, INPUT_BUFFER);
 			line->x = line->prompt_len;
 			line->len = 0;
 			line->i = 0;

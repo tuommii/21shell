@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:56:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 10:40:24 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/11 11:06:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ typedef struct s_line
 				// Cursor
 				int x;
 				int y;
-				// Index
+				// Input index
 				int i;
-				// sh len
+				// input len
 				int len;
 				// terminal columns & rows
 				int rows;
 				int cols;
+				int delta;
 				// Prompt data
 				char *username;
 				char *extra;
