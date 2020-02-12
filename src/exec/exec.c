@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/11 19:13:31 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/12 19:41:29 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ int				execute(t_ast *ast)
 	if (!ast)
 		return (EXEC_OK);
 	// lnr_exection(ast, &r);
+	// ast = ast->right;
+	// while (ast->token && ast->token != ast->cmd_end)
+	// {
+	// 	ft_printf(" | execute [%s]", ast->token->data);
+	// 	ast->token = ast->token->next;
+	// }
 	if (r == EXEC_ERROR)
 		return (EXEC_ERROR);
 	return (EXEC_OK);

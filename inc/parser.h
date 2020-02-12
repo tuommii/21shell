@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/10 19:03:52 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/12 19:34:32 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef enum e_cmd_type	t_cmd_type;
 typedef struct			s_ast
 {
 	t_token				*token;
+	t_token				*cmd_end;
 	struct s_ast		*parent;
 	struct s_ast		*left;
 	struct s_ast		*right;

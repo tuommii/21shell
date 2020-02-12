@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/10 18:55:37 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/12 19:13:42 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ void	ast_debug(t_ast *root, int ws)
 	for (int i = AST_COUNT; i < ws; i++)
 		ft_printf(" ");
 	ft_printf("[%s][%d]\n", root->token->data, root->type);
+	// if (root->token->next)
+	// 	ft_printf("[%s]", root->token->next->data);
+	// if (root->token->next->next)
+	// 	ft_printf("[%s]", root->token->next->next->data);
 	ast_debug(root->left, ws);
 }
 
