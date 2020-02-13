@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/12 19:34:32 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 11:08:39 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int						args_count(t_token *token);
 int						check_syntax(t_lexer *lexer);
 int						parser(t_lexer **lexer);
 int						next_operator(t_token *token, int type);
-t_ast					*create_ast(t_token **token);
+void					ast_del(t_ast **ast);
+t_ast					*ast_create(t_token **token);
 t_ast					*new_leaf(t_token **token);
 t_ast					*new_node(t_ast *left, t_ast *parent, t_ast *right);
 

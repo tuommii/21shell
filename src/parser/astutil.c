@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   astadd.c                                           :+:      :+:    :+:   */
+/*   astutil.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 18:09:49 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/12 19:39:13 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 11:35:00 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,20 @@ t_ast		*new_node(t_ast *left, t_ast *parent, t_ast *right)
 	if (right)
 		right->parent = parent;
 	return (parent);
+}
+
+/*
+**	Delete AST and tokens using suffix travel
+*/
+
+void		ast_del(t_ast **ast)
+{
+	t_token *tmp;
+
+	if (!*ast || !ast)
+		return ;
+	ast_del(&(*ast)->left);
+	ast_del(&(*ast)->right);
+	free(*ast);
+	*ast = NULL;
 }

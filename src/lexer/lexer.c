@@ -6,11 +6,30 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/10 17:24:20 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 11:34:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void		lexer_del(t_lexer **lexer)
+{
+	t_token	*tmp;
+	t_token	*prev;
+
+	tmp = (*lexer)->head;
+	while (tmp)
+	{
+		ft_strdel(&tmp->data);
+		prev = tmp;
+		tmp = tmp->next;
+		free(prev);
+	}
+	(*lexer)->head = NULL;
+	(*lexer)->last = NULL;
+	free(*lexer);
+	*lexer = NULL;
+}
 
 static int	tokenize_operator(t_lexer *lexer, char *input)
 {
@@ -53,7 +72,7 @@ static int	tokenize_string(t_lexer *lexer, char *input)
 
 /*
 **	Add tokens to linked list:
-**		Operators "|", ";", ">>", "<<", ">", "<"
+**		Control tokens "|", ";", ">>", "<<", ">", "<"
 **		Strings (parse quotes and dquotes)
 **	Update count and flags to t_lexer
 */

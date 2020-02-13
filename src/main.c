@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 19:13:18 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 11:29:12 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ static void	fire_commands(t_lexer *lexer)
 {
 	t_ast	*ast;
 
-	ast = create_ast(&lexer->head);
+	ast = ast_create(&lexer->head);
 	if (ast && lexer->flags & DEBUG_AST)
 	{
 		tputs(tgetstr("cl", NULL), 1, print_char);
 		ast_debug(ast, 0);
 	}
 	execute(ast);
-	// free abstract syntax tree
+	ast_del(&ast);
 }
 
 static void run_shell(t_shell *sh)
@@ -98,11 +98,10 @@ static void run_shell(t_shell *sh)
 		if ((r = parser(&lexer)) == PARSER_OK)
 			fire_commands(lexer);
 		// parser_debug(ast);
-		// exec_cmd(cmd_lst);
+		lexer_del(&lexer);
 		// hist_print(sh->hist);
 		// if (sh->hist && sh->hist->prev)
 		// 	ft_printf("INDEX: %d, LAST: %s", sh->hist->prev->i, sh->hist->prev->str);
-		// free parser and lexer structs
 		reset_shell(sh);
 	}
 }

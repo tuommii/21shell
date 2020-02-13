@@ -20,7 +20,7 @@ SRC_NAME 	= 	main.c \
 				lexer/token.c \
 				lexer/utils.c \
 				parser/ast.c \
-				parser/astadd.c \
+				parser/astutil.c \
 				parser/command.c \
 				parser/parser.c \
 				parser/syntax.c \

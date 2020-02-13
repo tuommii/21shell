@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:15:49 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/12 19:29:52 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 11:01:04 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_ast	*semicol_level(t_token **token)
 	return (root);
 }
 
-t_ast		*create_ast(t_token **token)
+t_ast		*ast_create(t_token **token)
 {
 	t_ast	*root;
 
