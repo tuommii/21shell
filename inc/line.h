@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:56:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 11:51:46 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:54:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_line
 {
-				char input[INPUT_BUFFER];
+				char input[INPUT_BUFFER + 1];
 				// Cursor
 				int x;
 				int y;

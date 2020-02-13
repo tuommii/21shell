@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:02:45 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 11:52:14 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/13 11:33:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ void move_left(t_line *line)
 	// ft_printf(tgoto(tgetstr("cm", NULL), 10, sh->y));
 	// sh->x--;
 	// sh->i--;
-	if (line->x > line->prompt_len)
-	{
-		ft_putstr(tgetstr("le", NULL));
-		line->x--;
-		line->i--;
-	}
+
+	ft_putstr(tgetstr("le", NULL));
+	line->x--;
 }
 
 void move_right(t_line *line)

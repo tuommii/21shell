@@ -6,20 +6,36 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/11 12:02:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:21:00 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void prompt() {
-	ft_printf("%-*s", 2, "$>");
-	ft_putstr(tgetstr("sc", NULL));
+int		print_helper2(int c)
+{
+	return (write(STDIN_FILENO, &c, 1));
 }
 
-static void print_input(t_line *line) {
-	ft_putstr(tgetstr("rc", NULL));
-	ft_printf("%-*s", line->len, line->input);
+static void goto_begin()
+{
+	tputs(tgetstr("cr", NULL), 1, &print_helper2);
+}
+
+static void goto_prompt(t_line *line) {
+	goto_begin();
+	int len = line->prompt_len;
+	while (len--)
+	{
+		tputs(tgetstr("nd", NULL), 1, &print_helper2);
+	}
+}
+
+static void prompt(t_line *line) {
+	goto_begin();
+	ft_printf("%-*s", 2, "$>");
+	goto_prompt(line);
+	// ft_putstr(tgetstr("sc", NULL));
 }
 
 static t_line *create_line_editor(void)
@@ -43,8 +59,7 @@ void start_line_editor() {
 	// TODO: Free memory
 	line = create_line_editor();
 	ft_bzero(line->input, INPUT_BUFFER);
-	prompt();
-
+	prompt(line);
 	while (1) {
 		listen_signals();
 		watch_kill();
@@ -66,28 +81,14 @@ void start_line_editor() {
 			line->len++;
 			line->x++;
 			line->i++;
-
-			print_input(line);
-
-				// move_left(line);
-
+			goto_prompt(line);
+			ft_printf("%-s", line->input);
 		}
 		else if (key == BACKSPACE) {
 			ft_insert(line->input, line->i, 0);
-			print_input(line);
-			if (line->x - line->prompt_len == line->len)
-			{
-				move_left(line);
-			}
-			// test
-			else {
-				ft_putstr(tgetstr("do", NULL));
-			}
-
-			// FIX CURSOR GOING END
-			if (line->len > 0)
-				line->len--;
-			//continue;
+			ft_putstr(tgetstr("le", NULL));
+			ft_putstr(tgetstr("dc", NULL));
+			ft_printf("\n%s", line->input);
 		}
 		else if (key == ENTER) {
 			ft_putstr(tgetstr("do", NULL));
@@ -95,19 +96,25 @@ void start_line_editor() {
 			line->x = line->prompt_len;
 			line->len = 0;
 			line->i = 0;
-			prompt();
+			prompt(line);
 		}
 		else if (key == LEFT) {
-				move_left(line);
+			ft_putstr(tgetstr("le", NULL));
+			line->i--;
+			line->x--;
+				//move_left(line);
 				// i--;
 				// line->x--;
 		}
 		else if (key == RIGHT) {
-			move_right(line);
+			ft_putstr(tgetstr("nd", NULL));
+			//move_right(line);
 			// line->x++;
 		}
-		while (line->delta-- > 0)
-			ft_putstr(tgetstr("le", NULL));
+		//prompt(line);
+		// ft_putstr(tgetstr("rc", NULL));
+		// print_input(line);
+
 	}
 
 }
