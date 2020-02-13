@@ -6,14 +6,16 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 18:09:49 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 11:35:00 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 14:34:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
-**	Create a new leaf to AST and move token accordingy
+**	Create a new leaf to AST
+**	Breakpoint is either control character or string
+**	Mark the end of token list at breakpoint
 */
 
 t_ast		*new_leaf(t_token **token)
@@ -24,25 +26,23 @@ t_ast		*new_leaf(t_token **token)
 	if (!(new = ft_memalloc(sizeof(t_ast))))
 		return (NULL);
 	new->token = *token;
+	new->nbr_token = 1;
 	new->parent = NULL;
 	new->left = NULL;
 	new->right = NULL;
 	new->type = (*token)->type;
-	if ((*token)->type & MASK_OP)
-		bp = MASK_STR;
-	else
-		bp = MASK_OP;
+	bp = (*token)->type & MASK_OP ? MASK_STR : MASK_OP;
 	while ((*token)->next && !((*token)->type & bp))
+	{
+		new->nbr_token++;
 		*token = (*token)->next;
-	if (!(*token)->next)
-		new->cmd_end = (*token)->next;
-	else
-		new->cmd_end = *token;
+	}
+	new->cmd_end = !(*token)->next ? (*token)->next : *token;
 	return (new);
 }
 
 /*
-**	Create a new node to AST: parent and two children
+**	Create a new node to AST (parent and two children)
 */
 
 t_ast		*new_node(t_ast *left, t_ast *parent, t_ast *right)

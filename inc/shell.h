@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/10 19:04:53 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 15:53:07 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int g_kill;
 typedef struct	s_shell
 {
 				char input[INPUT_BUFFER];
+				char **env;
 				// Cursor
 				int x;
 				int y;
@@ -132,11 +133,17 @@ typedef struct	s_hist
 }					t_hist;
 
 /*
+**	Globals
+*/
+
+t_shell			g_shell;
+
+/*
 ** UTILITIES
 */
 void cleanup(t_shell *sh);
 void 	setup(int argc, char **argv, char **environment);
-t_shell *create_shell();
+void	create_shell(void);
 void reset_shell(t_shell *sh);
 void	print_debug(t_shell *sh);
 void	parser_debug(t_ast *ast);

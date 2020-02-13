@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/12 19:13:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 14:26:00 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void 	array_debug(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		ft_printf("    arr at index %d: [%s]", i, arr[i]);
+		ft_printf("  arr at index %d: [%s]", i, arr[i]);
 		i++;
 	}
 }

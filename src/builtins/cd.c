@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:55:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/01/22 11:50:18 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 15:37:22 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "exec.h"
 
 static void		print_path(char *path)
 {
@@ -49,11 +50,11 @@ static void		move_to(char *path, int print)
 	}
 }
 
-void			change_pwd(char **args)
+void			change_pwd(char **args, t_shell *sh)
 {
 	char	*cwd;
 
-	cwd = ft_strdup(get_env("PWD"));
+	cwd = ft_strdup(get_env("PWD"), sh);
 	if (args[2])
 	{
 		ft_putendl("cd: too many arguments");
@@ -76,12 +77,12 @@ void			change_pwd(char **args)
 **		Two args: modifies PWD variable and jumps into that directory.
 */
 
-int				cd_builtin(char **args)
+int				cd_builtin(char **args, t_shell *sh)
 {
 	char	*home;
 
-	home = get_env("HOME");
-	if (!args[0] || ft_strequ(args[0], get_env("USER"))
+	home = get_env("HOME", sh);
+	if (!args[0] || ft_strequ(args[0], get_env("USER", sh))
 				|| ft_strequ(args[0], "--"))
 	{
 		if (home)
@@ -92,7 +93,7 @@ int				cd_builtin(char **args)
 	else if (args[0] && args[1])
 		change_pwd(args);
 	else if (ft_strequ(args[0], "-"))
-		move_to(get_env("OLDPWD"), 1);
+		move_to(get_env("OLDPWD", sh), 1);
 	else
 		move_to(args[0], 0);
 	return (1);

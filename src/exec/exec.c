@@ -5,57 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 11:47:36 by srouhe           ###   ########.fr       */
+/*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
+/*   Updated: 2020/02/13 15:41:02 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "exec.h"
 
-void			lnr_exection(t_ast *ast, int *r)
+static int		fork21(char *path, char **args)
 {
-	if (ast == NULL)
-		return ;
-	lnr_exection(ast->left, r);
+	pid_t	pid;
 
-	// if (ast->token->type & MASK_CTRL)
-	// 	ft_printf(" | passing [%s]", ast->token->data);
-	// else if (!ast->parent)
-	// 	ft_printf(" | execute [%s]", ast->token->data);
-	// else if (ast->parent && ast->parent->right)
-	// 	ft_printf(" | execute [%s %s %s]", ast->token->data, ast->parent->token->data, ast->parent->right->token->data);
-	while (ast->token)
+	pid = fork();
+	if (!pid)
+		execve(path, args, NULL);
+	else if (pid < 0)
 	{
-		ft_printf(" [%s]", ast->token->data);
-		ast->token = ast->token->next;
+		ft_putendl("21sh: failed to create child process.");
+		return (-1);
 	}
-	// kato parent node. Tokenin perusteella oikee execute function pointer (tsekkaa printf)
-	lnr_exection(ast->right, r);
+	wait(&pid);
+	return (1);
 }
 
-int				exec_semicol(t_ast *ast)
+int				execute_command(t_ast *ast, t_shell *sh)
 {
-	ft_execute(ast->left);
-	return (ft_execute(ast->right));
-}
+	int		r;
+	char	**cmd;
 
-int				exec_pipe(t_ast *ast)
-{
-	// if (!ast->left)
-	// 	return (ft_launch_pipeline(ast, ast->parent->right));
-	// else
-	// 	return (ft_execute_pipeline(ast->left));
-}
-
-int				execute(t_ast *ast)
-{
-	if (!ast)
-		return (EXEC_OK);
-	if (ast->token->type & T_SCOL)
-		exec_semicol(ast);
-	else if (ast->token->type & T_PIPE)
-		exec_pipe(ast);
-	else if (!(ast->token->type & MASK_CTRL))
-		return (exec_cmd(ast));
-	return (EXEC_OK);
+	if ((cmd = expand_tokens(ast)))
+	{
+		// if ((builtins(cmd, sh) == 1))
+		// 	return (EXEC_OK);
+		// r = fork21(cmd[0], cmd);
+	}
+	array_debug(cmd);
+	ft_freestrarr(cmd);
+	return (r);
 }

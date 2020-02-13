@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/23 15:35:52 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:01:58 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,34 @@ void setup(int argc, char **argv, char **environment)
 	//ascii_art();
 }
 
-t_shell *create_shell(void)
+char	**init_env(char **env)
+{
+	int		i;
+	int		size;
+	char	**r;
+
+	size = 0;
+	while (env[size])
+		size++;
+	i = 0;
+	if (!(r = (char **)malloc(sizeof(char *) * (size + 1))))
+		return (NULL);
+	while (env[i])
+	{
+		if (!(r[i] = ft_strdup(env[i])))
+			return (NULL);
+		i++;
+	}
+	r[size] = NULL;
+	return (r);
+}
+
+t_shell *create_shell(char **environ)
 {
 	t_shell *sh;
 
 	sh = (t_shell *)ft_memalloc(sizeof(t_shell));
+	sh->env = init_env(environ);
 	sh->hist = NULL;
 	sh->i = 0;
 	sh->hist_i = 0;

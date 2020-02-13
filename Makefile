@@ -11,7 +11,9 @@ SRC_NAME 	= 	main.c \
 				signals.c \
 				prompt.c \
 				debug/debug.c \
+				exec/init.c \
 				exec/exec.c \
+				exec/utils.c \
 				input/move.c \
 				input/history.c \
 				input/edit.c \
@@ -21,12 +23,11 @@ SRC_NAME 	= 	main.c \
 				lexer/utils.c \
 				parser/ast.c \
 				parser/astutil.c \
-				parser/command.c \
 				parser/parser.c \
 				parser/syntax.c \
 				parser/utils.c \
 				# builtins/cd.c \
-				# builtins/echo.c \
+				# builtins/echo.c
 				# builtins/env_utils.c \
 				# builtins/setenv.c \
 				# builtins/unsetenv.c

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:15:49 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 11:01:04 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 13:39:09 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 ** Easy to add more levels when || && etc. operators come in play in 42sh
 */
 
-t_ast	*pipe_level(t_token **token)
+static t_ast	*pipe_level(t_token **token)
 {
 	t_ast	*root;
 	t_ast	*right;
@@ -43,7 +43,7 @@ t_ast	*pipe_level(t_token **token)
 	return (root);
 }
 
-t_ast	*semicol_level(t_token **token)
+static t_ast	*semicol_level(t_token **token)
 {
 	t_ast	*root;
 	t_ast	*right;
@@ -62,7 +62,7 @@ t_ast	*semicol_level(t_token **token)
 	return (root);
 }
 
-t_ast		*ast_create(t_token **token)
+t_ast			*ast_create(t_token **token)
 {
 	t_ast	*root;
 

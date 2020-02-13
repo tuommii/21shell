@@ -6,11 +6,12 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 11:29:12 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 15:52:54 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "exec.h"
 
 // free mem also
 void	exit_error(t_shell *sh, int errno)
@@ -24,6 +25,7 @@ void cleanup(t_shell *sh)
 {
 	// TODO: Free fields aldo
 	free(sh);
+	ft_freestrarr(sh->env);
 	config_terminal(1);
 	return exit(EXIT_SUCCESS);
 }
@@ -65,7 +67,7 @@ static int read_input(t_shell *sh)
 }
 
 
-static void	fire_commands(t_lexer *lexer)
+static void	fire_commands(t_lexer *lexer, t_shell *sh)
 {
 	t_ast	*ast;
 
@@ -75,11 +77,11 @@ static void	fire_commands(t_lexer *lexer)
 		tputs(tgetstr("cl", NULL), 1, print_char);
 		ast_debug(ast, 0);
 	}
-	execute(ast);
+	execution_init(ast, sh);
 	ast_del(&ast);
 }
 
-static void run_shell(t_shell *sh)
+static void run_shell(void)
 {
 	int		r;
 	t_lexer	*lexer;
@@ -96,7 +98,7 @@ static void run_shell(t_shell *sh)
 		if (lexer->flags & DEBUG_LEXER)
 			lexer_debug(lexer);
 		if ((r = parser(&lexer)) == PARSER_OK)
-			fire_commands(lexer);
+			fire_commands(lexer, sh);
 		// parser_debug(ast);
 		lexer_del(&lexer);
 		// hist_print(sh->hist);
@@ -106,11 +108,10 @@ static void run_shell(t_shell *sh)
 	}
 }
 
-int	main(int argc, char **argv, char **environment)
+int	main(int argc, char **argv, char **environ)
 {
-	t_shell *sh;
-	setup(argc, argv, environment);
-	sh = create_shell();
-	run_shell(sh);
-	cleanup(sh);
+	setup(argc, argv, environ);
+	create_shell(environ);
+	run_shell();
+	cleanup();
 }

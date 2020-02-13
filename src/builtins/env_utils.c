@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:56:31 by srouhe            #+#    #+#             */
-/*   Updated: 2020/01/22 11:51:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 15:28:36 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-void	init_env(int ac, char **av, char **env)
-{
-	int		i;
-	int		size;
-
-	size = 0;
-	while (env[size])
-		size++;
-	i = 0;
-	(void)ac;
-	(void)av;
-	if (!(g_env = (char **)malloc(sizeof(char *) * (size + 1))))
-		exit_shell(2);
-	while (env[i])
-	{
-		if (!(g_env[i] = ft_strdup(env[i])))
-			exit_shell(2);
-		i++;
-	}
-	g_env[size] = NULL;
-}
 
 int		display_env(void)
 {
