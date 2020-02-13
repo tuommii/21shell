@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 18:13:41 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 16:14:59 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:29:19 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int				unsetenv_builtin(char **args)
 			i++;
 		}
 	}
-	return (1);
+	return (EXEC_OK);
 }

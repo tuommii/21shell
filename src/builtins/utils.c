@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:56:31 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 16:18:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:29:45 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+int		display_env(void)
+{
+	int		i;
+
+	i = 0;
+	while (g_sh.env[i])
+	{
+		ft_putendl(g_sh.env[i]);
+		i++;
+	}
+	return (EXEC_OK);
+}
 
 char	*parse_path(char *cwd)
 {
@@ -27,19 +40,6 @@ char	*parse_path(char *cwd)
 		return (ft_strdup("~"));
 	else
 		return (ft_pathjoin("~", cwd + ft_strlen(home)));
-}
-
-int		display_env(void)
-{
-	int		i;
-
-	i = 0;
-	while (g_sh.env[i])
-	{
-		ft_putendl(g_sh.env[i]);
-		i++;
-	}
-	return (1);
 }
 
 int		find_env(char *var)

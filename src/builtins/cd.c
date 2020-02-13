@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:55:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 16:05:24 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:28:50 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int				cd_builtin(char **args)
 		if (home)
 			move_to(home, 0);
 		else
-			return (1);
+			return (EXEC_OK);
 	}
 	else if (args[0] && args[1])
 		change_pwd(args);
@@ -96,5 +96,5 @@ int				cd_builtin(char **args)
 		move_to(get_env("OLDPWD"), 1);
 	else
 		move_to(args[0], 0);
-	return (1);
+	return (EXEC_OK);
 }

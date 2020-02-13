@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 16:17:08 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 17:17:05 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 
 # define OUTPUT STDOUT_FILENO
 
+# define MALLOC_ERROR 2
+# define FORK_ERROR 3
+# define EXECVE_ERROR 4
 
 /*
 ** KEYBOARD

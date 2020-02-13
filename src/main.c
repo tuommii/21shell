@@ -6,36 +6,36 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 16:03:26 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 17:20:12 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include "exec.h"
 
 // free mem also
 void	exit_error(int errno)
 {
+	errno == MALLOC_ERROR ? ft_putendl("malloc error.") : PASS;
+	errno == FORK_ERROR ? ft_putendl("fork error.") : PASS;
+	errno == EXECVE_ERROR ? ft_putendl("execve error.") : PASS;
 	reset_shell();
-	errno == 2 ? ft_putendl("malloc error.") : NULL;
+	ft_freestrarr(g_sh.env);
 	exit(errno);
 }
 
-void cleanup(void)
+void 	cleanup(void)
 {
 	// TODO: Free fields aldo
 	ft_freestrarr(g_sh.env);
 	config_terminal(1);
-	return exit(EXIT_SUCCESS);
+	return (exit(EXIT_SUCCESS));
 }
 
 // After ENTER pressed, reset variables
 void reset_shell(void)
 {
 	if (g_sh.key == ENTER)
-	{
 		ft_printf("\n");
-	}
 	g_sh.i = 0;
 	g_sh.x = g_sh.prompt_len;
 	g_sh.y++;
@@ -107,9 +107,9 @@ static void run_shell(void)
 	}
 }
 
-int	main(int argc, char **argv, char **environ)
+int		main(int ac, char **av, char **environ)
 {
-	setup(argc, argv, environ);
+	setup(ac, av, environ);
 	create_shell(environ);
 	run_shell();
 	cleanup();

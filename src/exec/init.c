@@ -6,18 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 16:04:50 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:26:40 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include "exec.h"
-
-// int				exec_semicol(t_ast *ast)
-// {
-// 	ft_execute(ast->left);
-// 	return (ft_execute(ast->right));
-// }
 
 // int				exec_pipe(t_ast *ast)
 // {
