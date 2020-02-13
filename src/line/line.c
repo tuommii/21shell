@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 16:23:43 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/13 17:30:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 int		print_helper2(int c)
 {
 	return (write(STDIN_FILENO, &c, 1));
+}
+
+void	get_shell_size(t_line *line)
+{
+	struct winsize w;
+
+	ioctl(OUTPUT, TIOCGSIZE, &w);
+	line->rows = w.ws_row;
+	line->cols = w.ws_col;
 }
 
 static void goto_begin()
@@ -35,7 +44,7 @@ static void debug(t_line *line)
 {
 	tputs(tgetstr("sc", NULL), 1, &print_helper2);
 	tputs(tgetstr("do", NULL), 1, &print_helper2);
-	ft_printf("%d, %d", line->x, line->i);
+	ft_printf("X:[%d], I:[%d], LEN:[%d], COLS: [%d]", line->x, line->i, line->len, line->cols);
 	tputs(tgetstr("rc", NULL), 1, &print_helper2);
 }
 
@@ -58,6 +67,7 @@ static t_line *create_line_editor(void)
 	line->x = line->prompt_len;
 	line->len = 0;
 	line->delta = 0;
+	get_shell_size(line);
 	return (line);
 }
 
@@ -84,6 +94,10 @@ void start_line_editor() {
 				ft_putchar((char)key);
 				tputs(tgetstr("ei", NULL), 1, &print_helper2);
 				ft_insert(line->input, line->x - line->prompt_len + 1, (char)key);
+				line->i++;
+				line->len++;
+				line->x++;
+				//debug(line);
 				continue;
 			}
 			else if (line->x - line->prompt_len == line->len)
@@ -91,11 +105,6 @@ void start_line_editor() {
 				line->input[line->i] = (char)key;
 			}
 			line->delta = line->len - (line->x - line->prompt_len);
-			// Chgange row like this maybe
-			// if (line->len > 10)
-			// {
-			// 	ft_putstr(tgetstr("do", NULL));
-			// }
 			line->len++;
 			line->x++;
 			line->i++;
@@ -129,7 +138,7 @@ void start_line_editor() {
 			line->i++;
 			line->x++;
 		}
-		debug(line);
+		//debug(line);
 	}
 
 }
