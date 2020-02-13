@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 15:53:07 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:17:08 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "libft.h"
 # include "lexer.h"
 # include "parser.h"
+# include "exec.h"
 
 # define OUTPUT STDOUT_FILENO
 
@@ -136,16 +137,16 @@ typedef struct	s_hist
 **	Globals
 */
 
-t_shell			g_shell;
+t_shell			g_sh;
 
 /*
 ** UTILITIES
 */
-void cleanup(t_shell *sh);
+void 	cleanup(void);
 void 	setup(int argc, char **argv, char **environment);
-void	create_shell(void);
-void reset_shell(t_shell *sh);
-void	print_debug(t_shell *sh);
+void	create_shell(char **environ);
+void 	reset_shell(void);
+void	print_debug(void);
 void	parser_debug(t_ast *ast);
 void	lexer_debug(t_lexer *lexer);
 void 	array_debug(char **arr);
@@ -164,20 +165,20 @@ t_hist *hist_pop(t_hist **head, int index);
 ** KEYBOARD
 */
 int	keypress(void);
-int which_key(t_shell *sh);
-int handle_printable(t_shell *sh);
-int handle_arrow_keys(t_shell *sh);
-int handle_command_keys(t_shell *sh);
+int which_key(void);
+int handle_printable(void);
+int handle_arrow_keys(void);
+int handle_command_keys(void);
 
 
 /*
 ** PROMPT
 */
 void		ascii_art(void);
-void		print_prompt(t_shell *sh);
-void		print_debug(t_shell *sh);
-void		print_input(t_shell *sh);
-void		get_shell_size(t_shell *sh);
+void		print_prompt(void);
+void		print_debug(void);
+void		print_input(void);
+void		get_shell_size(void);
 
 
 /*
@@ -193,15 +194,15 @@ void	watch_kill();
 /*
 ** MOVE
 */
-void move_left(t_shell *sh);
-void move_right(t_shell *sh);
+void move_left(void);
+void move_right(void);
 
 /*
 ** EDIT
 */
-void end_of_input(t_shell *sh);
-void start_of_input(t_shell *sh);
-void erase_input(t_shell *sh);
+void end_of_input(void);
+void start_of_input(void);
+void erase_input(void);
 
 
 int		print_char(int c);
@@ -210,6 +211,6 @@ int		print_char(int c);
 ** ERROR
 */
 
-void	exit_error(t_shell *sh, int errno);
+void	exit_error(int errno);
 
 #endif

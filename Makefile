@@ -26,11 +26,11 @@ SRC_NAME 	= 	main.c \
 				parser/parser.c \
 				parser/syntax.c \
 				parser/utils.c \
-				# builtins/cd.c \
-				# builtins/echo.c
-				# builtins/env_utils.c \
-				# builtins/setenv.c \
-				# builtins/unsetenv.c
+				builtins/cd.c \
+				builtins/echo.c \
+				builtins/utils.c \
+				builtins/setenv.c \
+				builtins/unsetenv.c
 
 SRCS 		= 	$(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS 		= 	$(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))

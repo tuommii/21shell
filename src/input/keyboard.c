@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:16:26 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/03 21:32:13 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:09:17 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,92 +64,92 @@ int	keypress(void)
 }
 
 // TODO: Multiline support
-int handle_printable(t_shell *sh)
+int handle_printable(void)
 {
-	if (ft_isprint(sh->key))
+	if (ft_isprint(g_sh.key))
 	{
-		if (sh->x - sh->prompt_len < sh->len)
+		if (g_sh.x - g_sh.prompt_len < g_sh.len)
 		{
-			ft_insert(sh->input, sh->x - sh->prompt_len + 1, (char)sh->key);
+			ft_insert(g_sh.input, g_sh.x - g_sh.prompt_len + 1, (char)g_sh.key);
 		}
-		else if (sh->x - sh->prompt_len == sh->len)
+		else if (g_sh.x - g_sh.prompt_len == g_sh.len)
 		{
-			sh->input[sh->i] = (char)sh->key;
+			g_sh.input[g_sh.i] = (char)g_sh.key;
 		}
-		sh->len++;
-		move_right(sh);
+		g_sh.len++;
+		move_right();
 		return (1);
 	}
 	return (0);
 }
 
-int handle_arrow_keys(t_shell *sh)
+int handle_arrow_keys(void)
 {
-	if (sh->key == LEFT)
-		move_left(sh);
-	else if (sh->key == RIGHT)
-		move_right(sh);
-	else if (sh->key == UP)
+	if (g_sh.key == LEFT)
+		move_left();
+	else if (g_sh.key == RIGHT)
+		move_right();
+	else if (g_sh.key == UP)
 	{
 		// If no history, delete line. just placeholder action
-		if (sh->hist && sh->hist->prev && sh->hist_i < sh->hist_count)
+		if (g_sh.hist && g_sh.hist->prev && g_sh.hist_i < g_sh.hist_count)
 		{
-			erase_input(sh);
-			t_hist *node = hist_pop(&sh->hist, sh->hist_i);
-			ft_strcpy(sh->input, node->str);
-			sh->len = ft_strlen(sh->input);
-			CURSOR_RIGHT(sh->prompt_len + sh->len - sh->x);
-			sh->x = sh->prompt_len + sh->len;
-			sh->i = sh->len;
-			sh->hist_i++;
+			erase_input();
+			t_hist *node = hist_pop(&g_sh.hist, g_sh.hist_i);
+			ft_strcpy(g_sh.input, node->str);
+			g_sh.len = ft_strlen(g_sh.input);
+			CURSOR_RIGHT(g_sh.prompt_len + g_sh.len - g_sh.x);
+			g_sh.x = g_sh.prompt_len + g_sh.len;
+			g_sh.i = g_sh.len;
+			g_sh.hist_i++;
 		}
 	}
-	else if (sh->key == DOWN)
+	else if (g_sh.key == DOWN)
 	{
-		if (sh->hist_i == 1)
+		if (g_sh.hist_i == 1)
 		{
-			sh->hist_i--;
-			erase_input(sh);
+			g_sh.hist_i--;
+			erase_input();
 		}
-		if (sh->hist_i > 1)
+		if (g_sh.hist_i > 1)
 		{
-			sh->hist_i--;
-			erase_input(sh);
-			t_hist *node = hist_pop(&sh->hist, sh->hist_i-1);
-			ft_strcpy(sh->input, node->str);
-			sh->len = ft_strlen(sh->input);
-			CURSOR_RIGHT(sh->prompt_len + sh->len - sh->x);
-			sh->x = sh->prompt_len + sh->len;
-			sh->i = sh->len;
-			// sh->hist_i++;
+			g_sh.hist_i--;
+			erase_input();
+			t_hist *node = hist_pop(&g_sh.hist, g_sh.hist_i-1);
+			ft_strcpy(g_sh.input, node->str);
+			g_sh.len = ft_strlen(g_sh.input);
+			CURSOR_RIGHT(g_sh.prompt_len + g_sh.len - g_sh.x);
+			g_sh.x = g_sh.prompt_len + g_sh.len;
+			g_sh.i = g_sh.len;
+			// g_sh.hist_i++;
 		}
 		// If started rolling history
 		// change
 		// if no next
 		// empty input
 	}
-	if (sh->key == LEFT || sh->key == RIGHT || sh->key == UP)
+	if (g_sh.key == LEFT || g_sh.key == RIGHT || g_sh.key == UP)
 		return (1);
 	return (0);
 }
 
-int handle_command_keys(t_shell *sh)
+int handle_command_keys(void)
 {
-	if (sh->key == TAB)
+	if (g_sh.key == TAB)
 	{
 		tputs(tgetstr("vb", NULL), 1, print_char);
 		return (1);
 	}
-	else if (sh->key == BACKSPACE)
+	else if (g_sh.key == BACKSPACE)
 	{
-		ft_insert(sh->input, sh->i, 0);
-		move_left(sh);
-		print_input(sh);
-		if (sh->len > 0)
-			sh->len--;
+		ft_insert(g_sh.input, g_sh.i, 0);
+		move_left();
+		print_input();
+		if (g_sh.len > 0)
+			g_sh.len--;
 		return (1);
 	}
-	else if (sh->key == ESC)
+	else if (g_sh.key == ESC)
 	{
 		ft_printf("\n");
 		return (ESC);
@@ -157,37 +157,37 @@ int handle_command_keys(t_shell *sh)
 	return (0);
 }
 
-int handle_nav_keys(t_shell *sh)
+int handle_nav_keys(void)
 {
-	if (sh->key == HOME_KEY)
+	if (g_sh.key == HOME_KEY)
 	{
-		start_of_input(sh);
+		start_of_input();
 		return (1);
 	}
-	else if (sh->key == END_KEY)
+	else if (g_sh.key == END_KEY)
 	{
-		end_of_input(sh);
+		end_of_input();
 		return (1);
 	}
-	else if (sh->key == CTRL_LEFT)
+	else if (g_sh.key == CTRL_LEFT)
 	{
 		return (1);
 	}
-	else if (sh->key == CTRL_D)
+	else if (g_sh.key == CTRL_D)
 	{
-		if (sh->len && (sh->x - sh->prompt_len) < sh->len)
+		if (g_sh.len && (g_sh.x - g_sh.prompt_len) < g_sh.len)
 		{
-			ft_insert(sh->input, sh->i+1, 0);
+			ft_insert(g_sh.input, g_sh.i+1, 0);
 			// move_left(sh);
-			print_input(sh);
-			if (sh->len > 0)
-				sh->len--;
+			print_input();
+			if (g_sh.len > 0)
+				g_sh.len--;
 			return (1);
 		}
-		else if (!sh->len)
+		else if (!g_sh.len)
 		{
 			// TODO: Global exit func
-			cleanup(sh);
+			cleanup();
 		}
 
 	}
@@ -195,27 +195,27 @@ int handle_nav_keys(t_shell *sh)
 }
 
 // TODO: Ctrl+D deletes selected char
-int which_key(t_shell *sh)
+int which_key(void)
 {
-	if (sh->key != UP && sh->key != DOWN)
+	if (g_sh.key != UP && g_sh.key != DOWN)
 	{
-		sh->hist_i = 0;
+		g_sh.hist_i = 0;
 	}
-	if (handle_printable(sh))
+	if (handle_printable())
 	{
 
 	}
-	else if (handle_arrow_keys(sh))
+	else if (handle_arrow_keys())
 		;
-	else if (handle_command_keys(sh) == ESC)
+	else if (handle_command_keys() == ESC)
 		return (ESC);
-	else if (handle_nav_keys(sh) == ESC)
+	else if (handle_nav_keys() == ESC)
 		;
-	else if (sh->key == CTRL_L)
+	else if (g_sh.key == CTRL_L)
 	{
 		tputs(tgetstr("cl", NULL), 1, print_char);
-		sh->y = 0;
-		sh->x = sh->prompt_len;
+		g_sh.y = 0;
+		g_sh.x = g_sh.prompt_len;
 		return (CTRL_L) ;
 	}
 	return (0);

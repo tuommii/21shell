@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 16:12:05 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 15:28:23 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:22:20 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /*
 **		Builtin echo command.
-**		Checks for no newline (-n) flag
 */
 
 int				echo_builtin(char **args)

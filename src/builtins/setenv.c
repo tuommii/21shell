@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 17:01:10 by srouhe            #+#    #+#             */
-/*   Updated: 2020/01/22 11:50:33 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:16:37 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+char	*parse_quotes(char *s)
+{
+	char	quote[2];
+
+	quote[0] = '"';
+	quote[1] = '\0';
+	return (ft_str_replace(ft_strdup(s), quote, ""));
+}
 
 void	set_env(char *key, char *value)
 {
@@ -19,21 +28,21 @@ void	set_env(char *key, char *value)
 
 	tmp = ft_strjoin(key, "=");
 	i = find_env(key);
-	if (g_env[i])
+	if (g_sh.env[i])
 	{
-		free(g_env[i]);
+		free(g_sh.env[i]);
 		if (value)
-			g_env[i] = ft_strjoin(tmp, value);
+			g_sh.env[i] = ft_strjoin(tmp, value);
 		else
-			g_env[i] = ft_strdup(tmp);
+			g_sh.env[i] = ft_strdup(tmp);
 	}
 	else
 	{
-		g_env = realloc_arr(i + 1);
+		g_sh.env = realloc_arr(i + 1);
 		if (value)
-			g_env[i] = ft_strjoin(tmp, value);
+			g_sh.env[i] = ft_strjoin(tmp, value);
 		else
-			g_env[i] = ft_strdup(tmp);
+			g_sh.env[i] = ft_strdup(tmp);
 	}
 	free(tmp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:11:32 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/20 17:15:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/13 16:07:27 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,35 @@
   \033[u
 */
 
-void end_of_input(t_shell *sh)
+void end_of_input(void)
 {
-	if (sh->i < sh->len)
+	if (g_sh.i < g_sh.len)
 	{
-		CURSOR_RIGHT(sh->len - sh->i);
-		sh->x += sh->len - sh->i;
-		sh->i = sh->len;
+		CURSOR_RIGHT(g_sh.len - g_sh.i);
+		g_sh.x += g_sh.len - g_sh.i;
+		g_sh.i = g_sh.len;
 	}
 }
 
-void start_of_input(t_shell *sh)
+void start_of_input(void)
 {
 	int delta;
 
-	delta = sh->x - sh->prompt_len;
-	if (sh->len && sh->i)
+	delta = g_sh.x - g_sh.prompt_len;
+	if (g_sh.len && g_sh.i)
 	{
 		CURSOR_LEFT(delta);
-		sh->i -= delta;
-		sh->x -= delta;
-		// sh->len = 0;
+		g_sh.i -= delta;
+		g_sh.x -= delta;
+		// g_sh.len = 0;
 	}
 }
 
-void erase_input(t_shell *sh)
+void erase_input(void)
 {
-	ft_bzero(sh->input, INPUT_BUFFER);
-	end_of_input(sh);
-	start_of_input(sh);
+	ft_bzero(g_sh.input, INPUT_BUFFER);
+	end_of_input();
+	start_of_input();
 	ERASE_TO_EOL;
-	sh->len = 0;
+	g_sh.len = 0;
 }

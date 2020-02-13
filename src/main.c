@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 15:52:54 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:03:26 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,59 @@
 #include "exec.h"
 
 // free mem also
-void	exit_error(t_shell *sh, int errno)
+void	exit_error(int errno)
 {
-	reset_shell(sh);
+	reset_shell();
 	errno == 2 ? ft_putendl("malloc error.") : NULL;
 	exit(errno);
 }
 
-void cleanup(t_shell *sh)
+void cleanup(void)
 {
 	// TODO: Free fields aldo
-	free(sh);
-	ft_freestrarr(sh->env);
+	ft_freestrarr(g_sh.env);
 	config_terminal(1);
 	return exit(EXIT_SUCCESS);
 }
 
 // After ENTER pressed, reset variables
-void reset_shell(t_shell *sh)
+void reset_shell(void)
 {
-	if (sh->key == ENTER)
+	if (g_sh.key == ENTER)
 	{
 		ft_printf("\n");
 	}
-	sh->i = 0;
-	sh->x = sh->prompt_len;
-	sh->y++;
-	if (sh->y > sh->rows)
-		sh->y = sh->rows;
-	sh->len = 0;
-	ft_bzero(sh->input, INPUT_BUFFER);
+	g_sh.i = 0;
+	g_sh.x = g_sh.prompt_len;
+	g_sh.y++;
+	if (g_sh.y > g_sh.rows)
+		g_sh.y = g_sh.rows;
+	g_sh.len = 0;
+	ft_bzero(g_sh.input, INPUT_BUFFER);
 }
 
 
-static int read_input(t_shell *sh)
+static int read_input(void)
 {
-	while ((sh->key = keypress()) != ENTER)
+	while ((g_sh.key = keypress()) != ENTER)
 	{
 		watch_kill();
-		which_key(sh);
+		which_key();
 		//print_debug(sh);
-		print_input(sh);
+		print_input();
 	}
 	// TODO: Prevent adding same than last
-	end_of_input(sh);
-	sh->hist_i = 0;
-	if (*sh->input)
+	end_of_input();
+	g_sh.hist_i = 0;
+	if (*g_sh.input)
 	{
-		sh->hist_count += hist_append(&sh->hist, sh->input);
+		g_sh.hist_count += hist_append(&g_sh.hist, g_sh.input);
 	}
 	return (ENTER);
 }
 
 
-static void	fire_commands(t_lexer *lexer, t_shell *sh)
+static void	fire_commands(t_lexer *lexer)
 {
 	t_ast	*ast;
 
@@ -77,7 +76,7 @@ static void	fire_commands(t_lexer *lexer, t_shell *sh)
 		tputs(tgetstr("cl", NULL), 1, print_char);
 		ast_debug(ast, 0);
 	}
-	execution_init(ast, sh);
+	execution_init(ast);
 	ast_del(&ast);
 }
 
@@ -89,22 +88,22 @@ static void run_shell(void)
 	while (1)
 	{
 		listen_signals();
-		//print_debug(sh);
-		print_prompt(sh);
-		if ((sh->key = read_input(sh)) == ESC)
+		//print_debug();
+		print_prompt();
+		if ((g_sh.key = read_input()) == ESC)
 			return ;
-		tokenize(&lexer, sh->input);
+		tokenize(&lexer, g_sh.input);
 		// ft_printf("    first token: [%s] last token: [%s]", lexer->head->data, lexer->last->data);
 		if (lexer->flags & DEBUG_LEXER)
 			lexer_debug(lexer);
 		if ((r = parser(&lexer)) == PARSER_OK)
-			fire_commands(lexer, sh);
+			fire_commands(lexer);
 		// parser_debug(ast);
 		lexer_del(&lexer);
-		// hist_print(sh->hist);
-		// if (sh->hist && sh->hist->prev)
-		// 	ft_printf("INDEX: %d, LAST: %s", sh->hist->prev->i, sh->hist->prev->str);
-		reset_shell(sh);
+		// hist_print(g_sh.hist);
+		// if (g_sh.hist && g_sh.hist->prev)
+		// 	ft_printf("INDEX: %d, LAST: %s", g_sh.hist->prev->i, g_sh.hist->prev->str);
+		reset_shell();
 	}
 }
 

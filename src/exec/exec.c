@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 15:41:02 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:12:21 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ static int		fork21(char *path, char **args)
 	return (1);
 }
 
-int				execute_command(t_ast *ast, t_shell *sh)
+int				execute_command(t_ast *ast)
 {
 	int		r;
 	char	**cmd;
 
 	if ((cmd = expand_tokens(ast)))
 	{
-		// if ((builtins(cmd, sh) == 1))
-		// 	return (EXEC_OK);
+		if ((builtins(cmd) == 1))
+			return (EXEC_OK);
 		// r = fork21(cmd[0], cmd);
 	}
 	array_debug(cmd);

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:35:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 15:01:58 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 16:09:47 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,28 +96,24 @@ char	**init_env(char **env)
 	return (r);
 }
 
-t_shell *create_shell(char **environ)
+void	create_shell(char **environ)
 {
-	t_shell *sh;
-
-	sh = (t_shell *)ft_memalloc(sizeof(t_shell));
-	sh->env = init_env(environ);
-	sh->hist = NULL;
-	sh->i = 0;
-	sh->hist_i = 0;
-	sh->len = 0;
-	sh->key = 0;
-	sh->hist_count = 0;
+	g_sh.env = init_env(environ);
+	g_sh.hist = NULL;
+	g_sh.i = 0;
+	g_sh.hist_i = 0;
+	g_sh.len = 0;
+	g_sh.key = 0;
+	g_sh.hist_count = 0;
 	// TODO: If doesn't exist
-	sh->username = getenv("LOGNAME");
-	sh->username_len = ft_strlen(sh->username);
-	sh->extra = "$>";
-	sh->extra_len = ft_strlen(sh->extra);
-	sh->prompt_len = sh->username_len + sh->extra_len;
-	sh->x = sh->prompt_len;
-	ft_bzero(sh->input, INPUT_BUFFER);
-	get_shell_size(sh);
+	g_sh.username = getenv("LOGNAME");
+	g_sh.username_len = ft_strlen(g_sh.username);
+	g_sh.extra = "$>";
+	g_sh.extra_len = ft_strlen(g_sh.extra);
+	g_sh.prompt_len = g_sh.username_len + g_sh.extra_len;
+	g_sh.x = g_sh.prompt_len;
+	ft_bzero(g_sh.input, INPUT_BUFFER);
+	get_shell_size();
 	// Or ascii art rows + 1
-	sh->y = 0;
-	return (sh);
+	g_sh.y = 0;
 }
