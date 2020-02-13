@@ -6,12 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:55:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 16:28:50 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 20:56:41 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include "exec.h"
 
 static void		print_path(char *path)
 {
@@ -30,7 +29,7 @@ static void		move_to(char *path, int print)
 
 	if (!chdir(path))
 	{
-		pwd = ft_strdup(get_env("PWD"));
+		pwd = ft_strdup(getenv("PWD"));
 		set_env("OLDPWD", pwd);
 		cwd = getcwd(buffer, BUF_SIZE);
 		set_env("PWD", cwd);
@@ -41,12 +40,11 @@ static void		move_to(char *path, int print)
 	{
 		ft_putstr("cd: ");
 		if (access(path, F_OK) == -1)
-			ft_putstr("no such file or directory: ");
+			print_error(NOT_FOUND_ERR, path);
 		else if (access(path, R_OK) == -1)
-			ft_putstr("permission denied: ");
+			print_error(PERMISSION_ERR, path);
 		else
-			ft_putstr("not a directory: ");
-		ft_putendl(path);
+			print_error(NOT_DIR_ERR, path);
 	}
 }
 
@@ -54,11 +52,9 @@ void			change_pwd(char **args)
 {
 	char	*cwd;
 
-	cwd = ft_strdup(get_env("PWD"));
+	cwd = ft_strdup(getenv("PWD"));
 	if (args[2])
-	{
 		ft_putendl("cd: too many arguments");
-	}
 	else if (ft_strstr(cwd, args[0]))
 	{
 		cwd = ft_str_replace(cwd, args[0], args[1]);
@@ -81,8 +77,8 @@ int				cd_builtin(char **args)
 {
 	char	*home;
 
-	home = get_env("HOME");
-	if (!args[0] || ft_strequ(args[0], get_env("USER"))
+	home = getenv("HOME");
+	if (!args[0] || ft_strequ(args[0], getenv("USER"))
 				|| ft_strequ(args[0], "--"))
 	{
 		if (home)
@@ -93,7 +89,7 @@ int				cd_builtin(char **args)
 	else if (args[0] && args[1])
 		change_pwd(args);
 	else if (ft_strequ(args[0], "-"))
-		move_to(get_env("OLDPWD"), 1);
+		move_to(getenv("OLDPWD"), 1);
 	else
 		move_to(args[0], 0);
 	return (EXEC_OK);

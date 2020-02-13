@@ -6,20 +6,25 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 18:52:09 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 22:44:18 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+** Fork new child process and execute
+*/
 
 static int		fork21(char *path, char **args)
 {
 	pid_t	pid;
 
 	pid = fork();
+	// signal(SIGINT, signal_handler);
 	if (!pid)
 	{
-		if ((execve(path, args, NULL)) == -1)
+		if ((execve(path, args, g_sh.env)) == -1)
 			exit_error(EXECVE_ERROR);
 	}
 	else if (pid < 0)
@@ -27,6 +32,10 @@ static int		fork21(char *path, char **args)
 	wait(&pid);
 	return (EXEC_OK);
 }
+
+/*
+** Check binary execution rights
+*/
 
 static int		check_binary(char *path, char **args, struct stat attr)
 {
@@ -44,6 +53,11 @@ static int		check_binary(char *path, char **args, struct stat attr)
 	return (EXEC_ERROR);
 }
 
+/*
+** Check for binary in PATH env variable
+** Return error if not found
+*/
+
 static int		binaries(char **cmd)
 {
 	int				i;
@@ -52,7 +66,7 @@ static int		binaries(char **cmd)
 	struct stat		attr;
 
 	i = 0;
-	path = ft_strsplit(get_env("PATH"), ':');
+	path = ft_strsplit(getenv("PATH"), ':');
 	while (path && path[i])
 	{
 		exec = ft_pathjoin(path[i], cmd[0]);

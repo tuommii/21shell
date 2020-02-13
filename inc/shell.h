@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 18:43:46 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 22:43:43 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/wait.h> 
 # include <fcntl.h>
 # include <signal.h>
 # include <term.h>
@@ -36,6 +37,10 @@
 # define EXECVE_ERROR 4
 # define SYNTAX_ERR 5
 # define PERMISSION_ERR 6
+# define NOT_FOUND_ERR 7
+# define NOT_DIR_ERR 8
+# define PIPE_ERR 9
+# define DUP_ERR 10
 
 /*
 ** KEYBOARD
@@ -193,6 +198,7 @@ void	config_terminal(int reset);
 void	check_tty(void);
 
 
+void	signal_handler(int sig);
 void	listen_signals(void);
 void	watch_kill();
 

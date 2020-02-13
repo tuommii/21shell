@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:56:31 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 16:29:45 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 20:44:25 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,6 @@ int		display_env(void)
 		i++;
 	}
 	return (EXEC_OK);
-}
-
-char	*parse_path(char *cwd)
-{
-	char	*home;
-
-	if (!cwd)
-		return (NULL);
-	home = get_env("HOME");
-	if (!home)
-		return (ft_strdup(cwd));
-	else if (!ft_strstr(cwd, home))
-		return (ft_strdup(cwd));
-	else if (ft_strequ(cwd, home))
-		return (ft_strdup("~"));
-	else
-		return (ft_pathjoin("~", cwd + ft_strlen(home)));
 }
 
 int		find_env(char *var)
@@ -60,26 +43,6 @@ int		find_env(char *var)
 		i++;
 	}
 	return (i);
-}
-
-char	*get_env(char *var)
-{
-	int		i;
-	char	*parsed;
-
-	i = 0;
-	while (g_sh.env[i])
-	{
-		parsed = ft_strsub(g_sh.env[i], 0, ft_lfind(g_sh.env[i], '='));
-		if (ft_strequ(parsed, var))
-		{
-			free(parsed);
-			return (ft_strchr(g_sh.env[i], '=') + 1);
-		}
-		free(parsed);
-		i++;
-	}
-	return (NULL);
 }
 
 char	**realloc_arr(size_t size)

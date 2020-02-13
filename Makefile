@@ -13,6 +13,7 @@ SRC_NAME 	= 	main.c \
 				prompt.c \
 				debug/debug.c \
 				exec/init.c \
+				exec/pipe.c \
 				exec/exec.c \
 				exec/utils.c \
 				input/move.c \

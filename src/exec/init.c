@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 18:55:09 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 22:39:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int				execution_init(t_ast *ast)
 	else if (ast->token->type & T_PIPE)
 		execute_pipeline(ast);
 	else if (~(ast->token->type & MASK_CTRL))
-		return (execute_command(ast));
+		execute_command(ast);
 	return (EXEC_OK);
 }
