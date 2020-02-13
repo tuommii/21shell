@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 14:21:00 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:05:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ void start_line_editor() {
 		else if (ft_isprint(key)) {
 			if (line->x - line->prompt_len < line->len)
 			{
+				ft_putstr(tgetstr("im", NULL));
+				ft_putstr(tgetstr("ic", NULL));
+				ft_putchar((char)key);
+				ft_putstr(tgetstr("ei", NULL));
 				ft_insert(line->input, line->x - line->prompt_len + 1, (char)key);
+				continue;
 			}
 			else if (line->x - line->prompt_len == line->len)
 			{
@@ -81,16 +86,21 @@ void start_line_editor() {
 			line->len++;
 			line->x++;
 			line->i++;
-			goto_prompt(line);
-			ft_printf("%-s", line->input);
+			// goto_prompt(line);
+			ft_putchar((char)key);
+			// line->input[line->i] = (char)key;
+			// ft_putstr(tgetstr("nd", NULL));
+			//ft_putstr(line->input);
 		}
 		else if (key == BACKSPACE) {
 			ft_insert(line->input, line->i, 0);
 			ft_putstr(tgetstr("le", NULL));
 			ft_putstr(tgetstr("dc", NULL));
-			ft_printf("\n%s", line->input);
+			line->i--;
+			line->x--;
 		}
 		else if (key == ENTER) {
+			ft_printf("\n%s", line->input);
 			ft_putstr(tgetstr("do", NULL));
 			ft_bzero(line->input, INPUT_BUFFER);
 			line->x = line->prompt_len;
@@ -108,6 +118,8 @@ void start_line_editor() {
 		}
 		else if (key == RIGHT) {
 			ft_putstr(tgetstr("nd", NULL));
+			line->i++;
+			line->x++;
 			//move_right(line);
 			// line->x++;
 		}
