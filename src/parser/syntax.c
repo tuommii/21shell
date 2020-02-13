@@ -6,16 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 21:12:44 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/10 11:19:17 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 18:00:16 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static void		syntax_error(char *token)
-{
-	ft_printf("\t\t21sh: syntax error near unexpected token `%s'", token);
-}
 
 /*
 **	Check previous and current value of the token stack
@@ -51,7 +46,7 @@ int				check_syntax(t_lexer *lexer)
 		stack[++top] = token->type;
 		if ((check_stack(stack[top - 1], stack[top], lexer->count)) == PARSER_ERROR)
 		{
-			syntax_error(token->data);
+			print_error(SYNTAX_ERR, token->data);
 			return (PARSER_ERROR);
 		}
 		token = token->next;

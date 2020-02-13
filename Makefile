@@ -7,6 +7,7 @@ FLAGS 		= 	-g
 INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/includes
 
 SRC_NAME 	= 	main.c \
+				error.c \
 				setup.c \
 				signals.c \
 				prompt.c \

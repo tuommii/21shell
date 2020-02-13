@@ -1,5 +1,8 @@
 # 21sh
 
+### to-do
+- error messsageille oma funktio joka osaa liikuttaa linen oikein
+
 ### Reading
 - [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
 - [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)

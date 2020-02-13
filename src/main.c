@@ -6,22 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 17:20:12 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 18:46:27 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-// free mem also
-void	exit_error(int errno)
-{
-	errno == MALLOC_ERROR ? ft_putendl("malloc error.") : PASS;
-	errno == FORK_ERROR ? ft_putendl("fork error.") : PASS;
-	errno == EXECVE_ERROR ? ft_putendl("execve error.") : PASS;
-	reset_shell();
-	ft_freestrarr(g_sh.env);
-	exit(errno);
-}
 
 void 	cleanup(void)
 {

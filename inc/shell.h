@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 17:17:05 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 18:43:46 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@
 # define OUTPUT STDOUT_FILENO
 
 # define MALLOC_ERROR 2
-# define FORK_ERROR 3
+# define FORK_ERR 3
 # define EXECVE_ERROR 4
+# define SYNTAX_ERR 5
+# define PERMISSION_ERR 6
 
 /*
 ** KEYBOARD
@@ -215,5 +217,6 @@ int		print_char(int c);
 */
 
 void	exit_error(int errno);
+void	print_error(int errno, char *msg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:53:12 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 16:06:31 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 18:40:46 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	print_prompt(void)
 	// char	host[INPUT_BUFFER + 1];
 	//char	cwd[INPUT_BUFFER + 1];
 	char *logname = getenv("LOGNAME");
+	ft_printf(tgoto(tgetstr("cm", NULL), 0, g_sh.y));
 	// gethostname(host, INPUT_BUFFER);
 	//getcwd(cwd, INPUT_BUFFER);
 	// ft_printf("\033[%d;%df\033", g_sh.y+1, 0);

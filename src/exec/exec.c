@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 17:18:06 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/02/13 18:52:09 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static int		fork21(char *path, char **args)
 			exit_error(EXECVE_ERROR);
 	}
 	else if (pid < 0)
-	{
-		ft_putendl("21sh: failed to create child process.");
-		exit_error(FORK_ERROR);
-	}
+		exit_error(FORK_ERR);
 	wait(&pid);
 	return (EXEC_OK);
 }
@@ -39,8 +36,7 @@ static int		check_binary(char *path, char **args, struct stat attr)
 			return (fork21(path, args));
 		else
 		{
-			ft_putstr("21sh: permission denied: ");
-			ft_putendl(path);
+			print_error(PERMISSION_ERR, path);
 			free(path);
 		}
 		return (EXEC_OK);
@@ -84,7 +80,6 @@ int				execute_command(t_ast *ast)
 		else if ((binaries(cmd) == EXEC_OK))
 			r = EXEC_OK;
 	}
-	array_debug(cmd);
 	ft_freestrarr(cmd);
 	return (EXEC_OK);
 }
