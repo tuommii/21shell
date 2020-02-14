@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 17:30:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/14 10:53:00 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,42 @@ void start_line_editor() {
 				line->input[line->i] = (char)key;
 			}
 			line->delta = line->len - (line->x - line->prompt_len);
+
+			if (line->x == line->cols - 1)
+			{
+				ft_putstr(tgetstr("do", NULL));
+				line->x = 0;
+			}
+			else {
+				line->x++;
+			}
+
 			line->len++;
-			line->x++;
 			line->i++;
 			ft_putchar((char)key);
 		}
 		else if (key == BACKSPACE) {
 			ft_insert(line->input, line->i, 0);
-			ft_putstr(tgetstr("le", NULL));
-			ft_putstr(tgetstr("dc", NULL));
+			if (!line->x)
+			{
+				ft_putstr(tgetstr("le", NULL));
+				ft_putstr(tgetstr("dc", NULL));
+				ft_putstr(tgetstr("up", NULL));
+				while (line->x < line->cols)
+				{
+					ft_putstr(tgetstr("nd", NULL));
+					line->x++;
+				}
+				//line->x = line->cols - 1;
+				// ft_putstr(tgetstr("nd", NULL));
+				// ft_putstr(tgetstr("dc", NULL));
+				// ft_putstr(tgetstr("dc", NULL));
+				// ft_putstr(tgetstr("le", NULL));
+			}
+			else {
+				ft_putstr(tgetstr("le", NULL));
+				ft_putstr(tgetstr("dc", NULL));
+			}
 			line->i--;
 			line->x--;
 		}
