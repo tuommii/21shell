@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 07:10:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/14 10:53:00 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/02/14 14:18:12 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,19 @@ void start_line_editor() {
 			return ;
 		}
 		else if (ft_isprint(key)) {
+			//int a = line->len;
+			if (line->len + line->prompt_len >  line->cols-1)
+			{
+				ft_insert(line->input, line->cols-1, '\n');
+				ft_putchar('\n');
+			}
 			if (line->x - line->prompt_len < line->len)
 			{
 				tputs(tgetstr("im", NULL), 1, &print_helper2);
 				tputs(tgetstr("ic", NULL), 1, &print_helper2);
 				ft_putchar((char)key);
 				tputs(tgetstr("ei", NULL), 1, &print_helper2);
-				ft_insert(line->input, line->x - line->prompt_len + 1, (char)key);
+				ft_insert(line->input, line->i + 1, (char)key);
 				line->i++;
 				line->len++;
 				line->x++;
@@ -141,6 +147,7 @@ void start_line_editor() {
 				ft_putstr(tgetstr("le", NULL));
 				ft_putstr(tgetstr("dc", NULL));
 			}
+			line->len--;
 			line->i--;
 			line->x--;
 		}
