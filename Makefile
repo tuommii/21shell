@@ -15,6 +15,7 @@ SRC_NAME 	= 	main.c \
 				exec/init.c \
 				exec/pipe.c \
 				exec/exec.c \
+				exec/redir.c \
 				exec/utils.c \
 				input/move.c \
 				input/history.c \

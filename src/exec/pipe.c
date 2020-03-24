@@ -6,24 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 21:08:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/24 15:13:47 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 15:22:38 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-// int		ft_init_launch(int save[3], t_ast *ast)
-// {
-// 	ft_save_std_fd(save);
-// 	ft_expand(ast->token);
-// 	ft_remove_quoting(ast->token);
-// 	if (ft_init_redirection(ast) != REDIR_OK)
-// 	{
-// 		ft_restore_std_fd(ast, save);
-// 		return (REDIR_ERROR);
-// 	}
-// 	return (EXIT_SUCCESS);
-// }
 
 static int	pipe_to_right(int fd[2], t_ast *node_right)
 {

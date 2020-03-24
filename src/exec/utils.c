@@ -6,11 +6,15 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/24 15:12:46 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 16:50:20 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+** Expand list of tokens into **command
+*/
 
 char	**expand_tokens(t_ast *ast)
 {
@@ -22,9 +26,14 @@ char	**expand_tokens(t_ast *ast)
 	i = 0;
 	while (ast->token != ast->cmd_end)
 	{
-		cmd[i] = ft_strdup(ast->token->data);
-		ast->token = ast->token->next;
-		i++;
+		if (ast->token->type & MASK_REDIR)
+			ast->token = ast->token->next->next;
+		else
+		{
+			cmd[i] = ft_strdup(ast->token->data);
+			ast->token = ast->token->next;
+			i++;			
+		}
 	}
 	cmd[i] = NULL;
 	return (cmd);
@@ -46,6 +55,10 @@ int		builtins(char **cmd)
 		return (display_env());
 	return (EXEC_ERROR);
 }
+
+/*
+** Restore normal file descriptors and close opened ones.
+*/
 
 void	restore_fd(t_ast *ast, int save[3])
 {
