@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:57:57 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 22:35:46 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 14:15:34 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	exit_error(int errno)
 	errno == FORK_ERR ? ft_putendl("21sh: failed to create child process.") : PASS;
 	errno == EXECVE_ERROR ? ft_putendl("21sh: execve error.") : PASS;
 	errno == DUP_ERR ? ft_putendl("21sh: dup error.") : PASS;
+	errno == REDIR_ERR ? ft_putendl("21sh: redirection error.") : PASS;
 	reset_shell();
 	ft_freestrarr(g_sh.env);
 	exit(errno);

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/13 22:43:43 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 14:15:47 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define NOT_DIR_ERR 8
 # define PIPE_ERR 9
 # define DUP_ERR 10
+# define REDIR_ERR 11
 
 /*
 ** KEYBOARD

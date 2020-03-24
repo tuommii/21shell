@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 21:08:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/24 13:33:36 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 15:13:47 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	pipe_to_right(int fd[2], t_ast *node_right)
 		if ((dup2(fd[0], STDIN_FILENO)) == -1)
 			exit_error(DUP_ERR);
 		if (node_right->parent->parent && node_right->parent->parent->type & T_PIPE)
-			exit(fire_pipeline(node_right, node_right->parent->parent->right));
+			exit(init_pipeline(node_right, node_right->parent->parent->right));
 		else
 			exit(execute_command(node_right));
 	}
@@ -50,7 +50,7 @@ static int	pipe_to_right(int fd[2], t_ast *node_right)
 	return (status_right);
 }
 
-int			fire_pipeline(t_ast *left, t_ast *right)
+int			init_pipeline(t_ast *left, t_ast *right)
 {
 	int		fd[2];
 	int		status_right;

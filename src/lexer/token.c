@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:10:05 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/12 19:40:07 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 15:08:49 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static t_token	*new_token(char *data, int flag)
 	new->data = ft_strdup(data);
 	new->next = NULL;
 	new->type |= (1 << flag);
+	new->fd = 0;
 	return (new);
 }
 

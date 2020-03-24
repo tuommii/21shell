@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/24 12:41:40 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 14:13:14 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int				execute_pipeline(t_ast *ast)
 {
 	if (!ast->left)
-		return (fire_pipeline(ast, ast->parent->right));
+		return (init_pipeline(ast, ast->parent->right));
 	else
 		return (execute_pipeline(ast->left));
 }

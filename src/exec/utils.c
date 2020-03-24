@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 17:19:10 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 15:12:46 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,28 @@ int		builtins(char **cmd)
 	else if (ft_strequ(cmd[0], "env"))
 		return (display_env());
 	return (EXEC_ERROR);
+}
+
+void	restore_fd(t_ast *ast, int save[3])
+{
+	t_token *tmp;
+
+	dup2(save[0], STDIN_FILENO);
+	dup2(save[1], STDOUT_FILENO);
+	dup2(save[2], STDERR_FILENO);
+	close(save[0]);
+	close(save[1]);
+	close(save[2]);
+	if (!ast)
+		return ;
+	tmp = ast->token;
+	while (tmp)
+	{
+		if (tmp->type & MASK_REDIR)
+		{
+			if (tmp->fd > 0)
+				close(tmp->fd);
+		}
+		tmp = tmp->next;
+	}
 }
