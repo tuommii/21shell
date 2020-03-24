@@ -1,28 +1,25 @@
-
 NAME 		= 	21sh
 
 SRC_DIR 	= 	src/
 OBJ_DIR 	= 	obj/
 LIBFT_DIR 	= 	libft/
 
-FLAGS 		= 	-g
+FLAGS 		= 	-g -Wall -Wextra -Werror
 INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
 SRC_NAME 	= 	main.c \
-				setup.c \
-				signals.c \
-				prompt.c \
-				move.c \
-				history.c \
-				edit.c \
-				keyboard.c \
-				cmd.c \
-				lexer.c
-				# builtins/cd.c \
-				# builtins/echo.c \
-				# builtins/env_utils.c \
-				# builtins/setenv.c \
-				# builtins/unsetenv.c
+				linedit/setup.c \
+				linedit/linedit.c \
+				linedit/signals.c \
+				linedit/keyboard.c \
+				linedit/redraw.c \
+				linedit/cut_copy_paste.c \
+				linedit/check_keys.c \
+				linedit/line_movement.c \
+				linedit/row_movement.c \
+				linedit/utils.c \
+				linedit/autocomplete.c \
+				linedit/history.c
 
 SRCS 		= 	$(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS 		= 	$(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
@@ -35,6 +32,7 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p obj
+	@mkdir -p obj/linedit
 	@gcc -c $(FLAGS) $(INC) $< -o $@
 
 clean:

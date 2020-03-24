@@ -5,88 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 17:02:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/02/05 11:40:19 by mtuomine         ###   ########.fr       */
+/*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
+/*   Updated: 2020/03/15 12:13:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "linedit.h"
 
-// free mem also
-void	exit_error(t_shell *sh, int errno)
+void hello(const char *s, t_suggestions *arr)
 {
-	reset_shell(sh);
-	errno == 2 ? ft_putendl("malloc error.") : NULL;
-	exit(errno);
-}
-
-void cleanup(t_shell *sh)
-{
-	// TODO: Free fields aldo
-	free(sh);
-	config_terminal(1);
-	return exit(EXIT_SUCCESS);
-}
-
-// After ENTER pressed, reset variables
-void reset_shell(t_shell *sh)
-{
-	if (sh->key == ENTER)
+	if (arr)
 	{
-		ft_printf("\n");
-	}
-	// Multiline
-	sh->y += 1 + ((sh->len + sh->prompt_len) / sh->cols);
-	sh->i = 0;
-	sh->x = sh->prompt_len;
-	if (sh->y > sh->rows)
-		sh->y = sh->rows;
-	sh->len = 0;
-	ft_bzero(sh->input, INPUT_BUFFER);
-}
 
-
-static int read_input(t_shell *sh)
-{
-	while ((sh->key = keypress()) != ENTER)
-	{
-		watch_kill();
-		which_key(sh);
-		print_debug(sh);
-		print_input(sh);
-	}
-	end_of_input(sh);
-	sh->hist_i = 0;
-	if (*sh->input)
-	{
-		sh->hist_count += hist_append(&sh->hist, sh->input);
 	}
 
-	return (ENTER);
-}
-
-
-static void run_shell(t_shell *sh)
-{
-	while (1)
-	{
-		listen_signals();
-		print_debug(sh);
-		print_prompt(sh);
-		if ((sh->key = read_input(sh)) == ESC)
-			return ;
-
-		// Sami, sh->input contains input string! Parse that!
-		fire(sh); // -- cmd.c (first lexical analysis, then execution)
-		reset_shell(sh);
-	}
+	ft_printf("%s\n", s);
 }
 
 int	main(int argc, char **argv, char **environment)
 {
-	t_shell *sh;
-	setup(argc, argv, environment);
-	sh = create_shell();
-	run_shell(sh);
-	cleanup(sh);
+	char *input;
+	t_line *line;
+
+	if (!argc || !argv || !environment)
+	{
+		return (1);
+	}
+
+	line = create_line_editor();
+	linedit_completion_cb(line, &hello);
+	while ((input = linedit(line)) != NULL)
+	{
+		ft_printf("input: [%s]\n", input);
+	}
+	free_history(&line->hist);
+	ft_bzero(line->input, INPUT_BUFFER);
+	ft_bzero(line->clipboard, INPUT_BUFFER);
+	ft_bzero(line->debug, INPUT_BUFFER);
+	free(line);
+	exit(EXIT_SUCCESS);
+	return (0);
 }

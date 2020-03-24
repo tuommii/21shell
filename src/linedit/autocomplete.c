@@ -1,41 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_insert.c                                        :+:      :+:    :+:   */
+/*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/16 22:04:29 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/01/16 22:41:56 by mtuomine         ###   ########.fr       */
+/*   Created: 2020/03/15 11:46:14 by mtuomine          #+#    #+#             */
+/*   Updated: 2020/03/15 12:07:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "linedit.h"
 
-void	ft_insert(char *str, int pos, char c)
-{
-	int i;
-	int len;
-
-	len = ft_strlen(str) - 1;
-	if (!str || pos < 1 || pos > len + 1)
-		return ;
-	if (!c)
-	{
-		i = pos - 1;
-		while (i < len)
-		{
-			str[i] = str[i + 1];
-			i++;
-		}
-		str[len] = '\0';
-		return ;
-	}
-	i = len;
-	while (i >= pos - 1)
-	{
-		str[i + 1] = str[i];
-		i--;
-	}
-	str[pos - 1] = c;
+void linedit_completion_cb(t_line *line, autocomp_cb *cb) {
+	line->cb = cb;
 }
