@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:09:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 21:13:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/24 12:40:18 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 int						execution_init(t_ast *ast);
 int						execute_command(t_ast *ast);
-int						init_pipeline(t_ast *left, t_ast *right);
+int						fire_pipeline(t_ast *left, t_ast *right);
 int						builtins(char **cmd);
 char					**expand_tokens(t_ast *ast);
 
