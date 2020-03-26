@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:57:57 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:19:43 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 11:38:05 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exit_error(int errno)
 	errno == DUP_ERR ? ft_putendl("21sh: dup error.") : PASS;
 	errno == REDIR_ERR ? ft_putendl("21sh: redirection error.") : PASS;
 	// reset_shell();
-	// ft_freestrarr(g_sh.env);
+	ft_freestrarr(g_sh.env);
 	exit(errno);
 }
 

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:01:50 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 11:59:48 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,16 @@ void	lexer_debug(t_lexer *lexer)
 	int	i;
 
 	i = 2;
-	ft_putstr_fd(tgoto(CM, 80, 0), 0);
-	tputs(CE, 1, print_char);
-	ft_printf("%s: [%d]", "token count", lexer->count);
-	ft_putstr_fd(tgoto(CM, 80, 1), 0);
-	tputs(CE, 1, print_char);
+	ft_printf("%s: [%d]\n", "token count", lexer->count);
 	ft_printf("flags: ");
 	ft_print_bits(lexer->flags, 16);
-	ft_putstr_fd(tgoto(CM, 80, 2), 0);
-	tputs(CE, 1, print_char);
+	ft_putchar('\n');
 	while (lexer->head)
 	{
-		ft_putstr_fd(tgoto(CM, 80, i), 0);
-		ft_printf("%s: [%s]", "token", lexer->head->data);
+		ft_printf("%s: [%s]\n", "token", lexer->head->data);
 		if (lexer->head == lexer->last)
 			break ;
 		lexer->head = lexer->head->next;
 		i++;
 	}
-	ft_printf("\033[u");
 }

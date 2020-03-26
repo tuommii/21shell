@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:23:12 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 11:35:41 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	fire_commands(t_lexer *lexer)
 		tputs(tgetstr("cl", NULL), 1, print_char);
 		ast_debug(ast, 0);
 	}
-	// execution_init(ast);
+	execution_init(ast);
 	ast_del(&ast);
 }
 
@@ -69,9 +69,8 @@ int	main(int argc, char **argv, char **environment)
 
 	create_shell(environment);
 	line = create_line_editor();
-	g_sh.line = line;
 
-	while ((input = linedit(g_sh.line)) != NULL)
+	while ((input = linedit(line)) != NULL)
 	{
 		tokenize(&lexer, input);
 		if (lexer->flags & DEBUG_LEXER)

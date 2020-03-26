@@ -10,6 +10,16 @@ INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 SRC_NAME 	= 	main.c \
 				debug.c \
 				error.c \
+				builtins/cd.c \
+				builtins/echo.c \
+				builtins/setenv.c \
+				builtins/unsetenv.c \
+				builtins/utils.c \
+				exec/exec.c \
+				exec/init.c \
+				exec/pipe.c \
+				exec/redir.c \
+				exec/utils.c \
 				lexer/lexer.c \
 				lexer/token.c \
 				lexer/utils.c \
@@ -42,8 +52,10 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p obj
-	@mkdir -p obj/linedit
+	@mkdir -p obj/builtins
+	@mkdir -p obj/exec
 	@mkdir -p obj/lexer
+	@mkdir -p obj/linedit
 	@mkdir -p obj/parser
 	@gcc -c $(FLAGS) $(INC) $< -o $@
 
