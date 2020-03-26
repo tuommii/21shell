@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 13:09:57 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 13:16:45 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,10 @@ static void		execute_all(t_lexer *lexer)
 	ast_del(&ast);
 }
 
-int				main(int argc, char **argv, char **environment)
+static void		run_21(t_line *line)
 {
 	char *input;
-	t_line *line;
 	t_lexer	*lexer;
-
-	if (!argc || !argv || !environment)
-	{
-		return (1);
-	}
-
-	create_shell(environment);
-	line = create_line_editor();
 
 	while ((input = linedit(line)) != NULL)
 	{
@@ -49,6 +40,19 @@ int				main(int argc, char **argv, char **environment)
 		if ((parser(&lexer)) == PARSER_OK)
 			execute_all(lexer);
 		lexer_del(&lexer);
+	}	
+}
+
+int				main(int argc, char **argv, char **environment)
+{
+	t_line *line;
+
+	if (!argc || !argv || !environment)
+	{
+		return (1);
 	}
+	create_shell(environment);
+	line = create_line_editor();
+	run_21(line);
 	cleanup(line);
 }

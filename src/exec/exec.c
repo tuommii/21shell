@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/24 16:30:06 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 17:54:27 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		fork21(char *path, char **args)
 	pid_t	pid;
 
 	pid = fork();
-	// signal(SIGINT, signal_handler);
+	listen_signals();
 	if (!pid)
 	{
 		if ((execve(path, args, g_sh.env)) == -1)
@@ -105,11 +105,13 @@ static int		exec_preprocess(int save[3], t_ast *ast)
 
 int				execute_command(t_ast *ast)
 {
-	int		r;
-	int		save[3];
-	char	**cmd;
+	int				r;
+	int				save[3];
+	char			**cmd;
+	struct stat		attr;
 
-	if ((r = exec_preprocess(save, ast)) == REDIR_ERR)
+	// ft_printf("executing... [%s]\n", ast->token->data);
+	if ((r = exec_preprocess(save, ast)) == EXEC_ERROR)
 		return (r);
 	if ((cmd = expand_tokens(ast)))
 	{
@@ -118,8 +120,15 @@ int				execute_command(t_ast *ast)
 			r = EXEC_OK;
 		else if ((binaries(cmd) == EXEC_OK))
 			r = EXEC_OK;
+		else if (!lstat(cmd[0], &attr))
+			r = check_binary(ft_strdup(cmd[0]), cmd, attr);
+		else
+		{
+			ft_printf("21sh: command not found: %s\n", cmd[0]);
+			r = EXEC_ERROR;
+		}
 	}
 	ft_freestrarr(cmd);
 	restore_fd(ast, save);
-	return (EXEC_OK);
+	return (r);
 }

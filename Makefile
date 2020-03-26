@@ -9,6 +9,7 @@ INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
 SRC_NAME 	= 	main.c \
 				debug.c \
+				signals.c \
 				utils.c \
 				builtins/cd.c \
 				builtins/echo.c \
@@ -25,7 +26,6 @@ SRC_NAME 	= 	main.c \
 				lexer/utils.c \
 				linedit/setup.c \
 				linedit/linedit.c \
-				linedit/signals.c \
 				linedit/keyboard.c \
 				linedit/redraw.c \
 				linedit/cut_copy_paste.c \

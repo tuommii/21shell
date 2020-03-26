@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 13:12:36 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 17:41:56 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void 		cleanup(t_line *line)
 	free(line);
 	exit(EXIT_SUCCESS);
 }
+
+/*
+** Initialize environment variable array
+*/
 
 static char	**init_env(char **env)
 {
@@ -51,25 +55,30 @@ void		create_shell(char **environ)
 	g_sh.env = init_env(environ);
 }
 
-// free mem also
-void		exit_error(int errno)
+/*
+** Fatal errors
+*/
+
+void		exit_error(int err)
 {
-	ft_putstr_fd(tgoto(tgetstr("cm", NULL), 0, 0), OUTPUT);
-	errno == MALLOC_ERROR ? ft_putendl("21sh: malloc error.") : PASS;
-	errno == FORK_ERR ? ft_putendl("21sh: failed to create child process.") : PASS;
-	errno == EXECVE_ERROR ? ft_putendl("21sh: execve error.") : PASS;
-	errno == DUP_ERR ? ft_putendl("21sh: dup error.") : PASS;
-	errno == REDIR_ERR ? ft_putendl("21sh: redirection error.") : PASS;
-	// reset_shell();
-	ft_freestrarr(g_sh.env);
-	exit(errno);
+	err == MALLOC_ERROR ? ft_putendl("21sh: malloc error.") : PASS;
+	err == FORK_ERR ? ft_putendl("21sh: failed to create child process.") : PASS;
+	err == EXECVE_ERROR ? ft_putendl("21sh: execve error.") : PASS;
+	err == DUP_ERR ? ft_putendl("21sh: dup error.") : PASS;
+	err == REDIR_ERR ? ft_putendl("21sh: redirection error.") : PASS;
+	exit(err);
 }
 
-void		print_error(int errno, char *msg)
+/*
+** Print non fatal errors
+*/
+
+int			print_error(int err, char *msg)
 {
-	ft_putstr_fd(tgoto(tgetstr("cm", NULL), 0, 0), OUTPUT);
-	errno == SYNTAX_ERR ? ft_printf("21sh: syntax error near unexpected token `%s'", msg) : PASS;
-	errno == PERMISSION_ERR ? ft_printf("21sh: permission denied: %s", msg) : PASS;
-	errno == NOT_FOUND_ERR ? ft_printf("21sh: no such file or directory: %s", msg) : PASS;
-	errno == NOT_DIR_ERR ? ft_printf("21sh: not a directory: %s", msg): PASS;
+	err == SYNTAX_ERR ? ft_printf("21sh: syntax error near unexpected token `%s'\n", msg) : PASS;
+	err == PERMISSION_ERR || EACCES ? ft_printf("21sh: permission denied: %s\n", msg) : PASS;
+	err == ENOENT ? ft_printf("21sh: no such file or directory: %s\n", msg) : PASS;
+	err == ENOTDIR ? ft_printf("21sh: not a directory: %s\n", msg): PASS;
+	err == EISDIR ? ft_printf("21sh: is a directory: %s\n", msg): PASS;
+	return (-1);
 }

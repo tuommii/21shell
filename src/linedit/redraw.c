@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redraw.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:10:51 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 13:20:22 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void print_prompt(t_line *line)
 {
-	ft_printf(FT_GREEN);
+	// ft_printf(FT_GREEN);
 	ft_printf("%-*s", line->prompt_len, line->prompt);
-	ft_printf(FT_RESET);
+	// ft_printf(FT_RESET);
 }
 
 static void check_newline(t_line *line, int *rows)

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 12:20:56 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 17:04:19 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,21 @@ void	ast_debug(t_ast *root, int ws)
 
 void	lexer_debug(t_lexer *lexer)
 {
-	int	i;
+	int		i;
+	t_lexer	*tmp;
 
 	i = 2;
-	ft_printf("%s: [%d]\n", "token count", lexer->count);
+	tmp = lexer;
+	ft_printf("%s: [%d]\n", "token count", tmp->count);
 	ft_printf("flags: ");
-	ft_print_bits(lexer->flags, 16);
+	ft_print_bits(tmp->flags, 16);
 	ft_putchar('\n');
-	while (lexer->head)
+	while (tmp->head)
 	{
-		ft_printf("%s: [%s]\n", "token", lexer->head->data);
-		if (lexer->head == lexer->last)
+		ft_printf("%s: [%s]\n", "token", tmp->head->data);
+		if (tmp->head == tmp->last)
 			break ;
-		lexer->head = lexer->head->next;
+		tmp->head = tmp->head->next;
 		i++;
 	}
 }

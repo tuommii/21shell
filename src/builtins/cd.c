@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:55:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:42:21 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 17:40:55 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void		move_to(char *path, int print)
 	char	*pwd;
 	char	buffer[BUF_SIZE + 1];
 
+	errno = 0;
 	if (!chdir(path))
 	{
 		pwd = ft_strdup(getenv("PWD"));
@@ -40,11 +41,11 @@ static void		move_to(char *path, int print)
 	{
 		ft_putstr("cd: ");
 		if (access(path, F_OK) == -1)
-			print_error(NOT_FOUND_ERR, path);
+			print_error(errno, path);
 		else if (access(path, R_OK) == -1)
-			print_error(PERMISSION_ERR, path);
+			print_error(errno, path);
 		else
-			print_error(NOT_DIR_ERR, path);
+			print_error(errno, path);
 	}
 }
 
