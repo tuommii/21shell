@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 12:43:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 20:16:59 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 */
 void apped_or_insert(t_line *line, char c)
 {
+	if (line->len >= INPUT_BUFFER)
+		return ;
 	if (line->pos == line->len)
 	{
 		line->input[line->pos] = c;
