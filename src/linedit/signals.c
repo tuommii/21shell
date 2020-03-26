@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:06:52 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 12:51:39 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,19 @@ void		signal_handler(int sig)
 		handle_resize();
 	else
 	{
+		g_kill = 1;
 		ioctl(OUTPUT, TIOCSTI, "");
 	}
 }
 
-/*
-** TODO: Free memory
-*/
-
-void		watch_kill()
+void		watch_kill(t_line *line)
 {
 	if (g_kill)
 	{
-		linedit_config(1);
-		ft_dprintf(2, "Killed with signal, but memory was free'd!\n");
-		exit(1);
+		erase_input(line);
+		ioctl(OUTPUT, TIOCSTI, "\n");
+		g_kill = 0;
+		// linedit_exit(line);
 	}
 }
 

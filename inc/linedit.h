@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/15 12:07:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 12:42:32 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int	check_terminating_keys(t_line *line);
 
 // SIGNALS
 void		listen_signals(void);
-void		watch_kill();
+void		watch_kill(t_line *line);
 
 
 
@@ -173,6 +173,8 @@ t_line *create_line_editor(void);
 ** Main function. Returns input
 */
 char	*linedit(t_line *line);
+void	linedit_exit(t_line *line);
+
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/15 12:14:36 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 12:43:03 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*linedit(t_line *line)
 	while (1337)
 	{
 		listen_signals();
-		watch_kill();
+		watch_kill(line);
 		line->cols = get_cols();
 		line->key = keypress();
 		if (check_terminating_keys(line))

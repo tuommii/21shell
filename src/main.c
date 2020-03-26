@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:35:41 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 12:42:00 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ static void	fire_commands(t_lexer *lexer)
 	ast_del(&ast);
 }
 
+void linedit_exit(t_line *line) {
+	linedit_config(1);
+	free_history(&line->hist);
+	free(line);
+	exit(EXIT_SUCCESS);
+}
+
 int	main(int argc, char **argv, char **environment)
 {
 	char *input;
@@ -79,8 +86,5 @@ int	main(int argc, char **argv, char **environment)
 			fire_commands(lexer);
 		lexer_del(&lexer);
 	}
-
-	free_history(&line->hist);
-	free(line);
-	exit(EXIT_SUCCESS);
+	linedit_exit(line);
 }
