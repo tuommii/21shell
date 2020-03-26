@@ -6,7 +6,7 @@
 #    By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 12:40:34 by mtuomine          #+#    #+#              #
-#    Updated: 2020/03/26 11:44:29 by srouhe           ###   ########.fr        #
+#    Updated: 2020/03/26 12:36:26 by srouhe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,23 +102,23 @@ GNL_PATH = gnl/
 GNL_SRC = get_next_line.c
 
 PRINTF_PATH = printf/
-PRINTF_SRC = ft_printf.c \
-pf_write.c \
-pf_args.c \
-pf_parsers.c \
-pf_ftoa.c \
-pf_pad_cut.c \
-pf_print_hex.c \
-pf_print_uint.c \
-pf_print_percent.c \
-pf_print_decimal.c \
-pf_print_char.c \
-pf_print_float.c \
-pf_print_pointer.c \
-pf_print_octal.c \
-pf_flags.c \
-pf_print_string.c \
-pf_print_binary.c
+PRINTF_SRC = 	ft_printf.c \
+				pf_write.c \
+				pf_args.c \
+				pf_parsers.c \
+				pf_ftoa.c \
+				pf_pad_cut.c \
+				pf_print_hex.c \
+				pf_print_uint.c \
+				pf_print_percent.c \
+				pf_print_decimal.c \
+				pf_print_char.c \
+				pf_print_float.c \
+				pf_print_pointer.c \
+				pf_print_octal.c \
+				pf_flags.c \
+				pf_print_string.c \
+				pf_print_binary.c
 
 
 OBJECTS	+= $(LIBFT_SRC:.c=.o)
@@ -132,8 +132,8 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	echo "\nCreating $@"
-	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJECTS)
+	@ranlib $(NAME)
 
 %.o: %.c
 	@echo "$(CLEAR_LINE)"
@@ -145,10 +145,10 @@ main: all
 	gcc -o main main.o libft.a
 
 clean:
-	rm -f $(OBJECTS)
+	@rm -f $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

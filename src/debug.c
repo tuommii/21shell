@@ -6,11 +6,15 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:59:48 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 12:20:56 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+** Print out string array with index
+*/
 
 void 	array_debug(char **arr)
 {
@@ -19,7 +23,7 @@ void 	array_debug(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		ft_printf("  arr at index %d: [%s]", i, arr[i]);
+		ft_printf("arr at index %d: [%s]\n", i, arr[i]);
 		i++;
 	}
 }
@@ -41,28 +45,9 @@ void	ast_debug(t_ast *root, int ws)
 	ast_debug(root->left, ws);
 }
 
-// void	parser_debug(t_ast *ast)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	ft_putstr_fd(tgoto(CM, 40, 0), 0);
-// 	tputs(CE, 1, print_char);
-// 	while (ast)
-// 	{
-// 		ft_putstr_fd(tgoto(CM, 40, i), 0);
-// 		while (ast->cmd_start != ast->cmd_end)
-// 		{
-// 			ft_printf("\targ no. %d: [%s]", j, ast->cmd_start[j]);
-// 			j++;
-// 		}
-// 		ast = ast->next;
-// 		i++;
-// 	}
-// 	ft_printf("\033[u");	
-// }
+/*
+** Print out lexer token count, flags and tokens
+*/
 
 void	lexer_debug(t_lexer *lexer)
 {

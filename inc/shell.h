@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:17:26 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 13:12:22 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,31 @@
 # define TI (tgetstr("ti", NULL))
 # define TE (tgetstr("te", NULL))
 
-int g_kill;
+int 				g_kill;
 
 typedef struct		s_shell
 {
 	char			**env;
-	char			*input;
-	struct s_line	*line;
-	char			*username;
-	int				username_len;
 }					t_shell;
 
 /*
 **	Globals
 */
 
-t_shell			g_sh;
+t_shell				g_sh;
 
 /*
 ** Functions
 */
 
-void	create_shell(char **environ);
-void	print_debug(void);
-void	parser_debug(t_ast *ast);
-void	lexer_debug(t_lexer *lexer);
-void 	array_debug(char **arr);
-void	ast_debug(t_ast *root, int ws);
-void	exit_error(int errno);
-void	print_error(int errno, char *msg);
+void 				cleanup(t_line *line);
+void				create_shell(char **environ);
+void				print_debug(void);
+void				parser_debug(t_ast *ast);
+void				lexer_debug(t_lexer *lexer);
+void 				array_debug(char **arr);
+void				ast_debug(t_ast *root, int ws);
+void				exit_error(int errno);
+void				print_error(int errno, char *msg);
 
 #endif

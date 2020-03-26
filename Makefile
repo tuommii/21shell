@@ -9,7 +9,7 @@ INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
 SRC_NAME 	= 	main.c \
 				debug.c \
-				error.c \
+				utils.c \
 				builtins/cd.c \
 				builtins/echo.c \
 				builtins/setenv.c \

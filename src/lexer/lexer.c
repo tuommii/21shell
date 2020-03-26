@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 11:34:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/26 12:53:10 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	tokenize_operator(t_lexer *lexer, char *input)
 	i = 0;
 	while (i < 6)
 	{
-		if (!ft_strncmp(input, operator[i], ft_strlen(operator[i]) - 1))
+		if (!ft_strncmp(input, operator[i], ft_strlen(operator[i])))
 		{
 			add_token(lexer, ft_strdup(operator[i]), i);
 			return (ft_strlen(operator[i]));
