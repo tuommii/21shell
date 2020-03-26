@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/15 12:05:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 11:08:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	check_tty(void)
 	}
 }
 
-void	linedit_config(int reset)
+void		linedit_config(int reset)
 {
 	static struct termios backup;
 	static struct termios new_config;
@@ -58,16 +58,19 @@ void	linedit_config(int reset)
 	}
 }
 
-void linedit_setup(void)
+void		linedit_setup(void)
 {
 	g_kill = 0;
 	check_tty();
 	linedit_config(0);
 	tputs(tgetstr("cl", NULL), 1, print_char);
-	//ascii_art();
 }
 
-t_line *create_line_editor(void)
+/*
+** TODO: Make prompt dynamic
+*/
+
+t_line		*create_line_editor(void)
 {
 	t_line *line;
 
@@ -86,12 +89,10 @@ t_line *create_line_editor(void)
 	line->copy_end = 0;
 	line->copy_start = 0;
 	line->copy_running = 0;
-	line->prompt = "$>";
 	line->is_cut = 0;
-	// TODO: Make prompt and set length
+	line->prompt = "$>";
 	line->prompt_len = 2;
 	line->pos = 0;
-	line->cb = NULL;
 	ft_bzero(line->input, INPUT_BUFFER);
 	ft_bzero(line->clipboard, INPUT_BUFFER);
 	return (line);

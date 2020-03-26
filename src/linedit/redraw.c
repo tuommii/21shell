@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/15 10:08:12 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 11:10:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 
 void print_prompt(t_line *line)
 {
-	// char	host[MAX_PATH + 1];
-	// char	cwd[MAX_PATH + 1];
-
-	// gethostname(host, MAX_PATH);
-	// getcwd(cwd, MAX_PATH);
-	// ft_printf(FT_GREEN);
-	// ft_printf("%s", getenv("LOGNAME"));
-	// ft_printf(FT_RESET);
-	// ft_printf("@");
-	// ft_printf(FT_BOLD_BLUE);
-	// ft_printf("%s: ", host);
-	// ft_printf(FT_RESET);
-	// ft_printf("%s> ", cwd);
-
 	ft_printf(FT_GREEN);
 	ft_printf("%-*s", line->prompt_len, line->prompt);
 	ft_printf(FT_RESET);
@@ -66,5 +52,4 @@ void redraw_input(t_line *line)
 	else
 		ft_printf("\r");
 	line->old_pos = line->pos;
-	// TODO: Maybe write here
 }

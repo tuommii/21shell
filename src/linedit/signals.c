@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/10 14:20:57 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 11:06:52 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ static void	handle_resize(void)
 	ioctl(OUTPUT, TIOCSTI, "");
 }
 
+/*
+** TODO: Is g_kill neccessary?
+*/
+
 void		signal_handler(int sig)
 {
 	if (sig == SIGTSTP)
@@ -39,13 +43,14 @@ void		signal_handler(int sig)
 		handle_resize();
 	else
 	{
-		// TODO: CTRL+C Clear line
-		// g_kill = 1;
 		ioctl(OUTPUT, TIOCSTI, "");
 	}
 }
 
-// TODO: Free memory
+/*
+** TODO: Free memory
+*/
+
 void		watch_kill()
 {
 	if (g_kill)

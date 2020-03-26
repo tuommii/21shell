@@ -15,10 +15,10 @@ SRC_NAME 	= 	main.c \
 				linedit/redraw.c \
 				linedit/cut_copy_paste.c \
 				linedit/check_keys.c \
-				linedit/line_movement.c \
-				linedit/row_movement.c \
+				linedit/movement_line.c \
+				linedit/movement_row.c \
+				linedit/movement_cursor.c \
 				linedit/utils.c \
-				linedit/autocomplete.c \
 				linedit/history.c
 
 SRCS 		= 	$(addprefix $(SRC_DIR), $(SRC_NAME))

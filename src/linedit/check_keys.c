@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/15 12:24:29 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 11:16:48 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	check_arrow_keys(t_line *line)
 		handle_right_key(line);
 		return (1);
 	}
-	// TODO: Fix multiline history bug
 	else if (line->key == UP)
 	{
 		hist_next(line);
@@ -104,11 +103,8 @@ int	check_copy_paste_del(t_line *line)
 		paste(line);
 		return (1);
 	}
-	// TODO: CTRL+T swaps chars
 	else if (line->key == CTRL_X)
 	{
-		// TODO: Validate selections
-		// TODO: Maybe highlight or underline
 		copy_cat(line, 1, &line->cut_running, &line->cut_start);
 		return (1);
 	}

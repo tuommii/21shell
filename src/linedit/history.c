@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:23:16 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/14 11:27:39 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 11:01:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_hist *new_hist_item(char *str)
 {
 	t_hist *new;
-	if (is_empty(str))
+	if (!str)
 		return (NULL);
 	if (!(new = ft_memalloc(sizeof(t_hist))))
 	{
