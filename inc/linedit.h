@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 20:17:09 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 20:18:05 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 #include "libft.h"
 
-# define INPUT_BUFFER 4096
+# define INPUT_BUFFER 8
 # define OUTPUT STDOUT_FILENO
 // TODE: This is so small just for testing purposes
 # define MAX_HISTORY 3

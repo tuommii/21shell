@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:07:21 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/14 10:18:10 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 20:20:05 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		paste(t_line *line)
 	int i;
 
 	len = ft_strlen(line->clipboard);
-	if (!len)
+	if (!len || line->len + ft_strlen(line->clipboard) >= INPUT_BUFFER)
 		return ;
 	if (line->pos != line->len)
 	{
