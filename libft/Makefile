@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+         #
+#    By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 12:40:34 by mtuomine          #+#    #+#              #
-#    Updated: 2020/01/16 22:05:10 by mtuomine         ###   ########.fr        #
+#    Updated: 2020/03/26 11:18:55 by srouhe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,9 @@ ft_cut_left.c \
 ft_tabelems.c \
 ft_free_arr.c \
 ft_insert.c \
-ft_ishex.c
+ft_ishex.c \
+ft_print_bits.c \
+ft_freestrarr.c
 
 GNL_PATH = gnl/
 GNL_SRC = get_next_line.c

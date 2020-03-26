@@ -8,6 +8,11 @@ FLAGS 		= 	-g -Wall -Wextra -Werror
 INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
 SRC_NAME 	= 	main.c \
+				debug.c \
+				error.c \
+				lexer/lexer.c \
+				lexer/token.c \
+				lexer/utils.c \
 				linedit/setup.c \
 				linedit/linedit.c \
 				linedit/signals.c \
@@ -19,7 +24,12 @@ SRC_NAME 	= 	main.c \
 				linedit/movement_row.c \
 				linedit/movement_cursor.c \
 				linedit/utils.c \
-				linedit/history.c
+				linedit/history.c \
+				parser/ast.c \
+				parser/astutil.c \
+				parser/parser.c \
+				parser/syntax.c \
+				parser/utils.c
 
 SRCS 		= 	$(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS 		= 	$(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))
@@ -33,6 +43,8 @@ $(NAME): $(OBJS)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p obj
 	@mkdir -p obj/linedit
+	@mkdir -p obj/lexer
+	@mkdir -p obj/parser
 	@gcc -c $(FLAGS) $(INC) $< -o $@
 
 clean:
