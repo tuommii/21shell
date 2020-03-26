@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:16:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/26 12:07:14 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	check_command_keys(t_line *line)
 	}
 	else if (line->key == TAB)
 	{
-		(line->cb)("CALLBACK", NULL);
 		tputs(tgetstr("vb", NULL), 1, &print_char);
 		return (1);
 	}
