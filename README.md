@@ -12,7 +12,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ### Parsing
 - [ ] Single quotes parsing
 - [ ] IO numbers (2&1> null etc stuff)
-- [x] Handle signals for execve (etc. cat + CTRL+C exits only cat)
+- [ ] Handle signals for execve (etc. cat + CTRL+C exits only cat)
 
 ### History (for 42sh at least)
 - [ ]			Save history to file
