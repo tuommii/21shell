@@ -35,7 +35,7 @@ mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ```
 
 ## Keyboard shorcuts
-| KEY COMBINATION | DESCRIPTION |
+| KEY | ACTION |
 |---------|---------|
 | CTRL + LEFT | Moves cursor one word left |
 | CTRL + RIGHT | Moves cursor one word right |
