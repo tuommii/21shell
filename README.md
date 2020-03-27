@@ -2,15 +2,26 @@
 
 Sh
 
-### Debug
+## Debug
 ```sh
 valgrind ./21sh --leak-check=full --track-origins=yes
 ```
 
-### To-do
-- (Single quotes parsing)
-- IO numbers (2&1> null etc stuff)
-- Handle signals for execve (etc. cat + CTRL+C exits only cat)
+## To-do
+
+### Parsing
+- [ ] Single quotes parsing
+- [ ] IO numbers (2&1> null etc stuff)
+- [x] Handle signals for execve (etc. cat + CTRL+C exits only cat)
+
+### History (for 42sh at least)
+- [ ]			Save history to file
+- [ ] `CTRL+R`	Incremental search from history
+- [ ] `fc`		Opens latest command in editor and runs that after closed
+- [ ] `!!`		print last command
+- [ ] `!ls`		execute last command where ls is found
+- [ ] `!1`		nth command without params, not in bash?
+- [ ] `!-3`		nth command with params
 
 test cmd
 ```sh

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 20:16:59 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/27 09:56:13 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,6 @@ int which_action(t_line *line)
 	return (ret);
 }
 
-/*
-**
-** TODO FOR 42sh
-**
-** Dont add these in history
-** !! print last command
-** !ls last command where ls is found
-** !1 nth command without parameters
-** !-3 nth command with parameters
-** Save history to file
-** CTRL_R incremental search from history
-** fc command which opens latest command in editor and runs that
-*/
 char	*linedit(t_line *line)
 {
 	print_prompt(line);
