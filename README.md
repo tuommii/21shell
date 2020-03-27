@@ -23,10 +23,31 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] `!1`		nth command without params, not in bash?
 - [ ] `!-3`		nth command with params
 
+### Misc
+- [ ] Output **colors** e.g for ls
+- [ ] Dynamic prompt (at least showing current folder)
+- [ ] **Paste** text to shell from outside
+
+
 test cmd
 ```sh
 mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ```
+
+## Keyboard shorcuts
+| KEY COMBINATION | DESCRIPTION |
+|---------|---------|
+| CTRL + LEFT | Moves cursor one word left |
+| CTRL + RIGHT | Moves cursor one word right |
+| CTRL + UP | Moves cursor one row up |
+| CTRL + DOWN | Moves cursor one row down |
+| HOME | Moves cursor to beginning of input |
+| END | Moves cursor to end of input |
+| DELETE | Delete char at cursor |
+| CTRL + D | Delete char at cursor, exit if no input |
+| CTRL + X | Cut. First press is start index and second is end index |
+| CTRL + K | Copy. First press is start index and second is end index |
+| CTRL + P | Paste. First press is start index and second is end index |
 
 ### Refrences
 - [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
