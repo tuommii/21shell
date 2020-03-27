@@ -37,17 +37,17 @@ mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ## Keyboard shorcuts
 | KEY | ACTION |
 |---------|---------|
-| CTRL + LEFT | Moves cursor one word left |
-| CTRL + RIGHT | Moves cursor one word right |
-| CTRL + UP | Moves cursor one row up |
-| CTRL + DOWN | Moves cursor one row down |
-| HOME | Moves cursor to beginning of input |
-| END | Moves cursor to end of input |
-| DELETE | Delete char at cursor |
+| CTRL + LEFT | Moves cursor one word **left** |
+| CTRL + RIGHT | Moves cursor one word **right** |
+| CTRL + UP | Moves cursor one row **up** |
+| CTRL + DOWN | Moves cursor one row **down** |
+| HOME | Moves cursor to **beginning** of input |
+| END | Moves cursor to **end** of input |
+| DELETE | Delete char at cursor position |
 | CTRL + D | Delete char at cursor, exit if no input |
-| CTRL + X | Cut. First press is start index and second is end index |
-| CTRL + K | Copy. First press is start index and second is end index |
-| CTRL + P | Paste |
+| CTRL + X | **Cut**. First press is start index and second is end index |
+| CTRL + K | **Copy**. First press is start index and second is end index |
+| CTRL + P | **Paste** |
 
 ### Refrences
 - [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
