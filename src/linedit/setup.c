@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/27 18:48:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/27 19:01:46 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,19 @@ t_line		*create_line_editor(void)
 	line->hist_i = 0;
 	line->cols = get_cols();
 	line->hist = NULL;
-	line->copypaste.cut_end = 0;
-	line->copypaste.cut_end = 0;
-	line->copypaste.cut_start = 0;
-	line->copypaste.cut_running = 0;
-	line->copypaste.copy_end = 0;
-	line->copypaste.copy_start = 0;
-	line->copypaste.copy_running = 0;
-	line->copypaste.is_cut = 0;
+	line->clipboard.cut_end = 0;
+	line->clipboard.cut_end = 0;
+	line->clipboard.cut_start = 0;
+	line->clipboard.cut_running = 0;
+	line->clipboard.copy_end = 0;
+	line->clipboard.copy_start = 0;
+	line->clipboard.copy_running = 0;
+	line->clipboard.is_cut = 0;
 	line->prompt = "$>";
 	line->prompt_len = 2;
 	line->pos = 0;
 	ft_bzero(line->input, INPUT_BUFFER);
 	ft_bzero(line->cpy, INPUT_BUFFER);
-	ft_bzero(line->copypaste.clipboard, INPUT_BUFFER);
+	ft_bzero(line->clipboard.content, INPUT_BUFFER);
 	return (line);
 }
