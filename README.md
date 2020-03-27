@@ -26,7 +26,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ### Misc
 - [ ] Output **colors** e.g for ls
 - [ ] Dynamic prompt (at least showing current folder)
-- [ ] **Paste** text to shell from outside
+- [ ] **Paste** text to shell from outside (in 42sh **popen** is allowed)
 
 
 test cmd
