@@ -47,7 +47,7 @@ mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 | CTRL + D | Delete char at cursor, exit if no input |
 | CTRL + X | Cut. First press is start index and second is end index |
 | CTRL + K | Copy. First press is start index and second is end index |
-| CTRL + P | Paste. First press is start index and second is end index |
+| CTRL + P | Paste |
 
 ### Refrences
 - [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
