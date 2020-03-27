@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:07:21 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 20:20:05 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/27 18:46:17 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	text_to_clipboard(t_line *line, int start, int end)
 	int len;
 
 	len = end - start;
-	ft_strncpy(line->clipboard, line->input + start, len);
-	line->clipboard[len] = '\0';
+	ft_strncpy(line->copypaste.clipboard, line->input + start, len);
+	line->copypaste.clipboard[len] = '\0';
 }
 
 static void	cut_from_clipboard(t_line *line, int start, int end)
@@ -71,7 +71,7 @@ int			copy_cat(t_line *line, int is_cut, int *state, int *start)
 	{
 		cut_from_clipboard(line, *start, line->pos);
 		line->pos -= line->pos - *start;
-		line->is_cut = 1;
+		line->copypaste.is_cut = 1;
 	}
 	redraw_input(line);
 	return (1);
@@ -82,23 +82,23 @@ void		paste(t_line *line)
 	int len;
 	int i;
 
-	len = ft_strlen(line->clipboard);
-	if (!len || line->len + ft_strlen(line->clipboard) >= INPUT_BUFFER)
+	len = ft_strlen(line->copypaste.clipboard);
+	if (!len || line->len + ft_strlen(line->copypaste.clipboard) >= INPUT_BUFFER)
 		return ;
 	if (line->pos != line->len)
 	{
 		i = -1;
 		while (++i < len)
-			ft_insert(line->input, line->pos + i + 1, line->clipboard[i]);
+			ft_insert(line->input, line->pos + i + 1, line->copypaste.clipboard[i]);
 	}
 	else
-		ft_strcpy(line->input + line->len, line->clipboard);
+		ft_strcpy(line->input + line->len, line->copypaste.clipboard);
 	line->len += len;
 	line->pos += len;
-	if (line->is_cut)
+	if (line->copypaste.is_cut)
 	{
-		ft_bzero(line->clipboard, INPUT_BUFFER);
-		line->is_cut = 0;
+		ft_bzero(line->copypaste.clipboard, INPUT_BUFFER);
+		line->copypaste.is_cut = 0;
 	}
 	redraw_input(line);
 }

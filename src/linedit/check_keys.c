@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/27 15:06:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/27 18:46:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,7 @@ int	check_arrow_keys(t_line *line)
 
 int	check_command_keys(t_line *line)
 {
-	if (line->key == ENTER)
-	{
-		if (*line->input)
-		{
-			line->hist_count += hist_append(&line->hist, line->input);
-			if (line->hist_count > MAX_HISTORY)
-				line->hist_count = MAX_HISTORY;
-		}
-		line->hist_i = 0;
-		ft_strcpy(line->debug, line->input);
-		reposition(line);
-		return (1);
-	}
-	else if (line->key == TAB)
+	if (line->key == TAB)
 	{
 		tputs(tgetstr("vb", NULL), 1, &print_char);
 		return (1);
@@ -104,12 +91,12 @@ int	check_copy_paste_del(t_line *line)
 	}
 	else if (line->key == CTRL_X)
 	{
-		copy_cat(line, 1, &line->cut_running, &line->cut_start);
+		copy_cat(line, 1, &line->copypaste.cut_running, &line->copypaste.cut_start);
 		return (1);
 	}
 	else if (line->key == CTRL_K)
 	{
-		copy_cat(line, 0, &line->copy_running, &line->copy_start);
+		copy_cat(line, 0, &line->copypaste.copy_running, &line->copypaste.copy_start);
 		return (1);
 	}
 	return (0);

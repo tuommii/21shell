@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/27 09:56:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/27 18:49:59 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,16 +112,28 @@ char	*linedit(t_line *line)
 		line->key = keypress();
 		if (check_terminating_keys(line))
 			return (NULL);
+		else if (line->key == ENTER)
+		{
+			if (*line->input)
+			{
+				line->hist_count += hist_append(&line->hist, line->input);
+				if (line->hist_count > MAX_HISTORY)
+					line->hist_count = MAX_HISTORY;
+			}
+			line->hist_i = 0;
+			ft_strcpy(line->cpy, line->input);
+			reposition(line);
+			return line->cpy;
+		}
 		else if (check_command_keys(line))
 		{
-			if (line->key == ENTER)
-			{
-				return line->debug;
-			}
 			continue ;
 		}
-		if (which_action(line))
+
+		else if (which_action(line))
+		{
 			continue ;
+		}
 	}
 	return (NULL);
 }

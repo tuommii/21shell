@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 20:21:57 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/27 18:51:35 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,8 @@ typedef struct s_suggestions
 
 typedef void(autocomp_cb)(const char *, t_suggestions *);
 
-
-typedef struct s_line
-{
-	char		input[INPUT_BUFFER + 1];
-	char		debug[INPUT_BUFFER + 1];
+typedef struct s_copypaste {
 	char		clipboard[INPUT_BUFFER + 1];
-	char		*prompt;
-	int			len;
-	int			prompt_len;
-	int			key;
-	int			pos;
-	int			old_pos;
-	int			lines_used;
-	int			cols;
-	struct		s_hist *hist;
-	int			hist_count;
-	int			hist_i;
 	int			is_cut;
 	int			cut_start;
 	int			cut_end;
@@ -99,10 +84,7 @@ typedef struct s_line
 	int			copy_running;
 	int			copy_start;
 	int			copy_end;
-	struct s_suggestions suggestions;
-	autocomp_cb *cb;
-
-} t_line;
+} t_copypaste;
 
 typedef struct s_hist
 {
@@ -112,9 +94,30 @@ typedef struct s_hist
 	struct s_hist *next;
 } t_hist;
 
+typedef struct s_line
+{
+	char		input[INPUT_BUFFER + 1];
+	char		cpy[INPUT_BUFFER + 1];
+	int			len;
+	char		*prompt;
+	int			prompt_len;
+	int			key;
+	int			pos;
+	int			old_pos;
+	int			lines_used;
+	int			cols;
+
+	struct s_hist *hist;
+	int			hist_count;
+	int			hist_i;
+
+	struct s_suggestions suggestions;
+	autocomp_cb *cb;
+
+	struct s_copypaste copypaste;
+} t_line;
+
 int g_kill;
-
-
 
 void linedit_completion_cb(t_line *line, autocomp_cb *cb);
 

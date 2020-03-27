@@ -53,6 +53,7 @@ mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 | UP | Get next command from history |
 | DOWN | Go back one command |
 | BACKSPACE | Delete on char left of cursor and move cursor left |
+| ESC | Quit |
 
 ### Refrences
 - [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
