@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 17:54:27 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/29 21:18:13 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ int				execute_command(t_ast *ast)
 			ft_printf("21sh: command not found: %s\n", cmd[0]);
 			r = EXEC_ERROR;
 		}
+		ft_freestrarr(cmd);
 	}
-	ft_freestrarr(cmd);
 	restore_fd(ast, save);
 	return (r);
 }

@@ -10,9 +10,11 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Parsing
+- [ ] Double check syntax error check in parser
 - [ ] Single quotes parsing
 - [ ] IO numbers (2&1> null etc stuff)
 - [ ] Handle signals for execve (etc. cat + CTRL+C exits only cat)
+- [ ] Trailing pipe (prompt for input)
 
 ### History (for 42sh at least)
 - [ ]			Save history to file
@@ -27,6 +29,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Output **colors** e.g for ls
 - [ ] Dynamic prompt (at least showing current folder)
 - [ ] **Paste** text to shell from outside (in 42sh **popen** is allowed)
+- [x] cmd + trailing semicolon bugs out (quick fix in place)
 
 
 test cmd
