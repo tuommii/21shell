@@ -35,6 +35,7 @@ SRC_NAME 	= 	main.c \
 				linedit/movement_cursor.c \
 				linedit/utils.c \
 				linedit/history.c \
+				linedit/new_paste.c \
 				parser/ast.c \
 				parser/astutil.c \
 				parser/parser.c \
