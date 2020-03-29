@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/29 11:47:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/29 18:38:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int g_kill;
 // Kokeilut
 void linedit_completion_cb(t_line *line, autocomp_cb *cb);
 // void new_paste(t_line *line);
+void clipboard_set(t_clipboard *clip);
 void clipboard_update(t_clipboard *clip);
 void clipboard_draw(t_line *line);
 

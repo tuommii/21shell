@@ -6,12 +6,61 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/29 16:12:22 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/29 21:00:28 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sys/wait.h"
 #include "linedit.h"
+
+void clipboard_set(t_clipboard *clip)
+{
+	if (clip)
+	{
+
+	}
+    pid_t pid;
+    int fd[2];
+    int ret, i;
+
+    ret = pipe(fd);
+    if ( ret == -1 )
+	{
+        perror("pipe error: ");
+        exit(1);
+    }
+
+    for ( i=0; i<2; i++ )
+	{
+        pid = fork();
+        if ( pid==0 )
+            break;
+    }
+
+    if ( 2 == i )
+	{
+        close(fd[0]);
+        close(fd[1]);
+        while ( i-- )
+		{
+            if( wait(NULL) == -1 )
+			{
+                perror("wait error: ");
+                exit(1);
+            }
+        }
+    } else if ( 0 == i )
+	{
+        close(fd[0]);
+        dup2(fd[1], STDOUT_FILENO);
+        execlp("echo", "echo", "KOVA KOODATTU", NULL);
+    } else if ( 1 == i)
+	{
+        close(fd[1]);
+        dup2(fd[0], STDIN_FILENO);
+        execlp("xclip", "xclip", NULL);
+    }
+}
 
 /* COPY UNTIL FIRST NEWLINE*/
 void clipboard_update(t_clipboard *clip)
