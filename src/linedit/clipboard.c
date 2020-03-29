@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/29 11:53:24 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/29 16:12:22 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void clipboard_update(t_clipboard *clip)
 			clip->content[j] = buf[j];
 			j++;
 		}
-		// ft_strcpy(clip->content, buf);
+		clip->content[j] = '\0';
     }
 }
 
@@ -68,33 +68,4 @@ void clipboard_draw(t_line *line)
 	// 	line->clipboard.is_cut = 0;
 	// }
 	redraw_input(line);
-}
-
-
-void new_paste(t_line *line)
-{
-    char *ls[] = {"xclip", "-o", NULL};
-    char buf[INPUT_BUFFER + 1];
-    int p[2];
-    pid_t pid;
-    extern char **environ;
-
-    pipe(p);
-    pid = fork();
-    if (pid == 0)
-    {
-        dup2(p[1], STDOUT_FILENO);
-        close(p[0]);
-        execve("/usr/bin/xclip", ls, environ);
-    }
-    else {
-        wait(&pid);
-        close(p[1]);
-        read(p[0], buf, INPUT_BUFFER); //mikä buffsize
-		ft_strcpy(line->input, buf);
-		line->len = ft_strlen(buf);
-		redraw_input(line);
-        // printf("Miikka: %s", buf);
-    }
-	// Testi copy
 }
