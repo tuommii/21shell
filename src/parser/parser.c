@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/29 21:59:00 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/30 10:34:39 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 static void	trailing_semicolon(t_lexer **lexer)
 {
 	t_token *token;
-	t_token *prev;
+	// t_token *prev;
 
 	token = (*lexer)->head;
 	while (token->next->next)
@@ -37,6 +37,10 @@ static void	trailing_semicolon(t_lexer **lexer)
 
 static void trailing_pipe(t_lexer **lexer)
 {
+	if (lexer)
+	{
+
+	}
 	ft_printf("Implement case for trailing pipe\n");
 	return ;
 }
