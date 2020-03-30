@@ -40,23 +40,23 @@ mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ## Keyboard shorcuts
 | KEY | ACTION |
 |---------|---------|
-| CTRL + LEFT | Moves cursor one word **left** |
-| CTRL + RIGHT | Moves cursor one word **right** |
-| CTRL + UP | Moves cursor one row **up** |
-| CTRL + DOWN | Moves cursor one row **down** |
-| HOME | Moves cursor to **beginning** of input |
-| END | Moves cursor to **end** of input |
-| DELETE | Delete char at cursor position |
-| CTRL + D | Delete char at cursor, exit if no input |
-| CTRL + X | **Cut**. First press is start index and second is end index |
-| CTRL + K | **Copy**. First press is start index and second is end index |
-| CTRL + P | **Paste** |
-| LEFT | Moves cursor left |
-| RIGHT | Moves cursor right |
-| UP | Get next command from history |
-| DOWN | Go back one command |
-| BACKSPACE | Delete on char left of cursor and move cursor left |
-| ESC | Quit |
+| <kbd>CTRL + LEFT</kbd> | Moves cursor one word **left** |
+| <kbd>CTRL + RIGHT</kbd> | Moves cursor one word **right** |
+| <kbd>CTRL + UP</kbd> | Moves cursor one row **up** |
+| <kbd>CTRL + DOWN</kbd> | Moves cursor one row **down** |
+| <kbd>HOME</kbd> | Moves cursor to **beginning** of input |
+| <kbd>END</kbd> | Moves cursor to **end** of input |
+| <kbd>DELETE</kbd> | Delete char at cursor position |
+| <kbd>CTRL + D</kbd> | Delete char at cursor, exit if no input |
+| <kbd>CTRL + X</kbd> | **Cut**. First press is start index and second is end index |
+| <kbd>CTRL + K</kbd> | **Copy**. First press is start index and second is end index |
+| <kbd>CTRL + P</kbd> | **Paste** |
+| <kbd>LEFT</kbd> | Moves cursor left |
+| <kbd>RIGHT</kbd> | Moves cursor right |
+| <kbd>UP</kbd> | Get next command from history |
+| <kbd>DOWN</kbd> | Go back one command |
+| <kbd>BACKSPACE</kbd> | Delete on char left of cursor and move cursor left |
+| <kbd>ESC</kbd> | Quit |
 
 ### Refrences
 - [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
