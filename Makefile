@@ -18,6 +18,7 @@ SRC_NAME 	= 	main.c \
 				builtins/utils.c \
 				exec/exec.c \
 				exec/init.c \
+				exec/open.c \
 				exec/pipe.c \
 				exec/redir.c \
 				exec/utils.c \

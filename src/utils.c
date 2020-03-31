@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 17:41:56 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 15:04:07 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ int			print_error(int err, char *msg)
 	err == ENOENT ? ft_printf("21sh: no such file or directory: %s\n", msg) : PASS;
 	err == ENOTDIR ? ft_printf("21sh: not a directory: %s\n", msg): PASS;
 	err == EISDIR ? ft_printf("21sh: is a directory: %s\n", msg): PASS;
+	err == AMB_REDIR ? ft_printf("21sh: ambiguous redirection: %s\n", msg): PASS;
 	return (-1);
 }

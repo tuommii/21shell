@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 12:07:43 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 15:05:50 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		lexer_del(t_lexer **lexer)
 
 /*
 **	Add tokens to linked list:
-**		Control tokens "|", ";", ">>", "<<", ">", "<"
+**		Control tokens "|", ";", ">>", "<<", "<&", "<>", ">&", ">|", ">", "<" 
 **		Strings (parse quotes and dquotes)
 **	Update count and flags to t_lexer
 */

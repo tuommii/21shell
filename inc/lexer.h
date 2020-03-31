@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 13:59:10 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 14:44:42 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # define T_SCOL			(1 << 1)
 # define T_DRARR		(1 << 2)
 # define T_DLARR		(1 << 3)
-# define T_RCLOSE		(1 << 4)
+# define T_LESS_AND		(1 << 4)
 # define T_BOTH			(1 << 5)
-# define T_LCLOSE		(1 << 6)
+# define T_GREAT_AND	(1 << 6)
 # define T_ARRPIPE		(1 << 7)
 # define T_SRARR		(1 << 8)
 # define T_SLARR		(1 << 9)
@@ -49,6 +49,7 @@ typedef struct			s_token
 	int					fd;
 	char				*data;
 	struct s_token		*next;
+	struct s_token		*prev;
 }						t_token;
 
 typedef struct			s_lexer

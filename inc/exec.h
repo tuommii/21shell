@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:09:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/24 16:51:09 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 14:51:27 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int						execute_command(t_ast *ast);
 int						init_pipeline(t_ast *left, t_ast *right);
 int						init_redirection(t_ast *ast);
 int						builtins(char **cmd);
+int						open_file(t_token *token);
 
 int						echo_builtin(char **args);
 int						cd_builtin(char **args);

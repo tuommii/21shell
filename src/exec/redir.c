@@ -6,45 +6,49 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:23:14 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 17:52:36 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 15:09:37 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	open_file(t_token *token)
-{
-	errno = 0;
-	if (token->type & T_DRARR)
-	{
-		if ((token->fd = open(token->next->data, O_RDWR | O_CREAT | O_APPEND, 0666)) == -1)
-			return (print_error(errno, token->next->data));
-	}
-	else if (token->type & T_SLARR)
-	{
-		if ((token->fd = open(token->next->data, O_RDONLY)) == -1)
-			return (print_error(errno, token->next->data));
-	}
-	else if (token->type & T_SRARR)
-	{
-		if ((token->fd = open(token->next->data, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
-			return (print_error(errno, token->next->data));
-	}
-	// ft_printf("Success opening [%s]\n", token->next->data);
-	return (EXIT_SUCCESS);
-}
-
 static int	redirect(t_token *token)
 {
-	errno = 0;
-	// Check for IO numbers here first and dup2(token->fd, IO)
-	if (token->type & T_SLARR)
+	if (token->prev && token->prev->type & IO_NUM)
+	{
+		ft_printf("Redirecting fd [%d] to [%d]\n", ft_atoi(token->prev->data), token->fd);
+		return (dup2(token->fd, ft_atoi(token->prev->data)));
+	}
+	else if (token->type & T_SLARR)
 		return (dup2(token->fd, STDIN_FILENO));
 	else
 	{
 		// ft_printf("Redirecting fd [%d] to [%d]\n", STDOUT_FILENO, token->fd);
 		return (dup2(token->fd, STDOUT_FILENO));
 	}
+}
+
+/*
+** Aggregate correct fds with >& and <& operators
+*/
+
+int			aggregate_fds(t_token *token)
+{
+	int src;
+
+	if (token->prev && token->prev->type & IO_NUM)
+		src = ft_atoi(token->prev->data);
+	else if (token->type & T_LESS_AND)
+		src = STDIN_FILENO;
+	else if (token->type & T_GREAT_AND)
+		src = STDOUT_FILENO;
+	if (str_isnumeric(token->next->data))
+		return (dup2(ft_atoi(token->next->data), src));
+	else if (!ft_strcmp(token->next->data, "-"))
+		close(src);
+	else
+		return (print_error(AMB_REDIR, token->data));
+	return (1);
 }
 
 int			init_redirection(t_ast *ast)
@@ -54,7 +58,15 @@ int			init_redirection(t_ast *ast)
 	tmp = ast->token;
 	while (tmp)
 	{
-		if (tmp->type & MASK_REDIR)
+		// else if (tmp->type & T_DLARR)
+		// 	heredoc()
+		if (tmp->type & T_LESS_AND || tmp->type & T_GREAT_AND)
+		{
+			if (aggregate_fds(tmp) == -1)
+				return (EXEC_ERROR);
+			tmp = tmp->next->next;
+		}
+		else if (tmp->type & MASK_REDIR)
 		{
 			if (open_file(tmp) == -1)
 				return (EXEC_ERROR);

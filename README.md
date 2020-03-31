@@ -12,8 +12,8 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ### Parsing
 - [ ] Double check syntax error check in parser
 - [ ] Single quotes parsing
-- [ ] IO numbers (2&1> null etc stuff)
-- [ ] Heredoc proper implementation (<<)
+- [x] IO numbers (2&1> null etc stuff)
+- [ ] Heredoc proper implementation (<<) PIPE IT
 - [x] Handle signals for execve (etc. cat + CTRL+C exits only cat)
 - [ ] Trailing pipe (prompt for input)
 

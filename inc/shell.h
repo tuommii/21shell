@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/31 10:59:21 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 15:03:50 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define PIPE_ERR 9
 # define DUP_ERR 10
 # define REDIR_ERR 11
+# define AMB_REDIR 12
 
 /*
 ** Definitions of termcaps tuples:
