@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 11:31:08 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 12:09:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,19 @@ static int	trailing_semicolon(t_lexer **lexer)
 	return (PARSER_OK);
 }
 
-char		*readin()
-{
-	char	*buff;
-
-	buff = ft_strnew(4096);
-	while (!ft_strchr(buff, '\n'))
-	{
-		ft_bzero(buff, 4096);
-		read(0, buff, 4096 - 1);
-	}
-
-	ft_printf("buffer: %s\n", buff);
-	return (buff);
-}
-
 /*
 ** Prompt for input with trailing pipe
 */
 
 static int	trailing_pipe(t_lexer **lexer)
 {
-	char	*input;
+	t_line *line = create_line_editor();
+	char *input;
+	while (input = quote_loop(line) != NULL) {
 
-	ft_printf("> ");
-	input = readin();
+	}
+
+	// input = readin();
 	ft_strdel(&((*lexer)->last->data));
 	(*lexer)->last->data = input;
 	return (PARSER_OK);

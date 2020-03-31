@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/31 10:59:47 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 12:08:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		run_21(t_line *line)
 		if ((parser(&lexer)) == PARSER_OK)
 			// execute_all(lexer);
 		lexer_del(&lexer);
-	}	
+	}
 }
 
 int				main(int argc, char **argv, char **environment)
@@ -52,6 +52,7 @@ int				main(int argc, char **argv, char **environment)
 		return (1);
 	}
 	create_shell(environment);
+	linedit_setup();
 	line = create_line_editor();
 	g_sh.line = line;
 	run_21(line);

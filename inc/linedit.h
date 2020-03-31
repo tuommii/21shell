@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/29 18:38:51 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/31 11:55:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_line
 int g_kill;
 
 
-
+char *quote_loop(t_line *line);
 
 // Kokeilut
 void linedit_completion_cb(t_line *line, autocomp_cb *cb);

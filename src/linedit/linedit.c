@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/27 18:49:59 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/03/31 12:11:01 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,50 @@ int which_action(t_line *line)
 		ret = 1;
 	}
 	return (ret);
+}
+
+char *quote_loop(t_line *line)
+{
+	line->prompt = ">";
+	line->prompt_len = 1;
+	print_prompt(line);
+	while (42)
+	{
+		// listen_signals();
+		// watch_kill(line);
+		line->cols = get_cols();
+		line->key = keypress();
+		// if (check_terminating_keys(line))
+		// 	return (NULL);
+		if (line->key == CTRL_D)
+		{
+			reposition(line);
+			return NULL;
+		}
+		if (line->key == ENTER)
+		{
+			if (*line->input)
+			{
+				line->hist_count += hist_append(&line->hist, line->input);
+				if (line->hist_count > MAX_HISTORY)
+					line->hist_count = MAX_HISTORY;
+			}
+			line->hist_i = 0;
+			ft_strcpy(line->cpy, line->input);
+			reposition(line);
+			print_prompt(line);
+			// return line->cpy;
+		}
+		else if (check_command_keys(line))
+		{
+			continue ;
+		}
+
+		else if (which_action(line))
+		{
+			continue ;
+		}
+	}
 }
 
 char	*linedit(t_line *line)
