@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 09:45:18 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/05 16:03:44 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 13:33:18 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,18 @@ int		next_quote(char *input, int q)
 		i++;
 	// ft_printf("inside quotes [%d] ", i);
 	return (i);
+}
+
+int		str_isnumeric(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

@@ -6,40 +6,16 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:04:06 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 12:47:38 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 13:57:54 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-// void		ft_get_io_number(t_lexer *lexer, char *line)
-// {
-// 	if (lexer->last && ft_isnumber(lexer->last->str) &&
-// 			ft_strncmp(line - ft_strlen(lexer->last->str),
-// 				lexer->last->str, ft_strlen(lexer->last->str)) == 0)
-// 	{
-// 		lexer->last->token_type = IO_NUMBER;
-// 	}
-// }
-
 /*
-** If operator index is less than 6, create normal token,
+** If operator index is less than x, create normal token,
 ** 		otherwise create IO redirection
 */
-
-int			ft_isnumeric(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 static int	create_token(t_lexer *lexer, char *input, char *operator, int i)
 {
@@ -48,11 +24,10 @@ static int	create_token(t_lexer *lexer, char *input, char *operator, int i)
 		add_token(lexer, ft_strdup(operator), i);
 	else
 	{
-		if (lexer->last)
-		{
-			if (ft_isnumeric(lexer->last->data))
-			ft_printf("last token: %s\n", lexer->last->data);
-		}
+		if (lexer->last && str_isnumeric(lexer->last->data)) //&& ft_strncmp(input - ft_strlen(lexer->last->data), lexer->last->data, ft_strlen(lexer->last->data)))
+			lexer->last->type |= IO_NUM;
+		// if (!ft_strcmp(operator, ">&") || !ft_strcmp(operator, "<&"))
+			
 		add_token(lexer, ft_strdup(operator), i);
 	}
 	return (ft_strlen(operator));
@@ -68,7 +43,7 @@ int			tokenize_operator(t_lexer *lexer, char *input)
 	char	operator[OP_SLOTS][OP_LEN] = {OPERATOR_ARR};
 
 	i = 0;
-	while (i < 6)
+	while (i < OP_SLOTS)
 	{
 		if (!ft_strncmp(input, operator[i], ft_strlen(operator[i])))
 		{
