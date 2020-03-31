@@ -4,7 +4,7 @@ SRC_DIR 	= 	src/
 OBJ_DIR 	= 	obj/
 LIBFT_DIR 	= 	libft/
 
-FLAGS 		= 	-g -Wall -Wextra -Werror
+FLAGS 		= 	
 INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
 SRC_NAME 	= 	main.c \

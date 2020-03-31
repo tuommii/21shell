@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/29 21:30:35 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 10:59:47 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		run_21(t_line *line)
 		if (lexer->flags & DEBUG_LEXER)
 			lexer_debug(lexer);
 		if ((parser(&lexer)) == PARSER_OK)
-			execute_all(lexer);
+			// execute_all(lexer);
 		lexer_del(&lexer);
 	}	
 }
@@ -53,6 +53,7 @@ int				main(int argc, char **argv, char **environment)
 	}
 	create_shell(environment);
 	line = create_line_editor();
+	g_sh.line = line;
 	run_21(line);
 	cleanup(line);
 }

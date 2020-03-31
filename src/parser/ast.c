@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:15:49 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/29 21:29:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 10:41:34 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_ast	*semicol_level(t_token **token)
 	t_ast	*parent;
 
 	root = pipe_level(token);
-	while ((*token)->type & T_SCOL && (*token)->next)
+	while ((*token)->type & T_SCOL)
 	{
 		// ft_printf("    [SCOL %s]", (*token)->data);
 		parent = new_leaf(token);

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 17:41:49 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 10:59:21 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int 				g_kill;
 typedef struct		s_shell
 {
 	char			**env;
+	struct s_line	*line;
 }					t_shell;
 
 /*
