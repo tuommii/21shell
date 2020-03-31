@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 12:53:10 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 12:07:43 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,45 +29,6 @@ void		lexer_del(t_lexer **lexer)
 	(*lexer)->last = NULL;
 	free(*lexer);
 	*lexer = NULL;
-}
-
-static int	tokenize_operator(t_lexer *lexer, char *input)
-{
-	int		i;
-	char	operator[OP_SLOTS][OP_LEN] = {OPERATOR_ARR};
-
-	i = 0;
-	while (i < 6)
-	{
-		if (!ft_strncmp(input, operator[i], ft_strlen(operator[i])))
-		{
-			add_token(lexer, ft_strdup(operator[i]), i);
-			return (ft_strlen(operator[i]));
-		}
-		i++;
-	}
-	return (1);	
-}
-
-static int	tokenize_string(t_lexer *lexer, char *input)
-{
-	int i;
-	int	j;
-
-	i = 0;
-	while (str_valid_char(input[i]))
-	{
-		if (input[i] == 34 || input[i] == 39)
-		{
-			j = i;
-			i += next_quote(&input[i + 1], input[i]);
-			add_token(lexer, ft_strsub(&input[j + 1], 0, i), STRING);
-			return (i + 2);
-		}
-		i++;
-	}
-	add_token(lexer, ft_strsub(input, 0, i), STRING);
-	return (i);
 }
 
 /*

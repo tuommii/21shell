@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 10:56:23 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 12:48:31 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define T_DLARR		(1 << 3)
 # define T_SRARR		(1 << 4)
 # define T_SLARR		(1 << 5)
+# define T_IO			(1 << 8)
 # define T_STR			(1 << 9)
 # define DEBUG_LEXER	(1 << 10)
 # define DEBUG_AST		(1 << 11)
@@ -29,8 +30,8 @@
 # define MASK_CTRL		0b111111
 
 # define OPERATORS 		";|<>"
-# define OPERATOR_ARR 	"|", ";", ">>", "<<", ">", "<"
-# define OP_SLOTS		6
+# define OPERATOR_ARR 	"|", ";", ">>", "<<", "<&", "<>", ">&", ">|", "<<-", ">", "<" 
+# define OP_SLOTS		11
 # define OP_LEN			3
 # define STRING			9
 
@@ -55,6 +56,8 @@ typedef struct			s_lexer
 
 int						str_valid_char(char c);
 int						next_quote(char *input, int q);
+int						tokenize_operator(t_lexer *lexer, char *input);
+int						tokenize_string(t_lexer *lexer, char *input);
 void					add_token(t_lexer *lexer, char *data, int flag);
 void					tokenize(t_lexer **lexer, char *input);
 void					lexer_del(t_lexer **lexer);
