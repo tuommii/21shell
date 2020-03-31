@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 14:44:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 15:47:58 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct			s_token
 	int					type;
 	int					fd;
 	char				*data;
+	char				*heredoc;
 	struct s_token		*next;
 	struct s_token		*prev;
 }						t_token;

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:23:14 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 15:09:37 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/03/31 15:57:10 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,26 @@ int			aggregate_fds(t_token *token)
 	else if (!ft_strcmp(token->next->data, "-"))
 		close(src);
 	else
-		return (print_error(AMB_REDIR, token->data));
+		return (print_error(AMB_REDIR_ERR, NULL));
 	return (1);
 }
+
+/*
+** Open a pipe for << heredoc
+*/
+
+// int		heredoc(t_token *token)
+// {
+// 	int fd[2];
+
+// 	if (pipe(fd) == -1)
+// 		return (print_error(PIPE_ERR, NULL));
+// 	write(fd[1], token->heredoc, ft_strlen(token->heredoc));
+// 	close(fd[1]);
+// 	dup2(fd[0], STDIN_FILENO);
+// 	close(fd[0]);
+// 	return (1);
+// }
 
 int			init_redirection(t_ast *ast)
 {
@@ -58,14 +75,18 @@ int			init_redirection(t_ast *ast)
 	tmp = ast->token;
 	while (tmp)
 	{
-		// else if (tmp->type & T_DLARR)
-		// 	heredoc()
 		if (tmp->type & T_LESS_AND || tmp->type & T_GREAT_AND)
 		{
 			if (aggregate_fds(tmp) == -1)
 				return (EXEC_ERROR);
 			tmp = tmp->next->next;
 		}
+		// else if (tmp->type & T_DLARR)
+		// {
+		// 	if (heredoc(tmp) == -1)
+		// 		return (EXEC_ERROR);
+		// 	tmp = tmp->next->next;			
+		// }
 		else if (tmp->type & MASK_REDIR)
 		{
 			if (open_file(tmp) == -1)
