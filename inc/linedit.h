@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linedit.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/31 11:55:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/04/02 10:49:08 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_line
 int g_kill;
 
 
-char *quote_loop(t_line *line);
+char *read_more(t_line *line, int terminator);
 
 // Kokeilut
 void linedit_completion_cb(t_line *line, autocomp_cb *cb);

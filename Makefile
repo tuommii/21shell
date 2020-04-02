@@ -22,10 +22,10 @@ SRC_NAME 	= 	main.c \
 				exec/pipe.c \
 				exec/redir.c \
 				exec/utils.c \
-				lexer/ctrl_ops.c \
 				lexer/lexer.c \
-				lexer/str_ops.c \
-				lexer/token.c \
+				lexer/token_control.c \
+				lexer/token_new.c \
+				lexer/token_string.c \
 				lexer/utils.c \
 				linedit/setup.c \
 				linedit/linedit.c \

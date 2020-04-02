@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 09:45:18 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 13:33:18 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 09:57:58 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		str_valid_char(char c)
 
 /*
 **	Jumps to next single or double quote
-**	to-do: Handle open quotes
+**	Returns -1 if matching quote is not found
 */
 
 int		next_quote(char *input, int q)
@@ -31,9 +31,10 @@ int		next_quote(char *input, int q)
 	int	i;
 
 	i = 0;
+	if (ft_lfind(input, q) == -1)
+		return (-1);
 	while (input[i] && input[i] != q)
 		i++;
-	// ft_printf("inside quotes [%d] ", i);
 	return (i);
 }
 

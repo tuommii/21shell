@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linedit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/31 12:11:01 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/04/02 10:49:00 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,21 @@ int which_action(t_line *line)
 	return (ret);
 }
 
-char *quote_loop(t_line *line)
+char	*read_more(t_line *line, int terminator)
 {
-	line->prompt = ">";
-	line->prompt_len = 1;
+	line->prompt = "> ";
+	line->prompt_len = 2;
 	print_prompt(line);
 	while (42)
 	{
-		// listen_signals();
-		// watch_kill(line);
 		line->cols = get_cols();
 		line->key = keypress();
-		// if (check_terminating_keys(line))
-		// 	return (NULL);
 		if (line->key == CTRL_D)
 		{
 			reposition(line);
-			return NULL;
+			return (NULL);
 		}
-		if (line->key == ENTER)
+		if (line->key == terminator)
 		{
 			if (*line->input)
 			{
@@ -131,7 +127,7 @@ char *quote_loop(t_line *line)
 			ft_strcpy(line->cpy, line->input);
 			reposition(line);
 			print_prompt(line);
-			// return line->cpy;
+			return (ft_strdup(line->cpy));
 		}
 		else if (check_command_keys(line))
 		{
