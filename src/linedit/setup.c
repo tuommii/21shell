@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 12:51:33 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/04/02 13:02:16 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	check_tty(void)
 		ft_dprintf(OUTPUT, "No terminal name");
 		exit(1);
 	}
-	if (!isatty(OUTPUT))
+	if (!isatty(STDIN_FILENO))
 	{
 		ft_dprintf(OUTPUT, "No terminal detected!\n");
 		exit(1);
@@ -41,18 +41,16 @@ void		linedit_config(int reset)
 
 	if (reset)
 	{
-		tputs(tgetstr("te", NULL), 1, print_char);
-		tputs(tgetstr("vs", NULL), 1, print_char);
-		tcsetattr(OUTPUT, TCSANOW, &backup);
+		tcsetattr(STDIN_FILENO, TCSAFLUSH, &backup);
 	}
 	else
 	{
-		tcgetattr(OUTPUT, &backup);
+		tcgetattr(STDIN_FILENO, &backup);
 		new_config = backup;
 		new_config.c_lflag &= ~(ECHO | ICANON | ECHOE | ECHOK | ECHONL);
 		new_config.c_cc[VMIN] = 1;
 		new_config.c_cc[VTIME] = 0;
-		tcsetattr(OUTPUT, TCSANOW, &new_config);
+		tcsetattr(STDIN_FILENO, TCSAFLUSH, &new_config);
 		// tputs(tgetstr("ti", NULL), 1, print_char);
 		// tputs(tgetstr("ve", NULL), 1, print_char);
 	}
