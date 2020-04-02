@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 13:08:03 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 13:18:08 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,11 @@ static void		execute_all(t_lexer *lexer)
 	t_ast	*ast;
 
 	ast = ast_create(&lexer->head);
-	ast && lexer->flags & DEBUG_AST ? ast_debug(ast, 0) : PASS;
+	if (ast && lexer->flags & DEBUG_AST)
+		ast_debug(ast, 0);
 	execution_init(ast);
 	ast_del(&ast);
 }
-
-/*
-** 1. Read input
-** 2. Tokenize input
-** 3. Send tokens to parser
-** 4. Execute
-*/
 
 static void		run_21(t_line *line)
 {
@@ -40,11 +34,14 @@ static void		run_21(t_line *line)
 
 	while ((input = linedit(line)) != NULL)
 	{
+		linedit_config(1);
 		tokenize(&lexer, input);
-		lexer->flags & DEBUG_LEXER ? lexer_debug(lexer) : PASS;
+		if (lexer->flags & DEBUG_LEXER)
+			lexer_debug(lexer);
 		if ((parser(&lexer)) == PARSER_OK)
 			execute_all(lexer);
 		lexer_del(&lexer);
+		linedit_config(0);
 	}
 }
 
