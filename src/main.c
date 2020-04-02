@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 13:18:08 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 13:19:46 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static void		execute_all(t_lexer *lexer)
 	t_ast	*ast;
 
 	ast = ast_create(&lexer->head);
-	if (ast && lexer->flags & DEBUG_AST)
-		ast_debug(ast, 0);
+	ast && lexer->flags & DEBUG_AST ? ast_debug(ast, 0) : PASS;
 	execution_init(ast);
 	ast_del(&ast);
 }
@@ -36,10 +35,8 @@ static void		run_21(t_line *line)
 	{
 		linedit_config(1);
 		tokenize(&lexer, input);
-		if (lexer->flags & DEBUG_LEXER)
-			lexer_debug(lexer);
-		if ((parser(&lexer)) == PARSER_OK)
-			execute_all(lexer);
+		lexer->flags & DEBUG_LEXER ? lexer_debug(lexer) : PASS;
+		parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
 		lexer_del(&lexer);
 		linedit_config(0);
 	}
