@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/31 12:07:56 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/04/02 12:51:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void		linedit_config(int reset)
 		new_config.c_cc[VMIN] = 1;
 		new_config.c_cc[VTIME] = 0;
 		tcsetattr(OUTPUT, TCSANOW, &new_config);
-		tputs(tgetstr("ti", NULL), 1, print_char);
-		tputs(tgetstr("ve", NULL), 1, print_char);
+		// tputs(tgetstr("ti", NULL), 1, print_char);
+		// tputs(tgetstr("ve", NULL), 1, print_char);
 	}
 }
 
