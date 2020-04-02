@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:07:32 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/02 09:57:33 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 13:04:46 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int		tokenize_string(t_lexer *lexer, char *input)
 			j = i;
 			quot = next_quote(&input[i + 1], input[i]);
 			if (quot == -1 && input[i] == 34)
-				flag = DQUOTE;
+				flag = F_DQUOTE;
 			else if (quot == -1 && input[i] == 39)
-				flag = SQUOTE;
+				flag = F_SQUOTE;
 			else
 			{
 				i += quot;

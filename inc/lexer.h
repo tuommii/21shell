@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/02 09:55:32 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 13:04:33 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define T_SLARR		(1 << 9)
 
 # define T_STR			(1 << 10)
-# define T_SQ			(1 << 11)
-# define T_DQ			(1 << 12)
+# define T_SQUOT		(1 << 11)
+# define T_DQUOT		(1 << 12)
 # define IO_NUM			(1 << 13)
 # define DEBUG_LEXER	(1 << 14)
 # define DEBUG_AST		(1 << 15)
@@ -41,8 +41,8 @@
 # define OP_SLOTS		10
 # define OP_LEN			3
 # define STRING			10
-# define SQUOTE			11
-# define DQUOTE			12
+# define F_SQUOTE		11
+# define F_DQUOTE		12
 
 # define OPT_LEXER		"--lexer"
 # define OPT_AST		"--ast"

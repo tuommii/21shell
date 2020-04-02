@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 15:41:15 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 12:39:01 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ void		exit_error(int err)
 int			print_error(int err, char *msg)
 {
 	err == SYNTAX_ERR ? ft_printf("21sh: syntax error near unexpected token `%s'\n", msg) : PASS;
-	err == PERMISSION_ERR || EACCES ? ft_printf("21sh: permission denied: %s\n", msg) : PASS;
+	err == PERMISSION_ERR ? ft_printf("21sh: permission denied: %s\n", msg) : PASS;
 	err == ENOENT ? ft_printf("21sh: no such file or directory: %s\n", msg) : PASS;
-	err == ENOTDIR ? ft_printf("21sh: not a directory: %s\n", msg): PASS;
-	err == EISDIR ? ft_printf("21sh: is a directory: %s\n", msg): PASS;
-	err == AMB_REDIR_ERR ? ft_printf("21sh: ambiguous redirection\n"): PASS;
-	err == PIPE_ERR ? ft_printf("21sh: pipe error\n"): PASS;
+	err == ENOTDIR ? ft_printf("21sh: not a directory: %s\n", msg) : PASS;
+	err == EISDIR ? ft_printf("21sh: is a directory: %s\n", msg) : PASS;
+	err == AMB_REDIR_ERR ? ft_printf("21sh: ambiguous redirection\n") : PASS;
+	err == PIPE_ERR ? ft_printf("21sh: pipe error\n") : PASS;
+	err == EOF_ERR ? ft_printf("21sh: unexpected EOF while looking for matching `%s'\n", msg) : PASS;
 	return (-1);
 }

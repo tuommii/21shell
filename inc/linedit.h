@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 10:49:08 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 13:12:56 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_line
 int g_kill;
 
 
-char *read_more(t_line *line, int terminator);
+char *read_more(t_line *line, int nl_flag);
 
 // Kokeilut
 void linedit_completion_cb(t_line *line, autocomp_cb *cb);

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 10:49:00 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 13:12:40 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ int which_action(t_line *line)
 	return (ret);
 }
 
-char	*read_more(t_line *line, int terminator)
+char	*read_more(t_line *line, int nl_flag)
 {
 	line->prompt = "> ";
-	line->prompt_len = 2;
+	line->prompt_len = ft_strlen(line->prompt);
 	print_prompt(line);
 	while (42)
 	{
@@ -115,7 +115,7 @@ char	*read_more(t_line *line, int terminator)
 			reposition(line);
 			return (NULL);
 		}
-		if (line->key == terminator)
+		if (line->key == ENTER)
 		{
 			if (*line->input)
 			{
@@ -125,6 +125,8 @@ char	*read_more(t_line *line, int terminator)
 			}
 			line->hist_i = 0;
 			ft_strcpy(line->cpy, line->input);
+			if (nl_flag)
+				ft_strncat(line->cpy, "\n", 1);
 			reposition(line);
 			print_prompt(line);
 			return (ft_strdup(line->cpy));

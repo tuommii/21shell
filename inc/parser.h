@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:00:57 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/02 12:27:12 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define PARSER_OK 		0
 # define PARSER_ERROR 	1
 # define AST_COUNT		10
+# define D_QUOTE		34
+# define S_QUOTE		39
 
 typedef enum e_cmd_type	t_cmd_type;
 
