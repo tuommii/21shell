@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/02 12:39:01 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 14:26:18 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int			print_error(int err, char *msg)
 	err == AMB_REDIR_ERR ? ft_printf("21sh: ambiguous redirection\n") : PASS;
 	err == PIPE_ERR ? ft_printf("21sh: pipe error\n") : PASS;
 	err == EOF_ERR ? ft_printf("21sh: unexpected EOF while looking for matching `%s'\n", msg) : PASS;
+	err == HEREDOC_ERR ? ft_printf("21sh: warning: here-document delimited by end-of-file (wanted `%s')\n", msg) : PASS;
 	return (-1);
 }

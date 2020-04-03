@@ -10,8 +10,9 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Parsing
-- [ ] Heredoc proper implementation (<<) PIPE IT
-- [ ] Built in exit function
+- [ ] Readline should keep the newline in?
+- [x] Heredoc proper implementation (<<)
+- [ ] one token commands segfault
 - [x] Remove quotes after parser
 - [x] Single quotes parsing
 - [x] IO numbers (2&1> null etc stuff)

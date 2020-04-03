@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 12:55:35 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 15:46:46 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,62 @@ static int	trailing_pipe(t_lexer **lexer)
 }
 
 /*
-** Heredoc: Read from stdin, must start and end with EOL
+** Heredoc: Read from stdin, must start and end with with same charset (EOL, etc.) 
 */
 
 static int	heredoc(t_lexer **lexer)
 {
-	return (PARSER_OK);
+	int		flag;
+	char 	*eol;
+	char	*tmp;
+	char	*input;
+	char	*heredoc;
+	t_line	*line;
+
+	eol = ft_strdup((*lexer)->last->data);
+	(*lexer)->last = (*lexer)->last->prev;
+	free((*lexer)->last->next->data);
+	free((*lexer)->last->next);
+	(*lexer)->last->next = NULL;
+	flag = 0;
+	line = create_line_editor();
+	ft_strclr((*lexer)->last->data);
+	tmp = (*lexer)->last->data;
+	(*lexer)->last->data = ft_strjoin((*lexer)->last->data, "\n");
+	free(tmp);
+	while ((input = read_more(line, 1)) != NULL)
+	{
+		if (ft_strstr(input, eol)) // Needs to be stricter (strncmp)
+		{
+			free(input);
+			flag = 1;
+			break ;
+		}
+		tmp = (*lexer)->last->data;
+		(*lexer)->last->data = ft_strjoin((*lexer)->last->data, input);
+		free(tmp);
+		free(input);
+	}
+	tmp = (*lexer)->last->data;
+	(*lexer)->last->data = ft_strreplace((*lexer)->last->data, eol, "");
+	free(tmp);
+	if (flag)
+	{
+		free(eol);
+		return (PARSER_OK);
+	}
+	else
+	{
+		print_error(HEREDOC_ERR, eol);
+		free(eol);
+		return (PARSER_ERROR);
+	}
 }
 
 /*
 **	1 - check lexer
-**	2 - check open quotes
-**  3 - trailing control characters
+**	2 - check open quoting
+**  3 - check trailing semicolon, pipe and <<
 **	4 - check syntax
 **	5 - clean quotes
 */
@@ -118,7 +162,7 @@ int			parser(t_lexer **lexer)
 		r = trailing_semicolon(lexer);
 	else if ((*lexer)->last->type & T_PIPE)
 		r = trailing_pipe(lexer);
-	else if ((*lexer)->last->type & T_DLARR)
+	else if ((*lexer)->last->prev->type & T_DLARR)
 		r = heredoc(lexer);
 	if (check_syntax(*lexer) == PARSER_ERROR)
 		r = PARSER_ERROR;

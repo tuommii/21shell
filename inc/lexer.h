@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/02 13:04:33 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 15:26:44 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 # define MASK_STR		0b10000000000
 # define MASK_OP 		0b11
-# define MASK_REDIR 	0b1111111100
+# define MASK_REDIR 	0b1111110100
 # define MASK_CTRL		0b1111111111
 
 # define OPERATORS 		";|<>&"
@@ -52,7 +52,6 @@ typedef struct			s_token
 	int					type;
 	int					fd;
 	char				*data;
-	char				*heredoc;
 	struct s_token		*next;
 	struct s_token		*prev;
 }						t_token;
