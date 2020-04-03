@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linedit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/03 11:47:06 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 11:58:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int which_action(t_line *line)
 
 char	*read_more(t_line *line, int nl_flag)
 {
+	linedit_config(0);
 	line->prompt = "> ";
 	line->prompt_len = ft_strlen(line->prompt);
 	print_prompt(line);
@@ -133,6 +134,10 @@ char	*read_more(t_line *line, int nl_flag)
 				ft_strncat(line->cpy, "\n", 1);
 			reposition(line);
 			print_prompt(line);
+
+			// OUT FROM RAW
+			linedit_config(1);
+
 			return (ft_strdup(line->cpy));
 		}
 		else if (check_command_keys(line))

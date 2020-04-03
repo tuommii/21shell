@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/03 10:43:52 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 11:57:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ static void		run_21(t_line *line)
 
 	while ((input = linedit(line)) != NULL)
 	{
-		linedit_config(1);
 		tokenize(&lexer, input);
 		lexer->flags & DEBUG_LEXER ? lexer_debug(lexer) : PASS;
 		parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
 		lexer_del(&lexer);
-		linedit_config(0);
 	}
 }
 
