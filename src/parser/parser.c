@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 11:38:06 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 12:26:13 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,23 @@
 static int	open_quote(t_lexer **lexer, int wquote)
 {
 	char	*input;
+	char	*tmp;
 	t_line	*line;
 	int		flag;
 	char	err_msg;
-	t_token	*last;
 
-	last = (*lexer)->last;
 	flag = 0;
 	line = create_line_editor();
+	tmp = (*lexer)->last->data;
 	(*lexer)->last->data = ft_strjoin((*lexer)->last->data, "\n");
+	free(tmp);
 	while ((input = read_more(line, 1)) != NULL)
 	{
 		if (ft_lfind(input, wquote) != -1)
 			flag = 1;
+		tmp = (*lexer)->last->data;
 		(*lexer)->last->data = ft_strjoin((*lexer)->last->data, input);
+		free(tmp);
 		free(input);
 		if (flag)
 			break ;
@@ -105,7 +108,6 @@ int			parser(t_lexer **lexer)
 		r = trailing_semicolon(lexer);
 	else if (!ft_strcmp((*lexer)->last->data, "|"))
 		r = trailing_pipe(lexer);
-	
 	if (check_syntax(*lexer) == PARSER_ERROR)
 		r = PARSER_ERROR;
 	return (r);

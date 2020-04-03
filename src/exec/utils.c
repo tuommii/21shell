@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 11:08:44 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 12:40:24 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,11 @@ void			remove_quotes(t_token *token, int type, int wquote)
 	tmp = token;
 	quote = (char)wquote;
 	while (tmp->next)
-	{
-		if (tmp->type & type)
-		{
-			clean = ft_strreplace(tmp->data, &quote, "");
-			ft_strdel(&tmp->data);
-			tmp->data = clean;
-		}
 		tmp = tmp->next;
-	}
-	clean = ft_strreplace(tmp->data, &quote, "");
+	if (wquote == 34)
+		clean = ft_strreplace(tmp->data, "\"", "");
+	else if (wquote == 39)
+		clean = ft_strreplace(tmp->data, "'", "");
 	ft_strdel(&tmp->data);
 	tmp->data = clean;
 }
