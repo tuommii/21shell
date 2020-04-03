@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 12:26:13 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 12:55:35 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,20 @@ static int	trailing_pipe(t_lexer **lexer)
 }
 
 /*
+** Heredoc: Read from stdin, must start and end with EOL
+*/
+
+static int	heredoc(t_lexer **lexer)
+{
+	return (PARSER_OK);
+}
+
+/*
 **	1 - check lexer
 **	2 - check open quotes
 **  3 - trailing control characters
 **	4 - check syntax
+**	5 - clean quotes
 */
 
 int			parser(t_lexer **lexer)
@@ -104,11 +114,15 @@ int			parser(t_lexer **lexer)
 		r = open_quote(lexer, 39);
 	else if ((*lexer)->flags & T_DQUOT)
 		r = open_quote(lexer, 34);
-	else if (!ft_strcmp((*lexer)->last->data, ";") && (*lexer)->count > 1)
+	else if ((*lexer)->last->type & T_SCOL && (*lexer)->count > 1)
 		r = trailing_semicolon(lexer);
-	else if (!ft_strcmp((*lexer)->last->data, "|"))
+	else if ((*lexer)->last->type & T_PIPE)
 		r = trailing_pipe(lexer);
+	else if ((*lexer)->last->type & T_DLARR)
+		r = heredoc(lexer);
 	if (check_syntax(*lexer) == PARSER_ERROR)
 		r = PARSER_ERROR;
+	(*lexer)->flags & T_SQUOT ? remove_quotes((*lexer)->head, T_SQUOT, 39) : PASS;
+	(*lexer)->flags & T_DQUOT ? remove_quotes((*lexer)->head, T_DQUOT, 34) : PASS;
 	return (r);
 }

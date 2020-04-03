@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:09:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 11:07:57 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 12:44:27 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ char					**expand_tokens(t_ast *ast);
 
 void					set_env(char *key, char *value);
 void					restore_fd(t_ast *ast, int save[3]);
-void					remove_quotes(t_token *token, int type, int wquote);
 
 #endif

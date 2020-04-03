@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 11:09:21 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 12:45:53 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int		binaries(char **cmd)
 }
 
 /*
-** Process before execution (fd's, quotes & redirection)
+** Preprocess before execution (fd's & redirection)
 */
 
 static int		exec_preprocess(int save[3], t_ast *ast)
@@ -91,8 +91,6 @@ static int		exec_preprocess(int save[3], t_ast *ast)
 	save[0] = dup(STDIN_FILENO);
 	save[1] = dup(STDOUT_FILENO);
 	save[2] = dup(STDERR_FILENO);
-	ast->flags & T_SQUOT ? remove_quotes(ast->token, T_SQUOT, 39) : PASS;
-	ast->flags & T_DQUOT ? remove_quotes(ast->token, T_DQUOT, 34) : PASS;
 	if (init_redirection(ast) != EXEC_OK)
 	{
 		restore_fd(ast, save);
