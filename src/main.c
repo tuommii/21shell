@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/03 11:57:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/04/03 12:14:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void		run_21(t_line *line)
 		parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
 		lexer_del(&lexer);
 	}
+	linedit_config(1);
 }
 
 int				main(int argc, char **argv, char **environment)
