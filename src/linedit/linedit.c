@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 13:12:40 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 11:47:06 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,10 @@ int which_action(t_line *line)
 	}
 	return (ret);
 }
+
+/*
+** nl_fag is for whether to return newlines as well (should be returned always)
+*/
 
 char	*read_more(t_line *line, int nl_flag)
 {

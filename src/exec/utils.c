@@ -6,11 +6,32 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:49:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 11:08:44 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+** Check if provided command is a built in cmd
+*/
+
+int		builtins(char **cmd)
+{
+	if (ft_strequ(cmd[0], "exit"))
+		ft_printf("to-do: Implement exit.");
+	else if (ft_strequ(cmd[0], "echo"))
+		return (echo_builtin(cmd + 1));
+	else if (ft_strequ(cmd[0], "cd"))
+		return (cd_builtin(cmd + 1));
+	else if (ft_strequ(cmd[0], "setenv"))
+		return (setenv_builtin(cmd + 1));
+	else if (ft_strequ(cmd[0], "unsetenv"))
+		return (unsetenv_builtin(cmd + 1));
+	else if (ft_strequ(cmd[0], "env"))
+		return (display_env());
+	return (EXEC_ERROR);
+}
 
 /*
 ** Expand list of tokens into **command
@@ -39,21 +60,31 @@ char	**expand_tokens(t_ast *ast)
 	return (cmd);
 }
 
-int		builtins(char **cmd)
+/*
+** Remove quoting from input in case of squote or dquote
+*/
+
+void			remove_quotes(t_token *token, int type, int wquote)
 {
-	if (ft_strequ(cmd[0], "exit"))
-		ft_printf("to-do: Implement exit.");
-	else if (ft_strequ(cmd[0], "echo"))
-		return (echo_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "cd"))
-		return (cd_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "setenv"))
-		return (setenv_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "unsetenv"))
-		return (unsetenv_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "env"))
-		return (display_env());
-	return (EXEC_ERROR);
+	char	*clean;
+	char	quote;
+	t_token *tmp;
+
+	tmp = token;
+	quote = (char)wquote;
+	while (tmp->next)
+	{
+		if (tmp->type & type)
+		{
+			clean = ft_strreplace(tmp->data, &quote, "");
+			ft_strdel(&tmp->data);
+			tmp->data = clean;
+		}
+		tmp = tmp->next;
+	}
+	clean = ft_strreplace(tmp->data, &quote, "");
+	ft_strdel(&tmp->data);
+	tmp->data = clean;
 }
 
 /*

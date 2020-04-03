@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:07:32 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/02 13:04:46 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 10:03:09 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Parse quotes and check open squotes and dquotes
 */
+
 int		tokenize_string(t_lexer *lexer, char *input)
 {
 	int i;

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 13:19:46 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 10:43:52 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ static void		execute_all(t_lexer *lexer)
 {
 	t_ast	*ast;
 
-	ast = ast_create(&lexer->head);
-	ast && lexer->flags & DEBUG_AST ? ast_debug(ast, 0) : PASS;
-	execution_init(ast);
-	ast_del(&ast);
+	if ((ast = ast_create(&lexer->head)) != NULL)
+	{
+		ast && lexer->flags & DEBUG_AST ? ast_debug(ast, 0) : PASS;
+		ast->flags = lexer->flags;
+		execution_init(ast);
+		ast_del(&ast);
+	}
 }
 
 static void		run_21(t_line *line)
@@ -50,10 +53,11 @@ int				main(int argc, char **argv, char **environment)
 	{
 		return (1);
 	}
+	// Display cool banner!
 	create_shell(environment);
 	linedit_setup();
 	line = create_line_editor();
-	g_sh.line = line;
+	g_sh.line = line; // Unecessary?
 	run_21(line);
 	cleanup(line);
 }

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 12:46:45 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:44:22 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 11:32:13 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ int					ft_dprintf(int fd, const char *format, ...);
 void				ft_print_bits(uint64_t bits, int len);
 void				ft_freestrarr(char **arr);
 int					ft_lfind(const char *s, int c);
+void				*ft_realloc(void *ptr, size_t old_s, size_t new_s);
 
 #endif

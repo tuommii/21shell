@@ -10,8 +10,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Parsing
-- [ ] Double check syntax error check in parser
-- [ ] Remove quotes after parser
+- [x] Remove quotes after parser
 - [x] Single quotes parsing
 - [x] IO numbers (2&1> null etc stuff)
 - [ ] Heredoc proper implementation (<<) PIPE IT
@@ -33,6 +32,12 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Dynamic prompt (at least showing current folder)
 - [x] **Paste** text to shell from outside (in 42sh **popen** is allowed)
 - [x] cmd + trailing semicolon bugs out (quick fix in place)
+
+### Needs more testing
+- [ ] Double check syntax error check in parser
+- [ ] Builtin commands
+- [ ] Memory leaks
+- [ ] Long chained commands with lots of pipes
 
 
 test cmd

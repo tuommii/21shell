@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/02 13:15:41 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 11:38:06 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,18 @@ static int	open_quote(t_lexer **lexer, int wquote)
 	t_line	*line;
 	int		flag;
 	char	err_msg;
+	t_token	*last;
 
+	last = (*lexer)->last;
 	flag = 0;
 	line = create_line_editor();
-	add_token(*lexer, ft_strdup("\n"), STRING);
+	(*lexer)->last->data = ft_strjoin((*lexer)->last->data, "\n");
 	while ((input = read_more(line, 1)) != NULL)
 	{
 		if (ft_lfind(input, wquote) != -1)
 			flag = 1;
-		add_token(*lexer, input, STRING);
+		(*lexer)->last->data = ft_strjoin((*lexer)->last->data, input);
+		free(input);
 		if (flag)
 			break ;
 	}
@@ -42,6 +45,7 @@ static int	open_quote(t_lexer **lexer, int wquote)
 		print_error(EOF_ERR, &err_msg);
 		return (PARSER_ERROR);
 	}
+	return (PARSER_OK);
 }
 
 /*
@@ -97,12 +101,12 @@ int			parser(t_lexer **lexer)
 		r = open_quote(lexer, 39);
 	else if ((*lexer)->flags & T_DQUOT)
 		r = open_quote(lexer, 34);
-	else if (!ft_strcmp((*lexer)->last->data, ";"))
+	else if (!ft_strcmp((*lexer)->last->data, ";") && (*lexer)->count > 1)
 		r = trailing_semicolon(lexer);
 	else if (!ft_strcmp((*lexer)->last->data, "|"))
 		r = trailing_pipe(lexer);
+	
 	if (check_syntax(*lexer) == PARSER_ERROR)
 		r = PARSER_ERROR;
-	// remove quotes
 	return (r);
 }

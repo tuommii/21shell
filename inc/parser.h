@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/02 12:27:12 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/03 10:42:55 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct			s_ast
 	struct s_ast		*parent;
 	struct s_ast		*left;
 	struct s_ast		*right;
+	int					flags;
 	int					type;
 	int					nbr_token;
 }						t_ast;

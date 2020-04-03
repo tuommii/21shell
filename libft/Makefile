@@ -6,7 +6,7 @@
 #    By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 12:40:34 by mtuomine          #+#    #+#              #
-#    Updated: 2020/03/26 12:36:26 by srouhe           ###   ########.fr        #
+#    Updated: 2020/04/03 11:32:22 by srouhe           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,8 @@ LIBFT_SRC	=	ft_memset.c \
 				ft_ishex.c \
 				ft_print_bits.c \
 				ft_freestrarr.c \
-				ft_lfind.c
+				ft_lfind.c \
+				ft_realloc.c
 
 GNL_PATH = gnl/
 GNL_SRC = get_next_line.c

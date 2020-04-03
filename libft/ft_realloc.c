@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 13:29:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/03 11:39:00 by srouhe           ###   ########.fr       */
+/*   Created: 2019/12/23 15:00:33 by srouhe            #+#    #+#             */
+/*   Updated: 2020/04/03 11:39:22 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_realloc(void *ptr, size_t old_s, size_t new_s)
 {
-	char	*dest;
-	int		i;
+	void	*new;
 
-	i = 0;
-	if (!s1 || !s2)
+	if (!ptr)
 		return (NULL);
-	dest = ft_memalloc(sizeof(*dest) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (dest == NULL)
+	if (!(new = ft_memalloc(new_s)))
+	{
+		free(ptr);
 		return (NULL);
-	while (*s1)
-		dest[i++] = *s1++;
-	while (*s2)
-		dest[i++] = *s2++;
-	dest[i] = '\0';
-	return (dest);
+	}
+	ft_memcpy(new, ptr, old_s < new_s ? old_s : new_s);
+	free(ptr);
+	return (new);
 }
