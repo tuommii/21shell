@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 15:46:46 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/06 18:25:22 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static int	heredoc(t_lexer **lexer)
 	free(tmp);
 	while ((input = read_more(line, 1)) != NULL)
 	{
-		if (ft_strstr(input, eol)) // Needs to be stricter (strncmp)
+		if (!ft_strncmp(input, eol, ft_strlen(eol)))
 		{
 			free(input);
 			flag = 1;
@@ -158,15 +158,20 @@ int			parser(t_lexer **lexer)
 		r = open_quote(lexer, 39);
 	else if ((*lexer)->flags & T_DQUOT)
 		r = open_quote(lexer, 34);
-	else if ((*lexer)->last->type & T_SCOL && (*lexer)->count > 1)
-		r = trailing_semicolon(lexer);
-	else if ((*lexer)->last->type & T_PIPE)
-		r = trailing_pipe(lexer);
-	else if ((*lexer)->last->prev->type & T_DLARR)
-		r = heredoc(lexer);
-	if (check_syntax(*lexer) == PARSER_ERROR)
-		r = PARSER_ERROR;
 	(*lexer)->flags & T_SQUOT ? remove_quotes((*lexer)->head, T_SQUOT, 39) : PASS;
 	(*lexer)->flags & T_DQUOT ? remove_quotes((*lexer)->head, T_DQUOT, 34) : PASS;
+
+	if ((*lexer)->count > 1)
+	{
+		if ((*lexer)->last->type & T_SCOL)
+			r = trailing_semicolon(lexer);
+		else if ((*lexer)->last->type & T_PIPE)
+			r = trailing_pipe(lexer);
+		else if ((*lexer)->last->prev->type & T_DLARR)
+			r = heredoc(lexer);
+	}
+
+	if (check_syntax(*lexer) == PARSER_ERROR)
+		r = PARSER_ERROR;
 	return (r);
 }

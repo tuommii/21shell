@@ -10,9 +10,8 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Parsing
-- [ ] Readline should keep the newline in?
 - [x] Heredoc proper implementation (<<)
-- [ ] one token commands segfault
+- [x] one token commands segfault
 - [x] Remove quotes after parser
 - [x] Single quotes parsing
 - [x] IO numbers (2&1> null etc stuff)
@@ -34,6 +33,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Dynamic prompt (at least showing current folder)
 - [x] **Paste** text to shell from outside (in 42sh **popen** is allowed)
 - [x] cmd + trailing semicolon bugs out (quick fix in place)
+- [ ] Readline should keep the newline in?
 
 ### Needs more testing
 - [ ] Double check syntax error check in parser
