@@ -6,12 +6,16 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 17:02:59 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 17:12:15 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
+
+/*
+** Token flags
+*/
 
 # define T_PIPE			(1 << 0)
 # define T_SCOL			(1 << 1)
@@ -23,7 +27,6 @@
 # define T_ARRPIPE		(1 << 7)
 # define T_SRARR		(1 << 8)
 # define T_SLARR		(1 << 9)
-
 # define T_STR			(1 << 10)
 # define T_SQUOT		(1 << 11)
 # define T_DQUOT		(1 << 12)
@@ -31,15 +34,28 @@
 # define DEBUG_LEXER	(1 << 14)
 # define DEBUG_AST		(1 << 15)
 
+/*
+** Token flag masks
+*/
+
 # define MASK_STR		0b10000000000
 # define MASK_OP 		0b11
 # define MASK_REDIR 	0b1111110100
 # define MASK_CTRL		0b1111111111
 
+/*
+** Definitions for tokenizing
+*/
+
 # define OPERATORS 		";|<>&"
 # define OPERATOR_ARR 	"|", ";", ">>", "<<", "<&", "<>", ">&", ">|", ">", "<" 
 # define OP_SLOTS		10
 # define OP_LEN			3
+
+/*
+** Utils for adding correct flags to tokens
+*/
+
 # define STRING			10
 # define F_SQUOTE		11
 # define F_DQUOTE		12
@@ -65,7 +81,7 @@ typedef struct			s_lexer
 	struct s_token		*last;
 }						t_lexer;
 
-int						str_valid_char(char c);
+int						is_valid_char(char c);
 int						next_quote(char *input, int q);
 int						str_isnumeric(char *str);
 int						tokenize_operator(t_lexer *lexer, char *input);

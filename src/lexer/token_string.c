@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:07:32 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 17:08:28 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 17:12:04 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			tokenize_string(t_lexer *lexer, char *input)
 	int i;
 
 	i = 0;
-	while (str_valid_char(input[i]))
+	while (is_valid_char(input[i]))
 	{
 		if (input[i] == 34 || input[i] == 39)
 		{

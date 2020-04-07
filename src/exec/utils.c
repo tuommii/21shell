@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 16:41:55 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 17:39:34 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,12 @@ char	**tokens_to_tab(t_ast *ast)
 	i = 0;
 	while (ast->token != ast->cmd_end)
 	{
-		if (ast->token->type & MASK_REDIR || ast->token->type & IO_NUM)
-			ast->token = ast->token->next;
-		else
+		if (ast->token->type & T_STR)
 		{
 			cmd[i] = ft_strdup(ast->token->data);
-			ast->token = ast->token->next;
-			i++;			
+			i++;
 		}
+		ast->token = ast->token->next;
 	}
 	cmd[i] = NULL;
 	return (cmd);

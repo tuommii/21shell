@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 15:44:21 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 17:34:36 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		tokenize(t_lexer **lexer, char *input)
 			(*lexer)->flags |= DEBUG_AST;
 			i += ft_strlen(OPT_AST);
 		}
-		else if (str_valid_char(input[i]))
+		else if (is_valid_char(input[i]))
 			i += tokenize_string(*lexer, &input[i]);
 		else
 			i++;

@@ -12,7 +12,7 @@ import os
 import subprocess
 from pathlib import Path
 
-
+TIMEOUT = 2
 cwd = Path().absolute()
 our_shell = '%s/21sh' % cwd
 their_shell = "/bin/bash"
@@ -20,14 +20,14 @@ their_shell = "/bin/bash"
 command = ["/bin/ls", "-l"]
 cmd_list = ["/bin/echo"] + command
 
-# ./21sh < /bin/echo | /bin/ls -l
+# ./21sh < /bin/echo | /bin/ls -l ; exit
 
 p_cmd = subprocess.Popen(cmd_list, stdout=subprocess.PIPE)
 p_sh = subprocess.Popen([our_shell], stdin=p_cmd.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 p_cmd.stdout.close()
-stdout, stderr = p_sh.communicate()
+stdout, stderr = p_sh.communicate(timeout=TIMEOUT)
 print(stdout.decode(), stderr.decode())
-p_sh.terminate()
+# p_sh.terminate()
 
 
 # proc.communicate()
