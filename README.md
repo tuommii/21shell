@@ -9,14 +9,8 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 
 ## To-do
 
-### Parsing
-- [x] Heredoc proper implementation (<<)
-- [x] one token commands segfault
-- [x] Remove quotes after parser
-- [x] Single quotes parsing
-- [x] IO numbers (2&1> null etc stuff)
-- [x] Handle signals for execve (etc. cat + CTRL+C exits only cat)
-- [x] Trailing pipe (prompt for input)
+### Bugs
+- [ ] First exec of piped command is ok, second one produces errors
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!
@@ -32,14 +26,14 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Output **colors** e.g for ls
 - [ ] Dynamic prompt (at least showing current folder)
 - [x] **Paste** text to shell from outside (in 42sh **popen** is allowed)
-- [x] cmd + trailing semicolon bugs out (quick fix in place)
 - [ ] Readline should keep the newline in?
+- [ ] CTRL + L to clear the screen would be nice -> Miikka
+- [ ] Prompt to display cwd
 
 ### Needs more testing
 - [ ] Double check syntax error check in parser
 - [ ] Builtin commands
 - [ ] Memory leaks
-- [ ] Long chained commands with lots of pipes
 
 
 test cmd
@@ -71,6 +65,7 @@ mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ### Refrences
 - [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
 - [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
+- [Unittests](https://github.com/JulienBalestra/21sh/blob/e1703310e11bf2774fb781c9b21937a69bb9e4ec/tests/test_minishell.py)
 
 <div align='center'>
     <sub>Created by <a href='https://github.com/rouhija'>Sami Rouhe (srouhe) <a href='https://github.com/tuommii'>Miikka Tuominen (mtuomine)</a></sub>

@@ -6,43 +6,46 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 12:45:53 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 11:42:54 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
-** Fork new child process and execute
+** Fork new child process and execute normal commands
 */
 
 static int		fork21(char *path, char **args)
 {
 	pid_t	pid;
+	int		status;
 
-	pid = fork();
+	if ((pid = fork()) == -1)
+		exit_error(FORK_ERR);
 	listen_signals();
 	if (!pid)
 	{
-		if ((execve(path, args, g_sh.env)) == -1)
+		if ((status = execve(path, args, g_sh.env)) == -1)
 			exit_error(EXECVE_ERROR);
 	}
-	else if (pid < 0)
-		exit_error(FORK_ERR);
-	wait(&pid);
-	return (EXEC_OK);
+	else
+		wait(&status);
+	return (exec_status(status));
 }
 
 /*
-** Check binary execution rights
+** Check binary execution rights and execve type ( pipe | normal )
 */
 
-static int		check_binary(char *path, char **args, struct stat attr)
+static int		check_binary(char *path, char **args, struct stat attr, int exec_type)
 {
 	if (attr.st_mode & S_IFREG)
 	{
-		if (attr.st_mode & S_IXUSR)
+		if (attr.st_mode & S_IXUSR && exec_type == NORMAL_EXEC)
 			return (fork21(path, args));
+		else if (attr.st_mode & S_IXUSR && exec_type == PIPE_EXEC)
+			return (pipe21(path, args));
 		else
 		{
 			print_error(PERMISSION_ERR, path);
@@ -58,7 +61,7 @@ static int		check_binary(char *path, char **args, struct stat attr)
 ** Return error if not found
 */
 
-static int		binaries(char **cmd)
+static int		binaries(char **cmd, int exec_type)
 {
 	int				i;
 	char			**path;
@@ -73,7 +76,7 @@ static int		binaries(char **cmd)
 		if (!lstat(exec, &attr))
 		{
 			ft_freestrarr(path);
-			return (check_binary(exec, cmd, attr));
+			return (check_binary(exec, cmd, attr, exec_type));
 		}
 		free(exec);
 		i++;
@@ -86,7 +89,7 @@ static int		binaries(char **cmd)
 ** Preprocess before execution (fd's & redirection)
 */
 
-static int		exec_preprocess(int save[3], t_ast *ast)
+int				exec_preprocess(int save[3], t_ast *ast)
 {
 	save[0] = dup(STDIN_FILENO);
 	save[1] = dup(STDOUT_FILENO);
@@ -103,25 +106,23 @@ static int		exec_preprocess(int save[3], t_ast *ast)
 ** Start execution of a command
 */
 
-int				execute_command(t_ast *ast)
+int				execute_command(t_ast *ast, int exec_type)
 {
 	int				r;
 	int				save[3];
 	char			**cmd;
 	struct stat		attr;
 
-	// ft_printf("executing... [%s]\n", ast->token->data);
 	if ((r = exec_preprocess(save, ast)) == EXEC_ERROR)
 		return (r);
 	if ((cmd = expand_tokens(ast)))
 	{
-		// array_debug(cmd);
 		if ((builtins(cmd) == EXEC_OK))
 			r = EXEC_OK;
-		else if ((binaries(cmd) == EXEC_OK))
+		else if ((binaries(cmd, exec_type) != EXEC_ERROR))
 			r = EXEC_OK;
 		else if (!lstat(cmd[0], &attr))
-			r = check_binary(ft_strdup(cmd[0]), cmd, attr);
+			r = check_binary(ft_strdup(cmd[0]), cmd, attr, exec_type);
 		else
 		{
 			ft_printf("21sh: command not found: %s\n", cmd[0]);

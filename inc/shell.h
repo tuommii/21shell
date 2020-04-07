@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/03 14:25:07 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 11:01:29 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,23 @@
 # include "parser.h"
 # include "exec.h"
 
-# define OUTPUT STDOUT_FILENO
-# define PASS (void)0
+# define OUTPUT 		STDOUT_FILENO
+# define PASS 			(void)0
 
-# define MALLOC_ERROR 2
-# define FORK_ERR 3
-# define EXECVE_ERROR 4
-# define SYNTAX_ERR 5
+# define MALLOC_ERROR	2
+# define FORK_ERR		3
+# define EXECVE_ERROR	4
+# define SYNTAX_ERR		5
 # define PERMISSION_ERR 6
-# define NOT_FOUND_ERR 7
-# define NOT_DIR_ERR 8
-# define PIPE_ERR 9
-# define DUP_ERR 10
-# define REDIR_ERR 11
-# define AMB_REDIR_ERR 12
-# define EOF_ERR 14
-# define HEREDOC_ERR 15
+# define NOT_FOUND_ERR	7
+# define NOT_DIR_ERR	8
+# define PIPE_ERR		9
+# define DUP_ERR		10
+# define REDIR_ERR		11
+# define AMB_REDIR_ERR	12
+# define EOF_ERR		14
+# define HEREDOC_ERR	15
+# define BAD_FD_ERR		16
 
 /*
 ** Definitions of termcaps tuples:
@@ -78,7 +79,7 @@ t_shell				g_sh;
 
 int					print_error(int err, char *msg);
 void 				cleanup(t_line *line);
-void				create_shell(char **environ);
+void				create_shell(char **environ, t_line *line);
 void				print_debug(void);
 void				parser_debug(t_ast *ast);
 void				lexer_debug(t_lexer *lexer);

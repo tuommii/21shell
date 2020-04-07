@@ -6,11 +6,54 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 12:43:55 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 11:08:57 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+** Handle errors while executing dup2
+*/
+
+int		dup21(int dst, int src, char *msg)
+{
+	errno = 0;
+	if ((dup2(dst, src)) != -1)
+		return (EXEC_OK);
+	else
+	{
+		if (errno == EBADF)
+			print_error(BAD_FD_ERR, msg);
+		else
+			print_error(DUP_ERR, msg);
+	}
+	return (EXEC_ERROR);
+}
+
+/*
+** Check child process exit status (normal termination, unhandled signals)
+*/
+
+int		exec_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+	{
+		if ((WTERMSIG(status)) == 6)
+			ft_putendl_fd("Abort: 6", 2);
+		if ((WTERMSIG(status)) == 10)
+			ft_putendl_fd("Bus error: 10", 2);
+		if ((WTERMSIG(status)) == 11)
+			ft_putendl_fd("Segmentation Fault: 11", 2);
+		if ((WTERMSIG(status)) == 8)
+			ft_putendl_fd("Floating point exception: 8", 2);
+		return (WTERMSIG(status) + 128);
+	}
+	else
+		return (EXIT_FAILURE);
+}
 
 /*
 ** Check if provided command is a built in cmd
@@ -19,7 +62,7 @@
 int		builtins(char **cmd)
 {
 	if (ft_strequ(cmd[0], "exit"))
-		ft_printf("to-do: Implement exit.");
+		cleanup(g_sh.line);
 	else if (ft_strequ(cmd[0], "echo"))
 		return (echo_builtin(cmd + 1));
 	else if (ft_strequ(cmd[0], "cd"))

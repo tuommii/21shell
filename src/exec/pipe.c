@@ -6,13 +6,31 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 21:08:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:40:40 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 11:43:08 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	pipe_to_right(int fd[2], t_ast *node_right)
+/*
+** Execute pipe commands (no fork)
+*/
+
+int			pipe21(char *path, char **args)
+{
+	int		status;
+
+	if ((status = execve(path, args, g_sh.env)) == -1)
+		exit_error(EXECVE_ERROR);
+	return (exec_status(status));
+}
+
+/*
+** If upper in the tree there's another pipe, recurse back to init pipeline
+** Otherwise execute right side of the pipe
+*/
+
+static int	pipe_to_right(int fd[2], t_ast *right)
 {
 	pid_t	pid_right;
 	int		status_right;
@@ -23,42 +41,48 @@ static int	pipe_to_right(int fd[2], t_ast *node_right)
 	if (!pid_right)
 	{
 		close(fd[1]);
-		if ((dup2(fd[0], STDIN_FILENO)) == -1)
-			exit_error(DUP_ERR);
-		if (node_right->parent->parent && node_right->parent->parent->type & T_PIPE)
-			exit(init_pipeline(node_right, node_right->parent->parent->right));
+		dup21(fd[0], STDIN_FILENO, right->token->data);
+		if (right->parent->parent && right->parent->parent->type & T_PIPE)
+			exit(init_pipeline(right, right->parent->parent->right));
 		else
-			exit(execute_command(node_right));
+			exit(execute_command(right, PIPE_EXEC));
 	}
 	else
 	{
 		close(fd[1]);
 		waitpid(pid_right, &status_right, 0);
 	}
-	return (status_right);
+	return (exec_status(status_right));
 }
+
+/*
+** Initialize pipeline
+*/
 
 int			init_pipeline(t_ast *left, t_ast *right)
 {
 	int		fd[2];
+	int		status;
 	pid_t	pid_left;
 
 	if (pipe(fd) == -1)
-		exit_error(PIPE_ERR);
-	else if ((pid_left = fork()) == -1)
+	{
+		print_error(PIPE_ERR, left->left->token->data);
+		return (EXEC_ERROR);
+	}
+	else if ((pid_left = fork()) < 0)
 		exit_error(FORK_ERR);
-	if (!pid_left)
+	else if (!pid_left)
 	{
 		close(fd[0]);
-		if ((dup2(fd[1], STDOUT_FILENO)) == -1)
-			exit_error(DUP_ERR);
-		execute_command(left);
+		dup21(fd[1], STDOUT_FILENO, left->token->data);
+		execute_command(left, PIPE_EXEC);
 	}
 	else
 	{
-		pipe_to_right(fd, right);
+		status = pipe_to_right(fd, right);
 		close(fd[0]);
 		waitpid(pid_left, NULL, 0);
 	}
-	return (EXEC_OK);
+	return (status);
 }

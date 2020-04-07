@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 13:02:16 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/04/07 09:42:42 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ static void	check_tty(void)
 		ft_dprintf(OUTPUT, "No terminal name");
 		exit(1);
 	}
-	if (!isatty(STDIN_FILENO))
-	{
-		ft_dprintf(OUTPUT, "No terminal detected!\n");
-		exit(1);
-	}
+	// Commented this out for the Python unittests to work - need to double check
+	// if (!isatty(STDIN_FILENO))
+	// {
+	// 	ft_dprintf(OUTPUT, "No terminal detected!\n");
+	// 	exit(1);
+	// }
 	if (tgetent(buffer, name) != 1)
 	{
 		ft_dprintf(OUTPUT, "No database or No entry found\n");

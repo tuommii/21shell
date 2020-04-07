@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/06 18:14:03 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 10:16:27 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static void		execute_all(t_lexer *lexer)
 		ast_del(&ast);
 	}
 }
+
+/*
+** Read from stdin, tokenize input and send to parser
+*/
 
 static void		run_21(t_line *line)
 {
@@ -53,10 +57,9 @@ int				main(int argc, char **argv, char **environment)
 		return (1);
 	}
 	// Display cool banner!
-	create_shell(environment);
 	linedit_setup();
 	line = create_line_editor();
-	g_sh.line = line; // Unecessary?
+	create_shell(environment, line);
 	run_21(line);
 	cleanup(line);
 }
