@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 21:08:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 12:45:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:22:54 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ static int	pipe_to_right(int fd[2], t_ast *right)
 	int		status_right;
 
 	status_right = 0;
-	if ((pid_right = fork()) < 0)
+	if ((pid_right = fork()) == -1)
 		exit_error(FORK_ERR);
 	if (!pid_right)
 	{
 		close(fd[1]);
 		dup21(fd[0], STDIN_FILENO, right->token->data);
 		if (right->parent->parent && right->parent->parent->type & T_PIPE)
-			exit(init_pipeline(right, right->parent->parent->right));
+			exit(execute_pipeline(right, right->parent->parent->right));
 		else
 			exit(execute_command(right, PIPE_EXEC));
 	}
@@ -59,7 +59,7 @@ static int	pipe_to_right(int fd[2], t_ast *right)
 ** Initialize pipeline
 */
 
-int			init_pipeline(t_ast *left, t_ast *right)
+int			execute_pipeline(t_ast *left, t_ast *right)
 {
 	int		fd[2];
 	int		status;
@@ -70,7 +70,7 @@ int			init_pipeline(t_ast *left, t_ast *right)
 		print_error(PIPE_ERR, left->left->token->data);
 		return (EXEC_ERROR);
 	}
-	else if ((pid_left = fork()) < 0)
+	else if ((pid_left = fork()) == -1)
 		exit_error(FORK_ERR);
 	else if (!pid_left)
 	{

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 12:18:16 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 16:41:55 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,8 @@ int		exec_status(int status)
 }
 
 /*
-** Check if provided command is a built in cmd
-*/
-
-int		builtins(char **cmd)
-{
-	if (ft_strequ(cmd[0], "exit"))
-		cleanup(g_sh.line);
-	else if (ft_strequ(cmd[0], "echo"))
-		return (echo_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "cd"))
-		return (cd_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "setenv"))
-		return (setenv_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "unsetenv"))
-		return (unsetenv_builtin(cmd + 1));
-	else if (ft_strequ(cmd[0], "env"))
-		return (display_env());
-	return (EXEC_ERROR);
-}
-
-/*
 ** Expand list of tokens into **command
+** Redirection and io number tokens are excluded
 */
 
 char	**tokens_to_tab(t_ast *ast)
@@ -90,8 +70,8 @@ char	**tokens_to_tab(t_ast *ast)
 	i = 0;
 	while (ast->token != ast->cmd_end)
 	{
-		if (ast->token->type & MASK_REDIR)
-			ast->token = ast->token->next->next;
+		if (ast->token->type & MASK_REDIR || ast->token->type & IO_NUM)
+			ast->token = ast->token->next;
 		else
 		{
 			cmd[i] = ft_strdup(ast->token->data);
@@ -117,16 +97,11 @@ void	restore_fd(t_ast *ast, int save[3])
 	close(save[0]);
 	close(save[1]);
 	close(save[2]);
-	if (!ast)
-		return ;
-	tmp = ast->token;
+	tmp = ast ? ast->token : NULL;
 	while (tmp)
 	{
-		if (tmp->type & MASK_REDIR)
-		{
-			if (tmp->fd > 0)
-				close(tmp->fd);
-		}
+		if (tmp->fd > 0)
+			close(tmp->fd);
 		tmp = tmp->next;
 	}
 }

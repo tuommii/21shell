@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:23:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 13:40:55 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 13:44:35 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void			parse_tilde(char **data)
 }
 
 /*
-** Expand $ and ~ characters
+** Expand $ and ~ characters in tokens
 */
 
 void	expand_tokens(t_lexer **lexer)

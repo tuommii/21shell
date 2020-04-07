@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 12:21:43 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 14:21:25 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	trailing_pipe(t_lexer **lexer)
 }
 
 /*
-**	1 - check lexer
+**	1 - check lexer and token count
 **	2 - check open quoting & clean quotes
 **  3 - check trailing semicolon, pipe and <<
 **	4 - expand $ ~
@@ -59,16 +59,14 @@ int			parser(t_lexer **lexer)
 {
 	int r;
 
-	r = PARSER_OK;
 	if (!lexer || !*lexer || !(*lexer)->count)
-		r = PARSER_ERROR;
+		return (PARSER_ERROR);
 	else if ((*lexer)->flags & T_SQUOT)
 		r = open_quote(lexer, 39);
 	else if ((*lexer)->flags & T_DQUOT)
 		r = open_quote(lexer, 34);
-	(*lexer)->flags & T_SQUOT ? remove_quotes((*lexer)->head, T_SQUOT, 39) : PASS;
-	(*lexer)->flags & T_DQUOT ? remove_quotes((*lexer)->head, T_DQUOT, 34) : PASS;
-
+	(*lexer)->flags & T_SQUOT ? remove_quotes((*lexer)->head, 39) : PASS;
+	(*lexer)->flags & T_DQUOT ? remove_quotes((*lexer)->head, 34) : PASS;
 	if ((*lexer)->count > 1)
 	{
 		if ((*lexer)->last->type & T_SCOL)
@@ -79,7 +77,6 @@ int			parser(t_lexer **lexer)
 			r = heredoc(lexer);
 	}
 	expand_tokens(lexer);
-	if (check_syntax(*lexer) == PARSER_ERROR)
-		r = PARSER_ERROR;
+	r = check_syntax(*lexer);
 	return (r);
 }

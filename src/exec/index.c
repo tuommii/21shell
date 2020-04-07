@@ -6,22 +6,32 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 11:37:33 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:22:59 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
+** Recurse until bottom of the tree is reached, or node is pipe
+*/
+
+static int		recurse_semicolons(t_ast *ast)
+{
+	execution_init(ast->left);
+	return (execution_init(ast->right));
+}
+
+/*
 ** Recurse to the leftmost leaf and initialize pipeline
 */
 
-int				execute_pipeline(t_ast *ast)
+static int		recurse_pipes(t_ast *ast)
 {
 	if (!ast->left)
-		return (init_pipeline(ast, ast->parent->right));
+		return (execute_pipeline(ast, ast->parent->right));
 	else
-		return (execute_pipeline(ast->left));
+		return (recurse_pipes(ast->left));
 }
 
 /*
@@ -30,16 +40,12 @@ int				execute_pipeline(t_ast *ast)
 
 int				execution_init(t_ast *ast)
 {
-	if (!ast)
-		return (EXEC_OK);
 	if (ast->token->type & T_SCOL)
-	{
-		execution_init(ast->left);
-		execution_init(ast->right);
-	}
+		return (recurse_semicolons(ast));
 	else if (ast->token->type & T_PIPE)
-		execute_pipeline(ast);
+		return (recurse_pipes(ast));
 	else if (~(ast->token->type & MASK_CTRL))
-		execute_command(ast, NORMAL_EXEC);
-	return (EXEC_OK);
+		return (execute_command(ast, NORMAL_EXEC));
+	else
+		return (EXEC_OK);
 }

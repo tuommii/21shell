@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/03 12:27:13 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:20:21 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ char	*linedit(t_line *line)
 	print_prompt(line);
 	while (1337)
 	{
-		listen_signals();
 		watch_kill(line);
 		line->cols = get_cols();
 		line->key = keypress();

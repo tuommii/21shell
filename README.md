@@ -3,6 +3,9 @@
 Sh
 
 ## Debug
+
+Flags `--lexer` and `--ast` give you information about tokens and AST
+
 ```sh
 valgrind ./21sh --leak-check=full --track-origins=yes
 ```
@@ -10,8 +13,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Bugs
-- [x] First exec of piped command is ok, second one produces errors
-- [ ] Bug out with PIPE + REDIRECT - cat < ls | echo for example
+- [ ] Redirection applies to whole command chain if in the end
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!
@@ -36,6 +38,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Double check syntax error check in parser
 - [ ] Builtin commands
 - [ ] Memory leaks
+- [ ] Redirection section in execution
 
 
 test cmd <- Pretty much works! Just in file there's an extra 'fi' 
@@ -65,7 +68,7 @@ mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 | <kbd>ESC</kbd> | Quit |
 
 ### Refrences
-- [control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
+- [Control operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators)
 - [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
 - [Unittests](https://github.com/JulienBalestra/21sh/blob/e1703310e11bf2774fb781c9b21937a69bb9e4ec/tests/test_minishell.py)
 

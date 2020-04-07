@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 17:01:10 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:43:22 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:32:20 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int		setenv_builtin(char **args)
 	if (!args[0])
 		display_env();
 	else if (args[1] && args[2])
+	{
 		ft_putendl("setenv: too many arguments.");
+		return (EXEC_ERROR);
+	}
 	else if (args[1])
 	{
 		tmp = parse_quotes(args[1]);

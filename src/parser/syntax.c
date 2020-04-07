@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 21:12:44 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/06 18:30:13 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 14:19:08 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 /*
 **	Check previous and current value of the token stack
-**	to-do: check differences between shells (bash / zsh)
+**	And check if the current token is the last in the deck
 */
 
 static int 		check_stack(int prev, int curr, t_token *next)
 {
-	// ft_printf("  stack prev [%d]", prev);
-	// ft_printf("  stack curr [%d]", curr);
 	if (!prev && curr & MASK_OP)
 		return (PARSER_ERROR);
-	else if ((prev & MASK_REDIR || prev & MASK_OP) && (curr & MASK_REDIR || curr & MASK_OP))
+	else if ((prev & MASK_REDIR || prev & MASK_OP) &&
+			(curr & MASK_REDIR || curr & MASK_OP))
 		return (PARSER_ERROR);
 	else if ((curr & MASK_REDIR || curr & T_DLARR) && next == NULL)
 		return (PARSER_ERROR);
@@ -31,7 +30,9 @@ static int 		check_stack(int prev, int curr, t_token *next)
 }
 
 /*
-**	Loop over tokens and check the syntax
+**	Loop over tokens 
+**	Put their type on the int stack
+**	Check the syntax
 */
 
 int				check_syntax(t_lexer *lexer)

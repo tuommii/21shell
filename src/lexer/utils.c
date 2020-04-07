@@ -6,11 +6,34 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 09:45:18 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/02 09:57:58 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:44:47 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+**	Cleanup lexer and it's tokens
+*/
+
+void		lexer_del(t_lexer **lexer)
+{
+	t_token	*tmp;
+	t_token	*prev;
+
+	tmp = (*lexer)->head;
+	while (tmp)
+	{
+		ft_strdel(&tmp->data);
+		prev = tmp;
+		tmp = tmp->next;
+		free(prev);
+	}
+	(*lexer)->head = NULL;
+	(*lexer)->last = NULL;
+	free(*lexer);
+	*lexer = NULL;
+}
 
 /*
 **	Checks if c is printable, excluding space and not an operator
@@ -37,6 +60,10 @@ int		next_quote(char *input, int q)
 		i++;
 	return (i);
 }
+
+/*
+**	Checks if string contains only numeric characters
+*/
 
 int		str_isnumeric(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:09:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 12:18:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:36:37 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int						execution_init(t_ast *ast);
 int						execute_command(t_ast *ast, int exec_type);
-int						init_pipeline(t_ast *left, t_ast *right);
+int						execute_pipeline(t_ast *left, t_ast *right);
 int						pipe21(char *path, char **args);
 int						init_redirection(t_ast *ast);
 int						open_file(t_token *token);
@@ -29,7 +29,8 @@ int						exec_status(int status);
 int						exec_preprocess(int save[3], t_ast *ast);
 int						dup21(int dst, int src, char *msg);
 
-int						builtins(char **cmd);
+int						is_builtin(char *cmd);
+int						exec_builtin(char **cmd);
 int						echo_builtin(char **args);
 int						cd_builtin(char **args);
 int						display_env(void);

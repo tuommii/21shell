@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 17:04:19 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 16:53:28 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	lexer_debug(t_lexer *lexer)
 	ft_putchar('\n');
 	while (tmp->head)
 	{
-		ft_printf("%s: [%s]\n", "token", tmp->head->data);
+		ft_printf("%s: [%s] type: [%d]\n", "token", tmp->head->data, tmp->head->type);
 		if (tmp->head == tmp->last)
 			break ;
 		tmp->head = tmp->head->next;

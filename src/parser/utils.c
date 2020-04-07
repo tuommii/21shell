@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:34:01 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 12:45:20 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 14:22:07 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ int		next_operator(t_token *token, int type)
 ** Remove quoting from input in case of squote or dquote
 */
 
-void			remove_quotes(t_token *token, int type, int wquote)
+void	remove_quotes(t_token *token, int wquote)
 {
 	char	*clean;
-	char	quote;
 	t_token *tmp;
 
 	tmp = token;
-	quote = (char)wquote;
 	while (tmp->next)
 		tmp = tmp->next;
 	if (wquote == 34)

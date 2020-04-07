@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:21:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 12:22:21 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 14:10:12 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int		heredoc(t_lexer **lexer)
 	char 	*eol;
 	char	*tmp;
 	char	*input;
-	char	*heredoc;
 	t_line	*line;
 
 	eol = ft_strdup((*lexer)->last->data);

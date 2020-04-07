@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 18:13:41 by srouhe            #+#    #+#             */
-/*   Updated: 2020/02/13 16:29:19 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:32:51 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int				unsetenv_builtin(char **args)
 
 	i = 0;
 	if (!args[0])
+	{
 		ft_putendl("unsetenv: too few arguments.");
+		return (EXEC_ERROR);
+	}
 	else
 	{
 		while (args[i])

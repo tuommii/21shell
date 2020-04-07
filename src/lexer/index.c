@@ -1,35 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   index.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 15:05:50 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:44:21 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-void		lexer_del(t_lexer **lexer)
-{
-	t_token	*tmp;
-	t_token	*prev;
-
-	tmp = (*lexer)->head;
-	while (tmp)
-	{
-		ft_strdel(&tmp->data);
-		prev = tmp;
-		tmp = tmp->next;
-		free(prev);
-	}
-	(*lexer)->head = NULL;
-	(*lexer)->last = NULL;
-	free(*lexer);
-	*lexer = NULL;
-}
 
 /*
 **	Add tokens to linked list:

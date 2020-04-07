@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 12:24:17 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 14:21:47 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # define AST_COUNT		10
 # define D_QUOTE		34
 # define S_QUOTE		39
-
-typedef enum e_cmd_type	t_cmd_type;
 
 typedef struct			s_ast
 {
@@ -41,7 +39,7 @@ int						open_quote(t_lexer **lexer, int wquote);
 
 void					ast_del(t_ast **ast);
 void					expand_tokens(t_lexer **lexer);
-void					remove_quotes(t_token *token, int type, int wquote);
+void					remove_quotes(t_token *token, int wquote);
 
 t_ast					*ast_create(t_token **token);
 t_ast					*new_leaf(t_token **token);

@@ -6,11 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 17:56:37 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 14:48:20 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "linedit.h"
+#include "shell.h"
 
 static void	handle_sigcont(void)
 {
@@ -62,7 +62,6 @@ void		watch_kill(t_line *line)
 void		listen_signals(void)
 {
 	signal(SIGTERM, signal_handler);
-	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	signal(SIGABRT, signal_handler);
 	signal(SIGTSTP, signal_handler);
@@ -70,4 +69,5 @@ void		listen_signals(void)
 	signal(SIGTTIN, signal_handler);
 	signal(SIGTTOU, signal_handler);
 	signal(SIGWINCH, signal_handler);
+	signal(SIGINT, signal_handler);
 }

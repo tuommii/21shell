@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 15:26:44 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 17:02:59 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define STRING			10
 # define F_SQUOTE		11
 # define F_DQUOTE		12
+# define IO_NUMBER		13
 
 # define OPT_LEXER		"--lexer"
 # define OPT_AST		"--ast"

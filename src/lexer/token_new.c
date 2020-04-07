@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   token_new.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:10:05 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/31 14:24:31 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 14:47:42 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ static t_token	*new_token(char *data, int flag)
 	new->fd = 0;
 	return (new);
 }
+
+/*
+** Add new token to lexer, maintain connection both ways
+*/
 
 void			add_token(t_lexer *lexer, char *data, int flag)
 {

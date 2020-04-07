@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 12:19:53 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 15:37:20 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int				exec_preprocess(int save[3], t_ast *ast)
 		restore_fd(ast, save);
 		return (EXEC_ERROR);
 	}
-	return (EXIT_SUCCESS);
+	return (EXEC_OK);
 }
 
 /*
@@ -117,9 +117,9 @@ int				execute_command(t_ast *ast, int exec_type)
 		return (r);
 	if ((cmd = tokens_to_tab(ast)))
 	{
-		if ((builtins(cmd) == EXEC_OK))
-			r = EXEC_OK;
-		else if ((binaries(cmd, exec_type) != EXEC_ERROR))
+		if (is_builtin(cmd[0]))
+			r = exec_builtin(cmd);
+		else if ((r = binaries(cmd, exec_type) != EXEC_ERROR))
 			r = EXEC_OK;
 		else if (!lstat(cmd[0], &attr))
 			r = check_binary(ft_strdup(cmd[0]), cmd, attr, exec_type);

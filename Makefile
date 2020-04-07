@@ -4,7 +4,7 @@ SRC_DIR 	= 	src/
 OBJ_DIR 	= 	obj/
 LIBFT_DIR 	= 	libft/
 
-FLAGS 		= 	
+FLAGS 		= 	-Wall -Werror -Wextra -g
 INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
 SRC_NAME 	= 	main.c \
@@ -13,16 +13,17 @@ SRC_NAME 	= 	main.c \
 				utils.c \
 				builtins/cd.c \
 				builtins/echo.c \
+				builtins/index.c \
 				builtins/setenv.c \
 				builtins/unsetenv.c \
 				builtins/utils.c \
 				exec/exec.c \
-				exec/init.c \
+				exec/index.c \
 				exec/open.c \
 				exec/pipe.c \
 				exec/redir.c \
 				exec/utils.c \
-				lexer/lexer.c \
+				lexer/index.c \
 				lexer/token_control.c \
 				lexer/token_new.c \
 				lexer/token_string.c \
@@ -43,7 +44,7 @@ SRC_NAME 	= 	main.c \
 				parser/astutil.c \
 				parser/expand.c \
 				parser/heredoc.c \
-				parser/parser.c \
+				parser/index.c \
 				parser/syntax.c \
 				parser/utils.c
 
