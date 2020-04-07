@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:09:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 11:43:22 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 12:18:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int						unsetenv_builtin(char **args);
 char					*get_env(char *var);
 char					*parse_path(char *cwd);
 char					**realloc_arr(size_t size);
-char					**expand_tokens(t_ast *ast);
+char					**tokens_to_tab(t_ast *ast);
 
 void					set_env(char *key, char *value);
 void					restore_fd(t_ast *ast, int save[3]);

@@ -10,7 +10,8 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Bugs
-- [ ] First exec of piped command is ok, second one produces errors
+- [x] First exec of piped command is ok, second one produces errors
+- [ ] Bug out with PIPE + REDIRECT - cat < ls | echo for example
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!
@@ -29,6 +30,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Readline should keep the newline in?
 - [ ] CTRL + L to clear the screen would be nice -> Miikka
 - [ ] Prompt to display cwd
+- [x] Expand $ ~ in parser
 
 ### Needs more testing
 - [ ] Double check syntax error check in parser
@@ -36,7 +38,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Memory leaks
 
 
-test cmd
+test cmd <- Pretty much works! Just in file there's an extra 'fi' 
 ```sh
 mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ```

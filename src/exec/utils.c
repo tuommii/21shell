@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 11:08:57 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 12:18:16 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		builtins(char **cmd)
 ** Expand list of tokens into **command
 */
 
-char	**expand_tokens(t_ast *ast)
+char	**tokens_to_tab(t_ast *ast)
 {
 	int		i;
 	char	**cmd;

@@ -6,50 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/06 18:25:22 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 12:21:43 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-/*
-** Read in more input with open quotes
-*/
-
-static int	open_quote(t_lexer **lexer, int wquote)
-{
-	char	*input;
-	char	*tmp;
-	t_line	*line;
-	int		flag;
-	char	err_msg;
-
-	flag = 0;
-	line = create_line_editor();
-	tmp = (*lexer)->last->data;
-	(*lexer)->last->data = ft_strjoin((*lexer)->last->data, "\n");
-	free(tmp);
-	while ((input = read_more(line, 1)) != NULL)
-	{
-		if (ft_lfind(input, wquote) != -1)
-			flag = 1;
-		tmp = (*lexer)->last->data;
-		(*lexer)->last->data = ft_strjoin((*lexer)->last->data, input);
-		free(tmp);
-		free(input);
-		if (flag)
-			break ;
-	}
-	if (flag)
-		return (PARSER_OK);
-	else
-	{
-		err_msg = (char)wquote;
-		print_error(EOF_ERR, &err_msg);
-		return (PARSER_ERROR);
-	}
-	return (PARSER_OK);
-}
 
 /*
 ** Remove trailing semicolon from tokens
@@ -87,64 +48,11 @@ static int	trailing_pipe(t_lexer **lexer)
 }
 
 /*
-** Heredoc: Read from stdin, must start and end with with same charset (EOL, etc.) 
-*/
-
-static int	heredoc(t_lexer **lexer)
-{
-	int		flag;
-	char 	*eol;
-	char	*tmp;
-	char	*input;
-	char	*heredoc;
-	t_line	*line;
-
-	eol = ft_strdup((*lexer)->last->data);
-	(*lexer)->last = (*lexer)->last->prev;
-	free((*lexer)->last->next->data);
-	free((*lexer)->last->next);
-	(*lexer)->last->next = NULL;
-	flag = 0;
-	line = create_line_editor();
-	ft_strclr((*lexer)->last->data);
-	tmp = (*lexer)->last->data;
-	(*lexer)->last->data = ft_strjoin((*lexer)->last->data, "\n");
-	free(tmp);
-	while ((input = read_more(line, 1)) != NULL)
-	{
-		if (!ft_strncmp(input, eol, ft_strlen(eol)))
-		{
-			free(input);
-			flag = 1;
-			break ;
-		}
-		tmp = (*lexer)->last->data;
-		(*lexer)->last->data = ft_strjoin((*lexer)->last->data, input);
-		free(tmp);
-		free(input);
-	}
-	tmp = (*lexer)->last->data;
-	(*lexer)->last->data = ft_strreplace((*lexer)->last->data, eol, "");
-	free(tmp);
-	if (flag)
-	{
-		free(eol);
-		return (PARSER_OK);
-	}
-	else
-	{
-		print_error(HEREDOC_ERR, eol);
-		free(eol);
-		return (PARSER_ERROR);
-	}
-}
-
-/*
 **	1 - check lexer
-**	2 - check open quoting
+**	2 - check open quoting & clean quotes
 **  3 - check trailing semicolon, pipe and <<
-**	4 - check syntax
-**	5 - clean quotes
+**	4 - expand $ ~
+**	5 - check syntax
 */
 
 int			parser(t_lexer **lexer)
@@ -170,7 +78,7 @@ int			parser(t_lexer **lexer)
 		else if ((*lexer)->last->prev->type & T_DLARR)
 			r = heredoc(lexer);
 	}
-
+	expand_tokens(lexer);
 	if (check_syntax(*lexer) == PARSER_ERROR)
 		r = PARSER_ERROR;
 	return (r);

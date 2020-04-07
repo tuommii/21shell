@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 21:08:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 11:43:08 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 12:45:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	pipe_to_right(int fd[2], t_ast *right)
 	int		status_right;
 
 	status_right = 0;
-	if ((pid_right = fork()) == -1)
+	if ((pid_right = fork()) < 0)
 		exit_error(FORK_ERR);
 	if (!pid_right)
 	{
@@ -76,7 +76,7 @@ int			init_pipeline(t_ast *left, t_ast *right)
 	{
 		close(fd[0]);
 		dup21(fd[1], STDOUT_FILENO, left->token->data);
-		execute_command(left, PIPE_EXEC);
+		exit(execute_command(left, PIPE_EXEC));
 	}
 	else
 	{

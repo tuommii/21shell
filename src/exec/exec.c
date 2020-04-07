@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 11:42:54 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/07 12:19:53 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int		binaries(char **cmd, int exec_type)
 }
 
 /*
-** Preprocess before execution (fd's & redirection)
+** Preprocess before execution (fd's | redirection)
 */
 
 int				exec_preprocess(int save[3], t_ast *ast)
@@ -115,7 +115,7 @@ int				execute_command(t_ast *ast, int exec_type)
 
 	if ((r = exec_preprocess(save, ast)) == EXEC_ERROR)
 		return (r);
-	if ((cmd = expand_tokens(ast)))
+	if ((cmd = tokens_to_tab(ast)))
 	{
 		if ((builtins(cmd) == EXEC_OK))
 			r = EXEC_OK;

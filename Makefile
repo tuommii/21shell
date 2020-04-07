@@ -41,6 +41,8 @@ SRC_NAME 	= 	main.c \
 				linedit/clipboard.c \
 				parser/ast.c \
 				parser/astutil.c \
+				parser/expand.c \
+				parser/heredoc.c \
 				parser/parser.c \
 				parser/syntax.c \
 				parser/utils.c
