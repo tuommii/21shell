@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/07 15:20:59 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/09 10:38:38 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		execute_all(t_lexer *lexer)
 		ast && lexer->flags & DEBUG_AST ? ast_debug(ast, 0) : PASS;
 		ast->flags = lexer->flags;
 		g_sh.status = execution_init(ast);
-		ft_printf("Execution status: [%d]\n", g_sh.status);
+		// ft_printf("Execution status: [%d]\n", g_sh.status);
 		ast_del(&ast);
 	}
 }

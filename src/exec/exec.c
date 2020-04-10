@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 17:39:22 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 13:34:44 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int				execute_command(t_ast *ast, int exec_type)
 		return (r);
 	if ((cmd = tokens_to_tab(ast)))
 	{
+		ft_printf("execute_command: [%s]\n", cmd[0]);
 		if (is_builtin(cmd[0]))
 			r = exec_builtin(cmd);
 		else if ((r = binaries(cmd, exec_type) != EXEC_ERROR))

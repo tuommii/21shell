@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 17:39:34 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 13:32:28 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		exec_status(int status)
 }
 
 /*
-** Expand list of tokens into **command
+** Expand list of tokens into **cmd
 ** Redirection and io number tokens are excluded
 */
 

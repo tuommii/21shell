@@ -13,8 +13,8 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Bugs
-- [ ] Redirection applies to whole command chain if in the end
-- [ ] Change heredoc, don't delete the DLARR but append to final token
+- [x] Redirection applies to whole command chain if in the end
+- [x] Change heredoc, don't delete the DLARR but append to final token
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!
@@ -34,6 +34,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] CTRL + L to clear the screen would be nice -> Miikka
 - [ ] Prompt to display cwd
 - [x] Expand $ ~ in parser
+- [ ] Resizing the window makes prompt disappear
 
 ### Needs more testing
 - [ ] Double check syntax error check in parser
@@ -42,7 +43,6 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Redirection section in execution
 
 
-test cmd <- Pretty much works! Just in file there's an extra 'fi' 
 ```sh
 mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ```
