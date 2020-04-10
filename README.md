@@ -10,6 +10,11 @@ Flags `--lexer` and `--ast` give you information about tokens and AST
 valgrind ./21sh --leak-check=full --track-origins=yes
 ```
 
+Number of lines in C files in the repo (important)
+```sh
+find . -name '*.c' -exec cat {} \; | wc -l
+```
+
 ## To-do
 
 ### Bugs
