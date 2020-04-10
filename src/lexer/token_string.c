@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:07:32 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 17:12:04 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 14:12:58 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_quoting(t_lexer *lexer, char *input, int i)
 }
 
 /*
-** Make a string or IO NUM token
+** Make a string, file or io number token
 */
 
 int			tokenize_string(t_lexer *lexer, char *input)
@@ -60,6 +60,8 @@ int			tokenize_string(t_lexer *lexer, char *input)
 	}
 	if (lexer->last && lexer->last->type & MASK_REDIR && str_isnumeric(input))
 		add_token(lexer, ft_strsub(input, 0, i), IO_NUMBER);
+	else if (lexer->last && lexer->last->type & MASK_REDIR)
+		add_token(lexer, ft_strsub(input, 0, i), FILENAME);
 	else
 		add_token(lexer, ft_strsub(input, 0, i), STRING);
 	return (i);

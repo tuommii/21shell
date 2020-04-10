@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 21:08:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/10 13:41:21 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 14:24:15 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static int	pipe_to_right(int fd[2], t_ast *right)
 		dup21(fd[0], STDIN_FILENO, right->token->data);
 		if (right->parent->parent && right->parent->parent->type & T_PIPE)
 		{
-			ft_printf("recurse further, exec [%s], go to [%s]\n", right->token->data, right->parent->parent->right);
+			// ft_printf("recurse further, skip [%s], go to [%s]\n", right->token->data, right->parent->parent->right->token->data);
 			exit(execute_pipeline(right, right->parent->parent->right));
 		}
 		else
 		{
-			ft_printf("pipe_to_right, exec [%s], from [%s]\n", right->token->data, right->parent->left->token->data);
+			// ft_printf("pipe_to_right, exec [%s], from [%s]\n", right->token->data, right->parent->left->token->data);
 			exit(execute_command(right, PIPE_EXEC));
 		}
 	}
@@ -82,7 +82,7 @@ int			execute_pipeline(t_ast *left, t_ast *right)
 	{
 		close(fd[0]);
 		dup21(fd[1], STDOUT_FILENO, left->token->data);
-		ft_printf("no pid_left, exec [%s]\n", left->token->data);
+		// ft_printf("no pid_left, exec [%s]\n", left->token->data);
 		exit(execute_command(left, PIPE_EXEC));
 	}
 	else

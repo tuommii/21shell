@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/09 10:38:38 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 14:25:21 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ static void		execute_all(t_lexer *lexer)
 
 	if ((ast = ast_create(&lexer->head)) != NULL)
 	{
-		ast && lexer->flags & DEBUG_AST ? ast_debug(ast, 0) : PASS;
-		ast->flags = lexer->flags;
-		g_sh.status = execution_init(ast);
-		// ft_printf("Execution status: [%d]\n", g_sh.status);
+		if (ast && lexer->flags & DEBUG_AST)
+			ast_debug(ast, 0);
+		else
+		{
+			ast->flags = lexer->flags;
+			g_sh.status = execution_init(ast);
+			// ft_printf("Execution status: [%d]\n", g_sh.status);
+		}
 		ast_del(&ast);
 	}
 }
@@ -43,8 +47,10 @@ static void		run_21(t_line *line)
 	while ((input = linedit(line)) != NULL)
 	{
 		tokenize(&lexer, input);
-		lexer->flags & DEBUG_LEXER ? lexer_debug(lexer) : PASS;
-		parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
+		if (lexer->flags & DEBUG_LEXER)
+			lexer_debug(lexer);
+		else
+			parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
 		lexer_del(&lexer);
 	}
 	linedit_config(1);

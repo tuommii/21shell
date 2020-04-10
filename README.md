@@ -15,6 +15,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ### Bugs
 - [x] Redirection applies to whole command chain if in the end
 - [x] Change heredoc, don't delete the DLARR but append to final token
+- [x] < not working
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!

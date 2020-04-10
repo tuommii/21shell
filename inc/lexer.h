@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 17:12:15 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 15:04:10 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@
 # define T_SQUOT		(1 << 11)
 # define T_DQUOT		(1 << 12)
 # define IO_NUM			(1 << 13)
-# define DEBUG_LEXER	(1 << 14)
-# define DEBUG_AST		(1 << 15)
+# define T_FILE			(1 << 14)
+# define DEBUG_LEXER	(1 << 15)
+# define DEBUG_AST		(1 << 16)
 
 /*
 ** Token flag masks
@@ -42,6 +43,8 @@
 # define MASK_OP 		0b11
 # define MASK_REDIR 	0b1111110100
 # define MASK_CTRL		0b1111111111
+# define MASK_CMD		0b101110000000000
+# define MASK_ECHO		0b1110000000000
 
 /*
 ** Definitions for tokenizing
@@ -60,6 +63,7 @@
 # define F_SQUOTE		11
 # define F_DQUOTE		12
 # define IO_NUMBER		13
+# define FILENAME		14
 
 # define OPT_LEXER		"--lexer"
 # define OPT_AST		"--ast"

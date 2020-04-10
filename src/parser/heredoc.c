@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:21:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 14:10:12 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 14:19:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		heredoc(t_lexer **lexer)
 	free((*lexer)->last->next->data);
 	free((*lexer)->last->next);
 	(*lexer)->last->next = NULL;
+	(*lexer)->last->type = T_STR;
 	flag = 0;
 	line = create_line_editor();
 	ft_strclr((*lexer)->last->data);

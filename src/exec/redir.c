@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:23:14 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/10 13:34:57 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 15:10:51 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@ static int	redirect(t_token *token)
 {
 	if (token->prev && token->prev->type & IO_NUM)
 	{
-		ft_printf("Redirecting fd [%d] to [%d]\n", ft_atoi(token->prev->data), token->fd);
+		// ft_printf("Redirecting fd [%d] to [%d]\n", ft_atoi(token->prev->data), token->fd);
 		return (dup21(token->fd, ft_atoi(token->prev->data), token->next->data));
 	}
 	else if (token->type & T_SLARR)
+	{
+		// ft_printf("Redirecting fd [%d] to [%d]\n", token->fd, STDIN_FILENO);
 		return (dup21(token->fd, STDIN_FILENO, token->next->data));
+	}
 	else
 	{
-		ft_printf("Redirecting fd [%d] to [%d]\n", STDOUT_FILENO, token->fd);
+		// ft_printf("Redirecting fd [%d] to [%d]\n", STDOUT_FILENO, token->fd);
 		return (dup21(token->fd, STDOUT_FILENO, token->next->data));
 	}
 }
@@ -71,27 +74,29 @@ int			init_redirection(t_ast *ast)
 	t_token	*tmp;
 
 	tmp = ast->token;
-	while (tmp && tmp->prev != ast->cmd_end)
+	while (tmp)
 	{
 		// ft_printf("iterating token: [%s]\n", tmp->data);
 		if (tmp->type & T_LESS_AND || tmp->type & T_GREAT_AND)
 		{
-			ft_printf("aggregate: [%s]\n", tmp->data);
+			// ft_printf("aggregate: [%s]\n", tmp->data);
 			if (aggregate_fds(tmp) == EXEC_ERROR)
 				return (EXEC_ERROR);
-			tmp = tmp->next->next;
+			tmp = tmp->next;
 		}
 		else if (tmp->type & MASK_REDIR)
 		{
-			ft_printf("redirect: [%s]\n", tmp->data);
+			// ft_printf("redirect: [%s]\n", tmp->data);
 			if (open_file(tmp) == EXEC_ERROR)
 				return (EXEC_ERROR);
 			if (redirect(tmp) == EXEC_ERROR)
 				return (EXEC_ERROR);
-			tmp = tmp->next->next;
+			tmp = tmp->next;
 		}
 		else
 			tmp = tmp->next;
+		if (tmp == ast->cmd_end)
+			break ;
 	}
 	return (EXEC_OK);
 }

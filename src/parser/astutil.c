@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 18:09:49 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:15:27 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/10 14:49:13 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_ast		*new_leaf(t_token **token)
 	new->left = NULL;
 	new->right = NULL;
 	new->type = (*token)->type;
+	// ft_printf("cmd start [%s]\n", (*token)->data);
 	bp = (*token)->type & MASK_OP ? MASK_STR : MASK_OP;
 	while ((*token)->next && !((*token)->type & bp))
 	{
@@ -38,6 +39,7 @@ t_ast		*new_leaf(t_token **token)
 		*token = (*token)->next;
 	}
 	new->cmd_end = !(*token)->next ? (*token)->next : *token;
+	// new->cmd_end ? ft_printf("cmd end [%s]\n", new->cmd_end->data) : ft_printf("cmd end (NULL)\n");
 	return (new);
 }
 
