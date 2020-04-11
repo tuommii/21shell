@@ -21,6 +21,8 @@ find . -name '*.c' -exec cat {} \; | wc -l
 - [x] Redirection applies to whole command chain if in the end
 - [x] Change heredoc, don't delete the DLARR but append to final token
 - [x] < not working
+- [x] echo moro ; echo jee ; ls >> file <-- echoes filename to file?
+- [ ] tokens_to_tab add logic
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!

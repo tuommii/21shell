@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:23:14 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/10 15:10:51 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/11 11:18:37 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int			aggregate_fds(t_token *token)
 		src = STDOUT_FILENO;
 	if (str_isnumeric(token->next->data))
 		return (dup21(ft_atoi(token->next->data), src, token->next->data));
-	else if (!ft_strcmp(token->next->data, "-"))
+	else if (token->next->type & T_DASH)
 		close(src);
-	else if (1)
+	else if (token->next->type & T_FILE)
 	{
 		if (open_file(token) == EXEC_ERROR)
 			return (EXEC_ERROR);
