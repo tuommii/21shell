@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/10 14:18:16 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:14:16 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int	trailing_pipe(t_lexer **lexer)
 	if (!(input = read_more(line, 0)))
 		return (PARSER_ERROR);
 	add_token(*lexer, input, STRING);
+	free_history(&line->hist);
+	free(line);
 	return (PARSER_OK);
 }
 

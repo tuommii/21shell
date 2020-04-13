@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:55:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 15:35:08 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:24:31 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int		move_to(char *path, int print)
 	}
 	else
 	{
-		ft_putstr("cd: ");
 		if (access(path, F_OK) == -1)
 			print_error(errno, path);
 		else if (access(path, R_OK) == -1)

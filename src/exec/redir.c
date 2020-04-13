@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:23:14 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/11 11:18:37 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:38:17 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,12 @@
 static int	redirect(t_token *token)
 {
 	if (token->prev && token->prev->type & IO_NUM)
-	{
-		// ft_printf("Redirecting fd [%d] to [%d]\n", ft_atoi(token->prev->data), token->fd);
-		return (dup21(token->fd, ft_atoi(token->prev->data), token->next->data));
-	}
+		return (dup21(token->fd, ft_atoi(token->prev->data), \
+						token->next->data));
 	else if (token->type & T_SLARR)
-	{
-		// ft_printf("Redirecting fd [%d] to [%d]\n", token->fd, STDIN_FILENO);
 		return (dup21(token->fd, STDIN_FILENO, token->next->data));
-	}
 	else
-	{
-		// ft_printf("Redirecting fd [%d] to [%d]\n", STDOUT_FILENO, token->fd);
 		return (dup21(token->fd, STDOUT_FILENO, token->next->data));
-	}
 }
 
 /*
@@ -76,17 +68,14 @@ int			init_redirection(t_ast *ast)
 	tmp = ast->token;
 	while (tmp)
 	{
-		// ft_printf("iterating token: [%s]\n", tmp->data);
 		if (tmp->type & T_LESS_AND || tmp->type & T_GREAT_AND)
 		{
-			// ft_printf("aggregate: [%s]\n", tmp->data);
 			if (aggregate_fds(tmp) == EXEC_ERROR)
 				return (EXEC_ERROR);
 			tmp = tmp->next;
 		}
 		else if (tmp->type & MASK_REDIR)
 		{
-			// ft_printf("redirect: [%s]\n", tmp->data);
 			if (open_file(tmp) == EXEC_ERROR)
 				return (EXEC_ERROR);
 			if (redirect(tmp) == EXEC_ERROR)

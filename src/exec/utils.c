@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/11 11:23:05 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:38:35 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,15 @@ int		exec_status(int status)
 char	**tokens_to_tab(t_ast *ast)
 {
 	int		i;
-	// int		bitmask;
 	char	**cmd;
 
 	if (!(cmd = (char **)malloc(sizeof(char *) * (ast->nbr_token + 1))))
 		exit_error(MALLOC_ERROR);
 	i = 0;
-	// bitmask = !ft_strcmp("cat", ast->token->data) ? MASK_CMD : MASK_ECHO;
 	while (ast->token)
 	{
 		if (ast->token->type & MASK_ECHO)
 		{
-			// ft_printf("add token to cmd [%s]\n", ast->token->data);
 			cmd[i] = ft_strdup(ast->token->data);
 			i++;
 		}

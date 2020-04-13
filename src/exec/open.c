@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 14:50:48 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/10 14:25:37 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:37:10 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	open_file(t_token *token)
 	errno = 0;
 	if (token->type & T_DRARR)
 	{
-		if ((token->fd = open(token->next->data, O_RDWR | O_CREAT | O_APPEND, 0666)) == -1)
+		if ((token->fd = open(token->next->data, \
+			O_RDWR | O_CREAT | O_APPEND, 0666)) == -1)
 			print_error(errno, token->next->data);
 	}
 	else if (token->type & T_SLARR)
@@ -31,14 +32,12 @@ int	open_file(t_token *token)
 	}
 	else
 	{
-		if ((token->fd = open(token->next->data, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
+		if ((token->fd = open(token->next->data, \
+			O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
 			print_error(errno, token->next->data);
 	}
 	if (errno == 0)
-	{
-		// ft_printf("opened [%s] successfully\n", token->next->data);
 		return (EXEC_OK);
-	}
 	else
 		return (EXEC_ERROR);
 }

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 16:53:28 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:32:37 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Print out string array with index
 */
 
-void 	array_debug(char **arr)
+void	array_debug(char **arr)
 {
 	int	i;
 

@@ -10,19 +10,9 @@ Flags `--lexer` and `--ast` give you information about tokens and AST
 valgrind ./21sh --leak-check=full --track-origins=yes
 ```
 
-Number of lines in C files in the repo (important)
-```sh
-find . -name '*.c' -exec cat {} \; | wc -l
-```
-
 ## To-do
 
 ### Bugs
-- [x] Redirection applies to whole command chain if in the end
-- [x] Change heredoc, don't delete the DLARR but append to final token
-- [x] < not working
-- [x] echo moro ; echo jee ; ls >> file <-- echoes filename to file?
-- [ ] tokens_to_tab add logic
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!
@@ -43,6 +33,7 @@ find . -name '*.c' -exec cat {} \; | wc -l
 - [ ] Prompt to display cwd
 - [x] Expand $ ~ in parser
 - [ ] Resizing the window makes prompt disappear
+- [ ] MIIKKA check these -> `valgrind ./21sh < /bin/echo | /bin/ls -l` -- `echo "pwd" | ./21sh`
 
 ### Needs more testing
 - [ ] Double check syntax error check in parser
@@ -51,6 +42,7 @@ find . -name '*.c' -exec cat {} \; | wc -l
 - [ ] Redirection section in execution
 
 
+Works now
 ```sh
 mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ```

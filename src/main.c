@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/10 14:25:21 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:20:13 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		execute_all(t_lexer *lexer)
 
 static void		run_21(t_line *line)
 {
-	char *input;
+	char	*input;
 	t_lexer	*lexer;
 
 	listen_signals();

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/11 11:23:41 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:36:19 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int		fork21(char *path, char **args)
 	listen_signals();
 	if (!pid)
 	{
-		// ft_printf("fork21: [%s]\n", path);
 		if ((status = execve(path, args, g_sh.env)) == -1)
 			exit_error(EXECVE_ERROR);
 	}
@@ -39,7 +38,8 @@ static int		fork21(char *path, char **args)
 ** Check binary execution rights and execve type ( pipe | normal )
 */
 
-static int		check_binary(char *path, char **args, struct stat attr, int exec_type)
+static int		check_binary(char *path, char **args, struct stat attr, \
+							int exec_type)
 {
 	if (attr.st_mode & S_IFREG)
 	{
@@ -115,13 +115,9 @@ int				execute_command(t_ast *ast, int exec_type)
 	struct stat		attr;
 
 	if ((r = exec_preprocess(save, ast)) == EXEC_ERROR)
-	{
-		ft_printf("REDIR ERROR\n");
 		return (r);
-	}
 	if ((cmd = tokens_to_tab(ast)))
 	{
-		// array_debug(cmd);
 		if (is_builtin(cmd[0]))
 			r = exec_builtin(cmd);
 		else if ((r = binaries(cmd, exec_type) != EXEC_ERROR))

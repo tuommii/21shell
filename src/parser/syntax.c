@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 21:12:44 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 14:19:08 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:34:37 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	And check if the current token is the last in the deck
 */
 
-static int 		check_stack(int prev, int curr, t_token *next)
+static int		check_stack(int prev, int curr, t_token *next)
 {
 	if (!prev && curr & MASK_OP)
 		return (PARSER_ERROR);
@@ -30,7 +30,7 @@ static int 		check_stack(int prev, int curr, t_token *next)
 }
 
 /*
-**	Loop over tokens 
+**	Loop over tokens
 **	Put their type on the int stack
 **	Check the syntax
 */
@@ -47,7 +47,8 @@ int				check_syntax(t_lexer *lexer)
 	while (token)
 	{
 		stack[++top] = token->type;
-		if ((check_stack(stack[top - 1], stack[top], token->next)) == PARSER_ERROR)
+		if ((check_stack(stack[top - 1], stack[top], token->next)) == \
+				PARSER_ERROR)
 		{
 			print_error(SYNTAX_ERR, token->data);
 			return (PARSER_ERROR);

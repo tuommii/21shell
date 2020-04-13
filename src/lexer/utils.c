@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 09:45:18 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 17:12:10 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:31:57 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Cleanup lexer and it's tokens
 */
 
-void		lexer_del(t_lexer **lexer)
+void	lexer_del(t_lexer **lexer)
 {
 	t_token	*tmp;
 	t_token	*prev;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   index.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 15:26:06 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 15:41:01 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:25:01 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@
 
 int		is_builtin(char *cmd)
 {
-	if (
-			ft_strequ(cmd, "exit")
+	if (ft_strequ(cmd, "exit")
 			|| ft_strequ(cmd, "echo")
 			|| ft_strequ(cmd, "cd")
 			|| ft_strequ(cmd, "setenv")
 			|| ft_strequ(cmd, "unsetenv")
-			|| ft_strequ(cmd, "env")
-		)
+			|| ft_strequ(cmd, "env"))
 		return (1);
 	else
 		return (0);

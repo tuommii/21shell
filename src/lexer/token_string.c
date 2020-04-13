@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:07:32 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/11 11:12:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:31:40 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,13 @@ int			tokenize_string(t_lexer *lexer, char *input)
 	while (is_valid_char(input[i]))
 	{
 		if (input[i] == 34 || input[i] == 39)
-		{
 			return (check_quoting(lexer, input, i));
-		}
 		i++;
 	}
 	if (lexer->last && lexer->last->type & MASK_REDIR && str_isnumeric(input))
 		add_token(lexer, ft_strsub(input, 0, i), IO_NUMBER);
-	else if (lexer->last && lexer->last->type & MASK_REDIR && !ft_strcmp(input, "-"))
+	else if (lexer->last && lexer->last->type & MASK_REDIR \
+			&& !ft_strcmp(input, "-"))
 		add_token(lexer, ft_strsub(input, 0, i), DASH);
 	else if (lexer->last && lexer->last->type & MASK_REDIR)
 		add_token(lexer, ft_strsub(input, 0, i), FILENAME);

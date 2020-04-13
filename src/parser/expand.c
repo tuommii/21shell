@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:23:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 13:44:35 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:33:58 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ static void			parse_dollar(char **data)
 		var = ft_strsub(tmp, 0, i);
 		if ((value = getenv(var + 1)))
 		{
-			*data = ft_strreplace(*data, var, value);
+			tmp = *data;
+			*data = ft_strreplace(tmp, var, value);
+			ft_strdel(&tmp);
 			tmp = *data;
 		}
 		tmp++;
@@ -48,7 +50,9 @@ static void			parse_tilde(char **data)
 	{
 		if ((value = getenv("HOME")))
 		{
-			*data = ft_strreplace(*data, "~", value);
+			tmp = *data;
+			*data = ft_strreplace(tmp, "~", value);
+			ft_strdel(&tmp);
 			tmp = *data;
 		}
 		tmp++;
@@ -59,7 +63,7 @@ static void			parse_tilde(char **data)
 ** Expand $ and ~ characters in tokens
 */
 
-void	expand_tokens(t_lexer **lexer)
+void				expand_tokens(t_lexer **lexer)
 {
 	t_token *token;
 

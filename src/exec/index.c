@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:12:08 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/10 14:44:48 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:36:38 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int		recurse_pipes(t_ast *ast)
 
 int				execution_init(t_ast *ast)
 {
-	// ft_printf("!!EXEC INIT!! [%s]\n", ast->token->data);
 	if (ast->token->type & T_SCOL)
 		return (recurse_semicolons(ast));
 	else if (ast->token->type & T_PIPE)

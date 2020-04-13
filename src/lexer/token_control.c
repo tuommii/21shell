@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:04:06 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 16:05:26 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:30:45 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 ** 		otherwise create IO redirection
 */
 
-static int	create_token(t_lexer *lexer, char *input, char *operator, int i)
+static int	create_token(t_lexer *lexer, char *operator, int i)
 {
-	(void)input;
 	if (i < 2)
 		add_token(lexer, ft_strdup(operator), i);
 	else
@@ -37,17 +36,15 @@ static int	create_token(t_lexer *lexer, char *input, char *operator, int i)
 
 int			tokenize_operator(t_lexer *lexer, char *input)
 {
-	int		i;
-	char	operator[OP_SLOTS][OP_LEN] = {OPERATOR_ARR};
+	int			i;
+	static char	operator[OP_SLOTS][OP_LEN] = {OPERATOR_ARR};
 
 	i = 0;
 	while (i < OP_SLOTS)
 	{
 		if (!ft_strncmp(input, operator[i], ft_strlen(operator[i])))
-		{
-			return (create_token(lexer, input, operator[i], i));
-		}
+			return (create_token(lexer, operator[i], i));
 		i++;
 	}
-	return (1);	
+	return (1);
 }

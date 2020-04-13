@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:10:05 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 14:47:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:31:06 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static t_token	*new_token(char *data, int flag)
 {
 	t_token		*new;
+
 	if (!(new = ft_memalloc(sizeof(t_token))))
 		return (NULL);
 	new->data = ft_strdup(data);
@@ -51,5 +52,5 @@ void			add_token(t_lexer *lexer, char *data, int flag)
 	}
 	lexer->flags |= (1 << flag);
 	lexer->count++;
-	ft_strdel(&data);
+	free(data);
 }

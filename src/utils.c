@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 16:13:23 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 18:53:34 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void 		cleanup(t_line *line)
 	erase_input(line);
 	free_history(&line->hist);
 	free(line);
+	ft_freestrarr(g_sh.env);
 	exit(EXIT_SUCCESS);
 }
 

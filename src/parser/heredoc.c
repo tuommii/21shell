@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:21:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/10 14:19:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:14:26 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int		open_quote(t_lexer **lexer, int wquote)
 		print_error(EOF_ERR, &err_msg);
 		return (PARSER_ERROR);
 	}
+	free_history(&line->hist);
+	free(line);
 	return (PARSER_OK);
 }
 

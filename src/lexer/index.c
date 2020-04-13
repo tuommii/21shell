@@ -6,30 +6,35 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 17:34:36 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:28:14 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-/*
-**	Add tokens to linked list:
-**		Control tokens "|", ";", ">>", "<<", "<&", "<>", ">&", ">|", ">", "<" 
-**		Strings (parse quotes and dquotes)
-**	Update count and flags to t_lexer
-*/
-
-void		tokenize(t_lexer **lexer, char *input)
+static void		init_lexer(t_lexer **lexer)
 {
-	int		i;
-
-	i = 0;
 	if (!(*lexer = ft_memalloc(sizeof(t_lexer))))
-		return ;
+		exit_error(MALLOC_ERROR);
 	(*lexer)->head = NULL;
 	(*lexer)->last = NULL;
 	(*lexer)->count = 0;
 	(*lexer)->flags = 0;
+}
+
+/*
+**	Add tokens to linked list:
+**		Control tokens "|", ";", ">>", "<<", "<&", "<>", ">&", ">|", ">", "<"
+**		Strings (parse quotes and dquotes)
+**	Update count and flags to t_lexer
+*/
+
+void			tokenize(t_lexer **lexer, char *input)
+{
+	int		i;
+
+	i = 0;
+	init_lexer(lexer);
 	while (input[i])
 	{
 		if (ft_strchr(OPERATORS, input[i]))

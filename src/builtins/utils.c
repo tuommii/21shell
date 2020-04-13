@@ -6,13 +6,13 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:56:31 by srouhe            #+#    #+#             */
-/*   Updated: 2020/03/26 11:50:48 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/13 19:25:13 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		display_env(void)
+int				display_env(void)
 {
 	int		i;
 
@@ -25,7 +25,7 @@ int		display_env(void)
 	return (EXEC_OK);
 }
 
-int		find_env(char *var)
+int				find_env(char *var)
 {
 	int		i;
 	char	*parsed;
@@ -45,7 +45,7 @@ int		find_env(char *var)
 	return (i);
 }
 
-char	**realloc_arr(size_t size)
+char			**realloc_arr(size_t size)
 {
 	int		i;
 	char	**new;
