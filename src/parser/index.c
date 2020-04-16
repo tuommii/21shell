@@ -6,30 +6,11 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/16 12:05:33 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 16:30:38 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-/*
-** Remove trailing semicolon from tokens
-*/
-
-static int	trailing_semicolon(t_lexer **lexer)
-{
-	t_token *token;
-
-	token = (*lexer)->head;
-	while (token->next->next)
-		token = token->next;
-	free((*lexer)->last->data);
-	free((*lexer)->last);
-	token->next = NULL;
-	(*lexer)->last = token;
-	(*lexer)->count--;
-	return (PARSER_OK);
-}
 
 /*
 ** Prompt for more input with trailing pipe
@@ -52,33 +33,36 @@ static int	trailing_pipe(t_lexer **lexer)
 /*
 **	1 - check lexer and token count
 **	2 - check syntax
-**	3 - check open quoting & clean quotes
-**  4 - check trailing semicolon, pipe and <<
-**	5 - expand $ ~
+**	3 - check open quoting and read more
+**	4 - check heredoc and read to all of them
+**  5 - check trailing semicolon, pipe and <<
+**	6 - clean quotes
+**	7 - expand $ ~
 */
 
 int			parser(t_lexer **lexer)
 {
 	int r;
 
-	r = PARSER_OK;
 	if (!lexer || !*lexer || !(*lexer)->count)
 		return (PARSER_ERROR);
-	else if (check_syntax(*lexer) == PARSER_ERROR)
+	if ((r = check_syntax(*lexer)) == PARSER_ERROR)
 		return (PARSER_ERROR);
-	else if ((*lexer)->flags & T_SQUOT)
-		r = open_quote(lexer, 39);
+	if ((*lexer)->flags & T_SQUOT)
+		r = open_quote(lexer, S_QUOTE);
 	else if ((*lexer)->flags & T_DQUOT)
-		r = open_quote(lexer, 34);
-	(*lexer)->flags & T_SQUOT ? remove_quotes((*lexer)->head, 39) : PASS;
-	(*lexer)->flags & T_DQUOT ? remove_quotes((*lexer)->head, 34) : PASS;
+		r = open_quote(lexer, D_QUOTE);
+	else if ((*lexer)->flags & T_DLARR)
+		r = check_heredoc(lexer);
 	if ((*lexer)->count > 1)
 	{
 		if ((*lexer)->last->type & T_SCOL)
-			r = trailing_semicolon(lexer);
+			r = remove_last_token(lexer);
 		else if ((*lexer)->last->type & T_PIPE)
 			r = trailing_pipe(lexer);
 	}
+	(*lexer)->flags & T_SQUOT ? remove_quotes((*lexer)->head, S_QUOTE) : PASS;
+	(*lexer)->flags & T_DQUOT ? remove_quotes((*lexer)->head, D_QUOTE) : PASS;
 	expand_tokens(lexer);
 	return (r);
 }

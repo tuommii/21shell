@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:10:05 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:31:06 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 13:03:55 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static t_token	*new_token(char *data, int flag)
 	if (!(new = ft_memalloc(sizeof(t_token))))
 		return (NULL);
 	new->data = ft_strdup(data);
+	new->heredoc = NULL;
 	new->next = NULL;
 	new->prev = NULL;
 	new->type |= (1 << flag);

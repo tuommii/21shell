@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/07 16:13:37 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 14:23:10 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,44 @@
 # include "parser.h"
 # include "exec.h"
 
-# define OUTPUT 		STDOUT_FILENO
-# define PASS 			(void)0
+# define OUTPUT 			STDOUT_FILENO
+# define PASS 				(void)0
 
-# define MALLOC_ERROR	2
-# define FORK_ERR		3
-# define EXECVE_ERROR	4
-# define SYNTAX_ERR		5
-# define PERMISSION_ERR 6
-# define NOT_FOUND_ERR	7
-# define NOT_DIR_ERR	8
-# define PIPE_ERR		9
-# define DUP_ERR		10
-# define REDIR_ERR		11
-# define AMB_REDIR_ERR	12
-# define EOF_ERR		14
-# define HEREDOC_ERR	15
-# define BAD_FD_ERR		16
+/*
+** Error numbers
+*/
+# define MALLOC_ERROR		2
+# define FORK_ERR			3
+# define EXECVE_ERROR		4
+# define SYNTAX_ERR			5
+# define PERMISSION_ERR 	6
+# define NOT_FOUND_ERR		7
+# define NOT_DIR_ERR		8
+# define PIPE_ERR			9
+# define DUP_ERR			10
+# define REDIR_ERR			11
+# define AMB_REDIR_ERR		12
+# define EOF_ERR			14
+# define HEREDOC_ERR		15
+# define BAD_FD_ERR			16
+
+/*
+** Error messages
+*/
+# define STR_MALLOC_ERR
+# define STR_FORK_ERR	
+# define STR_EXECVE_ERR	
+# define STR_SYNTAX_ERR		
+# define STR_PERMISSION_ERR
+# define STR_NOT_FOUND_ERR
+# define STR_NOT_DIR_ERR	
+# define STR_PIPE_ERR		
+# define STR_DUP_ERR		
+# define STR_REDIR_ERR		
+# define STR_AMB_REDIR_ERR	
+# define STR_EOF_ERR		
+# define STR_HEREDOC_ERR	
+# define STR_BAD_FD_ERR		
 
 /*
 ** Definitions of termcaps tuples:

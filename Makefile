@@ -43,6 +43,7 @@ SRC_NAME 	= 	main.c \
 				parser/ast.c \
 				parser/astutil.c \
 				parser/expand.c \
+				parser/heredoc.c \
 				parser/index.c \
 				parser/quotes.c \
 				parser/syntax.c \

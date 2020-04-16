@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:07:32 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:31:40 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 16:33:46 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int			tokenize_string(t_lexer *lexer, char *input)
 	else if (lexer->last && lexer->last->type & MASK_REDIR \
 			&& !ft_strcmp(input, "-"))
 		add_token(lexer, ft_strsub(input, 0, i), DASH);
-	else if (lexer->last && lexer->last->type & MASK_REDIR)
+	else if (lexer->last && lexer->last->type & T_DLARR)
+		add_token(lexer, ft_strsub(input, 0, i), HEREDOC);
+	else if (lexer->last && lexer->last->type & MASK_REDIR && \
+				!(lexer->last->type & T_DLARR))
 		add_token(lexer, ft_strsub(input, 0, i), FILENAME);
 	else
 		add_token(lexer, ft_strsub(input, 0, i), STRING);

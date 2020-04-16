@@ -6,11 +6,30 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:34:01 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 14:22:07 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 16:30:52 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+** Remove last token
+*/
+
+int		remove_last_token(t_lexer **lexer)
+{
+	t_token *token;
+
+	token = (*lexer)->head;
+	while (token->next->next)
+		token = token->next;
+	free((*lexer)->last->data);
+	free((*lexer)->last);
+	token->next = NULL;
+	(*lexer)->last = token;
+	(*lexer)->count--;
+	return (PARSER_OK);
+}
 
 /*
 ** Jump to next operator

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:58:45 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:32:37 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 16:34:56 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,19 @@ void	array_debug(char **arr)
 
 void	ast_debug(t_ast *root, int ws)
 {
+	int	i;
+
+	i = AST_COUNT;
 	if (root == NULL)
 		return ;
 	ws += AST_COUNT;
 	ast_debug(root->right, ws);
-	ft_printf("\n");
-	for (int i = AST_COUNT; i < ws; i++)
-		ft_printf(" ");
+	ft_putchar('\n');
+	while (i < ws)
+	{
+		ft_putchar(' ');
+		i++;
+	}
 	ft_printf("[%s][%d]\n", root->token->data, root->type);
 	ast_debug(root->left, ws);
 }
@@ -58,11 +64,12 @@ void	lexer_debug(t_lexer *lexer)
 	tmp = lexer;
 	ft_printf("%s: [%d]\n", "token count", tmp->count);
 	ft_printf("flags: ");
-	ft_print_bits(tmp->flags, 16);
+	ft_print_bits(tmp->flags, 24);
 	ft_putchar('\n');
 	while (tmp->head)
 	{
-		ft_printf("%s: [%s] type: [%d]\n", "token", tmp->head->data, tmp->head->type);
+		ft_printf("%s: [%s] type: [%d]\n", "token", \
+					tmp->head->data, tmp->head->type);
 		if (tmp->head == tmp->last)
 			break ;
 		tmp->head = tmp->head->next;

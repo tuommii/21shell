@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:25:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 14:21:47 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 16:31:01 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ typedef struct			s_ast
 }						t_ast;
 
 int						check_syntax(t_lexer *lexer);
+int						check_heredoc(t_lexer **lexer);
 int						parser(t_lexer **lexer);
 int						next_operator(t_token *token, int type);
-int						heredoc(t_lexer **lexer);
 int						open_quote(t_lexer **lexer, int wquote);
+int						remove_last_token(t_lexer **lexer);
 
 void					ast_del(t_ast **ast);
 void					expand_tokens(t_lexer **lexer);

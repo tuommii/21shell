@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/11 11:13:15 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 16:34:26 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@
 # define IO_NUM			(1 << 13)
 # define T_FILE			(1 << 14)
 # define T_DASH			(1 << 15)
-# define DEBUG_LEXER	(1 << 16)
-# define DEBUG_AST		(1 << 17)
+# define T_HEREDOC		(1 << 16)
+# define DEBUG_LEXER	(1 << 17)
+# define DEBUG_AST		(1 << 18)
 
 /*
 ** Token flag masks
@@ -42,7 +43,7 @@
 
 # define MASK_STR		0b10000000000
 # define MASK_OP 		0b11
-# define MASK_REDIR 	0b1111110100
+# define MASK_REDIR 	0b1111111100
 # define MASK_CTRL		0b1111111111
 # define MASK_CMD		0b101110000000000
 # define MASK_ECHO		0b1110000000000
@@ -66,6 +67,7 @@
 # define IO_NUMBER		13
 # define FILENAME		14
 # define DASH			15
+# define HEREDOC		16
 
 # define OPT_LEXER		"--lexer"
 # define OPT_AST		"--ast"
@@ -75,6 +77,7 @@ typedef struct			s_token
 	int					type;
 	int					fd;
 	char				*data;
+	char				*heredoc;
 	struct s_token		*next;
 	struct s_token		*prev;
 }						t_token;

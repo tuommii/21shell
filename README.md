@@ -13,7 +13,8 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Bugs
-- [ ] Heredoc logic was wrong - need to pipe it
+- [x] Heredoc logic was wrong - need to pipe it
+- [ ] Prompt displayed twice in read_again()
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!

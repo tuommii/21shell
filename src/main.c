@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/16 12:20:11 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 16:53:18 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Display 21shell banner
 */
+
 static void		display_banner(void)
 {
 	int		fd;
@@ -47,7 +48,6 @@ static void		execute_all(t_lexer *lexer)
 		{
 			ast->flags = lexer->flags;
 			g_sh.status = execution_init(ast);
-			// ft_printf("Execution status: [%d]\n", g_sh.status);
 		}
 		ast_del(&ast);
 	}
