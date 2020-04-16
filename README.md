@@ -13,6 +13,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Bugs
+- [ ] Heredoc logic was wrong - need to pipe it
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!
@@ -36,10 +37,10 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] MIIKKA check these -> `valgrind ./21sh < /bin/echo | /bin/ls -l` -- `echo "pwd" | ./21sh`
 
 ### Needs more testing
-- [ ] Double check syntax error check in parser
-- [ ] Builtin commands
+- [x] Double check syntax error check in parser
+- [x] Builtin commands
 - [ ] Memory leaks
-- [ ] Redirection section in execution
+- [x] Redirection section in execution
 
 
 Works now

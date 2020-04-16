@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:14:16 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 12:05:33 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	trailing_pipe(t_lexer **lexer)
 {
 	char	*input;
 	t_line	*line;
-	
+
 	line = create_line_editor();
 	if (!(input = read_more(line, 0)))
 		return (PARSER_ERROR);
@@ -51,17 +51,20 @@ static int	trailing_pipe(t_lexer **lexer)
 
 /*
 **	1 - check lexer and token count
-**	2 - check open quoting & clean quotes
-**  3 - check trailing semicolon, pipe and <<
-**	4 - expand $ ~
-**	5 - check syntax
+**	2 - check syntax
+**	3 - check open quoting & clean quotes
+**  4 - check trailing semicolon, pipe and <<
+**	5 - expand $ ~
 */
 
 int			parser(t_lexer **lexer)
 {
 	int r;
 
+	r = PARSER_OK;
 	if (!lexer || !*lexer || !(*lexer)->count)
+		return (PARSER_ERROR);
+	else if (check_syntax(*lexer) == PARSER_ERROR)
 		return (PARSER_ERROR);
 	else if ((*lexer)->flags & T_SQUOT)
 		r = open_quote(lexer, 39);
@@ -75,10 +78,7 @@ int			parser(t_lexer **lexer)
 			r = trailing_semicolon(lexer);
 		else if ((*lexer)->last->type & T_PIPE)
 			r = trailing_pipe(lexer);
-		else if ((*lexer)->last->prev->type & T_DLARR)
-			r = heredoc(lexer);
 	}
 	expand_tokens(lexer);
-	r = check_syntax(*lexer);
 	return (r);
 }

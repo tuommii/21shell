@@ -6,11 +6,30 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/13 19:20:13 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/16 12:20:11 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+** Display 21shell banner
+*/
+static void		display_banner(void)
+{
+	int		fd;
+	char	*line;
+
+	if ((fd = open(".boot", O_RDWR)) != -1)
+	{
+		while (get_next_line(fd, &line))
+		{
+			ft_putendl(line);
+			free(line);
+		}
+		close(fd);
+	}
+}
 
 /*
 ** Create Abstract syntax tree from lexer and execute
@@ -64,10 +83,10 @@ int				main(int argc, char **argv, char **environment)
 	{
 		return (1);
 	}
-	// Display cool banner!
 	linedit_setup();
 	line = create_line_editor();
 	create_shell(environment, line);
+	display_banner();
 	run_21(line);
 	cleanup(line);
 }
