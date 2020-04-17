@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:28:14 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/17 17:01:04 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ void			tokenize(t_lexer **lexer, char *input)
 		else
 			i++;
 	}
+	(*lexer)->first = (*lexer)->head;
 }

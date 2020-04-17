@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:56:02 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/16 16:34:26 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/17 17:01:18 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct			s_lexer
 	int					flags;
 	int					count;
 	struct s_token		*head;
+	struct s_token		*first;
 	struct s_token		*last;
 }						t_lexer;
 

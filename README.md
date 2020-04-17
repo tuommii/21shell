@@ -35,7 +35,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Prompt to display cwd
 - [x] Expand $ ~ in parser
 - [ ] Resizing the window makes prompt disappear
-- [ ] MIIKKA check these -> `valgrind ./21sh < /bin/echo | /bin/ls -l` -- `echo "pwd" | ./21sh`
+- [ ] MIIKKA check these -> `echo "pwd" | ./21sh`
 
 ### Needs more testing
 - [x] Double check syntax error check in parser

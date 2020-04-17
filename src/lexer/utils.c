@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 09:45:18 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:31:57 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/17 17:02:49 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,20 @@ void	lexer_del(t_lexer **lexer)
 	t_token	*tmp;
 	t_token	*prev;
 
-	tmp = (*lexer)->head;
+	if (!lexer || !*lexer || !(*lexer)->first)
+		return ;
+	tmp = (*lexer)->first;
 	while (tmp)
 	{
 		ft_strdel(&tmp->data);
+		if (tmp->heredoc)
+			free(tmp->heredoc);
 		prev = tmp;
 		tmp = tmp->next;
 		free(prev);
 	}
 	(*lexer)->head = NULL;
+	(*lexer)->first = NULL;
 	(*lexer)->last = NULL;
 	free(*lexer);
 	*lexer = NULL;
