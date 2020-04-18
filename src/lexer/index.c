@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:54:43 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/17 17:01:04 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:04:41 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static void		init_lexer(t_lexer **lexer)
 {
 	if (!(*lexer = ft_memalloc(sizeof(t_lexer))))
-		exit_error(MALLOC_ERROR);
+		exit_error(MALLOC_ERROR, STR_MALLOC_ERR);
 	(*lexer)->head = NULL;
+	(*lexer)->first = NULL;
 	(*lexer)->last = NULL;
 	(*lexer)->count = 0;
 	(*lexer)->flags = 0;

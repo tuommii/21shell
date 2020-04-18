@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 21:08:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/16 17:02:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:04:07 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int			pipe21(char *path, char **args)
 	int		status;
 
 	if ((status = execve(path, args, g_sh.env)) == -1)
-		exit_error(EXECVE_ERROR);
+		exit_error(EXECVE_ERROR, STR_EXECVE_ERR);
+	free(path);
 	return (exec_status(status));
 }
 
@@ -37,7 +38,7 @@ static int	pipe_to_right(int fd[2], t_ast *right)
 
 	status_right = 0;
 	if ((pid_right = fork()) == -1)
-		exit_error(FORK_ERR);
+		exit_error(FORK_ERR, STR_FORK_ERR);
 	if (!pid_right)
 	{
 		close(fd[1]);
@@ -73,7 +74,7 @@ int			execute_pipeline(t_ast *left, t_ast *right)
 		return (EXEC_ERROR);
 	}
 	else if ((pid_left = fork()) == -1)
-		exit_error(FORK_ERR);
+		exit_error(FORK_ERR, STR_FORK_ERR);
 	else if (!pid_left)
 	{
 		close(fd[0]);

@@ -13,7 +13,6 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 ## To-do
 
 ### Bugs
-- [x] Heredoc logic was wrong - need to pipe it
 - [ ] Prompt displayed twice in read_again()
 
 ### History (for 42sh at least)
@@ -38,10 +37,7 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] MIIKKA check these -> `echo "pwd" | ./21sh`
 
 ### Needs more testing
-- [x] Double check syntax error check in parser
-- [x] Builtin commands
-- [ ] Memory leaks
-- [x] Redirection section in execution
+- [ ] Memory leaks (leaks in lexer - exec & parser not really)
 
 
 Works now

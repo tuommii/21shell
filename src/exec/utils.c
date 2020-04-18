@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:38:35 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:04:19 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	**tokens_to_tab(t_ast *ast)
 	char	**cmd;
 
 	if (!(cmd = (char **)malloc(sizeof(char *) * (ast->nbr_token + 1))))
-		exit_error(MALLOC_ERROR);
+		exit_error(MALLOC_ERROR, STR_MALLOC_ERR);
 	i = 0;
 	while (ast->token)
 	{

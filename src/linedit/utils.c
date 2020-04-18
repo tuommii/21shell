@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 11:27:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:04:47 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/04/18 12:54:36 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		print_char(int c)
 int		get_cols(void)
 {
 	struct winsize w;
+
 	ioctl(OUTPUT, TIOCGSIZE, &w);
 	if (w.ws_col <= 0)
 		return (80);

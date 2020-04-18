@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:36:19 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:03:40 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ static int		fork21(char *path, char **args)
 	int		status;
 
 	if ((pid = fork()) == -1)
-		exit_error(FORK_ERR);
+		exit_error(FORK_ERR, STR_FORK_ERR);
 	listen_signals();
 	if (!pid)
 	{
 		if ((status = execve(path, args, g_sh.env)) == -1)
-			exit_error(EXECVE_ERROR);
+			exit_error(EXECVE_ERROR, STR_EXECVE_ERR);
 	}
 	else
 		wait(&status);
+	free(path);
 	return (exec_status(status));
 }
 

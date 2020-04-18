@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/16 14:23:10 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:02:42 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@
 /*
 ** Error messages
 */
-# define STR_MALLOC_ERR
-# define STR_FORK_ERR	
-# define STR_EXECVE_ERR	
+# define STR_MALLOC_ERR		"21sh: malloc error."
+# define STR_FORK_ERR		"21sh: failed to create child process."
+# define STR_EXECVE_ERR		"21sh: execve error."
 # define STR_SYNTAX_ERR		
 # define STR_PERMISSION_ERR
 # define STR_NOT_FOUND_ERR
 # define STR_NOT_DIR_ERR	
 # define STR_PIPE_ERR		
-# define STR_DUP_ERR		
-# define STR_REDIR_ERR		
+# define STR_DUP_ERR		"21sh: dup error."	
+# define STR_REDIR_ERR		"21sh: redirection error."
 # define STR_AMB_REDIR_ERR	
 # define STR_EOF_ERR		
 # define STR_HEREDOC_ERR	
@@ -107,6 +107,6 @@ void					parser_debug(t_ast *ast);
 void					lexer_debug(t_lexer *lexer);
 void 					array_debug(char **arr);
 void					ast_debug(t_ast *root, int ws);
-void					exit_error(int err);
+void					exit_error(int err, char *msg);
 
 #endif

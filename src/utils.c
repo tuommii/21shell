@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/16 14:15:41 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:02:37 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		create_shell(char **environ, t_line *line)
 ** Cleanup on exit
 */
 
-void 		cleanup(t_line *line)
+void		cleanup(t_line *line)
 {
 	linedit_config(1);
 	erase_input(line);
@@ -62,13 +62,13 @@ void 		cleanup(t_line *line)
 ** Fatal errors
 */
 
-void		exit_error(int err)
+void		exit_error(int err, char *msg)
 {
-	err == MALLOC_ERROR ? ft_putendl_fd("21sh: malloc error.", STDERR_FILENO) : PASS;
-	err == FORK_ERR ? ft_putendl_fd("21sh: failed to create child process.", STDERR_FILENO) : PASS;
-	err == EXECVE_ERROR ? ft_putendl_fd("21sh: execve error.", STDERR_FILENO) : PASS;
-	err == DUP_ERR ? ft_putendl_fd("21sh: dup error.", STDERR_FILENO) : PASS;
-	err == REDIR_ERR ? ft_putendl_fd("21sh: redirection error.", STDERR_FILENO) : PASS;
+	err == MALLOC_ERROR ? ft_putendl_fd(msg, STDERR_FILENO) : PASS;
+	err == FORK_ERR ? ft_putendl_fd(msg, STDERR_FILENO) : PASS;
+	err == EXECVE_ERROR ? ft_putendl_fd(msg, STDERR_FILENO) : PASS;
+	err == DUP_ERR ? ft_putendl_fd(msg, STDERR_FILENO) : PASS;
+	err == REDIR_ERR ? ft_putendl_fd(msg, STDERR_FILENO) : PASS;
 	exit(err);
 }
 
