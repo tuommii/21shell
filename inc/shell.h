@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/18 13:02:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:14:59 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@
 # define STR_MALLOC_ERR		"21sh: malloc error."
 # define STR_FORK_ERR		"21sh: failed to create child process."
 # define STR_EXECVE_ERR		"21sh: execve error."
-# define STR_SYNTAX_ERR		
-# define STR_PERMISSION_ERR
-# define STR_NOT_FOUND_ERR
-# define STR_NOT_DIR_ERR	
-# define STR_PIPE_ERR		
+# define STR_SYNTAX_ERR		"21sh: syntax error near unexpected token"	
+# define STR_PERMISSION_ERR	"21sh: permission denied:"
+# define STR_NOT_FOUND_ERR	"21sh: no such file or directory:"
+# define STR_NOT_DIR_ERR	"21sh: not a directory:"
+# define STR_IS_DIR			"21sh: is a directory:"
+# define STR_PIPE_ERR		"21sh: pipe error"	
 # define STR_DUP_ERR		"21sh: dup error."	
 # define STR_REDIR_ERR		"21sh: redirection error."
-# define STR_AMB_REDIR_ERR	
-# define STR_EOF_ERR		
-# define STR_HEREDOC_ERR	
-# define STR_BAD_FD_ERR		
+# define STR_AMB_REDIR_ERR	"21sh: ambiguous redirection:"
+# define STR_EOF_ERR		"21sh: unexpected EOF while looking for matching"	
+# define STR_HERE_ERR		"21sh: warning: here-document delimited by end-of-file"	
+# define STR_BAD_FD_ERR		"21sh: Bad file descriptor:"	
 
 /*
 ** Definitions of termcaps tuples:

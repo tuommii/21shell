@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/18 13:02:37 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/18 13:14:54 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,24 @@ void		exit_error(int err, char *msg)
 
 void		print_error(int err, char *msg)
 {
-	err == SYNTAX_ERR ? ft_dprintf(STDERR_FILENO, "21sh: syntax error near unexpected token `%s'\n", msg) : PASS;
-	err == PERMISSION_ERR ? ft_dprintf(STDERR_FILENO, "21sh: permission denied: %s\n", msg) : PASS;
-	err == ENOENT ? ft_dprintf(STDERR_FILENO, "21sh: no such file or directory: %s\n", msg) : PASS;
-	err == ENOTDIR ? ft_dprintf(STDERR_FILENO, "21sh: not a directory: %s\n", msg) : PASS;
-	err == EISDIR ? ft_dprintf(STDERR_FILENO, "21sh: is a directory: %s\n", msg) : PASS;
-	err == AMB_REDIR_ERR ? ft_dprintf(STDERR_FILENO, "21sh: ambiguous redirection: %s\n", msg) : PASS;
-	err == PIPE_ERR ? ft_dprintf(STDERR_FILENO, "21sh: pipe error\n") : PASS;
-	err == EOF_ERR ? ft_dprintf(STDERR_FILENO, "21sh: unexpected EOF while looking for matching `%s'\n", msg) : PASS;
-	err == HEREDOC_ERR ? ft_dprintf(STDERR_FILENO, "21sh: warning: here-document delimited by end-of-file (wanted `%s')\n", msg) : PASS;
-	err == BAD_FD_ERR ? ft_dprintf(STDERR_FILENO, "21sh: Bad file descriptor: %s\n", msg) : PASS;
+	if (err == SYNTAX_ERR)
+		ft_dprintf(STDERR_FILENO, "%s `%s'\n", STR_SYNTAX_ERR, msg);
+	else if (err == PERMISSION_ERR)
+		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_PERMISSION_ERR, msg);
+	else if (err == ENOENT)
+		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_NOT_FOUND_ERR, msg);
+	else if (err == ENOTDIR)
+		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_NOT_DIR_ERR, msg);
+	else if (err == EISDIR)
+		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_IS_DIR, msg);
+	else if (err == AMB_REDIR_ERR)
+		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_AMB_REDIR_ERR, msg);
+	else if (err == PIPE_ERR)
+		ft_dprintf(STDERR_FILENO, "%s\n", STR_PIPE_ERR);
+	else if (err == EOF_ERR)
+		ft_dprintf(STDERR_FILENO, "%s `%s'\n", STR_EOF_ERR, msg);
+	else if (err == HEREDOC_ERR)
+		ft_dprintf(STDERR_FILENO, "%s (wanted `%s')\n", STR_HERE_ERR, msg);
+	else if (err == BAD_FD_ERR)
+		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_BAD_FD_ERR, msg);
 }
