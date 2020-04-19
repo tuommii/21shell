@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 14:24:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/18 12:36:14 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/19 18:58:18 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ static int	trailing_pipe(t_lexer **lexer)
 	if (!(input = read_more(line, 0)))
 		return (PARSER_ERROR);
 	add_token(*lexer, input, STRING);
-	free_history(&line->hist);
-	free(line);
+	free_line_editor(line);
 	return (PARSER_OK);
 }
 
@@ -35,9 +34,8 @@ static int	trailing_pipe(t_lexer **lexer)
 **	2 - check syntax
 **	3 - check open quoting and read more
 **	4 - check heredoc and read to all of them
-**  5 - check trailing semicolon, pipe and <<
-**	6 - clean quotes
-**	7 - expand $ ~
+**  5 - check trailing semicolon, pipe
+**	6 - expand $ ~
 */
 
 int			parser(t_lexer **lexer)
@@ -54,15 +52,14 @@ int			parser(t_lexer **lexer)
 		r = open_quote(lexer, D_QUOTE);
 	else if ((*lexer)->flags & T_DLARR)
 		r = check_heredoc(lexer);
-	if ((*lexer)->count > 1)
+	if ((*lexer)->count > 1 && r == PARSER_OK)
 	{
 		if ((*lexer)->last->type & T_SCOL)
 			r = remove_last_token(lexer);
 		else if ((*lexer)->last->type & T_PIPE)
 			r = trailing_pipe(lexer);
 	}
-	(*lexer)->flags & T_SQUOT ? remove_quotes((*lexer)->head, S_QUOTE) : PASS;
-	(*lexer)->flags & T_DQUOT ? remove_quotes((*lexer)->head, D_QUOTE) : PASS;
-	expand_tokens(lexer);
+	if (r == PARSER_OK)
+		expand_tokens(lexer);
 	return (r);
 }

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 12:07:32 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/16 16:33:46 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/19 18:33:42 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int	check_quoting(t_lexer *lexer, char *input, int i)
 
 	j = i;
 	quot = next_quote(&input[i + 1], input[i]);
-	if (quot == -1 && input[i] == 34)
+	if (quot == -1 && input[i] == D_QUOTE)
 	{
 		add_token(lexer, ft_strsub(input, 0, ft_strlen(input)), F_DQUOTE);
 		return (ft_strlen(input));
 	}
-	else if (quot == -1 && input[i] == 39)
+	else if (quot == -1 && input[i] == S_QUOTE)
 	{
 		add_token(lexer, ft_strsub(input, 0, ft_strlen(input)), F_SQUOTE);
 		return (ft_strlen(input));
@@ -52,13 +52,14 @@ int			tokenize_string(t_lexer *lexer, char *input)
 	i = 0;
 	while (is_valid_char(input[i]))
 	{
-		if (input[i] == 34 || input[i] == 39)
+		if (input[i] == D_QUOTE || input[i] == S_QUOTE)
 			return (check_quoting(lexer, input, i));
 		i++;
 	}
-	if (lexer->last && lexer->last->type & MASK_REDIR && str_isnumeric(input))
-		add_token(lexer, ft_strsub(input, 0, i), IO_NUMBER);
-	else if (lexer->last && lexer->last->type & MASK_REDIR \
+	if (lexer->last && lexer->last->type & MASK_REDIR && \
+			str_isnumeric(lexer->last->prev->data))
+		lexer->last->prev->type = IO_NUM;
+	if (lexer->last && lexer->last->type & MASK_REDIR \
 			&& !ft_strcmp(input, "-"))
 		add_token(lexer, ft_strsub(input, 0, i), DASH);
 	else if (lexer->last && lexer->last->type & T_DLARR)

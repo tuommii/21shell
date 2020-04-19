@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 15:00:33 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/03 11:39:22 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/19 17:53:30 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_realloc(void *ptr, size_t old_s, size_t new_s)
 
 	if (!ptr)
 		return (NULL);
-	if (!(new = ft_memalloc(new_s)))
+	if (!(new = ft_memalloc(new_s + 1)))
 	{
 		free(ptr);
 		return (NULL);
