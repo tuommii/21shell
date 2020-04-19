@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linedit.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/02 13:12:56 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/19 10:44:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char *read_more(t_line *line, int nl_flag);
 // Kokeilut
 void linedit_completion_cb(t_line *line, autocomp_cb *cb);
 // void new_paste(t_line *line);
-void clipboard_set(t_clipboard *clip);
+void clipboard_set(t_clipboard *clip, char *str);
 void clipboard_update(t_clipboard *clip);
 void clipboard_draw(t_line *line);
 

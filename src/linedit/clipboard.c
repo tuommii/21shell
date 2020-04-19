@@ -6,14 +6,14 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/29 21:00:28 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/04/19 10:45:03 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sys/wait.h"
 #include "linedit.h"
 
-void clipboard_set(t_clipboard *clip)
+void clipboard_set(t_clipboard *clip, char *str)
 {
 	if (clip)
 	{
@@ -53,7 +53,7 @@ void clipboard_set(t_clipboard *clip)
 	{
         close(fd[0]);
         dup2(fd[1], STDOUT_FILENO);
-        execlp("echo", "echo", "KOVA KOODATTU", NULL);
+        execlp("echo", "echo", str, NULL);
     } else if ( 1 == i)
 	{
         close(fd[1]);

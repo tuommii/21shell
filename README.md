@@ -14,6 +14,10 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 
 ### Bugs
 - [ ] Prompt displayed twice in read_again()
+- [ ] Remove hardcoded clipboard message and check how its done on OS X
+
+### Needs more testing
+- [ ] Memory leaks (leaks in lexer - exec & parser not really)
 
 ### History (for 42sh at least)
 - [ ]           Trailing pipe and open quotes -> update history!
@@ -36,8 +40,6 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Resizing the window makes prompt disappear
 - [ ] MIIKKA check these -> `echo "pwd" | ./21sh`
 
-### Needs more testing
-- [ ] Memory leaks (leaks in lexer - exec & parser not really)
 
 
 Works now
@@ -57,7 +59,7 @@ mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 | <kbd>DELETE</kbd> | Delete char at cursor position |
 | <kbd>CTRL + D</kbd> | Delete char at cursor, exit if no input |
 | <kbd>CTRL + X</kbd> | **Cut**. First press is start index and second is end index |
-| <kbd>CTRL + K</kbd> | **Copy**. First press is start index and second is end index |
+| <kbd>CTRL + K</kbd> | **Copy**. Copy current input to clipboard |
 | <kbd>CTRL + P</kbd> | **Paste** |
 | <kbd>LEFT</kbd> | Moves cursor left |
 | <kbd>RIGHT</kbd> | Moves cursor right |

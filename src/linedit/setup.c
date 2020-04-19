@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/07 09:42:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/04/19 10:29:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void		linedit_config(int reset)
 		new_config.c_cc[VMIN] = 1;
 		new_config.c_cc[VTIME] = 0;
 		tcsetattr(STDIN_FILENO, TCSAFLUSH, &new_config);
-		// tputs(tgetstr("ti", NULL), 1, print_char);
-		// tputs(tgetstr("ve", NULL), 1, print_char);
 	}
 }
 
