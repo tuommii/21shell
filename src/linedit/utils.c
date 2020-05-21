@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 11:27:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/18 12:54:36 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/05/21 07:52:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
+
+int	keypress(void)
+{
+	int		i;
+	int		code;
+	char	seq[KEYBOARD_BUFFER + 1];
+
+	ft_bzero(seq, KEYBOARD_BUFFER);
+	read(STDIN_FILENO, &seq, KEYBOARD_BUFFER);
+	seq[KEYBOARD_BUFFER] = '\0';
+	i = 0;
+	code = 0;
+	while (seq[i])
+	{
+		code += seq[i];
+		i++;
+	}
+	return (code);
+}
 
 void	free_history(t_hist **hist)
 {

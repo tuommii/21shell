@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/19 10:29:49 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/05/21 08:14:56 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ static void	check_tty(void)
 	}
 }
 
+/*
+** 0 set to raw mode
+** 1 restore orginal mode
+*/
 void		linedit_config(int reset)
 {
 	static struct termios backup;

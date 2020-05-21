@@ -4,7 +4,7 @@ SRC_DIR 	= 	src/
 OBJ_DIR 	= 	obj/
 LIBFT_DIR 	= 	libft/
 
-FLAGS 		= 	
+FLAGS 		=
 INC 		= 	-I ./inc/ -I $(LIBFT_DIR)/
 
 SRC_NAME 	= 	main.c \
@@ -30,7 +30,6 @@ SRC_NAME 	= 	main.c \
 				lexer/utils.c \
 				linedit/setup.c \
 				linedit/linedit.c \
-				linedit/keyboard.c \
 				linedit/redraw.c \
 				linedit/cut_copy_paste.c \
 				linedit/check_keys.c \
