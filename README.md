@@ -8,10 +8,15 @@
 	<img width=400 src="sample.gif">
 </p>
 
-Our own shell.
-
 ## Features
 - [x] TODO
+
+## Try It
+Compile and run with:
+```bash
+make
+./21sh
+```
 
 ## Keyboard shorcuts
 | KEY | ACTION |
