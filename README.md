@@ -10,10 +10,6 @@
 
 Our own shell.
 
-## GIF(s)
-- Should demonstrate editor features
-- Should demonstrate parsing features
-
 ## Features
 - [x] Sami write this part, my features are shown below
 
