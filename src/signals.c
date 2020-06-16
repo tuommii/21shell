@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/07 14:48:20 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/06/16 21:09:31 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	handle_sigcont(void)
 
 static void	handle_resize(void)
 {
-	tputs(tgetstr("cl", NULL), 1, print_char);
 	ioctl(OUTPUT, TIOCSTI, "");
 }
 
