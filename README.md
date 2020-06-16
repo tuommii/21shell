@@ -11,7 +11,7 @@
 Our own shell.
 
 ## Features
-- [x] Sami write this part, my features are shown below
+- [x] TODO
 
 ## Keyboard shorcuts
 | KEY | ACTION |
