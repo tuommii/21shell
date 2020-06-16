@@ -19,6 +19,7 @@ Our own shell.
 | <kbd>HOME</kbd> | Moves cursor to **beginning** of input |
 | <kbd>END</kbd> | Moves cursor to **end** of input |
 | <kbd>DELETE</kbd> | Delete char at cursor position |
+| <kbd>CTRL + L</kbd> | Clear screen |
 | <kbd>CTRL + D</kbd> | Delete char at cursor, exit if no input |
 | <kbd>CTRL + X</kbd> | **Cut**. First press is start index and second is end index |
 | <kbd>CTRL + K</kbd> | **Copy**. Copy current input to clipboard |
