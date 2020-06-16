@@ -5,7 +5,7 @@
 </h1>
 
 <p align="center">
-	<img width=100% src="sample.gif">
+	<img width=400 src="sample.gif">
 </p>
 
 Our own shell.
