@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 11:27:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/05/21 07:52:51 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/16 21:34:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,16 @@ int		get_cols(void)
 	if (w.ws_col <= 0)
 		return (80);
 	return w.ws_col;
+}
+
+int		get_rows(void)
+{
+	struct winsize w;
+
+	ioctl(OUTPUT, TIOCGSIZE, &w);
+	if (w.ws_row <= 0)
+		return (24);
+	return w.ws_row;
 }
 
 void	erase_input(t_line *line)

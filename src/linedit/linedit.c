@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linedit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/18 13:19:48 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/06/16 21:36:22 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,18 @@ int which_action(t_line *line)
 	{
 		goto_end(line);
 		ret = 1;
+	}
+	// One easy alternative is run "clear"-command
+	else if (line->key == CTRL_L)
+	{
+		// int rows = get_rows();
+		// while (rows--)
+		// {
+		// 	ft_putchar('\n');
+		// }
+		// erase_input(line);
+		ft_putstr("\033[H\033[J");
+		redraw_input(line);
 	}
 	return (ret);
 }

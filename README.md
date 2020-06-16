@@ -34,10 +34,10 @@ valgrind ./21sh --leak-check=full --track-origins=yes
 - [ ] Dynamic prompt (at least showing current folder)
 - [x] **Paste** text to shell from outside (in 42sh **popen** is allowed)
 - [ ] Readline should keep the newline in?
-- [ ] CTRL + L to clear the screen would be nice -> Miikka
+- [x] CTRL + L to clear the screen would be nice -> Miikka
 - [ ] Prompt to display cwd
 - [x] Expand $ ~ in parser
-- [ ] Resizing the window makes prompt disappear
+- [x] Resizing the window makes prompt disappear
 - [ ] MIIKKA check these -> `echo "pwd" | ./21sh`
 
 

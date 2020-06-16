@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/05/21 08:17:49 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/16 21:30:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ void	linedit_config(int reset);
 
 
 int 	get_cols(void);
+int		get_rows(void);
+
 void	redraw_input(t_line *line);
 
 void clear_rows(t_line *line);
