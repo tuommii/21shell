@@ -1,5 +1,7 @@
 ## To-do
 
+- echo "text" | pbcopy
+
 ### Bugs
 - [ ] Prompt displayed twice in read_again()
 - [ ] Remove hardcoded clipboard message and check how its done on OS X
