@@ -29,6 +29,7 @@ make
 | <kbd>END</kbd> | Moves cursor to **end** of input |
 | <kbd>DELETE</kbd> | Delete char at cursor position |
 | <kbd>CTRL + L</kbd> | Clear screen |
+| <kbd>CTRL + U</kbd> | Clear input |
 | <kbd>CTRL + D</kbd> | Delete char at cursor, exit if no input |
 | <kbd>CTRL + X</kbd> | (WIP) **Cut**. First press is start index and second is end index |
 | <kbd>CTRL + K</kbd> | (WIP) **Copy**. Copy current input to clipboard |

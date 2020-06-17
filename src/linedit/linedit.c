@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/16 21:36:22 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:13:16 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,14 @@ int which_action(t_line *line)
 		// }
 		// erase_input(line);
 		ft_putstr("\033[H\033[J");
+		redraw_input(line);
+	}
+	else if (line->key == CTRL_U)
+	{
+		ft_bzero(line->input, INPUT_BUFFER);
+		line->pos = 0;
+		line->len = 0;
+
 		redraw_input(line);
 	}
 	return (ret);
