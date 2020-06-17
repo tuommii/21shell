@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/17 09:49:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/17 10:48:13 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@
 # define CTRL_L 12
 
 // TODO: Paste
+# define CTRL_E 5 // maybe different external paste
 # define CTRL_P 16
 # define CTRL_K 11
 # define CTRL_X 24
@@ -140,6 +141,7 @@ void linedit_completion_cb(t_line *line, autocomp_cb *cb);
 void clipboard_set(t_clipboard *clip, char *str);
 void clipboard_update(t_clipboard *clip);
 void clipboard_draw(t_line *line);
+void text_to_clipboard(t_line *line, int start, int end);
 
 
 
@@ -227,13 +229,5 @@ void clear_rows(t_line *line);
 
 void reposition(t_line *line);
 void apped_or_insert(t_line *line, char c);
-
-
-
-
-
-
-
-
 
 #endif

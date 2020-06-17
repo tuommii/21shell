@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/17 09:38:49 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/17 10:42:57 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 void clipboard_set(t_clipboard *clip, char *str)
 {
-	if (clip)
-	{
-
-	}
     pid_t pid;
     int fd[2];
     int ret, i;

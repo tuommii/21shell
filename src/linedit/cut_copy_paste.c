@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:07:21 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/27 19:03:35 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/17 10:48:18 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-static void	text_to_clipboard(t_line *line, int start, int end)
+void	text_to_clipboard(t_line *line, int start, int end)
 {
 	int len;
 
