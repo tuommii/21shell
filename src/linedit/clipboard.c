@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/17 10:42:57 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:30:12 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void clipboard_set(t_clipboard *clip, char *str)
 	{
         close(fd[0]);
         dup2(fd[1], STDOUT_FILENO);
-        execlp("echo", "echo", str, NULL);
+        execve(COPY_PATH, str, NULL);
 		//ft_printf("%s", str);
     }
 	else if ( i == 1)
 	{
         close(fd[1]);
         dup2(fd[0], STDIN_FILENO);
-        execlp(COPY_CMD, COPY_CMD, NULL);
+        execve(COPY_PATH, COPY_PARAM, NULL);
     }
 }
 
