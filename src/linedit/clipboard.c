@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/19 10:45:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/17 09:38:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void clipboard_set(t_clipboard *clip, char *str)
             break;
     }
 
-    if ( 2 == i )
+    if (i == 2)
 	{
         close(fd[0]);
         close(fd[1]);
@@ -49,24 +49,27 @@ void clipboard_set(t_clipboard *clip, char *str)
                 exit(1);
             }
         }
-    } else if ( 0 == i )
+    } else if ( i == 0 )
 	{
         close(fd[0]);
         dup2(fd[1], STDOUT_FILENO);
         execlp("echo", "echo", str, NULL);
-    } else if ( 1 == i)
+		//ft_printf("%s", str);
+    }
+	else if ( i == 1)
 	{
         close(fd[1]);
         dup2(fd[0], STDIN_FILENO);
-        execlp("xclip", "xclip", NULL);
+        execlp(COPY_CMD, COPY_CMD, NULL);
     }
 }
 
 /* COPY UNTIL FIRST NEWLINE*/
 void clipboard_update(t_clipboard *clip)
 {
-    char *ls[] = {"xclip", "-o", NULL};
+    char *copy_cmd[] = {COPY_CMD, COPY_PARAM, NULL};
     char buf[INPUT_BUFFER + 1];
+	ft_bzero(buf, INPUT_BUFFER + 1);
     int p[2];
     pid_t pid;
     extern char **environ;
@@ -77,7 +80,7 @@ void clipboard_update(t_clipboard *clip)
     {
         dup2(p[1], STDOUT_FILENO);
         close(p[0]);
-        execve("/usr/bin/xclip", ls, environ);
+        execve(COPY_PATH, copy_cmd, environ);
     }
     else {
         wait(&pid);

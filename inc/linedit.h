@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/16 21:30:47 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/17 09:49:48 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@
 # ifndef TIOCGSIZE
 #  define TIOCGSIZE TIOCGWINSZ
 # endif
+
+
+#ifdef __APPLE__
+ # define COPY_CMD "pbaste"
+ # define COPY_PATH "/usr/bin/pbpaste"
+ # define COPY_PARAM ""
+#elif __linux__
+# define COPY_CMD "xclip"
+# define COPY_PATH "/usr/bin/xclip"
+# define COPY_PARAM "-o"
+#endif
+
 
 // KEYBOARD
 # define KEYBOARD_BUFFER 6

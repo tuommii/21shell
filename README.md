@@ -32,7 +32,7 @@ make
 | <kbd>CTRL + D</kbd> | Delete char at cursor, exit if no input |
 | <kbd>CTRL + X</kbd> | (WIP) **Cut**. First press is start index and second is end index |
 | <kbd>CTRL + K</kbd> | (WIP) **Copy**. Copy current input to clipboard |
-| <kbd>CTRL + P</kbd> | External **Paste** (Linux) |
+| <kbd>CTRL + P</kbd> | External **Paste** |
 | <kbd>LEFT</kbd> | Moves cursor left |
 | <kbd>RIGHT</kbd> | Moves cursor right |
 | <kbd>UP</kbd> | Get next command from history |
