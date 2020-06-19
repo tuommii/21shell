@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/17 16:55:15 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/19 18:10:57 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,6 @@ typedef void(autocomp_cb)(const char *, t_suggestions *);
 
 typedef struct s_clipboard {
 	char		content[INPUT_BUFFER + 1];
-	int			is_cut;
-	int			cut_start;
-	int			cut_end;
-	int			cut_running;
-	int			copy_running;
-	int			copy_start;
-	int			copy_end;
 } t_clipboard;
 
 typedef struct s_hist
@@ -142,7 +135,6 @@ void linedit_completion_cb(t_line *line, autocomp_cb *cb);
 void clipboard_set(t_clipboard *clip, char *str);
 void clipboard_update(t_clipboard *clip);
 void clipboard_draw(t_line *line);
-void text_to_clipboard(t_line *line, int start, int end);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/05/21 08:14:56 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/19 18:18:31 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,6 @@ t_line		*create_line_editor(void)
 	line->hist_i = 0;
 	line->cols = get_cols();
 	line->hist = NULL;
-	line->clipboard.cut_end = 0;
-	line->clipboard.cut_end = 0;
-	line->clipboard.cut_start = 0;
-	line->clipboard.cut_running = 0;
-	line->clipboard.copy_end = 0;
-	line->clipboard.copy_start = 0;
-	line->clipboard.copy_running = 0;
-	line->clipboard.is_cut = 0;
 	line->prompt = "$>";
 	line->prompt_len = 2;
 	line->pos = 0;

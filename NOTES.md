@@ -1,6 +1,7 @@
 ## To-do
 
 - echo "text" | pbcopy
+- First paste may be buggy
 
 ### Bugs
 - [ ] Prompt displayed twice in read_again()

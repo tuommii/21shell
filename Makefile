@@ -31,7 +31,6 @@ SRC_NAME 	= 	main.c \
 				linedit/setup.c \
 				linedit/linedit.c \
 				linedit/redraw.c \
-				linedit/cut_copy_paste.c \
 				linedit/check_keys.c \
 				linedit/movement_line.c \
 				linedit/movement_row.c \
@@ -58,7 +57,6 @@ $(NAME): $(OBJS)
 	@gcc $(FLAGS) $(OBJS) $(INC) -L $(LIBFT_DIR) -lft -o $(NAME) -ltermcap
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p obj
 	@mkdir -p obj/builtins
 	@mkdir -p obj/exec
 	@mkdir -p obj/lexer
