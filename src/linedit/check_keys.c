@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/19 18:09:31 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/19 19:25:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,24 @@ int	check_copy_paste_del(t_line *line)
 	}
 	else if (line->key == CTRL_P)
 	{
-		clipboard_update(&line->clipboard);
+		if (!line->is_cut)
+			clipboard_update(&line->clipboard);
+		line->is_cut = 0;
 		clipboard_draw(line);
+		ft_bzero(line->clipboard.content, INPUT_BUFFER);
 		return (1);
 	}
 	else if (line->key == CTRL_X)
 	{
+		ft_strcpy(&line->clipboard.content, line->input);
+		line->is_cut = 1;
+		ft_bzero(line->input, INPUT_BUFFER);
+		line->pos = 0;
+		line->len = 0;
+
+		redraw_input(line);
+
+		// ft_putstr(line->clipboard.content);
 		return (1);
 	}
 	else if (line->key == CTRL_K)

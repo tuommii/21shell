@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/19 18:10:57 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/19 19:21:31 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_line
 	int			old_pos;
 	int			lines_used;
 	int			cols;
+	int			is_cut;
 
 	struct s_hist *hist;
 	int			hist_count;
@@ -132,7 +133,6 @@ char *read_more(t_line *line, int nl_flag);
 // Kokeilut
 void linedit_completion_cb(t_line *line, autocomp_cb *cb);
 // void new_paste(t_line *line);
-void clipboard_set(t_clipboard *clip, char *str);
 void clipboard_update(t_clipboard *clip);
 void clipboard_draw(t_line *line);
 
