@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/17 16:50:36 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/19 18:37:40 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void print_prompt(t_line *line)
 {
-	char cwd[256 + 1];
+	// char cwd[256 + 1];
 
-	getcwd(cwd, 256);
-	ft_putstr("\033[1;34m");
-	line->prompt = cwd;
+	// getcwd(cwd, 256);
+	// ft_putstr("\033[1;34m");
+	// line->prompt = cwd;
+	// ft_putstr(line->prompt);
 	ft_putstr(line->prompt);
-	ft_putstr(">");
-	line->prompt_len = ft_strlen(line->prompt) + 1;
-	ft_putstr("\033[0m");
+	// line->prompt_len = ft_strlen(line->prompt);
+	// ft_putstr("\033[0m");
 }
 
 static void check_newline(t_line *line, int *rows)
