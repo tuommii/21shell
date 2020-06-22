@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/22 11:15:46 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 12:44:30 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Depending on cursor position, apppend or insert char and redraw input
 */
 
-void	apped_or_insert(t_line *line, char c)
+void		apped_or_insert(t_line *line, char c)
 {
 	if (line->len >= INPUT_BUFFER)
 		return ;
@@ -33,7 +33,7 @@ void	apped_or_insert(t_line *line, char c)
 	redraw_input(line);
 }
 
-void	hist_next(t_line *line)
+void		hist_next(t_line *line)
 {
 	t_hist *node;
 
@@ -53,7 +53,7 @@ void	hist_next(t_line *line)
 ** Scrolls history backwards, empty input when tail is reached
 */
 
-void	hist_prev(t_line *line)
+void		hist_prev(t_line *line)
 {
 	t_hist *node;
 
@@ -107,7 +107,7 @@ static int	check_others(t_line *line)
 	return (0);
 }
 
-int		which_action(t_line *line)
+int			which_action(t_line *line)
 {
 	int ret;
 
@@ -127,11 +127,27 @@ int		which_action(t_line *line)
 	return (ret);
 }
 
+static void	handle_enter2(t_line *line, int nl_flag)
+{
+	if (*line->input)
+	{
+		line->hist_count += hist_append(&line->hist, line->input);
+		if (line->hist_count > MAX_HISTORY)
+			line->hist_count = MAX_HISTORY;
+	}
+	line->hist_i = 0;
+	ft_strcpy(line->cpy, line->input);
+	if (nl_flag)
+		ft_strncat(line->cpy, "\n", 1);
+	reposition(line);
+	print_prompt(line);
+}
+
 /*
 ** nl_fag is for whether to return newlines as well (should be returned always)
 */
 
-char	*read_more(t_line *line, int nl_flag)
+char		*read_more(t_line *line, int nl_flag)
 {
 	line->prompt = "> ";
 	line->prompt_len = ft_strlen(line->prompt);
@@ -147,18 +163,7 @@ char	*read_more(t_line *line, int nl_flag)
 		}
 		if (line->key == ENTER)
 		{
-			if (*line->input)
-			{
-				line->hist_count += hist_append(&line->hist, line->input);
-				if (line->hist_count > MAX_HISTORY)
-					line->hist_count = MAX_HISTORY;
-			}
-			line->hist_i = 0;
-			ft_strcpy(line->cpy, line->input);
-			if (nl_flag)
-				ft_strncat(line->cpy, "\n", 1);
-			reposition(line);
-			print_prompt(line);
+			handle_enter2(line, nl_flag);
 			return (ft_strdup(line->cpy));
 		}
 		else if (check_command_keys(line))
@@ -168,7 +173,20 @@ char	*read_more(t_line *line, int nl_flag)
 	}
 }
 
-char	*linedit(t_line *line)
+static void	handle_enter(t_line *line)
+{
+	if (*line->input)
+	{
+		line->hist_count += hist_append(&line->hist, line->input);
+		if (line->hist_count > MAX_HISTORY)
+			line->hist_count = MAX_HISTORY;
+	}
+	line->hist_i = 0;
+	ft_strcpy(line->cpy, line->input);
+	reposition(line);
+}
+
+char		*linedit(t_line *line)
 {
 	print_prompt(line);
 	while (1337)
@@ -180,25 +198,13 @@ char	*linedit(t_line *line)
 			return (NULL);
 		else if (line->key == ENTER)
 		{
-			if (*line->input)
-			{
-				line->hist_count += hist_append(&line->hist, line->input);
-				if (line->hist_count > MAX_HISTORY)
-					line->hist_count = MAX_HISTORY;
-			}
-			line->hist_i = 0;
-			ft_strcpy(line->cpy, line->input);
-			reposition(line);
+			handle_enter(line);
 			return (line->cpy);
 		}
 		else if (check_command_keys(line))
-		{
 			continue ;
-		}
 		else if (which_action(line))
-		{
 			continue ;
-		}
 	}
 	return (NULL);
 }
