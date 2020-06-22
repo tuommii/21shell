@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/22 11:03:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 11:15:46 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Depending on cursor position, apppend or insert char and redraw input
 */
 
-void apped_or_insert(t_line *line, char c)
+void	apped_or_insert(t_line *line, char c)
 {
 	if (line->len >= INPUT_BUFFER)
 		return ;
@@ -33,13 +33,15 @@ void apped_or_insert(t_line *line, char c)
 	redraw_input(line);
 }
 
-void hist_next(t_line *line)
+void	hist_next(t_line *line)
 {
+	t_hist *node;
+
 	if (line->hist && line->hist->prev && line->hist_i < line->hist_count)
 	{
 		clear_rows(line);
 		erase_input(line);
-		t_hist *node = hist_pop(&line->hist, line->hist_i);
+		node = hist_pop(&line->hist, line->hist_i);
 		ft_strcpy(line->input, node->str);
 		line->len = ft_strlen(line->input);
 		goto_end(line);
@@ -47,13 +49,14 @@ void hist_next(t_line *line)
 	}
 }
 
-
 /*
 ** Scrolls history backwards, empty input when tail is reached
 */
 
-void hist_prev(t_line *line)
+void	hist_prev(t_line *line)
 {
+	t_hist *node;
+
 	if (line->hist_i == 1)
 	{
 		clear_rows(line);
@@ -67,7 +70,7 @@ void hist_prev(t_line *line)
 		line->hist_i--;
 		clear_rows(line);
 		erase_input(line);
-		t_hist *node = hist_pop(&line->hist, line->hist_i - 1);
+		node = hist_pop(&line->hist, line->hist_i - 1);
 		ft_strcpy(line->input, node->str);
 		line->len = ft_strlen(line->input);
 		line->pos = line->len;
@@ -75,7 +78,36 @@ void hist_prev(t_line *line)
 	}
 }
 
-int which_action(t_line *line)
+static int	check_others(t_line *line)
+{
+	if (line->key == HOME_KEY)
+	{
+		goto_begin(line);
+		return (1);
+	}
+	else if (line->key == END_KEY)
+	{
+		goto_end(line);
+		return (1);
+	}
+	else if (line->key == CTRL_L)
+	{
+		ft_putstr("\033[H\033[J");
+		redraw_input(line);
+		return (1);
+	}
+	else if (line->key == CTRL_U)
+	{
+		ft_bzero(line->input, INPUT_BUFFER);
+		line->pos = 0;
+		line->len = 0;
+		redraw_input(line);
+		return (1);
+	}
+	return (0);
+}
+
+int		which_action(t_line *line)
 {
 	int ret;
 
@@ -90,36 +122,8 @@ int which_action(t_line *line)
 		;
 	else if ((ret = check_copy_paste_del(line)))
 		;
-	else if (line->key == HOME_KEY)
-	{
-		goto_begin(line);
-		ret = 1;
-	}
-	else if (line->key == END_KEY)
-	{
-		goto_end(line);
-		ret = 1;
-	}
-	// One easy alternative is run "clear"-command
-	else if (line->key == CTRL_L)
-	{
-		// int rows = get_rows();
-		// while (rows--)
-		// {
-		// 	ft_putchar('\n');
-		// }
-		// erase_input(line);
-		ft_putstr("\033[H\033[J");
-		redraw_input(line);
-	}
-	else if (line->key == CTRL_U)
-	{
-		ft_bzero(line->input, INPUT_BUFFER);
-		line->pos = 0;
-		line->len = 0;
-
-		redraw_input(line);
-	}
+	else if ((ret = check_others(line)))
+		;
 	return (ret);
 }
 
@@ -129,7 +133,6 @@ int which_action(t_line *line)
 
 char	*read_more(t_line *line, int nl_flag)
 {
-	// linedit_config(0);
 	line->prompt = "> ";
 	line->prompt_len = ft_strlen(line->prompt);
 	print_prompt(line);
@@ -156,21 +159,12 @@ char	*read_more(t_line *line, int nl_flag)
 				ft_strncat(line->cpy, "\n", 1);
 			reposition(line);
 			print_prompt(line);
-
-			// OUT FROM RAW
-			// linedit_config(1);
-
 			return (ft_strdup(line->cpy));
 		}
 		else if (check_command_keys(line))
-		{
 			continue ;
-		}
-
 		else if (which_action(line))
-		{
 			continue ;
-		}
 	}
 }
 
@@ -195,13 +189,12 @@ char	*linedit(t_line *line)
 			line->hist_i = 0;
 			ft_strcpy(line->cpy, line->input);
 			reposition(line);
-			return line->cpy;
+			return (line->cpy);
 		}
 		else if (check_command_keys(line))
 		{
 			continue ;
 		}
-
 		else if (which_action(line))
 		{
 			continue ;
