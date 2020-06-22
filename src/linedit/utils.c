@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 11:27:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/16 21:34:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 11:03:19 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-int	keypress(void)
+int		keypress(void)
 {
 	int		i;
 	int		code;
@@ -58,17 +58,7 @@ int		get_cols(void)
 	ioctl(OUTPUT, TIOCGSIZE, &w);
 	if (w.ws_col <= 0)
 		return (80);
-	return w.ws_col;
-}
-
-int		get_rows(void)
-{
-	struct winsize w;
-
-	ioctl(OUTPUT, TIOCGSIZE, &w);
-	if (w.ws_row <= 0)
-		return (24);
-	return w.ws_row;
+	return (w.ws_col);
 }
 
 void	erase_input(t_line *line)

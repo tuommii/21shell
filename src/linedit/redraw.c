@@ -6,28 +6,21 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/19 18:37:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 10:59:48 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-void print_prompt(t_line *line)
+void		print_prompt(t_line *line)
 {
-	// char cwd[256 + 1];
-
-	// getcwd(cwd, 256);
-	// ft_putstr("\033[1;34m");
-	// line->prompt = cwd;
-	// ft_putstr(line->prompt);
 	ft_putstr(line->prompt);
-	// line->prompt_len = ft_strlen(line->prompt);
-	// ft_putstr("\033[0m");
 }
 
-static void check_newline(t_line *line, int *rows)
+static void	check_newline(t_line *line, int *rows)
 {
-	if (line->pos && line->pos == line->len && (line->pos + line->prompt_len) % line->cols == 0)
+	if (line->pos && line->pos == \
+	line->len && (line->pos + line->prompt_len) % line->cols == 0)
 	{
 		ft_putstr("\n\r");
 		(*rows)++;
@@ -36,7 +29,29 @@ static void check_newline(t_line *line, int *rows)
 	}
 }
 
-void redraw_input(t_line *line)
+static void	print1(int rows, int pos)
+{
+	char *tmp;
+
+	tmp = ft_itoa(rows - pos);
+	ft_putstr("\x1b[");
+	ft_putstr(tmp);
+	ft_putstr("A");
+	free(tmp);
+}
+
+static void	print2(int col)
+{
+	char *tmp;
+
+	tmp = ft_itoa(col);
+	ft_putstr("\r\x1b[");
+	ft_putstr(tmp);
+	ft_putstr("C");
+	free(tmp);
+}
+
+void		redraw_input(t_line *line)
 {
 	int		rows;
 	int		pos;
@@ -49,25 +64,12 @@ void redraw_input(t_line *line)
 	ft_putstr(line->input);
 	check_newline(line, &rows);
 	pos = (line->prompt_len + line->pos + line->cols) / line->cols;
-    if (rows-pos > 0) {
-		tmp = ft_itoa(rows-pos);
-		ft_putstr("\x1b[");
-		ft_putstr(tmp);
-		ft_putstr("A");
-		free(tmp);
-    }
-	col = (line->prompt_len+line->pos) % line->cols;
+	if (rows - pos > 0)
+		print1(rows, pos);
+	col = (line->prompt_len + line->pos) % line->cols;
 	if (col)
-	{
-		tmp = ft_itoa(col);
-		ft_putstr("\r\x1b[");
-		ft_putstr(tmp);
-		ft_putstr("C");
-		free(tmp);
-	}
+		print2(col);
 	else
-	{
 		ft_putstr("\r");
-	}
 	line->old_pos = line->pos;
 }

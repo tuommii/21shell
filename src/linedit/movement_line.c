@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movement.c                                         :+:      :+:    :+:   */
+/*   movement_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:40:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/14 10:40:34 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 10:47:31 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-void goto_end(t_line *line)
+void	goto_end(t_line *line)
 {
 	if (line->pos != line->len)
 	{
@@ -21,7 +21,7 @@ void goto_end(t_line *line)
 	}
 }
 
-void goto_begin(t_line *line)
+void	goto_begin(t_line *line)
 {
 	if (line->pos != 0)
 	{
@@ -30,7 +30,7 @@ void goto_begin(t_line *line)
 	}
 }
 
-void goto_prev_word(t_line *line)
+void	goto_prev_word(t_line *line)
 {
 	if (line->len > 0 && line->pos > 0)
 	{
@@ -39,7 +39,7 @@ void goto_prev_word(t_line *line)
 		{
 			line->pos--;
 		}
-		while (line->pos-1 >= 0 && line->input[line->pos - 1] != ' ')
+		while (line->pos - 1 >= 0 && line->input[line->pos - 1] != ' ')
 		{
 			line->pos--;
 		}
@@ -47,7 +47,7 @@ void goto_prev_word(t_line *line)
 	}
 }
 
-void goto_next_word(t_line *line)
+void	goto_next_word(t_line *line)
 {
 	while (line->pos < line->len && line->input[line->pos] == ' ')
 	{

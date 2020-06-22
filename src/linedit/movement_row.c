@@ -6,16 +6,19 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:42:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/05/21 08:15:50 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 09:09:06 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-void goto_row_down(t_line *line)
+void	goto_row_down(t_line *line)
 {
-	int rows = (line->len + line->cols - 1) / line->cols;
-	int rpos = (line->old_pos + line->cols) / line->cols;
+	int rows;
+	int rpos;
+
+	rows = (line->len + line->cols - 1) / line->cols;
+	rpos = (line->old_pos + line->cols) / line->cols;
 	if (line->lines_used > 1 && rpos < rows)
 	{
 		if ((line->pos + line->cols) > line->len)
@@ -30,10 +33,11 @@ void goto_row_down(t_line *line)
 	}
 }
 
-void goto_row_up(t_line *line)
+void	goto_row_up(t_line *line)
 {
-	int rpos = (line->old_pos + line->cols) / line->cols;
+	int rpos;
 
+	rpos = (line->old_pos + line->cols) / line->cols;
 	if (line->lines_used > 1 && rpos > 1)
 	{
 		line->pos -= line->cols;
@@ -45,38 +49,37 @@ void goto_row_up(t_line *line)
 ** After enter is pressed place cursor row below output
 */
 
-void reposition(t_line *line)
+void	reposition(t_line *line)
 {
-	// ft_printf("\r");
-	// ft_printf("\n");
 	ft_putstr("\r\n");
 	erase_input(line);
 }
 
-void clear_rows(t_line *line)
+void	clear_rows(t_line *line)
 {
-	int plen = line->prompt_len;
-	int rows = (plen + line->len + line->cols - 1) / line->cols;
-	int rpos = (plen + line->old_pos + line->cols) / line->cols;
-	int old_rows = line->lines_used;
+	int plen;
+	int rows;
+	int rpos;
+	int old_rows;
+	int j;
 
+	plen = line->prompt_len;
+	rows = (plen + line->len + line->cols - 1) / line->cols;
+	rpos = (plen + line->old_pos + line->cols) / line->cols;
+	old_rows = line->lines_used;
 	if (rows > line->lines_used)
-	{
 		line->lines_used = rows;
-	}
-	if (old_rows-rpos > 0)
+	if (old_rows - rpos > 0)
 	{
-		// ft_printf("\x1b[%dB", old_rows - rpos);
 		ft_putstr("\x1b[");
 		ft_putnbr(old_rows - rpos);
 		ft_putchar('B');
 	}
-
-	for (int j = 0; j < old_rows - 1; j++)
+	j = 0;
+	while (j < (old_rows - 1))
 	{
 		ft_putstr("\r\x1b[0K\x1b[1A");
-		// ft_printf("\r\x1b[0K\x1b[1A");
+		j++;
 	}
-    // ft_printf("\r\x1b[0K");
 	ft_putstr("\r\x1b[0K");
 }

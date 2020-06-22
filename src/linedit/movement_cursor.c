@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 11:15:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:16:10 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 09:11:01 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-int handle_right_key(t_line *line)
+int	handle_right_key(t_line *line)
 {
 	if (line->pos != line->len)
 	{
@@ -22,7 +22,7 @@ int handle_right_key(t_line *line)
 	return (1);
 }
 
-int handle_left_key(t_line *line)
+int	handle_left_key(t_line *line)
 {
 	if (line->pos > 0)
 	{
@@ -32,8 +32,11 @@ int handle_left_key(t_line *line)
 	return (1);
 }
 
-// Delete char left of cursor and move cursor
-int handle_backspace(t_line *line)
+/*
+** Delete char left of cursor and move cursor
+*/
+
+int	handle_backspace(t_line *line)
 {
 	if (line->pos > 0 && line->len > 0)
 	{
@@ -45,8 +48,11 @@ int handle_backspace(t_line *line)
 	return (1);
 }
 
-// Delete char on cursor and stay still
-int handle_delete(t_line *line)
+/*
+** Delete char on cursor and stay still
+*/
+
+int	handle_delete(t_line *line)
 {
 	if (line->len > 0 && line->pos < line->len)
 	{

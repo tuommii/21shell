@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/17 17:13:16 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 11:03:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Depending on cursor position, apppend or insert char and redraw input
 */
+
 void apped_or_insert(t_line *line, char c)
 {
 	if (line->len >= INPUT_BUFFER)
@@ -50,6 +51,7 @@ void hist_next(t_line *line)
 /*
 ** Scrolls history backwards, empty input when tail is reached
 */
+
 void hist_prev(t_line *line)
 {
 	if (line->hist_i == 1)

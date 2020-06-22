@@ -6,93 +6,60 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/19 19:14:59 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 10:45:59 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sys/wait.h"
 #include "linedit.h"
 
-// void clipboard_set(t_clipboard *clip, char *str)
-// {
-//     pid_t pid;
-//     int fd[2];
-//     int ret, i;
-
-//     ret = pipe(fd);
-//     if ( ret == -1 )
-// 	{
-//         perror("pipe error: ");
-//         exit(1);
-//     }
-
-//     for ( i=0; i<2; i++ )
-// 	{
-//         pid = fork();
-//         if ( pid==0 )
-//             break;
-//     }
-
-//     if (i == 2)
-// 	{
-//         close(fd[0]);
-//         close(fd[1]);
-//         while ( i-- )
-// 		{
-//             if( wait(NULL) == -1 )
-// 			{
-//                 perror("wait error: ");
-//                 exit(1);
-//             }
-//         }
-//     } else if ( i == 0 )
-// 	{
-//         close(fd[0]);
-//         dup2(fd[1], STDOUT_FILENO);
-//         execve(COPY_PATH, str, NULL);
-// 		//ft_printf("%s", str);
-//     }
-// 	else if ( i == 1)
-// 	{
-//         close(fd[1]);
-//         dup2(fd[0], STDIN_FILENO);
-//         execve(COPY_PATH, COPY_PARAM, NULL);
-//     }
-// }
-
-/* COPY UNTIL FIRST NEWLINE*/
-void clipboard_update(t_clipboard *clip)
+static void	check_pid(pid_t pid, t_clipboard **clip, char *cpycmd[3], int p[2])
 {
-    char *copy_cmd[] = {COPY_CMD, COPY_PARAM, NULL};
-    char buf[INPUT_BUFFER + 1];
-	ft_bzero(buf, INPUT_BUFFER + 1);
-    int p[2];
-    pid_t pid;
-    extern char **environ;
+	extern char	**environ;
+	char		buf[INPUT_BUFFER + 1];
+	int			j;
 
-    pipe(p);
-    pid = fork();
-    if (pid == 0)
-    {
-        dup2(p[1], STDOUT_FILENO);
-        close(p[0]);
-        execve(COPY_PATH, copy_cmd, environ);
-    }
-    else {
-        wait(&pid);
-        close(p[1]);
-        read(p[0], buf, INPUT_BUFFER);
-		int j = 0;
+	if (pid == 0)
+	{
+		dup2(p[1], STDOUT_FILENO);
+		close(p[0]);
+		execve(COPY_PATH, cpycmd, environ);
+	}
+	else
+	{
+		wait(&pid);
+		close(p[1]);
+		ft_bzero(buf, INPUT_BUFFER + 1);
+		read(p[0], buf, INPUT_BUFFER);
+		j = 0;
 		while (buf[j] && buf[j] != '\n')
 		{
-			clip->content[j] = buf[j];
+			(*clip)->content[j] = buf[j];
 			j++;
 		}
-		clip->content[j] = '\0';
-    }
+		(*clip)->content[j] = '\0';
+	}
 }
 
-void clipboard_draw(t_line *line)
+/*
+** Copy until first newline
+*/
+
+void		clipboard_update(t_clipboard *clip)
+{
+	char	*copy_cmd[3];
+	int		p[2];
+	pid_t	pid;
+
+	copy_cmd[0] = COPY_CMD;
+	copy_cmd[1] = COPY_PARAM;
+	copy_cmd[2] = NULL;
+	pipe(p);
+	pid = fork();
+	check_pid(pid, &clip, copy_cmd, p);
+}
+
+void		clipboard_draw(t_line *line)
 {
 	int len;
 	int i;
@@ -104,16 +71,12 @@ void clipboard_draw(t_line *line)
 	{
 		i = -1;
 		while (++i < len)
-			ft_insert(line->input, line->pos + i + 1, line->clipboard.content[i]);
+			ft_insert(line->input, line->pos + i + 1, \
+			line->clipboard.content[i]);
 	}
 	else
 		ft_strcpy(line->input + line->len, line->clipboard.content);
 	line->len += len;
 	line->pos += len;
-	// if (line->clipboard.is_cut)
-	// {
-	// 	ft_bzero(line->clipboard.content, INPUT_BUFFER);
-	// 	line->clipboard.is_cut = 0;
-	// }
 	redraw_input(line);
 }

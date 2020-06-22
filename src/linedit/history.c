@@ -6,23 +6,22 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:23:16 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/03/26 11:01:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/22 10:50:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-static t_hist *new_hist_item(char *str)
+static t_hist	*new_hist_item(char *str)
 {
 	t_hist *new;
+
 	if (!str)
 		return (NULL);
 	if (!(new = ft_memalloc(sizeof(t_hist))))
 	{
-		// TODO: Use global exit func or dont close app
 		ft_printf("History item failed\n");
 		return (NULL);
-		// exit(0);
 	}
 	new->str = ft_strdup(str);
 	new->prev = new;
@@ -31,9 +30,10 @@ static t_hist *new_hist_item(char *str)
 	return (new);
 }
 
-static void check_count(t_hist **head, t_hist *new)
+static void		check_count(t_hist **head, t_hist *new)
 {
 	t_hist *delete;
+
 	if (new->i >= MAX_HISTORY)
 	{
 		delete = *head;
@@ -44,7 +44,7 @@ static void check_count(t_hist **head, t_hist *new)
 	}
 }
 
-static void traverse_end(t_hist **curr, t_hist *new)
+static void		traverse_end(t_hist **curr, t_hist *new)
 {
 	new->i++;
 	while ((*curr)->next != NULL)
@@ -54,14 +54,16 @@ static void traverse_end(t_hist **curr, t_hist *new)
 	}
 }
 
-// NULL to head creates new node as head
-int hist_append(t_hist **head, char *str)
+/*
+** NULL to head creates new node as head
+*/
+
+int				hist_append(t_hist **head, char *str)
 {
 	t_hist *new;
 	t_hist *curr;
 
 	curr = *head;
-	// TODO: Use global exit func or dont close app
 	if (!(new = new_hist_item(str)))
 		return (0);
 	if (*head == NULL)
@@ -83,7 +85,7 @@ int hist_append(t_hist **head, char *str)
 	return (1);
 }
 
-t_hist *hist_pop(t_hist **head, int index)
+t_hist			*hist_pop(t_hist **head, int index)
 {
 	t_hist *node;
 
