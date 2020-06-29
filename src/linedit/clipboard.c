@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/29 20:08:33 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/29 20:10:45 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,20 @@ static void	check_pid(pid_t pid, t_clipboard **clip, char *cpycmd[3], int p[2])
 		dup2(p[1], STDOUT_FILENO);
 		close(p[0]);
 		execve(COPY_PATH, cpycmd, environ);
+		return;
 	}
-	else
-	{
-		wait(&pid);
-		close(p[1]);
-		ft_bzero(buf, INPUT_BUFFER + 1);
-		read(p[0], buf, INPUT_BUFFER);
-		if (buf[0] == '\0')
-			return;
-		j = -1;
-		formatted = ft_strreplace(buf, "\t", "  ");
-		while (++j >= 0 && formatted[j] && formatted[j] != '\n' && j < INPUT_BUFFER)
-			(*clip)->content[j] = formatted[j];
-		ft_strdel(&formatted);
-		(*clip)->content[j] = '\0';
-	}
+	wait(&pid);
+	close(p[1]);
+	ft_bzero(buf, INPUT_BUFFER + 1);
+	read(p[0], buf, INPUT_BUFFER);
+	if (buf[0] == '\0')
+		return;
+	j = -1;
+	formatted = ft_strreplace(buf, "\t", "  ");
+	while (++j >= 0 && formatted[j] && formatted[j] != '\n' && j < INPUT_BUFFER)
+		(*clip)->content[j] = formatted[j];
+	ft_strdel(&formatted);
+	(*clip)->content[j] = '\0';
 }
 
 /*
