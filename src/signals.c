@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/29 13:40:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/29 13:57:57 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void		watch_kill(t_line *line)
 {
 	if (g_cont)
 	{
+		line->cols = get_cols();
 		redraw_input(line);
 	}
 	else if (g_kill)
