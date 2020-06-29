@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/22 11:02:50 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/29 12:18:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LINEDIT_H
 
 # include <stdlib.h>
-# include <stdio.h>			// TODO: For debugging func
 # include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -23,11 +22,10 @@
 # include <term.h>
 # include <unistd.h>
 
-#include "libft.h"
+# include "libft.h"
 
 # define INPUT_BUFFER 4096
 # define OUTPUT STDOUT_FILENO
-// TODE: This is so small just for testing purposes
 # define MAX_HISTORY 3
 
 /*
@@ -37,19 +35,16 @@
 #  define TIOCGSIZE TIOCGWINSZ
 # endif
 
+# ifdef __APPLE__
+#  define COPY_CMD "pbaste"
+#  define COPY_PATH "/usr/bin/pbpaste"
+#  define COPY_PARAM ""
+# elif __linux__
+#  define COPY_CMD "xclip"
+#  define COPY_PATH "/usr/bin/xclip"
+#  define COPY_PARAM "-o"
+# endif
 
-#ifdef __APPLE__
- # define COPY_CMD "pbaste"
- # define COPY_PATH "/usr/bin/pbpaste"
- # define COPY_PARAM ""
-#elif __linux__
-# define COPY_CMD "xclip"
-# define COPY_PATH "/usr/bin/xclip"
-# define COPY_PARAM "-o"
-#endif
-
-
-// KEYBOARD
 # define KEYBOARD_BUFFER 6
 # define TAB 9
 # define ENTER 10
@@ -65,8 +60,7 @@
 # define CTRL_C 0
 # define CTRL_L 12
 
-// TODO: Paste
-# define CTRL_E 5 // maybe different external paste
+# define CTRL_E 5
 # define CTRL_P 16
 # define CTRL_K 11
 # define CTRL_X 24
@@ -80,146 +74,113 @@
 # define HOME_KEY 190
 # define END_KEY 188
 
-
-typedef struct s_suggestions
+typedef struct				s_suggestions
 {
-	int len;
-	char **arr;
-} t_suggestions;
+	int						len;
+	char					**arr;
+}							t_suggestions;
 
-typedef void(autocomp_cb)(const char *, t_suggestions *);
+typedef void				(t_autocomp_cb)(const char *, t_suggestions *);
 
-typedef struct s_clipboard {
-	char		content[INPUT_BUFFER + 1];
-} t_clipboard;
+typedef struct				s_clipboard {
+	char					content[INPUT_BUFFER + 1];
+}							t_clipboard;
 
-typedef struct s_hist
+typedef struct				s_hist
 {
-	char *str;
-	int i;
-	struct s_hist *prev;
-	struct s_hist *next;
-} t_hist;
+	char					*str;
+	int						i;
+	struct s_hist			*prev;
+	struct s_hist			*next;
+}							t_hist;
 
-typedef struct s_line
+typedef struct				s_line
 {
-	char		input[INPUT_BUFFER + 1];
-	char		cpy[INPUT_BUFFER + 1];
-	int			len;
-	char		*prompt;
-	int			prompt_len;
-	int			key;
-	int			pos;
-	int			old_pos;
-	int			lines_used;
-	int			cols;
-	int			is_cut;
+	char					input[INPUT_BUFFER + 1];
+	char					cpy[INPUT_BUFFER + 1];
+	int						len;
+	char					*prompt;
+	int						prompt_len;
+	int						key;
+	int						pos;
+	int						old_pos;
+	int						lines_used;
+	int						cols;
+	int						is_cut;
 
-	struct s_hist *hist;
-	int			hist_count;
-	int			hist_i;
+	struct s_hist			*hist;
+	int						hist_count;
+	int						hist_i;
 
-	struct s_suggestions suggestions;
-	autocomp_cb *cb;
+	struct s_suggestions	suggestions;
+	t_autocomp_cb			*cb;
 
-	struct s_clipboard clipboard;
-} t_line;
+	struct s_clipboard		clipboard;
+}							t_line;
 
 int g_kill;
 
+char						*read_more(t_line *line, int nl_flag);
+void						linedit_completion_cb \
+(t_line *line, t_autocomp_cb *cb);
+void						clipboard_update(t_clipboard *clip);
+void						clipboard_draw(t_line *line);
+void						linedit_setup(void);
+void						linedit_config(int reset);
+int							get_cols(void);
+void						redraw_input(t_line *line);
+void						clear_rows(t_line *line);
+int							print_char(int c);
+int							is_empty(char *str);
+void						free_history(t_hist **hist);
+int							copy_cat \
+(t_line *line, int is_cut, int *state, int *start);
+void						paste(t_line *line);
+int							which_action(t_line *line);
+int							check_arrow_keys(t_line *line);
+int							check_command_keys(t_line *line);
+int							check_ctrl_arrow_keys(t_line *line);
+int							check_copy_paste_del(t_line *line);
+int							check_terminating_keys(t_line *line);
+void						listen_signals(void);
+void						watch_kill(t_line *line);
+int							keypress(void);
+int							handle_right_key(t_line *line);
+int							handle_left_key(t_line *line);
+int							handle_backspace(t_line *line);
+int							handle_delete(t_line *line);
+void						print_prompt(t_line *line);
+t_line						*create_line_editor(void);
 
-char *read_more(t_line *line, int nl_flag);
-
-// Kokeilut
-void linedit_completion_cb(t_line *line, autocomp_cb *cb);
-// void new_paste(t_line *line);
-void clipboard_update(t_clipboard *clip);
-void clipboard_draw(t_line *line);
-
-
-
-
-void	linedit_setup(void);
-//void	linedit_start(void);
-void	linedit_config(int reset);
-
-
-int 	get_cols(void);
-
-void	redraw_input(t_line *line);
-
-void clear_rows(t_line *line);
-
-// UTILS
-int		print_char(int c);
-int is_empty(char *str);
-void free_history(t_hist **hist);
-
-
-
-
-int copy_cat(t_line *line, int is_cut, int *state, int *start);
-void paste(t_line *line);
-
-int which_action(t_line *line);
-
-// CHECK KEYS
-int	check_arrow_keys(t_line *line);
-int	check_command_keys(t_line *line);
-int	check_ctrl_arrow_keys(t_line *line);
-int	check_copy_paste_del(t_line *line);
-int	check_terminating_keys(t_line *line);
-
-// SIGNALS
-void		listen_signals(void);
-void		watch_kill(t_line *line);
-
-
-
-// KEYBOARD
-int	keypress(void);
-int handle_right_key(t_line *line);
-int handle_left_key(t_line *line);
-int handle_backspace(t_line *line);
-int handle_delete(t_line *line);
-
-
-
-void print_prompt(t_line *line);
-
-t_line *create_line_editor(void);
 /*
 ** Main function. Returns input
 */
-char	*linedit(t_line *line);
-void	linedit_exit(t_line *line);
 
-
+char						*linedit(t_line *line);
+void						linedit_exit(t_line *line);
 
 /*
 ** HISTORY
 */
-int	hist_append(t_hist **head, char *str);
-void hist_print(t_hist *node);
-t_hist *hist_pop(t_hist **head, int index);
 
+int							hist_append(t_hist **head, char *str);
+void						hist_print(t_hist *node);
+t_hist						*hist_pop(t_hist **head, int index);
 
-/* HIST ACTION */
-void hist_prev(t_line *line);
-void hist_next(t_line *line);
+void						hist_prev(t_line *line);
+void						hist_next(t_line *line);
 
-/* GOTO ACTION */
-void goto_end(t_line *line);
-void goto_begin(t_line *line);
-void goto_row_down(t_line *line);
-void goto_row_up(t_line *line);
-void goto_prev_word(t_line *line);
-void goto_next_word(t_line *line);
+void						goto_end(t_line *line);
+void						goto_begin(t_line *line);
+void						goto_row_down(t_line *line);
+void						goto_row_up(t_line *line);
+void						goto_prev_word(t_line *line);
+void						goto_next_word(t_line *line);
 
-void erase_input(t_line *line);
-void clear_rows(t_line *line);
+void						erase_input(t_line *line);
+void						clear_rows(t_line *line);
 
-void reposition(t_line *line);
-void apped_or_insert(t_line *line, char c);
+void						reposition(t_line *line);
+void						apped_or_insert(t_line *line, char c);
 
 #endif
