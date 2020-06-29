@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/29 18:31:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/29 20:08:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	check_pid(pid_t pid, t_clipboard **clip, char *cpycmd[3], int p[2])
 	extern char	**environ;
 	char		buf[INPUT_BUFFER + 1];
 	int			j;
+	char		*formatted;
 
 	if (pid == 0)
 	{
@@ -31,8 +32,10 @@ static void	check_pid(pid_t pid, t_clipboard **clip, char *cpycmd[3], int p[2])
 		close(p[1]);
 		ft_bzero(buf, INPUT_BUFFER + 1);
 		read(p[0], buf, INPUT_BUFFER);
+		if (buf[0] == '\0')
+			return;
 		j = -1;
-		char *formatted = ft_strreplace(buf, "\t", "    ");
+		formatted = ft_strreplace(buf, "\t", "  ");
 		while (++j >= 0 && formatted[j] && formatted[j] != '\n' && j < INPUT_BUFFER)
 			(*clip)->content[j] = formatted[j];
 		ft_strdel(&formatted);

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/29 10:53:50 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/29 19:37:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,9 @@ static void	handle_enter2(t_line *line, int nl_flag)
 	ft_strcpy(line->cpy, line->input);
 	if (nl_flag)
 		ft_strncat(line->cpy, "\n", 1);
-	reposition(line);
-	print_prompt(line);
+
+	ft_putstr("\r");
+	erase_input(line);
 }
 
 /*
