@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/29 14:24:05 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/29 18:31:48 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,10 @@ static void	check_pid(pid_t pid, t_clipboard **clip, char *cpycmd[3], int p[2])
 		close(p[1]);
 		ft_bzero(buf, INPUT_BUFFER + 1);
 		read(p[0], buf, INPUT_BUFFER);
-		j = 0;
+		j = -1;
 		char *formatted = ft_strreplace(buf, "\t", "    ");
-		while (formatted[j] && formatted[j] != '\n')
-		{
+		while (++j >= 0 && formatted[j] && formatted[j] != '\n' && j < INPUT_BUFFER)
 			(*clip)->content[j] = formatted[j];
-			j++;
-		}
 		ft_strdel(&formatted);
 		(*clip)->content[j] = '\0';
 	}
