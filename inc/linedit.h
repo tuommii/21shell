@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/29 12:18:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/29 13:38:28 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct				s_line
 }							t_line;
 
 int g_kill;
+int g_cont;
 
 char						*read_more(t_line *line, int nl_flag);
 void						linedit_completion_cb \

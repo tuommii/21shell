@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/16 21:09:31 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/29 13:40:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	handle_sigcont(void)
 {
+	g_cont = 1;
 	linedit_config(0);
 	listen_signals();
 	ioctl(OUTPUT, TIOCSTI, "");
@@ -49,7 +50,11 @@ void		signal_handler(int sig)
 
 void		watch_kill(t_line *line)
 {
-	if (g_kill)
+	if (g_cont)
+	{
+		redraw_input(line);
+	}
+	else if (g_kill)
 	{
 		erase_input(line);
 		ioctl(OUTPUT, TIOCSTI, "\n");
