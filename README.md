@@ -31,7 +31,7 @@ make
 | <kbd>CTRL + L</kbd> | Clear screen |
 | <kbd>CTRL + U</kbd> | Clear input |
 | <kbd>CTRL + D</kbd> | Delete char at cursor, exit if no input |
-| <kbd>CTRL + X</kbd> | (WIP) **Cut**. First press is start index and second is end index |
+| <kbd>CTRL + X</kbd> | **Cut** current input
 | <kbd>CTRL + K</kbd> | (WIP) **Copy**. Copy current input to clipboard |
 | <kbd>CTRL + P</kbd> | External **Paste** |
 | <kbd>LEFT</kbd> | Moves cursor left |

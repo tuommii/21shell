@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:23:16 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/22 10:50:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/30 06:45:15 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ static t_hist	*new_hist_item(char *str)
 	if (!str)
 		return (NULL);
 	if (!(new = ft_memalloc(sizeof(t_hist))))
-	{
-		ft_printf("History item failed\n");
 		return (NULL);
-	}
 	new->str = ft_strdup(str);
 	new->prev = new;
 	new->next = NULL;
@@ -34,14 +31,13 @@ static void		check_count(t_hist **head, t_hist *new)
 {
 	t_hist *delete;
 
-	if (new->i >= MAX_HISTORY)
-	{
-		delete = *head;
-		(*head) = (*head)->next;
-		ft_strdel(&delete->str);
-		free(delete);
-		delete = NULL;
-	}
+	if (new->i < MAX_HISTORY)
+		return;
+	delete = *head;
+	(*head) = (*head)->next;
+	ft_strdel(&delete->str);
+	free(delete);
+	delete = NULL;
 }
 
 static void		traverse_end(t_hist **curr, t_hist *new)
@@ -93,12 +89,7 @@ t_hist			*hist_pop(t_hist **head, int index)
 		return (NULL);
 	if (!index)
 		return (node);
-	else
-	{
-		while (index-- > 0 && node)
-		{
-			node = node->prev;
-		}
-	}
+	while (index-- > 0 && node)
+		node = node->prev;
 	return (node);
 }

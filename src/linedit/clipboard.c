@@ -6,14 +6,38 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/29 20:10:45 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/30 06:37:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sys/wait.h"
 #include "linedit.h"
 
-static void	check_pid(pid_t pid, t_clipboard **clip, char *cpycmd[3], int p[2])
+/*
+* Format buffer and copy (until newline) it to clipboard
+*/
+
+static void format_to_clipboard(char *buf, t_clipboard **clip)
+{
+	int j;
+	char *formatted;
+
+	formatted = ft_strreplace(buf, "\t", "  ");
+	j = 0;
+	while (formatted[j] && formatted[j] != '\n' && j < INPUT_BUFFER)
+	{
+		(*clip)->content[j] = formatted[j];
+		j++;
+	}
+	ft_strdel(&formatted);
+	(*clip)->content[j] = '\0';
+}
+
+/*
+* Runs OS-specific clipboard command
+*/
+
+static void	exex_clipboard(pid_t pid, t_clipboard **clip, char *cpycmd[3], int p[2])
 {
 	extern char	**environ;
 	char		buf[INPUT_BUFFER + 1];
@@ -33,17 +57,8 @@ static void	check_pid(pid_t pid, t_clipboard **clip, char *cpycmd[3], int p[2])
 	read(p[0], buf, INPUT_BUFFER);
 	if (buf[0] == '\0')
 		return;
-	j = -1;
-	formatted = ft_strreplace(buf, "\t", "  ");
-	while (++j >= 0 && formatted[j] && formatted[j] != '\n' && j < INPUT_BUFFER)
-		(*clip)->content[j] = formatted[j];
-	ft_strdel(&formatted);
-	(*clip)->content[j] = '\0';
+	format_to_clipboard(buf, clip);
 }
-
-/*
-** Copy until first newline
-*/
 
 void		clipboard_update(t_clipboard *clip)
 {
@@ -56,7 +71,7 @@ void		clipboard_update(t_clipboard *clip)
 	copy_cmd[2] = NULL;
 	pipe(p);
 	pid = fork();
-	check_pid(pid, &clip, copy_cmd, p);
+	exex_clipboard(pid, &clip, copy_cmd, p);
 }
 
 void		clipboard_draw(t_line *line)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/18 13:14:54 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/06/30 06:57:15 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		create_shell(char **environ, t_line *line)
 
 void		cleanup(t_line *line)
 {
-	linedit_config(1);
+	toggle_raw(1);
 	erase_input(line);
 	free_history(&line->hist);
 	free(line);

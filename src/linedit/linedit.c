@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/29 19:37:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/06/30 06:47:10 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		hist_prev(t_line *line)
 		line->pos = 0;
 		redraw_input(line);
 	}
-	if (line->hist_i > 1)
+	else if (line->hist_i > 1)
 	{
 		line->hist_i--;
 		clear_rows(line);
@@ -113,9 +113,7 @@ int			which_action(t_line *line)
 
 	ret = 0;
 	if ((ret = ft_isprint(line->key)))
-	{
 		apped_or_insert(line, (char)line->key);
-	}
 	else if ((ret = check_arrow_keys(line)))
 		;
 	else if ((ret = check_ctrl_arrow_keys(line)))
