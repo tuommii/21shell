@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 19:57:02 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 20:11:08 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	check_copy_paste_del(t_line *line)
 	else if (line->key == CTRL_Y)
 	{
 		int len = ft_strlen(line->internal);
-		if (!len)
+		if (!len || (line->len + len) > INPUT_BUFFER)
 			return ;
 		if (line->pos != line->len)
 		{
