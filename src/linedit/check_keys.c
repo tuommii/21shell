@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 20:44:31 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 21:12:18 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	check_copy_paste_del(t_line *line)
 		int len = line->pos;
 		if (!len)
 			return ;
+		ft_bzero(line->internal, INPUT_BUFFER);
 		ft_memcpy(line->internal, line->input, len);
 		while (len-- > 0)
 		{
@@ -139,6 +140,7 @@ int	check_copy_paste_del(t_line *line)
 		int len = line->len - line->pos;
 		if (!len)
 			return ;
+		ft_bzero(line->internal, INPUT_BUFFER);
 		ft_strncpy(line->internal, line->input+line->pos, len);
 		while (line->len > line->pos)
 		{
