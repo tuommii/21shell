@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 12:04:39 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 17:52:09 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@
 #  define COPY_PATH "/usr/bin/xclip"
 #  define COPY_PARAM "-o"
 # endif
+
+# ifdef __APPLE__
+#  define COPY " | pbpaste"
+# elif __linux__
+#  define COPY " | xclip -sel clip"
+# endif
+
+
 
 # define KEYBOARD_BUFFER 6
 # define TAB 9

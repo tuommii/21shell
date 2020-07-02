@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 12:11:10 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 19:08:35 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,30 @@ static void	handle_enter(t_line *line)
 	reposition(line);
 }
 
+static char *create_copy_str(t_line *line)
+{
+	int len = ft_strlen(COPY);
+	char *new = malloc(sizeof(char) * (line->len + 3));
+	new[0] = '\"';
+	int i = 1;
+	while (i <= line->len)
+	{
+		new[i] = line->input[i-1];
+		i++;
+	}
+	new[i] = '\"';
+	new[i+1] = '\0';
+	new = &new[0];
+	char s = '"';
+	char *replaced = ft_strreplace(new, &s, "\\\"");
+	ft_bzero(line->clipboard.content, INPUT_BUFFER);
+	ft_strcpy(line->clipboard.content, replaced);
+	ft_strdel(&new);
+	ft_strdel(&replaced);
+	return line->clipboard.content;
+}
+
+
 char		*linedit(t_line *line)
 {
 	print_prompt(line);
@@ -115,7 +139,11 @@ char		*linedit(t_line *line)
 		else if(line->key == CTRL_K)
 		{
 			line->was_copy = 1;
-			return ("echo \"AAAAAAAAAAA\" | pbcopy");
+			char *new = ft_strjoin("echo ", create_copy_str(line));
+			char *new2 = ft_strjoin(new, COPY);
+			ft_strdel(&new);
+			// Free this
+			return new2;
 		}
 	}
 	return (NULL);
