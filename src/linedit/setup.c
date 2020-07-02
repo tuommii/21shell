@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 10:49:59 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 12:03:50 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	check_tty(void)
 		ft_dprintf(OUTPUT, "No terminal name");
 		exit(1);
 	}
+	// TODO: Run file
 	if (!isatty(STDIN_FILENO))
 	{
 		ft_printf("stdin is not a tty\n");
@@ -85,6 +86,7 @@ t_line		*create_line_editor(void)
 	line->hist = NULL;
 	line->prompt = "$>";
 	line->prompt_len = 2;
+	line->was_copy = 0;
 	line->pos = 0;
 	line->is_cut = 0;
 	ft_bzero(line->input, INPUT_BUFFER);

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/22 10:59:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 12:08:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void		print_prompt(t_line *line)
 {
-	ft_putstr(line->prompt);
+	if (!line->was_copy)
+		ft_putstr(line->prompt);
+	line->was_copy = 0;
 }
 
 static void	check_newline(t_line *line, int *rows)

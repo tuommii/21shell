@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 10:55:21 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 12:04:39 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ typedef struct				s_line
 	int						old_pos;
 	int						lines_used;
 	int						cols;
+	int						was_copy;
 	int						is_cut;
-
 	struct s_hist			*hist;
 	int						hist_count;
 	int						hist_i;
@@ -120,6 +120,7 @@ typedef struct				s_line
 
 int							g_kill;
 int							g_cont;
+int							g_was_copy;
 
 char						*read_more(t_line *line, int nl_flag);
 void						linedit_completion_cb \

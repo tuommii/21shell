@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 10:39:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 12:11:10 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,11 @@ char		*linedit(t_line *line)
 			continue ;
 		else if (which_action(line))
 			continue ;
+		else if(line->key == CTRL_K)
+		{
+			line->was_copy = 1;
+			return ("echo \"AAAAAAAAAAA\" | pbcopy");
+		}
 	}
 	return (NULL);
 }
