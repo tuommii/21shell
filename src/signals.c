@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/30 06:57:06 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 09:33:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	handle_sigcont(void)
 {
 	g_cont = 1;
-	toggle_raw(0);
+	toggle_raw(0, 0);
 	listen_signals();
 	ioctl(OUTPUT, TIOCSTI, "");
 }
@@ -33,7 +33,7 @@ void		signal_handler(int sig)
 {
 	if (sig == SIGTSTP)
 	{
-		toggle_raw(1);
+		toggle_raw(1, 0);
 		signal(SIGTSTP, SIG_DFL);
 		ioctl(OUTPUT, TIOCSTI, "\x1A");
 	}

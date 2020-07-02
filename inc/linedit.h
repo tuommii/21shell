@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/30 06:55:16 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 09:32:32 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void						linedit_completion_cb \
 void						clipboard_update(t_clipboard *clip);
 void						clipboard_draw(t_line *line);
 void						linedit_setup(void);
-void						toggle_raw(int reset);
+void						toggle_raw(int reset, int save_old);
 int							get_cols(void);
 void						redraw_input(t_line *line);
 void						clear_rows(t_line *line);

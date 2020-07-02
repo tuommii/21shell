@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/30 06:41:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 09:34:41 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	check_terminating_keys(t_line *line)
 {
 	if (line->key == ESC || (line->key == CTRL_D && !line->len))
 	{
-		toggle_raw(1);
+		toggle_raw(1, 0);
 		return (1);
 	}
 	return (0);

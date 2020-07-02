@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/01 17:37:04 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 09:33:05 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,16 @@ static void		run_21(t_line *line)
 	listen_signals();
 	while ((input = linedit(line)) != NULL)
 	{
-		toggle_raw(1);
+		toggle_raw(1, 0);
 		tokenize(&lexer, input);
 		if (lexer->flags & DEBUG_LEXER)
 			lexer_debug(lexer);
 		else
 			parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
 		lexer_del(&lexer);
-		toggle_raw(0);
+		toggle_raw(0, 0);
 	}
-	toggle_raw(1);
+	toggle_raw(1, 0);
 }
 
 int				main(int argc, char **argv, char **environment)
