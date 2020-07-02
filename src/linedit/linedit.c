@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 09:39:59 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 09:47:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ static void	handle_enter2(t_line *line, int nl_flag)
 
 char		*read_more(t_line *line, int nl_flag)
 {
-	//toggle_raw(0, 0);
+	toggle_raw(0, 0);
 	line->prompt = "> ";
 	line->prompt_len = ft_strlen(line->prompt);
 	print_prompt(line);
@@ -165,7 +165,7 @@ char		*read_more(t_line *line, int nl_flag)
 		if (line->key == ENTER)
 		{
 			handle_enter2(line, nl_flag);
-			//toggle_raw(1, 0);
+			toggle_raw(1, 0);
 			return (ft_strdup(line->cpy));
 		}
 		else if (check_command_keys(line))
