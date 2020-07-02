@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:42:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/30 06:50:24 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 21:03:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	goto_row_down(t_line *line)
 	int rows;
 	int rpos;
 
-	rows = (line->len + line->cols - 1) / line->cols;
+	rows = (line->len + line->cols) / line->cols;
 	rpos = (line->old_pos + line->cols) / line->cols;
 	if (line->lines_used > 1 && rpos < rows)
 	{
