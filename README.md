@@ -31,7 +31,8 @@ make
 | <kbd>CTRL + L</kbd> | Clear screen |
 | <kbd>CTRL + U</kbd> | Clear input |
 | <kbd>CTRL + D</kbd> | Delete char at cursor, exit if no input |
-| <kbd>CTRL + X</kbd> | **Cut** current input
+| <kbd>CTRL + W</kbd> | **Cut** from start to cursor
+| <kbd>CTRL + E</kbd> | **Cut** from cursor to end
 | <kbd>CTRL + K</kbd> | (WIP) **Copy**. Copy current input to clipboard |
 | <kbd>CTRL + P</kbd> | External **Paste** |
 | <kbd>LEFT</kbd> | Moves cursor left |
