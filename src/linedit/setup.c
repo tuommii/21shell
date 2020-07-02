@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 12:03:50 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 19:41:58 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ t_line		*create_line_editor(void)
 	ft_bzero(line->input, INPUT_BUFFER);
 	ft_bzero(line->cpy, INPUT_BUFFER);
 	ft_bzero(line->clipboard.content, INPUT_BUFFER);
+	ft_bzero(line->internal, INPUT_BUFFER);
 	return (line);
 }

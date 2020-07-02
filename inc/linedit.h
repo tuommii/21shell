@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 17:52:09 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 19:24:22 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@
 # define CTRL_P 16
 # define CTRL_K 11
 # define CTRL_X 24
+# define CTRL_W 23
+# define CTRL_Y 25
 # define CTRL_U 21
 
 # define CTRL_LEFT 347
@@ -106,6 +108,7 @@ typedef struct				s_line
 {
 	char					input[INPUT_BUFFER + 1];
 	char					cpy[INPUT_BUFFER + 1];
+	char					internal[INPUT_BUFFER +1];
 	int						len;
 	char					*prompt;
 	int						prompt_len;
