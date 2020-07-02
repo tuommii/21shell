@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 10:51:32 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 10:55:21 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,6 @@ void						print_prompt(t_line *line);
 t_line						*create_line_editor(void);
 
 char						*linedit(t_line *line);
-void						linedit_exit(t_line *line);
 
 /*
 ** HISTORY
