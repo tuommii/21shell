@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 09:31:30 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 10:49:59 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ static void	check_tty(void)
 		ft_dprintf(OUTPUT, "No terminal name");
 		exit(1);
 	}
-	// Commented this out for the Python unittests to work - need to double check
-	// if (!isatty(STDIN_FILENO))
-	// {
-	// 	ft_dprintf(OUTPUT, "No terminal detected!\n");
-	// 	exit(1);
-	// }
+	if (!isatty(STDIN_FILENO))
+	{
+		ft_printf("stdin is not a tty\n");
+		exit(1);
+	}
 	if (tgetent(buffer, name) != 1)
 	{
 		ft_dprintf(OUTPUT, "No database or No entry found\n");
@@ -36,6 +35,7 @@ static void	check_tty(void)
 }
 
 /*
+** reset
 ** 0 set to raw mode
 ** 1 restore orginal mode
 */
@@ -50,7 +50,7 @@ void		toggle_raw(int reset, int save_old)
 		tcsetattr(STDIN_FILENO, TCSAFLUSH, &backup);
 		return ;
 	}
-	if  (save_old)
+	if (save_old)
 		tcgetattr(STDIN_FILENO, &backup);
 	new_config = backup;
 	new_config.c_lflag &= ~(ECHO | ICANON | ECHOE | ECHOK | ECHONL);

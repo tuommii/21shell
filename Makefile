@@ -30,6 +30,7 @@ SRC_NAME 	= 	main.c \
 				lexer/utils.c \
 				linedit/setup.c \
 				linedit/linedit.c \
+				linedit/read_more.c \
 				linedit/redraw.c \
 				linedit/check_keys.c \
 				linedit/movement_line.c \
@@ -37,6 +38,7 @@ SRC_NAME 	= 	main.c \
 				linedit/movement_cursor.c \
 				linedit/utils.c \
 				linedit/history.c \
+				linedit/history_actions.c \
 				linedit/clipboard.c \
 				parser/ast.c \
 				parser/astutil.c \

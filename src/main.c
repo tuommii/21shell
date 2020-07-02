@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 09:33:05 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 10:45:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,6 @@ int				main(int argc, char **argv, char **environment)
 
 	if (!argc || !argv || !environment)
 		return (1);
-
-	// TODO: Handle file execution
-	if (!isatty(STDIN_FILENO))
-	{
-        printf("stdin is not a tty\n");
-		exit(1);
-	}
-
 	linedit_setup();
 	line = create_line_editor();
 	create_shell(environment, line);

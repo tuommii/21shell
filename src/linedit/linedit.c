@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 09:47:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 10:39:13 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,51 +31,6 @@ void		apped_or_insert(t_line *line, char c)
 	line->len++;
 	line->pos++;
 	redraw_input(line);
-}
-
-void		hist_next(t_line *line)
-{
-	t_hist *node;
-
-	if (line->hist && line->hist->prev && line->hist_i < line->hist_count)
-	{
-		clear_rows(line);
-		erase_input(line);
-		node = hist_pop(&line->hist, line->hist_i);
-		ft_strcpy(line->input, node->str);
-		line->len = ft_strlen(line->input);
-		goto_end(line);
-		line->hist_i++;
-	}
-}
-
-/*
-** Scrolls history backwards, empty input when tail is reached
-*/
-
-void		hist_prev(t_line *line)
-{
-	t_hist *node;
-
-	if (line->hist_i == 1)
-	{
-		clear_rows(line);
-		erase_input(line);
-		line->hist_i--;
-		line->pos = 0;
-		redraw_input(line);
-	}
-	else if (line->hist_i > 1)
-	{
-		line->hist_i--;
-		clear_rows(line);
-		erase_input(line);
-		node = hist_pop(&line->hist, line->hist_i - 1);
-		ft_strcpy(line->input, node->str);
-		line->len = ft_strlen(line->input);
-		line->pos = line->len;
-		redraw_input(line);
-	}
 }
 
 static int	check_others(t_line *line)
@@ -123,56 +78,6 @@ int			which_action(t_line *line)
 	else if ((ret = check_others(line)))
 		;
 	return (ret);
-}
-
-static void	handle_enter2(t_line *line, int nl_flag)
-{
-	if (*line->input)
-	{
-		line->hist_count += hist_append(&line->hist, line->input);
-		if (line->hist_count > MAX_HISTORY)
-			line->hist_count = MAX_HISTORY;
-	}
-	line->hist_i = 0;
-	ft_strcpy(line->cpy, line->input);
-	if (nl_flag)
-		ft_strncat(line->cpy, "\n", 1);
-
-	ft_putstr("\n\r");
-	erase_input(line);
-}
-
-/*
-** nl_fag is for whether to return newlines as well (should be returned always)
-*/
-
-char		*read_more(t_line *line, int nl_flag)
-{
-	toggle_raw(0, 0);
-	line->prompt = "> ";
-	line->prompt_len = ft_strlen(line->prompt);
-	print_prompt(line);
-	while (42)
-	{
-		line->cols = get_cols();
-		line->key = keypress();
-		if (line->key == CTRL_D)
-		{
-			reposition(line);
-			reposition(line);
-			return (NULL);
-		}
-		if (line->key == ENTER)
-		{
-			handle_enter2(line, nl_flag);
-			toggle_raw(1, 0);
-			return (ft_strdup(line->cpy));
-		}
-		else if (check_command_keys(line))
-			continue ;
-		else if (which_action(line))
-			continue ;
-	}
 }
 
 static void	handle_enter(t_line *line)

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 09:32:32 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 10:51:32 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ typedef struct				s_line
 	struct s_clipboard		clipboard;
 }							t_line;
 
-int g_kill;
-int g_cont;
+int							g_kill;
+int							g_cont;
 
 char						*read_more(t_line *line, int nl_flag);
 void						linedit_completion_cb \
@@ -134,9 +134,6 @@ void						clear_rows(t_line *line);
 int							print_char(int c);
 int							is_empty(char *str);
 void						free_history(t_hist **hist);
-int							copy_cat \
-(t_line *line, int is_cut, int *state, int *start);
-void						paste(t_line *line);
 int							which_action(t_line *line);
 int							check_arrow_keys(t_line *line);
 int							check_command_keys(t_line *line);
@@ -153,10 +150,6 @@ int							handle_delete(t_line *line);
 void						print_prompt(t_line *line);
 t_line						*create_line_editor(void);
 
-/*
-** Main function. Returns input
-*/
-
 char						*linedit(t_line *line);
 void						linedit_exit(t_line *line);
 
@@ -167,9 +160,12 @@ void						linedit_exit(t_line *line);
 int							hist_append(t_hist **head, char *str);
 void						hist_print(t_hist *node);
 t_hist						*hist_pop(t_hist **head, int index);
-
 void						hist_prev(t_line *line);
 void						hist_next(t_line *line);
+
+/*
+** GOTO
+*/
 
 void						goto_end(t_line *line);
 void						goto_begin(t_line *line);
@@ -180,7 +176,6 @@ void						goto_next_word(t_line *line);
 
 void						erase_input(t_line *line);
 void						clear_rows(t_line *line);
-
 void						reposition(t_line *line);
 void						apped_or_insert(t_line *line, char c);
 

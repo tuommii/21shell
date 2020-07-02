@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:23:16 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/30 06:45:15 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 10:31:14 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		check_count(t_hist **head, t_hist *new)
 	t_hist *delete;
 
 	if (new->i < MAX_HISTORY)
-		return;
+		return ;
 	delete = *head;
 	(*head) = (*head)->next;
 	ft_strdel(&delete->str);

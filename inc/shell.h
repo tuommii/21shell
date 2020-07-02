@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:59:25 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/04/19 10:44:53 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/02 10:29:09 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,6 @@
 # define STR_EOF_ERR "21sh: unexpected EOF while looking for matching"
 # define STR_HERE_ERR "21sh: warning: here-document delimited by end-of-file"
 # define STR_BAD_FD_ERR	"21sh: Bad file descriptor:"
-
-/*
-** Definitions of termcaps tuples:
-**  CM: cursor motion
-**  CL: clear screen
-**  CE: clear line
-**  VI: invisible cursor
-**  VE: visible cursor
-**  TI: full screen
-**  TE: return to normal mode
-*/
-
-# define CM (tgetstr("cm", NULL))
-# define CL (tgetstr("cl", NULL))
-# define CE (tgetstr("ce", NULL))
-# define VI (tgetstr("vi", NULL))
-# define VE (tgetstr("ve", NULL))
-# define TI (tgetstr("ti", NULL))
-# define TE (tgetstr("te", NULL))
-
-int						g_kill;
 
 typedef struct			s_shell
 {
