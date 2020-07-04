@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 17:48:16 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 20:09:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // TODO: Reset context with  "|;" and what else?
 # define CTX_DISCARD_STR "|;<>-$"
 
-static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor, t_completions *comps)
+static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
 	if (!buffer || !cursor)
 	{
@@ -59,7 +59,7 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 	if (!(comps = malloc(sizeof(t_completions))))
 		return (NULL);
 
-	if ((comps->ctx = check_wo_moving_cursor(buffer, cursor, comps)))
+	if ((comps->ctx = check_wo_moving_cursor(buffer, cursor)))
 		return (comps);
 
 	// Discard extra spaces
@@ -106,7 +106,7 @@ void get_completions(t_completions **comps)
 	{
 
 	}
-	char *example[] = {"echo", "cd", "ls", NULL};
+	char *example[] = {"echo", "cd", "loooooooooong", NULL};
 	char **pp = example;
 	(*comps)->arr = malloc(sizeof(char *) * 4);
 	int i = 0;
@@ -137,6 +137,8 @@ static void current_str(t_line *line, t_completions *comps)
 	pos = line->pos - 1;
 	while (pos && line->input[pos] != ' ')
 		pos--;
+	if (pos)
+		pos++;
 	int len = line->pos - pos;
 	// word = malloc(sizeof(char) * len + 1);
 	ft_strncpy(comps->word, line->input + pos, len);
@@ -151,21 +153,56 @@ void handle_autocomplete(t_line *line)
 	comps = get_context(line->input, line->pos);
 	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 		return ;
-	get_completions(&comps);
 
+
+	get_completions(&comps);
 	// cpy current word
 	current_str(line, comps);
 
+	// ft_printf("%s\n", comps->ctx);
+
 	i = 0;
-	ft_printf("\n");
 	while (i < comps->count)
 	{
-		ft_printf("%s\n", comps->arr[i]);
+		char *cpy;
+		// ft_printf("[%s]\n", comps->word);
+		if ((cpy = ft_strstr(comps->arr[i], comps->word)))
+		{
+			// ft_printf("\n\n\n\nJEEE!");
+			// char *start = cpy;
+
+			int len = ft_strlen(comps->word);
+			while (len)
+			{
+				line->input[line->pos - 1] = '\0';
+				line->pos--;
+				line->len--;
+				len--;
+			}
+			// ft_printf("after cleaning: [%s]\n", line->input);
+			// {
+			// 	ft_insert(line->input, line->pos - 1, 0);
+			// 	line->pos--;
+			// }
+
+
+			// char *start = cpy;
+			while (*cpy)
+			{
+				apped_or_insert(line, *cpy);
+				cpy++;
+			}
+			// ft_insert(line->input, line->pos, 0);
+			// line->pos--;
+			// line->len--;
+			break ;
+		}
+		// ft_printf("%s\n", comps->arr[i]);
 		i++;
 	}
-
-	ft_printf("%d\n", comps->count);
-	ft_printf("WORD: %s\n", comps->word);
+	redraw_input(line);
+	// ft_printf("%d\n", comps->count);
+	// ft_printf("WORD: %s\n", comps->word);
 }
 
 
