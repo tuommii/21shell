@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 13:22:16 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 15:37:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 // TODO: Reset context with  "|;" and what else?
 # define CTX_DISCARD_STR "|;<>-$"
 
-static char *check_without_moving(char buffer[INPUT_BUFFER], int cursor)
+static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
 	if (!buffer || !cursor)
 		return (CTX_BUILTIN);
@@ -45,7 +45,7 @@ static char *check_without_moving(char buffer[INPUT_BUFFER], int cursor)
 		return (CTX_DISCARD);
 	}
 
-	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]))
+	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
 	{
 		ft_printf("TOP OF CHAR");
 		return (CTX_DISCARD);
@@ -58,12 +58,8 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 {
 	char *ctx;
 
-	if (buffer[cursor] == '\0')
-		cursor--;
-
-	if ((ctx = check_without_moving(buffer, cursor)))
+	if ((ctx = check_wo_moving_cursor(buffer, cursor)))
 		return (ctx);
-
 
 	// Discard extra spaces
 	while (buffer[cursor] == ' ')
@@ -89,6 +85,41 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 	ft_printf("HAPPENDED");
 	return (CTX_DISCARD);
 }
+
+
+char **autocomplete(char *ctx)
+{
+
+	char *example[] = {"echo", "cd", "ls", NULL};
+	char **pp = example;
+	char **arr = malloc(sizeof(char *) * 4);
+	int i = 0;
+	while (*pp)
+	{
+		arr[i] = malloc(sizeof(char) * ft_strlen(*pp));
+		ft_strcpy(arr[i], *pp);
+		i++;
+		pp++;
+	}
+	return arr;
+}
+
+void handle_autocomplete(t_line *line)
+{
+	// if (!line->autocomplete)
+	// 	return ;
+	char *ctx = get_context(line->input, line->pos);
+	if (ft_strcmp(ctx, CTX_DISCARD) == 0)
+		return ;
+	char **arr;
+	arr = autocomplete(ctx);
+	ft_printf("\n%s", arr[0]);
+	ft_printf("\n%s", arr[1]);
+	ft_printf("\n%s", arr[2]);
+
+	// ft_printf("%s, %d\n", get_context(line->input, line->pos), line->pos);
+}
+
 
 // gcc autocomplete.c -I ../inc -I ../libft/
 // int main() {

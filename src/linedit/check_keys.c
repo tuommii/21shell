@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 13:12:56 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 13:39:40 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	check_command_keys(t_line *line)
 {
 	if (line->key == TAB)
 	{
-		tputs(tgetstr("vb", NULL), 1, &print_char);
-		ft_printf("%s, %d\n", get_context(line->input, line->pos), line->pos);
+		handle_autocomplete(line);
 		return (1);
 	}
 	else if (line->key == BACKSPACE)

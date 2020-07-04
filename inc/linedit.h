@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 13:04:55 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 15:18:17 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct				s_suggestions
 	char					**arr;
 }							t_suggestions;
 
-typedef void				(t_autocomp_cb)(const char *, t_suggestions *);
+typedef char				**(t_autocomp_cb)(const char *ctx);
 
 typedef struct				s_clipboard {
 	char					content[INPUT_BUFFER + 1];
@@ -124,7 +124,7 @@ typedef struct				s_line
 	int						hist_i;
 
 	struct s_suggestions	suggestions;
-	t_autocomp_cb			*cb;
+	t_autocomp_cb			*autocomplete;
 
 	struct s_clipboard		clipboard;
 }							t_line;
@@ -193,6 +193,10 @@ void						apped_or_insert(t_line *line, char c);
 /*
 ** AUTOCOMPLETE
 */
+void handle_autocomplete(t_line *line);
 char *get_context(char buffer[INPUT_BUFFER], int cursor);
+char **autocomplete(char *ctx);
+void set_autocomplete(t_line **line, t_autocomp_cb *cb);
+
 
 #endif
