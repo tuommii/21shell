@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 16:26:33 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 16:44:39 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,15 @@ static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 	return (NULL);
 }
 
-char *get_context(char buffer[INPUT_BUFFER], int cursor)
+t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 {
-	char *ctx;
+	t_completions *comps;
 
-	if ((ctx = check_wo_moving_cursor(buffer, cursor)))
-		return (ctx);
+	if (!(comps = malloc(sizeof(t_completions))))
+		return (NULL);
+
+	if ((comps->ctx = check_wo_moving_cursor(buffer, cursor)))
+		return (comps);
 
 	// Discard extra spaces
 	while (buffer[cursor] == ' ')
@@ -64,58 +67,55 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 	while (cursor && buffer[cursor] != ' ')
 		cursor--;
 	if (!cursor)
-		return (CTX_EXEC);
+		comps->ctx = CTX_EXEC;
 	else if (buffer[cursor - 1] == '|' || buffer[cursor - 1] == ';')
-		return (CTX_EXEC);
+		comps->ctx = CTX_EXEC;
 	else if (buffer[cursor + 1] == '|' || buffer[cursor + 1] == ';')
-		return (CTX_EXEC);
+		comps->ctx = CTX_EXEC;
 	else if (buffer[cursor + 1] == '-')
-		return (CTX_FLAG);
+		comps->ctx = CTX_FLAG;
 	else if (buffer[cursor + 1] == '/' || buffer[cursor + 1] == '.')
-		return (CTX_PATH);
+		comps->ctx = CTX_PATH;
 	else if (buffer[cursor + 1] == '$')
-		return (CTX_ENV);
+		comps->ctx = CTX_ENV;
 	else
-		return (CTX_PATH);
-
-	ft_printf("HAPPENED\n");
-	return (CTX_DISCARD);
+		comps->ctx = CTX_PATH;
+	return (comps);
 }
 
 
-t_completions *get_completions(char *ctx)
+void get_completions(t_completions **comps)
 {
-	t_completions *comps;
-	comps = malloc(sizeof(t_completions));
-	comps->count = 0;
-	if (*ctx == CTX_EXEC)
+	// t_completions *comps;
+	// comps = malloc(sizeof(t_completions));
+	// comps->count = 0;
+	if ((*comps)->ctx == CTX_EXEC)
 	{
 	}
-	else if (*ctx == CTX_FLAG)
-	{
-
-	}
-	else if (*ctx == CTX_PATH)
+	else if ((*comps)->ctx == CTX_FLAG)
 	{
 
 	}
-	else if (*ctx == CTX_ENV)
+	else if ((*comps)->ctx == CTX_PATH)
+	{
+
+	}
+	else if ((*comps)->ctx == CTX_ENV)
 	{
 
 	}
 	char *example[] = {"echo", "cd", "ls", NULL};
 	char **pp = example;
-	comps->arr = malloc(sizeof(char *) * 4);
+	(*comps)->arr = malloc(sizeof(char *) * 4);
 	int i = 0;
 	while (*pp)
 	{
-		comps->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-		ft_strcpy(comps->arr[i], *pp);
+		(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+		ft_strcpy((*comps)->arr[i], *pp);
 		i++;
 		pp++;
 	}
-	comps->count = i;
-	return comps;
+	(*comps)->count = i;
 }
 
 static void autocomplete(t_line *line, char **suggestions)
@@ -127,10 +127,19 @@ static void autocomplete(t_line *line, char **suggestions)
 void handle_autocomplete(t_line *line)
 {
 	t_completions *comps;
-	char *ctx = get_context(line->input, line->pos);
-	if (ft_strcmp(ctx, CTX_DISCARD) == 0)
+	int i;
+
+	comps = get_context(line->input, line->pos);
+	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 		return ;
-	comps = get_completions(ctx);
+	get_completions(&comps);
+	i = 0;
+	while (i < comps->count)
+	{
+		ft_printf("%s\n", comps->arr[i]);
+		i++;
+	}
+
 	ft_printf("%d\n", comps->count);
 	// autocomplete(line, arr);
 	// while (*arr)

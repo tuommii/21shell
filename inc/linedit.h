@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 16:24:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 16:43:12 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct				s_completions
 {
 	int						count;
 	char					**arr;
+	char					*ctx;
 }							t_completions;
 
 // typedef char				**(t_autocomp_cb)(const char *ctx);
@@ -193,8 +194,8 @@ void						apped_or_insert(t_line *line, char c);
 ** AUTOCOMPLETE
 */
 void handle_autocomplete(t_line *line);
-char *get_context(char buffer[INPUT_BUFFER], int cursor);
-t_completions *get_completions(char *ctx);
+t_completions *get_context(char buffer[INPUT_BUFFER], int cursor);
+void get_completions(t_completions **comps);
 
 
 #endif
