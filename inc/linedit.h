@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 16:43:12 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 16:56:54 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct				s_completions
 	int						count;
 	char					**arr;
 	char					*ctx;
+	char					word[INPUT_BUFFER];
 }							t_completions;
 
 // typedef char				**(t_autocomp_cb)(const char *ctx);
