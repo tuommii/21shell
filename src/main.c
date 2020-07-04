@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 15:18:32 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 15:55:01 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int				main(int argc, char **argv, char **environment)
 		return (1);
 	linedit_setup();
 	line = create_line_editor();
-	// line->autocomplete = &autocomplete;
-	// set_autocomplete(&line, &autocomplete);
 	create_shell(environment, line);
 	display_banner();
 	run_21(line);

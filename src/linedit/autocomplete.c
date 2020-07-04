@@ -6,21 +6,17 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 15:37:33 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 16:26:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
 // TODO: Enum?
-# define CTX_BUILTIN "BUILTIN"
-# define CTX_BINARY "BINARY" // Might be same that builtin
-
-# define CTX_PATH "PATH"
-# define CTX_FILE "FILE"
-
-# define CTX_ENV "ENV"
+# define CTX_EXEC "EXEC"
 # define CTX_FLAG "FLAG"
+# define CTX_PATH "PATH"
+# define CTX_ENV "ENV"
 # define CTX_DISCARD "DISCARD"
 
 
@@ -31,23 +27,23 @@
 static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
 	if (!buffer || !cursor)
-		return (CTX_BUILTIN);
+		return (CTX_EXEC);
 
 	if (cursor > ft_strlen(buffer))
 	{
-		ft_printf("CURSOR > LEN");
+		ft_printf("CURSOR > LEN\n");
 		return (CTX_DISCARD);
 	}
 
 	if (buffer[cursor] == ' ' && buffer[cursor - 1] == ' ')
 	{
-		ft_printf("SPACES");
+		ft_printf("SPACES\n");
 		return (CTX_DISCARD);
 	}
 
 	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
 	{
-		ft_printf("TOP OF CHAR");
+		ft_printf("TOP OF CHAR\n");
 		return (CTX_DISCARD);
 	}
 
@@ -68,54 +64,83 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 	while (cursor && buffer[cursor] != ' ')
 		cursor--;
 	if (!cursor)
-		return (CTX_BUILTIN);
+		return (CTX_EXEC);
 	else if (buffer[cursor - 1] == '|' || buffer[cursor - 1] == ';')
-		return (CTX_BUILTIN);
+		return (CTX_EXEC);
 	else if (buffer[cursor + 1] == '|' || buffer[cursor + 1] == ';')
-		return (CTX_BUILTIN);
+		return (CTX_EXEC);
 	else if (buffer[cursor + 1] == '-')
 		return (CTX_FLAG);
-	else if (buffer[cursor + 1] == '/')
+	else if (buffer[cursor + 1] == '/' || buffer[cursor + 1] == '.')
 		return (CTX_PATH);
 	else if (buffer[cursor + 1] == '$')
 		return (CTX_ENV);
 	else
 		return (CTX_PATH);
 
-	ft_printf("HAPPENDED");
+	ft_printf("HAPPENED\n");
 	return (CTX_DISCARD);
 }
 
 
-char **autocomplete(char *ctx)
+t_completions *get_completions(char *ctx)
 {
+	t_completions *comps;
+	comps = malloc(sizeof(t_completions));
+	comps->count = 0;
+	if (*ctx == CTX_EXEC)
+	{
+	}
+	else if (*ctx == CTX_FLAG)
+	{
 
+	}
+	else if (*ctx == CTX_PATH)
+	{
+
+	}
+	else if (*ctx == CTX_ENV)
+	{
+
+	}
 	char *example[] = {"echo", "cd", "ls", NULL};
 	char **pp = example;
-	char **arr = malloc(sizeof(char *) * 4);
+	comps->arr = malloc(sizeof(char *) * 4);
 	int i = 0;
 	while (*pp)
 	{
-		arr[i] = malloc(sizeof(char) * ft_strlen(*pp));
-		ft_strcpy(arr[i], *pp);
+		comps->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+		ft_strcpy(comps->arr[i], *pp);
 		i++;
 		pp++;
 	}
-	return arr;
+	comps->count = i;
+	return comps;
+}
+
+static void autocomplete(t_line *line, char **suggestions)
+{
+
+	// ft_strstr()
 }
 
 void handle_autocomplete(t_line *line)
 {
-	// if (!line->autocomplete)
-	// 	return ;
+	t_completions *comps;
 	char *ctx = get_context(line->input, line->pos);
 	if (ft_strcmp(ctx, CTX_DISCARD) == 0)
 		return ;
-	char **arr;
-	arr = autocomplete(ctx);
-	ft_printf("\n%s", arr[0]);
-	ft_printf("\n%s", arr[1]);
-	ft_printf("\n%s", arr[2]);
+	comps = get_completions(ctx);
+	ft_printf("%d\n", comps->count);
+	// autocomplete(line, arr);
+	// while (*arr)
+	// {
+	// 	printf("%s", *arr);
+	// 	arr++;
+	// }
+	// ft_printf("\n%s", arr[0]);
+	// ft_printf("\n%s", arr[1]);
+	// ft_printf("\n%s", arr[2]);
 
 	// ft_printf("%s, %d\n", get_context(line->input, line->pos), line->pos);
 }

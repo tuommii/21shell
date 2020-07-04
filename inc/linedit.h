@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 15:18:17 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 16:24:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@
 # define HOME_KEY 190
 # define END_KEY 188
 
-typedef struct				s_suggestions
+typedef struct				s_completions
 {
-	int						len;
+	int						count;
 	char					**arr;
-}							t_suggestions;
+}							t_completions;
 
-typedef char				**(t_autocomp_cb)(const char *ctx);
+// typedef char				**(t_autocomp_cb)(const char *ctx);
 
 typedef struct				s_clipboard {
 	char					content[INPUT_BUFFER + 1];
@@ -123,8 +123,8 @@ typedef struct				s_line
 	int						hist_count;
 	int						hist_i;
 
-	struct s_suggestions	suggestions;
-	t_autocomp_cb			*autocomplete;
+	// struct s_suggestions	suggestions;
+	// t_autocomp_cb			*autocomplete;
 
 	struct s_clipboard		clipboard;
 }							t_line;
@@ -134,7 +134,7 @@ int							g_cont;
 int							g_was_copy;
 
 char						*read_more(t_line *line, int nl_flag);
-void						linedit_completion_cb \
+// void						linedit_completion_cb \
 (t_line *line, t_autocomp_cb *cb);
 void						clipboard_update(t_clipboard *clip);
 void						clipboard_draw(t_line *line);
@@ -184,7 +184,6 @@ void						goto_row_down(t_line *line);
 void						goto_row_up(t_line *line);
 void						goto_prev_word(t_line *line);
 void						goto_next_word(t_line *line);
-
 void						erase_input(t_line *line);
 void						clear_rows(t_line *line);
 void						reposition(t_line *line);
@@ -195,8 +194,7 @@ void						apped_or_insert(t_line *line, char c);
 */
 void handle_autocomplete(t_line *line);
 char *get_context(char buffer[INPUT_BUFFER], int cursor);
-char **autocomplete(char *ctx);
-void set_autocomplete(t_line **line, t_autocomp_cb *cb);
+t_completions *get_completions(char *ctx);
 
 
 #endif
