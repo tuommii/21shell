@@ -40,6 +40,7 @@ SRC_NAME 	= 	main.c \
 				linedit/history.c \
 				linedit/history_actions.c \
 				linedit/clipboard.c \
+				linedit/autocomplete.c \
 				parser/ast.c \
 				parser/astutil.c \
 				parser/expand.c \

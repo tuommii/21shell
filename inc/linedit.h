@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 19:24:22 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 13:04:55 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,10 @@ void						erase_input(t_line *line);
 void						clear_rows(t_line *line);
 void						reposition(t_line *line);
 void						apped_or_insert(t_line *line, char c);
+
+/*
+** AUTOCOMPLETE
+*/
+char *get_context(char buffer[INPUT_BUFFER], int cursor);
 
 #endif
