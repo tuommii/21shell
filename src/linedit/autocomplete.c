@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 20:09:51 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 21:10:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,8 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 }
 
 
-void get_completions(t_completions **comps)
+void suggestions(t_completions **comps)
 {
-	// t_completions *comps;
-	// comps = malloc(sizeof(t_completions));
-	// comps->count = 0;
 	if ((*comps)->ctx == CTX_EXEC)
 	{
 	}
@@ -120,16 +117,9 @@ void get_completions(t_completions **comps)
 	(*comps)->count = i;
 }
 
-static void autocomplete(t_line *line, char **suggestions)
+// sets comps->word to string thats under or behind cursor
+static void current_word(t_line *line, t_completions *comps)
 {
-
-	// ft_strstr()
-}
-
-
-static void current_str(t_line *line, t_completions *comps)
-{
-	// char *word;
 	int pos;
 
 	if (!line->pos)
@@ -140,9 +130,64 @@ static void current_str(t_line *line, t_completions *comps)
 	if (pos)
 		pos++;
 	int len = line->pos - pos;
-	// word = malloc(sizeof(char) * len + 1);
 	ft_strncpy(comps->word, line->input + pos, len);
 	comps->word[len] = '\0';
+}
+
+static void add_char(t_line *line, char c)
+{
+	if (line->len >= INPUT_BUFFER)
+		return ;
+	if (line->pos == line->len)
+	{
+		line->input[line->pos] = c;
+	}
+	else
+	{
+		ft_insert(line->input, line->pos + 1, c);
+	}
+	line->len++;
+	line->pos++;
+}
+
+static void delete_word(t_line *line, char *word)
+{
+	int len = ft_strlen(word);
+	while (len)
+	{
+		line->input[line->pos - 1] = '\0';
+		line->pos--;
+		line->len--;
+		len--;
+	}
+}
+
+static void insert_word(t_line *line, char *word)
+{
+	while (*word)
+	{
+		add_char(line, *word);
+		word++;
+	}
+}
+
+static void autocomplete(t_line *line, t_completions *comps)
+{
+	int i;
+
+	i = 0;
+	while (i < comps->count)
+	{
+		char *cpy;
+		if ((cpy = ft_strstr(comps->arr[i], comps->word)))
+		{
+			delete_word(line, comps->word);
+			insert_word(line, cpy);
+			break ;
+		}
+		i++;
+	}
+
 }
 
 void handle_autocomplete(t_line *line)
@@ -154,55 +199,11 @@ void handle_autocomplete(t_line *line)
 	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 		return ;
 
+	suggestions(&comps);
+	current_word(line, comps);
+	autocomplete(line, comps);
 
-	get_completions(&comps);
-	// cpy current word
-	current_str(line, comps);
-
-	// ft_printf("%s\n", comps->ctx);
-
-	i = 0;
-	while (i < comps->count)
-	{
-		char *cpy;
-		// ft_printf("[%s]\n", comps->word);
-		if ((cpy = ft_strstr(comps->arr[i], comps->word)))
-		{
-			// ft_printf("\n\n\n\nJEEE!");
-			// char *start = cpy;
-
-			int len = ft_strlen(comps->word);
-			while (len)
-			{
-				line->input[line->pos - 1] = '\0';
-				line->pos--;
-				line->len--;
-				len--;
-			}
-			// ft_printf("after cleaning: [%s]\n", line->input);
-			// {
-			// 	ft_insert(line->input, line->pos - 1, 0);
-			// 	line->pos--;
-			// }
-
-
-			// char *start = cpy;
-			while (*cpy)
-			{
-				apped_or_insert(line, *cpy);
-				cpy++;
-			}
-			// ft_insert(line->input, line->pos, 0);
-			// line->pos--;
-			// line->len--;
-			break ;
-		}
-		// ft_printf("%s\n", comps->arr[i]);
-		i++;
-	}
 	redraw_input(line);
-	// ft_printf("%d\n", comps->count);
-	// ft_printf("WORD: %s\n", comps->word);
 }
 
 
