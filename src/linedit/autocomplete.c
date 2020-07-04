@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 21:52:06 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 22:53:35 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 // TODO: Reset context with  "|;" and what else?
 # define CTX_DISCARD_STR "|;<>-$"
+# define MAX_MATCHES 10
 
 static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
@@ -90,7 +91,7 @@ void suggestions(t_completions **comps)
 {
 	if ((*comps)->ctx == CTX_EXEC)
 	{
-		char *example[] = {"echo-example", "cd", "ls-example", NULL};
+		char *example[] = {"echo-example", "echo-examppelepl2", "ls-example", NULL};
 		char **pp = example;
 		(*comps)->arr = malloc(sizeof(char *) * 4);
 		int i = 0;
@@ -163,6 +164,7 @@ static void current_word(t_line *line, t_completions *comps)
 	if (pos)
 		pos++;
 	int len = line->pos - pos;
+	ft_bzero(comps->word, INPUT_BUFFER);
 	ft_strncpy(comps->word, line->input + pos, len);
 	comps->word[len] = '\0';
 }
@@ -206,21 +208,37 @@ static void insert_word(t_line *line, char *word)
 
 static void autocomplete(t_line *line, t_completions *comps)
 {
-	int i;
+	char *matches[MAX_MATCHES];
 
+	int j = 0;
+	while (j < MAX_MATCHES)
+	{
+		matches[j] = malloc(sizeof(char) * 128);
+		j++;
+	}
+	j = 0;
+
+
+	int i;
 	i = 0;
 	while (i < comps->count)
 	{
 		char *cpy;
 		if ((cpy = ft_strstr(comps->arr[i], comps->word)))
 		{
-			delete_word(line, comps->word);
-			insert_word(line, cpy);
-			break ;
+			ft_strcpy(matches[j], comps->arr[i]);
+			j++;
+			// delete_word(line, comps->word);
+			// insert_word(line, cpy);
+			// break ;
 		}
 		i++;
 	}
 
+	j = 0;
+	// ft_printf("ci:%d, j:%d, %s\n", ci, j, matches[ci]);
+	delete_word(line, comps->word);
+	insert_word(line, matches[j]);
 }
 
 void handle_autocomplete(t_line *line)
