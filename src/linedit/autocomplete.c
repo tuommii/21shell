@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 21:10:53 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/04 21:52:06 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,31 +90,64 @@ void suggestions(t_completions **comps)
 {
 	if ((*comps)->ctx == CTX_EXEC)
 	{
+		char *example[] = {"echo-example", "cd", "ls-example", NULL};
+		char **pp = example;
+		(*comps)->arr = malloc(sizeof(char *) * 4);
+		int i = 0;
+		while (*pp)
+		{
+			(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+			ft_strcpy((*comps)->arr[i], *pp);
+			i++;
+			pp++;
+		}
+		(*comps)->count = i;
 	}
 	else if ((*comps)->ctx == CTX_FLAG)
 	{
-
+		char *example[] = {"-all-flag-example", "-version", "-help", NULL};
+		char **pp = example;
+		(*comps)->arr = malloc(sizeof(char *) * 4);
+		int i = 0;
+		while (*pp)
+		{
+			(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+			ft_strcpy((*comps)->arr[i], *pp);
+			i++;
+			pp++;
+		}
+		(*comps)->count = i;
 	}
 	else if ((*comps)->ctx == CTX_PATH)
 	{
-
+		char *example[] = {"/testi1", "/home", "/filename-example", NULL};
+		char **pp = example;
+		(*comps)->arr = malloc(sizeof(char *) * 4);
+		int i = 0;
+		while (*pp)
+		{
+			(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+			ft_strcpy((*comps)->arr[i], *pp);
+			i++;
+			pp++;
+		}
+		(*comps)->count = i;
 	}
 	else if ((*comps)->ctx == CTX_ENV)
 	{
-
+		char *example[] = {"$HOME-EXAMPLE", "$USER", "$CWD", NULL};
+		char **pp = example;
+		(*comps)->arr = malloc(sizeof(char *) * 4);
+		int i = 0;
+		while (*pp)
+		{
+			(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+			ft_strcpy((*comps)->arr[i], *pp);
+			i++;
+			pp++;
+		}
+		(*comps)->count = i;
 	}
-	char *example[] = {"echo", "cd", "loooooooooong", NULL};
-	char **pp = example;
-	(*comps)->arr = malloc(sizeof(char *) * 4);
-	int i = 0;
-	while (*pp)
-	{
-		(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-		ft_strcpy((*comps)->arr[i], *pp);
-		i++;
-		pp++;
-	}
-	(*comps)->count = i;
 }
 
 // sets comps->word to string thats under or behind cursor
