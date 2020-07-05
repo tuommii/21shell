@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 19:32:15 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 22:58:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // make those checks, that doesnt require moving cursor
 static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
+
 	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
 	{
 		// ft_printf("TOP OF CHAR\n");
@@ -166,7 +167,10 @@ static void current_word(t_line *line, t_completions *comps)
 	int pos;
 
 	if (!line->pos)
+	{
+		comps->word[0] = '\0';
 		return (NULL);
+	}
 	pos = line->pos - 1;
 	while (pos && line->input[pos] != ' ')
 		pos--;
@@ -248,8 +252,8 @@ static void filter(t_completions *comps)
 				count++;
 			}
 		}
-		free(comps->suggestions[i]);
-		comps->suggestions[i] = NULL;
+		// free(comps->suggestions[i]);
+		// comps->suggestions[i] = NULL;
 		i++;
 	}
 	comps->matches_count = count;
@@ -277,19 +281,22 @@ static void sort_by_length(t_completions *comps)
 	}
 }
 
-// complete word based on current word
-static void autocomplete(t_line *line, t_completions *comps)
+static void clean_suggestions(t_completions *comps)
 {
-	suggestions(&comps);
-	current_word(line, comps);
-	filter(comps);
-	if (!comps->matches_count)
-		return ;
-	sort_by_length(comps);
-	delete_word(line, comps->word);
-	// Shortest is first
-	insert_word(line, comps->matches[0]);
+	int i = 0;
+	while (i < comps->count)
+	{
+		free(comps->suggestions[i]);
+		comps->suggestions[i] = NULL;
+		i++;
+	}
+	free(comps->suggestions);
+	free(comps);
 
+}
+
+static void clean(t_completions *comps)
+{
 	int i = 0;
 	while (i < comps->matches_count)
 	{
@@ -297,6 +304,26 @@ static void autocomplete(t_line *line, t_completions *comps)
 		comps->matches[i] = NULL;
 		i++;
 	}
+	clean_suggestions(comps);
+}
+
+
+// complete word based on current word
+static void autocomplete(t_line *line, t_completions *comps)
+{
+	suggestions(&comps);
+	current_word(line, comps);
+	filter(comps);
+	if (!comps->matches_count)
+	{
+		clean(comps);
+		return ;
+	}
+	sort_by_length(comps);
+	delete_word(line, comps->word);
+	// Shortest is first
+	insert_word(line, comps->matches[0]);
+	clean(comps);
 }
 
 // called when tab is pressed
@@ -305,12 +332,13 @@ void handle_autocomplete(t_line *line)
 	t_completions *comps;
 	int i;
 
-	comps = get_context(line->input, line->pos);
-	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
+	if (!(comps = get_context(line->input, line->pos)))
 		return ;
+	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
+	{
+		free(comps);
+		return ;
+	}
 	autocomplete(line, comps);
-	free(*(comps->matches));
-	free(*(comps->suggestions));
-	free(comps);
 	redraw_input(line);
 }

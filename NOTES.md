@@ -1,5 +1,7 @@
 ## To-do
 
+- tokenize -> init_lexer LEAKS! If no inpu, just ENTER
+
 - CTRL+W & CTRL+Y
 - echo "text" | pbcopy
 - First paste may be buggy

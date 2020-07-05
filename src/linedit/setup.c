@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 11:00:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 22:22:28 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@ static void	check_tty(void)
 	if (!isatty(STDIN_FILENO))
 	{
 		ft_printf("stdin is not a tty\n");
+		// ft_strdel(&name);
 		exit(1);
 	}
 	if (tgetent(buffer, name) != 1)
 	{
 		ft_dprintf(OUTPUT, "No database or No entry found\n");
+		// ft_strdel(&name);
 		exit(1);
 	}
+	// ft_strdel(&name);
 }
 
 /*
@@ -65,6 +68,7 @@ void		linedit_setup(void)
 	g_kill = 0;
 	check_tty();
 	toggle_raw(0, 1);
+	// tputs(tgetstr("cl", NULL), 1, print_char);
 	tputs(tgetstr("cl", NULL), 1, print_char);
 }
 
