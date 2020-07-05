@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 16:08:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 16:54:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
 	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
 	{
-		// ft_printf("TOP OF CHAR\n");
+		ft_printf("TOP OF CHAR\n");
 		return (CTX_DISCARD);
 	}
 
@@ -28,13 +28,13 @@ static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 
 	if (cursor > ft_strlen(buffer))
 	{
-		// ft_printf("CURSOR > LEN\n");
+		ft_printf("CURSOR > LEN\n");
 		return (CTX_DISCARD);
 	}
 
 	if (buffer[cursor] == ' ' && buffer[cursor - 1] == ' ')
 	{
-		// ft_printf("SPACES\n");
+		ft_printf("SPACES\n");
 		return (CTX_DISCARD);
 	}
 
@@ -58,7 +58,10 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 
 	while (cursor && buffer[cursor] != ' ')
 		cursor--;
-	if (!cursor)
+	// if (!cursor)
+	if (buffer[cursor] == '$' || buffer[cursor + 1] == '$' || buffer[cursor - 1] == '$')
+		comps->ctx = CTX_ENV;
+	else if (!cursor)
 		comps->ctx = CTX_EXEC;
 	else if (buffer[cursor - 1] == '|' || buffer[cursor - 1] == ';')
 		comps->ctx = CTX_EXEC;
@@ -68,7 +71,7 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 		comps->ctx = CTX_FLAG;
 	else if (buffer[cursor + 1] == '/' || buffer[cursor + 1] == '.')
 		comps->ctx = CTX_PATH;
-	else if (buffer[cursor + 1] == '$')
+	else if (buffer[cursor - 1] == '$')
 		comps->ctx = CTX_ENV;
 	else
 		comps->ctx = CTX_PATH;
@@ -80,29 +83,81 @@ void suggestions(t_completions **comps)
 {
 	if ((*comps)->ctx == CTX_EXEC)
 	{
+		char *example[] = {"echo", "echo-example-2", "ls-example", NULL};
+		char **pp = example;
+		(*comps)->suggestions = malloc(sizeof(char *) * 4);
+		int i = 0;
+		while (*pp)
+		{
+			(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+			ft_strcpy((*comps)->suggestions[i], *pp);
+			i++;
+			pp++;
+		}
+		(*comps)->count = i;
+		return ;
 	}
 	else if ((*comps)->ctx == CTX_FLAG)
 	{
+		char *example[] = {"-all-flag", "-help-flag", "-version-flag", NULL};
+		char **pp = example;
+		(*comps)->suggestions = malloc(sizeof(char *) * 4);
+		int i = 0;
+		while (*pp)
+		{
+			(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+			ft_strcpy((*comps)->suggestions[i], *pp);
+			i++;
+			pp++;
+		}
+		(*comps)->count = i;
+		return ;
 	}
 	else if ((*comps)->ctx == CTX_PATH)
 	{
+		char *example[] = {"filename-example", "dir-example", "Makefile-example", NULL};
+		char **pp = example;
+		(*comps)->suggestions = malloc(sizeof(char *) * 4);
+		int i = 0;
+		while (*pp)
+		{
+			(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+			ft_strcpy((*comps)->suggestions[i], *pp);
+			i++;
+			pp++;
+		}
+		(*comps)->count = i;
+		return ;
 	}
 	else if ((*comps)->ctx == CTX_ENV)
 	{
+		char *example[] = {"$HOME-EXAMPLE", "$USER-EXAMPLE", "$CWD", NULL};
+		char **pp = example;
+		(*comps)->suggestions = malloc(sizeof(char *) * 4);
+		int i = 0;
+		while (*pp)
+		{
+			(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+			ft_strcpy((*comps)->suggestions[i], *pp);
+			i++;
+			pp++;
+		}
+		(*comps)->count = i;
+		return ;
 	}
 	// Example
-	char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
-	char **pp = example;
-	(*comps)->suggestions = malloc(sizeof(char *) * 4);
-	int i = 0;
-	while (*pp)
-	{
-		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-		ft_strcpy((*comps)->suggestions[i], *pp);
-		i++;
-		pp++;
-	}
-	(*comps)->count = i;
+	// char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
+	// char **pp = example;
+	// (*comps)->suggestions = malloc(sizeof(char *) * 4);
+	// int i = 0;
+	// while (*pp)
+	// {
+	// 	(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+	// 	ft_strcpy((*comps)->suggestions[i], *pp);
+	// 	i++;
+	// 	pp++;
+	// }
+	// (*comps)->count = i;
 }
 
 // sets comps->word to current word (string thats under or behind cursor)
@@ -139,18 +194,11 @@ static void add_char(t_line *line, char c)
 	line->pos++;
 }
 
-static char * shift_left(char *s)
-{
-    size_t n = ft_strlen(s);
-    memmove(s, s + 1, n);
-
-    return s;
-}
-
 static void delete_word(t_line *line, char *word)
 {
 	int len = ft_strlen(word);
 
+	// If cursor is in the middle of word
 	while (line->input[line->pos] != ' ')
 	{
 		if (line->input[line->pos] == '\0')
@@ -166,22 +214,6 @@ static void delete_word(t_line *line, char *word)
 		line->len--;
 		len--;
 	}
-	// while (line->pos < line->len)
-	// {
-	// 	if (line->input[line->pos] == '\0')
-	// 		break ;
-	// 	if (line->input[line->pos] == ' ')
-	// 		break ;
-	// 	line->pos++;
-	// 	len++;
-	// }
-	// while (len)
-	// {
-	// 	line->pos--;
-	// 	line->len--;
-	// 	len--;
-	// 	shift_left(line->input);
-	// }
 }
 
 static void insert_word(t_line *line, char *word)
@@ -235,8 +267,9 @@ static void sort_by_length(t_completions *comps)
 			comps->matches[i] = comps->matches[i + 1];
 			comps->matches[i + 1] = temp;
 			i = 0;
+		} else {
+			i++;
 		}
-		i++;
 	}
 }
 
