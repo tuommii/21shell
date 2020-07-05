@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 23:09:27 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 23:33:52 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ static void current_word(t_line *line, t_completions *comps)
 	if (!line->pos)
 	{
 		comps->word[0] = '\0';
-		return (NULL);
+		return ;
 	}
 	pos = line->pos - 1;
 	while (pos && line->input[pos] != ' ')
