@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 15:29:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 16:03:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,22 +150,29 @@ static char * shift_left(char *s)
 static void delete_word(t_line *line, char *word)
 {
 	int len = ft_strlen(word);
-	while (line->pos < line->len)
-	{
-		if (line->input[line->pos] == '\0')
-			break ;
-		if (line->input[line->pos] == ' ')
-			break ;
-		line->pos++;
-		len++;
-	}
 	while (len)
 	{
+		ft_insert(line->input, line->pos, 0);
 		line->pos--;
 		line->len--;
 		len--;
-		shift_left(line->input);
 	}
+	// while (line->pos < line->len)
+	// {
+	// 	if (line->input[line->pos] == '\0')
+	// 		break ;
+	// 	if (line->input[line->pos] == ' ')
+	// 		break ;
+	// 	line->pos++;
+	// 	len++;
+	// }
+	// while (len)
+	// {
+	// 	line->pos--;
+	// 	line->len--;
+	// 	len--;
+	// 	shift_left(line->input);
+	// }
 }
 
 static void insert_word(t_line *line, char *word)
