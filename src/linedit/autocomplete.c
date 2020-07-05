@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 10:37:43 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 10:48:55 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void suggestions(t_completions **comps)
 	{
 	}
 	// Example
-	char *example[] = {"$HOME-EXAMPLE", "echo-example", "echo-example-2", NULL};
+	char *example[] = {"echo", "echo-example", "echo-example-2", NULL};
 	char **pp = example;
 	(*comps)->arr = malloc(sizeof(char *) * 4);
 	int i = 0;
@@ -115,7 +115,7 @@ void suggestions(t_completions **comps)
 	(*comps)->count = i;
 }
 
-// sets comps->word to string thats under or behind cursor
+// sets comps->word to current word (string thats under or behind cursor)
 static void current_word(t_line *line, t_completions *comps)
 {
 	int pos;
@@ -173,6 +173,9 @@ static void insert_word(t_line *line, char *word)
 static void autocomplete(t_line *line, t_completions *comps)
 {
 	char *matches[MAX_MATCHES];
+	static int ci = -1;
+	ci++;
+
 
 	int j = 0;
 	while (j < MAX_MATCHES)
@@ -191,18 +194,23 @@ static void autocomplete(t_line *line, t_completions *comps)
 		if (ft_strncmp(comps->arr[i], comps->word, len) == 0)
 		{
 			ft_printf("Match: %s", comps->arr[i]);
-			ft_strcpy(matches[j], comps->arr[i]);
-			j++;
+			if (ft_strlen(comps->arr[i]) > len)
+			{
+				ft_strcpy(matches[j], comps->arr[i]);
+				j++;
+			}
 		}
 		i++;
 	}
 
-	j = 0;
+	// j = 0;
 	// ft_printf("ci:%d, j:%d, %s\n", ci, j, matches[ci]);
 	if (!*matches[0])
 		return ;
+	if (ci >= j)
+		ci = 0;
 	delete_word(line, comps->word);
-	insert_word(line, matches[j]);
+	insert_word(line, matches[ci]);
 }
 
 void handle_autocomplete(t_line *line)
@@ -220,19 +228,3 @@ void handle_autocomplete(t_line *line)
 
 	redraw_input(line);
 }
-
-
-// gcc autocomplete.c -I ../inc -I ../libft/
-// int main() {
-
-// 	char test[INPUT_BUFFER] = "ls  -all $HOME   /home ; echo \"Miikka\"";
-// 	char test2[INPUT_BUFFER] = "echo  $HOME";
-
-// 	int i = 0;
-// 	while (i < strlen(test))
-// 	{
-// 		printf("cursor: %c, %s\n", test[i], get_context(test, i));
-// 		i++;
-// 	}
-// 	return (0);
-// }
