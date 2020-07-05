@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 13:58:44 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 15:28:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@
 
 
 // TODO: Reset context with  "|;" and what else?
-# define CTX_DISCARD_STR "|;<>-$"
+# define CTX_DISCARD_STR "|;<>-$\""
 # define MAX_MATCHES 10
 
 typedef struct				s_completions

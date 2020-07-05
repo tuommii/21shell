@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 15:23:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 15:29:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 // make those checks, that doesnt require moving cursor
 static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
+	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
+	{
+		// ft_printf("TOP OF CHAR\n");
+		return (CTX_DISCARD);
+	}
+
 	if (!buffer || !cursor)
 	{
 		return (CTX_EXEC);
@@ -22,19 +28,13 @@ static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 
 	if (cursor > ft_strlen(buffer))
 	{
-		ft_printf("CURSOR > LEN\n");
+		// ft_printf("CURSOR > LEN\n");
 		return (CTX_DISCARD);
 	}
 
 	if (buffer[cursor] == ' ' && buffer[cursor - 1] == ' ')
 	{
-		ft_printf("SPACES\n");
-		return (CTX_DISCARD);
-	}
-
-	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
-	{
-		ft_printf("TOP OF CHAR\n");
+		// ft_printf("SPACES\n");
 		return (CTX_DISCARD);
 	}
 
