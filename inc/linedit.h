@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 11:00:41 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 13:58:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct				s_completions
 
 	char					*matches[MAX_MATCHES];
 	int 					matches_count;
+	int 					len;
 	char					*ctx;
 	int						i;
 	char					word[INPUT_BUFFER];
