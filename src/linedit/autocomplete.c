@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 18:40:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 19:32:15 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
 	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
 	{
-		ft_printf("TOP OF CHAR\n");
+		// ft_printf("TOP OF CHAR\n");
 		return (CTX_DISCARD);
 	}
 
@@ -28,13 +28,13 @@ static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 
 	if (cursor > ft_strlen(buffer))
 	{
-		ft_printf("CURSOR > LEN\n");
+		// ft_printf("CURSOR > LEN\n");
 		return (CTX_DISCARD);
 	}
 
 	if (buffer[cursor] == ' ' && buffer[cursor - 1] == ' ')
 	{
-		ft_printf("SPACES\n");
+		// ft_printf("SPACES\n");
 		return (CTX_DISCARD);
 	}
 
@@ -285,11 +285,18 @@ static void autocomplete(t_line *line, t_completions *comps)
 	filter(comps);
 	if (!comps->matches_count)
 		return ;
-
 	sort_by_length(comps);
 	delete_word(line, comps->word);
 	// Shortest is first
 	insert_word(line, comps->matches[0]);
+
+	int i = 0;
+	while (i < comps->matches_count)
+	{
+		free(comps->matches[i]);
+		comps->matches[i] = NULL;
+		i++;
+	}
 }
 
 // called when tab is pressed
@@ -302,5 +309,8 @@ void handle_autocomplete(t_line *line)
 	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 		return ;
 	autocomplete(line, comps);
+	free(*(comps->matches));
+	free(*(comps->suggestions));
+	free(comps);
 	redraw_input(line);
 }
