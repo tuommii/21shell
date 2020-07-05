@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 16:54:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 18:40:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@ static void current_word(t_line *line, t_completions *comps)
 		pos--;
 	if (pos)
 		pos++;
+	while (line->input[pos] == '\"')
+		pos++;
 	int len = line->pos - pos;
 	ft_bzero(comps->word, INPUT_BUFFER);
 	ft_strncpy(comps->word, line->input + pos, len);
@@ -246,6 +248,8 @@ static void filter(t_completions *comps)
 				count++;
 			}
 		}
+		free(comps->suggestions[i]);
+		comps->suggestions[i] = NULL;
 		i++;
 	}
 	comps->matches_count = count;
@@ -276,6 +280,8 @@ static void sort_by_length(t_completions *comps)
 // complete word based on current word
 static void autocomplete(t_line *line, t_completions *comps)
 {
+	suggestions(&comps);
+	current_word(line, comps);
 	filter(comps);
 	if (!comps->matches_count)
 		return ;
@@ -295,9 +301,6 @@ void handle_autocomplete(t_line *line)
 	comps = get_context(line->input, line->pos);
 	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 		return ;
-
-	suggestions(&comps);
-	current_word(line, comps);
 	autocomplete(line, comps);
 	redraw_input(line);
 }
