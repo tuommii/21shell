@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/04 22:53:35 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 10:37:43 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,69 +86,33 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 	return (comps);
 }
 
-
 void suggestions(t_completions **comps)
 {
 	if ((*comps)->ctx == CTX_EXEC)
 	{
-		char *example[] = {"echo-example", "echo-examppelepl2", "ls-example", NULL};
-		char **pp = example;
-		(*comps)->arr = malloc(sizeof(char *) * 4);
-		int i = 0;
-		while (*pp)
-		{
-			(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-			ft_strcpy((*comps)->arr[i], *pp);
-			i++;
-			pp++;
-		}
-		(*comps)->count = i;
 	}
 	else if ((*comps)->ctx == CTX_FLAG)
 	{
-		char *example[] = {"-all-flag-example", "-version", "-help", NULL};
-		char **pp = example;
-		(*comps)->arr = malloc(sizeof(char *) * 4);
-		int i = 0;
-		while (*pp)
-		{
-			(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-			ft_strcpy((*comps)->arr[i], *pp);
-			i++;
-			pp++;
-		}
-		(*comps)->count = i;
 	}
 	else if ((*comps)->ctx == CTX_PATH)
 	{
-		char *example[] = {"/testi1", "/home", "/filename-example", NULL};
-		char **pp = example;
-		(*comps)->arr = malloc(sizeof(char *) * 4);
-		int i = 0;
-		while (*pp)
-		{
-			(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-			ft_strcpy((*comps)->arr[i], *pp);
-			i++;
-			pp++;
-		}
-		(*comps)->count = i;
 	}
 	else if ((*comps)->ctx == CTX_ENV)
 	{
-		char *example[] = {"$HOME-EXAMPLE", "$USER", "$CWD", NULL};
-		char **pp = example;
-		(*comps)->arr = malloc(sizeof(char *) * 4);
-		int i = 0;
-		while (*pp)
-		{
-			(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-			ft_strcpy((*comps)->arr[i], *pp);
-			i++;
-			pp++;
-		}
-		(*comps)->count = i;
 	}
+	// Example
+	char *example[] = {"$HOME-EXAMPLE", "echo-example", "echo-example-2", NULL};
+	char **pp = example;
+	(*comps)->arr = malloc(sizeof(char *) * 4);
+	int i = 0;
+	while (*pp)
+	{
+		(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+		ft_strcpy((*comps)->arr[i], *pp);
+		i++;
+		pp++;
+	}
+	(*comps)->count = i;
 }
 
 // sets comps->word to string thats under or behind cursor
@@ -216,27 +180,27 @@ static void autocomplete(t_line *line, t_completions *comps)
 		matches[j] = malloc(sizeof(char) * 128);
 		j++;
 	}
-	j = 0;
 
 
 	int i;
 	i = 0;
+	j = 0;
+	int len = ft_strlen(comps->word);
 	while (i < comps->count)
 	{
-		char *cpy;
-		if ((cpy = ft_strstr(comps->arr[i], comps->word)))
+		if (ft_strncmp(comps->arr[i], comps->word, len) == 0)
 		{
+			ft_printf("Match: %s", comps->arr[i]);
 			ft_strcpy(matches[j], comps->arr[i]);
 			j++;
-			// delete_word(line, comps->word);
-			// insert_word(line, cpy);
-			// break ;
 		}
 		i++;
 	}
 
 	j = 0;
 	// ft_printf("ci:%d, j:%d, %s\n", ci, j, matches[ci]);
+	if (!*matches[0])
+		return ;
 	delete_word(line, comps->word);
 	insert_word(line, matches[j]);
 }
