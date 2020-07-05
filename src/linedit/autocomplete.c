@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 11:39:07 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 12:02:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ static void add_char(t_line *line, char c)
 	line->pos++;
 }
 
+// NOTE: works only when cursor is behind of word
 static void delete_word(t_line *line, char *word)
 {
 	int len = ft_strlen(word);
@@ -156,7 +157,6 @@ static void insert_word(t_line *line, char *word)
 		word++;
 	}
 }
-
 
 static void filter(t_completions *comps)
 {
@@ -185,12 +185,7 @@ static void filter(t_completions *comps)
 // sorted by length ?, or some way to get shortest string first
 static void autocomplete(t_line *line, t_completions *comps)
 {
-	// char *matches[MAX_MATCHES];
-	static int ci = -1;
-	ci++;
 	filter(comps);
-	if (ci >= comps->matches_count)
-		ci = 0;
 	if (!comps->matches_count)
 		return ;
 
