@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 12:02:07 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 12:15:17 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,14 @@ static void add_char(t_line *line, char c)
 	line->pos++;
 }
 
-// NOTE: works only when cursor is behind of word
 static void delete_word(t_line *line, char *word)
 {
 	int len = ft_strlen(word);
+	while (line->pos < line->len && (line->input[line->pos] != ' ' || line->input[line->pos] != '\0'))
+	{
+		line->pos++;
+		len++;
+	}
 	while (len)
 	{
 		line->input[line->pos - 1] = '\0';
