@@ -10,13 +10,18 @@
 
 ## Features
 
-### Context-Aware Autocompleter (WIP)
+#### Context-Aware Autocompleter (WIP)
+Cursor can be anywhere and it recognizes:
 - Built-ins
 - Executables
 - Envinronment variables
 - Paths
-- No matter whats written
-- Cursor can be anywhere
+- Flags (?)
+
+#### Other
+- Multiline support
+- History
+- Copy/Paste text between different windows
 
 ## Try It
 Compile and run with:
@@ -51,7 +56,7 @@ make
 | <kbd>ESC</kbd> | Quit |
 
 <div align='center'>
-    <sub>Created by <a href='https://github.com/rouhija'>Sami Rouhe (srouhe) <a href='https://github.com/tuommii'>Miikka Tuominen (mtuomine)</a></sub>
+    <sub>Created by <a href='https://github.com/rouhija'>Sami Rouhe (srouhe)</a> and <a href='https://github.com/tuommii'>Miikka Tuominen (mtuomine)</a></sub>
 </div>
 <div align='center'>
     <sub>From <a href='https://www.hive.fi/en/'>Hive Helsinki</a></sub>
