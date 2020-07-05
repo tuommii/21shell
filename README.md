@@ -9,7 +9,14 @@
 </p>
 
 ## Features
-- [x] TODO
+
+### Context-Aware Autocompleter (WIP)
+- Built-ins
+- Executables
+- Envinronment variables
+- Paths
+- No matter whats written
+- Cursor can be anywhere
 
 ## Try It
 Compile and run with:
