@@ -6,24 +6,11 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 10:48:55 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 11:39:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
-
-// TODO: Enum?
-# define CTX_EXEC "EXEC"
-# define CTX_FLAG "FLAG"
-# define CTX_PATH "PATH"
-# define CTX_ENV "ENV"
-# define CTX_DISCARD "DISCARD"
-
-
-
-// TODO: Reset context with  "|;" and what else?
-# define CTX_DISCARD_STR "|;<>-$"
-# define MAX_MATCHES 10
 
 static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
@@ -101,14 +88,14 @@ void suggestions(t_completions **comps)
 	{
 	}
 	// Example
-	char *example[] = {"echo", "echo-example", "echo-example-2", NULL};
+	char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
 	char **pp = example;
-	(*comps)->arr = malloc(sizeof(char *) * 4);
+	(*comps)->suggestions = malloc(sizeof(char *) * 4);
 	int i = 0;
 	while (*pp)
 	{
-		(*comps)->arr[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-		ft_strcpy((*comps)->arr[i], *pp);
+		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+		ft_strcpy((*comps)->suggestions[i], *pp);
 		i++;
 		pp++;
 	}
@@ -170,47 +157,64 @@ static void insert_word(t_line *line, char *word)
 	}
 }
 
-static void autocomplete(t_line *line, t_completions *comps)
+
+static void filter(t_completions *comps)
 {
-	char *matches[MAX_MATCHES];
-	static int ci = -1;
-	ci++;
-
-
-	int j = 0;
-	while (j < MAX_MATCHES)
-	{
-		matches[j] = malloc(sizeof(char) * 128);
-		j++;
-	}
-
-
-	int i;
-	i = 0;
-	j = 0;
 	int len = ft_strlen(comps->word);
+	int i = 0;
+	int count = 0;
+
 	while (i < comps->count)
 	{
-		if (ft_strncmp(comps->arr[i], comps->word, len) == 0)
+		if (ft_strncmp(comps->suggestions[i], comps->word, len) == 0)
 		{
-			ft_printf("Match: %s", comps->arr[i]);
-			if (ft_strlen(comps->arr[i]) > len)
+			if (ft_strlen(comps->suggestions[i]) > len)
 			{
-				ft_strcpy(matches[j], comps->arr[i]);
-				j++;
+				comps->matches[count] = malloc(sizeof(char) * ft_strlen(comps->suggestions[i]) + 1);
+				ft_strcpy(comps->matches[count], comps->suggestions[i]);
+				count++;
 			}
 		}
 		i++;
 	}
+	comps->matches_count = count;
+}
 
-	// j = 0;
-	// ft_printf("ci:%d, j:%d, %s\n", ci, j, matches[ci]);
-	if (!*matches[0])
-		return ;
-	if (ci >= j)
+// TODO:
+// if last press was tab dont update suggestions ?
+// sorted by length ?, or some way to get shortest string first
+static void autocomplete(t_line *line, t_completions *comps)
+{
+	// char *matches[MAX_MATCHES];
+	static int ci = -1;
+	ci++;
+	filter(comps);
+	if (ci >= comps->matches_count)
 		ci = 0;
+	if (!comps->matches_count)
+		return ;
+
+	// TODO: SORT
+	int i = 0;
+	int j = 0;
+	char *temp;
+
+	while (i < comps->matches_count - 1)
+	{
+		int a = ft_strlen(comps->matches[i]);
+		int b = ft_strlen(comps->matches[i + 1]);
+		if (a > b)
+		{
+			temp = comps->matches[i];
+			comps->matches[i] = comps->matches[i + 1];
+			comps->matches[i + 1] = temp;
+			i = 0;
+		}
+		i++;
+	}
 	delete_word(line, comps->word);
-	insert_word(line, matches[ci]);
+	// Shortest is first
+	insert_word(line, comps->matches[0]);
 }
 
 void handle_autocomplete(t_line *line)
