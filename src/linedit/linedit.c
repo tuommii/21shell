@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 21:00:29 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 23:04:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void		apped_or_insert(t_line *line, char c)
 	}
 	line->len++;
 	line->pos++;
-	redraw_input(line);
 }
 
 static int	check_others(t_line *line)
@@ -68,7 +67,10 @@ int			which_action(t_line *line)
 
 	ret = 0;
 	if ((ret = ft_isprint(line->key)))
+	{
 		apped_or_insert(line, (char)line->key);
+		redraw_input(line);
+	}
 	else if ((ret = check_arrow_keys(line)))
 		;
 	else if ((ret = check_ctrl_arrow_keys(line)))

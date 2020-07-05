@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 22:58:07 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/05 23:09:27 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,12 +224,11 @@ static void delete_word(t_line *line, char *word)
 
 static void insert_word(t_line *line, char *word)
 {
-	// ft_memmove(line->input, line->input, ft_strlen(word));
 	int i = 0;
 
 	while (*word)
 	{
-		add_char(line, *word);
+		apped_or_insert(line, *word);
 		word++;
 	}
 }
@@ -252,8 +251,6 @@ static void filter(t_completions *comps)
 				count++;
 			}
 		}
-		// free(comps->suggestions[i]);
-		// comps->suggestions[i] = NULL;
 		i++;
 	}
 	comps->matches_count = count;
@@ -275,24 +272,12 @@ static void sort_by_length(t_completions *comps)
 			comps->matches[i] = comps->matches[i + 1];
 			comps->matches[i + 1] = temp;
 			i = 0;
-		} else {
+		}
+		else
+		{
 			i++;
 		}
 	}
-}
-
-static void clean_suggestions(t_completions *comps)
-{
-	int i = 0;
-	while (i < comps->count)
-	{
-		free(comps->suggestions[i]);
-		comps->suggestions[i] = NULL;
-		i++;
-	}
-	free(comps->suggestions);
-	free(comps);
-
 }
 
 static void clean(t_completions *comps)
@@ -304,7 +289,16 @@ static void clean(t_completions *comps)
 		comps->matches[i] = NULL;
 		i++;
 	}
-	clean_suggestions(comps);
+
+	i = 0;
+	while (i < comps->count)
+	{
+		free(comps->suggestions[i]);
+		comps->suggestions[i] = NULL;
+		i++;
+	}
+	free(comps->suggestions);
+	free(comps);
 }
 
 
