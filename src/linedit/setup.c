@@ -69,7 +69,6 @@ void		linedit_setup(void)
 	g_kill = 0;
 	check_tty();
 	toggle_raw(0, 1);
-	// tputs(tgetstr("cl", NULL), 1, print_char);
 	tputs(tgetstr("cl", NULL), 1, print_char);
 }
 

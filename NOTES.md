@@ -26,7 +26,7 @@
 - [ ] Prompt to display cwd
 - [x] Expand $ ~ in parser
 - [x] Resizing the window makes prompt disappear
-- [ ] MIIKKA check these -> `echo "pwd" | ./21sh`
+- [x] MIIKKA check these -> `echo "pwd" | ./21sh`
 
 
 

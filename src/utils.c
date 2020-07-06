@@ -84,9 +84,9 @@ void		print_error(int err, char *msg)
 	else if (err == PERMISSION_ERR)
 		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_PERMISSION_ERR, msg);
 	else if (err == ENOENT)
-		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_NOT_FOUND_ERR, msg);
+		ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", msg, STR_NOT_FOUND_ERR);
 	else if (err == ENOTDIR)
-		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_NOT_DIR_ERR, msg);
+		ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", msg, STR_NOT_DIR_ERR);
 	else if (err == EISDIR)
 		ft_dprintf(STDERR_FILENO, "%s %s\n", STR_IS_DIR, msg);
 	else if (err == AMB_REDIR_ERR)

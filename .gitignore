@@ -4,5 +4,4 @@ obj
 a.out
 .vscode
 .test
-command
 venv/
