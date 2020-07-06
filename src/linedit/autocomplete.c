@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 23:33:52 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 08:44:05 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 	while (cursor && buffer[cursor] != ' ')
 		cursor--;
 	// if (!cursor)
-	if (buffer[cursor] == '$' || buffer[cursor + 1] == '$' || buffer[cursor - 1] == '$')
-		comps->ctx = CTX_ENV;
-	else if (!cursor)
+	if (!cursor)
 		comps->ctx = CTX_EXEC;
+	else if (buffer[cursor] == '$' || buffer[cursor + 1] == '$' || buffer[cursor - 1] == '$')
+		comps->ctx = CTX_ENV;
 	else if (buffer[cursor - 1] == '|' || buffer[cursor - 1] == ';')
 		comps->ctx = CTX_EXEC;
 	else if (buffer[cursor + 1] == '|' || buffer[cursor + 1] == ';')
