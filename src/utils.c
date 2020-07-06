@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/06 11:07:44 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 22:49:10 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void		cleanup(t_line *line)
 	toggle_raw(1, 0);
 	erase_input(line);
 	free_history(&line->hist);
+	ft_freestrarr(line->envs);
 	free(line);
 	ft_freestrarr(g_sh.env);
 	exit(EXIT_SUCCESS);

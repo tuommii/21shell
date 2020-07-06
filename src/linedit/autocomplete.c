@@ -6,128 +6,31 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 20:15:27 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 22:47:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-// make those checks, that doesnt require moving cursor
-static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
-{
-	if (cursor < 0)
-	{
-		return (CTX_DISCARD);
-	}
-
-	if (buffer[cursor] == '$')
-	{
-		return (CTX_DISCARD);
-	}
-	else if (buffer[cursor] == '<')
-	{
-		return (CTX_DISCARD);
-	}
-	else if (buffer[cursor] == '>')
-	{
-		return (CTX_DISCARD);
-	}
-	else if (buffer[cursor] == '|')
-	{
-		return (CTX_DISCARD);
-	}
-	else if (buffer[cursor] == ';')
-	{
-		return (CTX_DISCARD);
-	}
-	else if (buffer[cursor] == '-')
-	{
-		return (CTX_DISCARD);
-	}
-	else if (buffer[cursor] == '=')
-	{
-		return (CTX_DISCARD);
-	}
-
-
-	if (cursor > ft_strlen(buffer))
-	{
-		return (CTX_DISCARD);
-	}
-
-	if (buffer[cursor] == ' ' && buffer[cursor - 1] == ' ')
-	{
-		return (CTX_DISCARD);
-	}
-
-	return (NULL);
-}
-
-
-// =================================================
-// GET BINARIES
-
-static int	ft_env_exists(char *name, char *given, int len_given)
-{
-	if (ft_strncmp(name, given, len_given) == 0 \
-	&& name[len_given] && name[len_given] == '=')
-		return (1);
-	return (0);
-}
-
-char		*ft_getenv(char *name, char **envs)
-{
-	int i;
-	int len;
-
-	i = 0;
-	len = ft_strlen(name);
-	if (!name || ft_strequ(name, "$"))
-		return (NULL);
-	while (envs[i])
-	{
-		if (ft_env_exists(envs[i], name, len))
-			return (&envs[i][len + 1]);
-		i++;
-	}
-	return (NULL);
-}
-
-
-void get_binaries(char **envs)
-{
-	char **paths;
-
-	paths = ft_strsplit(ft_getenv("PATH", envs), ':');
-	int i = 0;
-	while (paths != NULL && paths[i])
-	{
-		ft_printf("%s\n", paths[i]);
-		i++;
-	}
-	if (paths != NULL)
-		ft_free_arr(paths);
-}
-// =================================================
-// END OF GET BINARIES
-
-
 // returns string until to cursor, discards spaces
-static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
+static char *get_word_at(char buffer[INPUT_BUFFER], int cursor)
 {
 	int x = cursor;
 	int len = ft_strlen(buffer);
+	char *res;
 
 	// input is empty
 	if (!x && buffer[x] == '\0')
 	{
-		return ft_strdup("");
+		res = ft_strdup("");
+		return res;
 	}
 
 	// cursor is top of first char
 	if (x && !ft_isspace(buffer[x]) && ft_isspace(buffer[x - 1]))
 	{
-		return ft_strdup(" ");
+		res = ft_strdup(" ");
+		return (res);
 	}
 
 	// cursor is at end of string
@@ -143,13 +46,13 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 	// cursor is top of space
 	else if (ft_isspace(buffer[x]))
 	{
-		x--;
+		if (x)
+			x--;
 		if (ft_isspace(buffer[x]))
 		{
-			return ft_strdup(" ");
+			res = ft_strdup(" ");
+			return (res);
 		}
-		// if (x > 0)
-		// 	x--;
 		while (x > 0 && !ft_isspace(buffer[x]))
 		{
 			x--;
@@ -161,149 +64,57 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 	{
 		while (x > 0 && !ft_isspace(buffer[x]))
 			x--;
-		// return ft_strdup("");
 	}
 
 	if (x || ft_isspace(buffer[x]))
 		x++;
 	int size = cursor - x;
-	ft_printf("\nX: %d, SIZE: %d\n", x, size);
-	char *res = malloc(sizeof(char) * size + 1);
+	res = malloc(sizeof(char) * size + 1);
 	ft_strncpy(res, buffer + x, size);
 	res[size] = '\0';
 	return res;
 }
 
 // decide context
-t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
+char *get_context(char buffer[INPUT_BUFFER], int cursor)
 {
-	t_completions *comps;
+	char *word;
+	char *ctx;
 
-	if (!(comps = malloc(sizeof(t_completions))))
+	if (!(word = get_word_at(buffer, cursor)))
+	{
+		free(word);
 		return (NULL);
-
-	// if ((comps->ctx = check_wo_moving_cursor(buffer, cursor)))
-	// 	return (comps);
-
-	comps->word = get_current_word(buffer, cursor);
-	ft_printf("\nCurrent word is: [%s], [%d]\n", comps->word, cursor);
-
-	if (comps->word[0] == '\0' || (ft_strlen(comps->word) - cursor) <= 0)
-	{
-		comps->ctx = ft_strdup(CTX_EXEC);
 	}
 
-	else if (comps->word[0] == '$')
+	if (word[0] == '\0' || (ft_strlen(word) - cursor) <= 0)
 	{
-		comps->ctx = ft_strdup(CTX_ENV);
+		ctx = ft_strdup(CTX_EXEC);
 	}
 
-	else if (comps->word[0] == '-')
+	else if (word[0] == '$')
 	{
-		comps->ctx = ft_strdup(CTX_FLAG);
+		ctx = ft_strdup(CTX_ENV);
 	}
 
-	// else if (comps->word[0] == '/' || comps->word[0] == '.' || comps->word[0] == ' ')
+	else if (word[0] == '-')
+	{
+		ctx = ft_strdup(CTX_FLAG);
+	}
+
+	else if (!cursor && buffer[cursor] == ' ')
+	{
+		ctx = ft_strdup(CTX_EXEC);
+	}
+
+	// TODO: recursive with ' '
+	// else if (word[0] == '/' || word[0] == '.' || word[0] == ' ')
 	else
 	{
-		comps->ctx = ft_strdup(CTX_PATH);
+		ctx = ft_strdup(CTX_PATH);
 	}
-	return (comps);
-}
-
-// get all available suggestions for right context
-void suggestions(t_line *line, t_completions **comps)
-{
-	// if ((*comps)->ctx == CTX_EXEC)
-	// {
-	// 	char *example[] = {"echo", "echo-example-2", "ls-example", NULL};
-	// 	char **pp = example;
-	// 	(*comps)->suggestions = malloc(sizeof(char *) * 4);
-	// 	int i = 0;
-	// 	while (*pp)
-	// 	{
-	// 		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-	// 		ft_strcpy((*comps)->suggestions[i], *pp);
-	// 		i++;
-	// 		pp++;
-	// 	}
-	// 	(*comps)->count = i;
-	// 	return ;
-	// }
-	// else if ((*comps)->ctx == CTX_FLAG)
-	// {
-	// 	char *example[] = {"-all-flag", "-help-flag", "-version-flag", NULL};
-	// 	char **pp = example;
-
-	// 	(*comps)->suggestions = malloc(sizeof(char *) * 4);
-	// 	int i = 0;
-	// 	while (*pp)
-	// 	{
-	// 		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-	// 		ft_strcpy((*comps)->suggestions[i], *pp);
-	// 		i++;
-	// 		pp++;
-	// 	}
-	// 	(*comps)->count = i;
-	// 	return ;
-	// }
-	// else if ((*comps)->ctx == CTX_PATH)
-	// {
-	// 	char *example[] = {"filename-example", "dir-example", "Makefile-example", NULL};
-	// 	char **pp = example;
-	// 	(*comps)->suggestions = malloc(sizeof(char *) * 4);
-	// 	int i = 0;
-	// 	while (*pp)
-	// 	{
-	// 		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-	// 		ft_strcpy((*comps)->suggestions[i], *pp);
-	// 		i++;
-	// 		pp++;
-	// 	}
-	// 	(*comps)->count = i;
-	// 	return ;
-	// }
-	// else if ((*comps)->ctx == CTX_ENV)
-	// {
-	// 	char **cpy = line->envs;
-	// 	int i = 0;
-	// 	while (*cpy)
-	// 	{
-	// 		//ft_printf("%d %s\n",(*comps)->count,  *cpy);
-	// 		//(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*cpy) + 1);
-	// 		//ft_strcpy((*comps)->suggestions[i], *cpy);
-	// 		cpy++;
-	// 		i++;
-	// 	}
-	// 	char **cpy2 = line->envs;
-	// 	(*comps)->count = i;
-	// 	ft_printf("\n%d\n", i);
-	// 	(*comps)->suggestions = malloc(sizeof(char *) * i + 1);
-
-	// 	i = 0;
-	// 	while (i < (*comps)->count)
-	// 	{
-	// 		int len = ft_strlen(line->envs[i]) + 1;
-	// 		(*comps)->suggestions[i] = malloc(sizeof(char) * len);
-	// 		ft_strcpy((*comps)->suggestions[i], line->envs[i]);
-	// 		i++;
-	// 	}
-	// 	//(*comps)->suggestions[i] = NULL;
-	// 	return ;
-	// }
-	// Example
-	char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
-	char **pp = example;
-	int i = 0;
-	(*comps)->suggestions = malloc(sizeof(char *) * 4);
-	while (*pp)
-	{
-		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-		ft_strcpy((*comps)->suggestions[i], *pp);
-		i++;
-		pp++;
-	}
-	(*comps)->count = i;
+	free(word);
+	return (ctx);
 }
 
 static void add_char(t_line *line, char c)
@@ -358,7 +169,7 @@ static void insert_word(t_line *line, char *word)
 // copy suitable suggestions only
 static void filter(t_completions *comps)
 {
-	if (!comps->word || !comps->word[0])
+	if (!comps->word)
 		return ;
 	int len = ft_strlen(comps->word);
 	int i = 0;
@@ -421,61 +232,162 @@ static void clean(t_completions *comps)
 		comps->suggestions[i] = NULL;
 		i++;
 	}
+	free(comps->ctx);
 	free(comps->word);
 	free(comps->suggestions);
 	free(comps);
 }
 
 
+// get all available suggestions for right context
+void set_suggestions(t_line *line, t_completions **comps)
+{
+	// Example
+	char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
+	char **pp = example;
+	int i = 0;
+	(*comps)->suggestions = malloc(sizeof(char *) * 4);
+	while (*pp)
+	{
+		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+		ft_strcpy((*comps)->suggestions[i], *pp);
+		i++;
+		pp++;
+	}
+	(*comps)->count = i;
+}
+
+
 // complete word based on current word
 static void autocomplete(t_line *line, t_completions *comps)
 {
-	suggestions(line, &comps);
-	char **cpy = comps->suggestions;
+	set_suggestions(line, &comps);
 
-	// ft_printf("\nCopied suggestions without segfault\n");
-
-	if (!(comps->word = get_current_word(line->input, line->pos)))
+	if (!(comps->word = get_word_at(line->input, line->pos)))
+	{
+		clean(comps);
 		return ;
+	}
 
-	if (!comps->word[0])
-		return ;
-
-	ft_printf("\nSTARTING FILTER\n");
+	// after this, matches and matches_count is available
 	filter(comps);
-	ft_printf("\nFILTERED\n");
 
-
-	// ft_printf("\nFiltered\n");
 	if (!comps->matches_count)
 	{
-		// clean(comps);
+		clean(comps);
 		return ;
 	}
 	sort_by_length(comps);
 	delete_word(line, comps->word);
 	// Shortest is first
 	insert_word(line, comps->matches[0]);
-	// clean(comps);
+	clean(comps);
 }
 
 // called when tab is pressed
 void handle_autocomplete(t_line *line)
 {
 	t_completions *comps;
-	int i;
 
-	if (!(comps = get_context(line->input, line->pos)))
+	comps = NULL;
+	if (!(comps = malloc(sizeof(t_completions))))
 		return ;
+
+	comps->len = 0;
+	comps->word = NULL;
+	comps->matches_count = 0;
+	comps->ctx = NULL;
+	comps->suggestions = NULL;
+	if (!(comps->ctx = get_context(line->input, line->pos)))
+		return ;
+
 	ft_printf("\n%s\n", comps->ctx);
+
 	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 	{
-		free(comps->word);
+		free(comps->ctx);
 		free(comps);
 		return ;
 	}
-	ft_printf("COMPARED CTX: %s", comps->ctx);
-	ft_printf("COMPARED WORD: %s", comps->word);
 	autocomplete(line, comps);
 	redraw_input(line);
+}
+
+// =================================================
+// GET BINARIES
+
+static int	ft_env_exists(char *name, char *given, int len_given)
+{
+	if (ft_strncmp(name, given, len_given) == 0 \
+	&& name[len_given] && name[len_given] == '=')
+		return (1);
+	return (0);
+}
+
+char		*ft_getenv(char *name, char **envs)
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = ft_strlen(name);
+	if (!name || ft_strequ(name, "$"))
+		return (NULL);
+	while (envs[i])
+	{
+		if (ft_env_exists(envs[i], name, len))
+			return (&envs[i][len + 1]);
+		i++;
+	}
+	return (NULL);
+}
+
+
+void get_binaries(char **envs)
+{
+	char **paths;
+
+	paths = ft_strsplit(ft_getenv("PATH", envs), ':');
+	int i = 0;
+	while (paths != NULL && paths[i])
+	{
+		ft_printf("%s\n", paths[i]);
+		i++;
+	}
+	if (paths != NULL)
+		ft_free_arr(paths);
+}
+// =================================================
+// END OF GET BINARIES
+
+void suggestions_env(t_line *line, t_completions **comps)
+{
+	if ((*comps)->ctx == CTX_ENV)
+	{
+		char **cpy = line->envs;
+		int i = 0;
+		while (*cpy)
+		{
+			//ft_printf("%d %s\n",(*comps)->count,  *cpy);
+			//(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*cpy) + 1);
+			//ft_strcpy((*comps)->suggestions[i], *cpy);
+			cpy++;
+			i++;
+		}
+		char **cpy2 = line->envs;
+		(*comps)->count = i;
+		ft_printf("\n%d\n", i);
+		(*comps)->suggestions = malloc(sizeof(char *) * i + 1);
+
+		i = 0;
+		while (i < (*comps)->count)
+		{
+			int len = ft_strlen(line->envs[i]) + 1;
+			(*comps)->suggestions[i] = malloc(sizeof(char) * len);
+			ft_strcpy((*comps)->suggestions[i], line->envs[i]);
+			i++;
+		}
+		//(*comps)->suggestions[i] = NULL;
+		return ;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 20:01:19 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 21:30:22 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void						apped_or_insert(t_line *line, char c);
 ** AUTOCOMPLETE
 */
 void handle_autocomplete(t_line *line);
-t_completions *get_context(char buffer[INPUT_BUFFER], int cursor);
+char *get_context(char buffer[INPUT_BUFFER], int cursor);
 void get_completions(t_completions **comps);
 void get_binaries(char  **envs);
 char	**init_env(char **env);
