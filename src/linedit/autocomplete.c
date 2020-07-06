@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 19:34:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 20:15:27 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,8 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 
 	if (x || ft_isspace(buffer[x]))
 		x++;
-	ft_printf("\n%d\n", x);
 	int size = cursor - x;
+	ft_printf("\nX: %d, SIZE: %d\n", x, size);
 	char *res = malloc(sizeof(char) * size + 1);
 	ft_strncpy(res, buffer + x, size);
 	res[size] = '\0';
@@ -190,22 +190,23 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 
 	if (comps->word[0] == '\0' || (ft_strlen(comps->word) - cursor) <= 0)
 	{
-		comps->ctx = CTX_EXEC;
+		comps->ctx = ft_strdup(CTX_EXEC);
 	}
 
 	else if (comps->word[0] == '$')
 	{
-		comps->ctx = CTX_ENV;
+		comps->ctx = ft_strdup(CTX_ENV);
 	}
 
 	else if (comps->word[0] == '-')
 	{
-		comps->ctx = CTX_FLAG;
+		comps->ctx = ft_strdup(CTX_FLAG);
 	}
 
-	else if (comps->word[0] == '/' || comps->word[0] == '.')
+	// else if (comps->word[0] == '/' || comps->word[0] == '.' || comps->word[0] == ' ')
+	else
 	{
-		comps->ctx = CTX_PATH;
+		comps->ctx = ft_strdup(CTX_PATH);
 	}
 	return (comps);
 }
@@ -213,96 +214,96 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 // get all available suggestions for right context
 void suggestions(t_line *line, t_completions **comps)
 {
-	if ((*comps)->ctx == CTX_EXEC)
-	{
-		char *example[] = {"echo", "echo-example-2", "ls-example", NULL};
-		char **pp = example;
-		(*comps)->suggestions = malloc(sizeof(char *) * 4);
-		int i = 0;
-		while (*pp)
-		{
-			(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-			ft_strcpy((*comps)->suggestions[i], *pp);
-			i++;
-			pp++;
-		}
-		(*comps)->count = i;
-		return ;
-	}
-	else if ((*comps)->ctx == CTX_FLAG)
-	{
-		char *example[] = {"-all-flag", "-help-flag", "-version-flag", NULL};
-		char **pp = example;
-
-		(*comps)->suggestions = malloc(sizeof(char *) * 4);
-		int i = 0;
-		while (*pp)
-		{
-			(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-			ft_strcpy((*comps)->suggestions[i], *pp);
-			i++;
-			pp++;
-		}
-		(*comps)->count = i;
-		return ;
-	}
-	else if ((*comps)->ctx == CTX_PATH)
-	{
-		char *example[] = {"filename-example", "dir-example", "Makefile-example", NULL};
-		char **pp = example;
-		(*comps)->suggestions = malloc(sizeof(char *) * 4);
-		int i = 0;
-		while (*pp)
-		{
-			(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-			ft_strcpy((*comps)->suggestions[i], *pp);
-			i++;
-			pp++;
-		}
-		(*comps)->count = i;
-		return ;
-	}
-	else if ((*comps)->ctx == CTX_ENV)
-	{
-		char **cpy = line->envs;
-		int i = 0;
-		while (*cpy)
-		{
-			//ft_printf("%d %s\n",(*comps)->count,  *cpy);
-			//(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*cpy) + 1);
-			//ft_strcpy((*comps)->suggestions[i], *cpy);
-			cpy++;
-			i++;
-		}
-		char **cpy2 = line->envs;
-		(*comps)->count = i;
-		ft_printf("\n%d\n", i);
-		(*comps)->suggestions = malloc(sizeof(char *) * i + 1);
-
-		i = 0;
-		while (i < (*comps)->count)
-		{
-			int len = ft_strlen(line->envs[i]) + 1;
-			(*comps)->suggestions[i] = malloc(sizeof(char) * len);
-			ft_strcpy((*comps)->suggestions[i], line->envs[i]);
-			i++;
-		}
-		//(*comps)->suggestions[i] = NULL;
-		return ;
-	}
-	// Example
-	// char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
-	// char **pp = example;
-	// int i = 0;
-	// (*comps)->suggestions = malloc(sizeof(char *) * 4);
-	// while (*pp)
+	// if ((*comps)->ctx == CTX_EXEC)
 	// {
-	// 	(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-	// 	ft_strcpy((*comps)->suggestions[i], *pp);
-	// 	i++;
-	// 	pp++;
+	// 	char *example[] = {"echo", "echo-example-2", "ls-example", NULL};
+	// 	char **pp = example;
+	// 	(*comps)->suggestions = malloc(sizeof(char *) * 4);
+	// 	int i = 0;
+	// 	while (*pp)
+	// 	{
+	// 		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+	// 		ft_strcpy((*comps)->suggestions[i], *pp);
+	// 		i++;
+	// 		pp++;
+	// 	}
+	// 	(*comps)->count = i;
+	// 	return ;
 	// }
-	// (*comps)->count = i;
+	// else if ((*comps)->ctx == CTX_FLAG)
+	// {
+	// 	char *example[] = {"-all-flag", "-help-flag", "-version-flag", NULL};
+	// 	char **pp = example;
+
+	// 	(*comps)->suggestions = malloc(sizeof(char *) * 4);
+	// 	int i = 0;
+	// 	while (*pp)
+	// 	{
+	// 		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+	// 		ft_strcpy((*comps)->suggestions[i], *pp);
+	// 		i++;
+	// 		pp++;
+	// 	}
+	// 	(*comps)->count = i;
+	// 	return ;
+	// }
+	// else if ((*comps)->ctx == CTX_PATH)
+	// {
+	// 	char *example[] = {"filename-example", "dir-example", "Makefile-example", NULL};
+	// 	char **pp = example;
+	// 	(*comps)->suggestions = malloc(sizeof(char *) * 4);
+	// 	int i = 0;
+	// 	while (*pp)
+	// 	{
+	// 		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+	// 		ft_strcpy((*comps)->suggestions[i], *pp);
+	// 		i++;
+	// 		pp++;
+	// 	}
+	// 	(*comps)->count = i;
+	// 	return ;
+	// }
+	// else if ((*comps)->ctx == CTX_ENV)
+	// {
+	// 	char **cpy = line->envs;
+	// 	int i = 0;
+	// 	while (*cpy)
+	// 	{
+	// 		//ft_printf("%d %s\n",(*comps)->count,  *cpy);
+	// 		//(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*cpy) + 1);
+	// 		//ft_strcpy((*comps)->suggestions[i], *cpy);
+	// 		cpy++;
+	// 		i++;
+	// 	}
+	// 	char **cpy2 = line->envs;
+	// 	(*comps)->count = i;
+	// 	ft_printf("\n%d\n", i);
+	// 	(*comps)->suggestions = malloc(sizeof(char *) * i + 1);
+
+	// 	i = 0;
+	// 	while (i < (*comps)->count)
+	// 	{
+	// 		int len = ft_strlen(line->envs[i]) + 1;
+	// 		(*comps)->suggestions[i] = malloc(sizeof(char) * len);
+	// 		ft_strcpy((*comps)->suggestions[i], line->envs[i]);
+	// 		i++;
+	// 	}
+	// 	//(*comps)->suggestions[i] = NULL;
+	// 	return ;
+	// }
+	// Example
+	char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
+	char **pp = example;
+	int i = 0;
+	(*comps)->suggestions = malloc(sizeof(char *) * 4);
+	while (*pp)
+	{
+		(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
+		ft_strcpy((*comps)->suggestions[i], *pp);
+		i++;
+		pp++;
+	}
+	(*comps)->count = i;
 }
 
 static void add_char(t_line *line, char c)
@@ -357,6 +358,8 @@ static void insert_word(t_line *line, char *word)
 // copy suitable suggestions only
 static void filter(t_completions *comps)
 {
+	if (!comps->word || !comps->word[0])
+		return ;
 	int len = ft_strlen(comps->word);
 	int i = 0;
 	int count = 0;
@@ -435,22 +438,25 @@ static void autocomplete(t_line *line, t_completions *comps)
 	if (!(comps->word = get_current_word(line->input, line->pos)))
 		return ;
 
-	// if (!comps->word[0])
-	// 	return ;
+	if (!comps->word[0])
+		return ;
 
+	ft_printf("\nSTARTING FILTER\n");
 	filter(comps);
+	ft_printf("\nFILTERED\n");
+
 
 	// ft_printf("\nFiltered\n");
 	if (!comps->matches_count)
 	{
-		clean(comps);
+		// clean(comps);
 		return ;
 	}
 	sort_by_length(comps);
 	delete_word(line, comps->word);
 	// Shortest is first
 	insert_word(line, comps->matches[0]);
-	clean(comps);
+	// clean(comps);
 }
 
 // called when tab is pressed
@@ -468,6 +474,8 @@ void handle_autocomplete(t_line *line)
 		free(comps);
 		return ;
 	}
+	ft_printf("COMPARED CTX: %s", comps->ctx);
+	ft_printf("COMPARED WORD: %s", comps->word);
 	autocomplete(line, comps);
 	redraw_input(line);
 }
