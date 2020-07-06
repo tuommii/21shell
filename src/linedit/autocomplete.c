@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 14:24:16 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 15:18:08 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,69 @@ void get_binaries(char **envs)
 // =================================================
 // END OF GET BINARIES
 
+
+// sets comps->word to current word (string thats under or behind cursor)
+static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
+{
+	int pos;
+	int copy = cursor;
+
+	if (cursor > 0)
+	{
+		copy--;
+	}
+
+
+	// Only spaces
+	if (ft_isspace(buffer[copy]))
+	{
+		while (copy > 0 && ft_isspace(buffer[copy]))
+			copy--;
+		if(!copy)
+			return ft_strdup("");
+	}
+
+	// Jokin muu ku space
+	copy = cursor;
+	if (cursor > 0)
+	{
+		copy--;
+	}
+	while (copy > 0 && !ft_isspace(buffer[copy]))
+		copy--;
+	int len = cursor - copy;
+	char *res = malloc(sizeof(char) * len + 1);
+	ft_strncpy(res, buffer + pos, len);
+	res[len] = '\0';
+	return res;
+
+
+	// if (!cursor)
+	// {
+	// 	return ft_strdup("");
+	// }
+	// pos = cursor - 1;
+	// while (pos && buffer[cursor] && !ft_isspace(buffer[cursor]))
+	// 	pos--;
+	// if (!pos)
+	// 	return ft_strdup("");
+	// if (pos)
+	// 	pos++;
+	// if (buffer[cursor] == ' ')
+	// 	pos++;
+	// // while (line->input[pos] == '\"')
+	// // 	pos++;
+	// // while (line->input[pos] == '$')
+	// // 	pos++;
+	// int len = cursor - pos;
+
+	// char *res = malloc(sizeof(char) * len + 1);
+	// //ft_bzero(comps->word, INPUT_BUFFER);
+	// ft_strncpy(res, buffer + pos, len);
+	// res[len] = '\0';
+	// return res;
+}
+
 // decide context
 t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 {
@@ -130,8 +193,11 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 	if (!(comps = malloc(sizeof(t_completions))))
 		return (NULL);
 
-	if ((comps->ctx = check_wo_moving_cursor(buffer, cursor)))
-		return (comps);
+	// if ((comps->ctx = check_wo_moving_cursor(buffer, cursor)))
+	// 	return (comps);
+
+	char *word = get_current_word(buffer, cursor);
+	ft_printf("\nCurrent word is: [%s], [%d]\n", word, cursor);
 
 	// Discard extra spaces
 	while (buffer[cursor] == ' ')
@@ -282,33 +348,6 @@ void suggestions(t_line *line, t_completions **comps)
 	// (*comps)->count = i;
 }
 
-// sets comps->word to current word (string thats under or behind cursor)
-static void current_word(t_line *line, t_completions *comps)
-{
-	int pos;
-
-	if (!line->pos)
-	{
-		comps->word[0] = '\0';
-		return ;
-	}
-	pos = line->pos - 1;
-	while (pos && line->input[pos] != ' ')
-		pos--;
-	if (pos)
-		pos++;
-	if (line->input[pos] == ' ')
-		pos++;
-	while (line->input[pos] == '\"')
-		pos++;
-	while (line->input[pos] == '$')
-		pos++;
-	int len = line->pos - pos;
-	ft_bzero(comps->word, INPUT_BUFFER);
-	ft_strncpy(comps->word, line->input + pos, len);
-	comps->word[len] = '\0';
-}
-
 static void add_char(t_line *line, char c)
 {
 	if (line->len >= INPUT_BUFFER)
@@ -435,10 +474,8 @@ static void autocomplete(t_line *line, t_completions *comps)
 
 	ft_printf("\nCopied suggestions without segfault\n");
 
-	current_word(line, comps);
-
-	ft_printf("\nCurrent word is:%s\n", comps->word);
-
+	if (!(comps->word = get_current_word(line->input, line->pos)))
+		return ;
 
 	if (!comps->word[0])
 		return ;
