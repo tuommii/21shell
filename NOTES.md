@@ -1,14 +1,8 @@
 ## To-do
 
 - tokenize -> init_lexer LEAKS! If no inpu, just ENTER
-
-- CTRL+W & CTRL+Y
+- CTRL+Y is reserved on OS X
 - echo "text" | pbcopy
-- First paste may be buggy
-
-### Bugs
-- [ ] Prompt displayed twice in read_again()
-- [ ] Remove hardcoded clipboard message and check how its done on OS X
 
 ### Needs more testing
 - [ ] Memory leaks (leaks in lexer - exec & parser not really)

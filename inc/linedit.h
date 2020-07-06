@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 16:48:41 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 10:42:12 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@
 # define CTRL_C 0
 # define CTRL_L 12
 
+# define CTRL_A 1
 # define CTRL_E 5
 # define CTRL_P 16
 # define CTRL_K 11
