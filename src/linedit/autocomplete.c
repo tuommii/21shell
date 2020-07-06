@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 22:47:49 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 23:02:40 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ static char *get_word_at(char buffer[INPUT_BUFFER], int cursor)
 	// input is empty
 	if (!x && buffer[x] == '\0')
 	{
-		res = ft_strdup("");
-		return res;
+		return ft_strdup("");
 	}
 
 	// cursor is top of first char
 	if (x && !ft_isspace(buffer[x]) && ft_isspace(buffer[x - 1]))
 	{
-		res = ft_strdup(" ");
-		return (res);
+		return ft_strdup(" ");
 	}
 
 	// cursor is at end of string
@@ -50,8 +48,7 @@ static char *get_word_at(char buffer[INPUT_BUFFER], int cursor)
 			x--;
 		if (ft_isspace(buffer[x]))
 		{
-			res = ft_strdup(" ");
-			return (res);
+			return ft_strdup(" ");
 		}
 		while (x > 0 && !ft_isspace(buffer[x]))
 		{
