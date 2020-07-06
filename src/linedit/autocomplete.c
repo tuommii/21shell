@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 23:02:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 00:00:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,13 +168,20 @@ static void filter(t_completions *comps)
 {
 	if (!comps->word)
 		return ;
-	int len = ft_strlen(comps->word);
+
+	char *cpy = comps->word;
+	if (cpy[0] == '$')
+	{
+		cpy++;
+	}
+
+	int len = ft_strlen(cpy);
 	int i = 0;
 	int count = 0;
 
 	while (i < comps->count)
 	{
-		if (ft_strncmp(comps->suggestions[i], comps->word, len) == 0)
+		if (ft_strncmp(comps->suggestions[i], cpy, len) == 0)
 		{
 			if (ft_strlen(comps->suggestions[i]) > len)
 			{
@@ -212,6 +219,18 @@ static void sort_by_length(t_completions *comps)
 	}
 }
 
+static void clean_suggestions(t_completions *comps)
+{
+	int i = 0;
+	while (i < comps->count)
+	{
+		free(comps->suggestions[i]);
+		comps->suggestions[i] = NULL;
+		i++;
+	}
+	free(comps->suggestions);
+}
+
 static void clean(t_completions *comps)
 {
 	int i = 0;
@@ -221,17 +240,9 @@ static void clean(t_completions *comps)
 		comps->matches[i] = NULL;
 		i++;
 	}
-
-	i = 0;
-	while (i < comps->count)
-	{
-		free(comps->suggestions[i]);
-		comps->suggestions[i] = NULL;
-		i++;
-	}
-	free(comps->ctx);
+	clean_suggestions(comps);
 	free(comps->word);
-	free(comps->suggestions);
+	free(comps->ctx);
 	free(comps);
 }
 
@@ -239,8 +250,10 @@ static void clean(t_completions *comps)
 // get all available suggestions for right context
 void set_suggestions(t_line *line, t_completions **comps)
 {
+	if (suggestions_env(line, comps))
+		return ;
 	// Example
-	char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
+	char *example[] = {"echo", "echo-example-3", "$HOME", NULL};
 	char **pp = example;
 	int i = 0;
 	(*comps)->suggestions = malloc(sizeof(char *) * 4);
@@ -262,7 +275,9 @@ static void autocomplete(t_line *line, t_completions *comps)
 
 	if (!(comps->word = get_word_at(line->input, line->pos)))
 	{
-		clean(comps);
+		clean_suggestions(comps);
+		free(comps->ctx);
+		free(comps);
 		return ;
 	}
 
@@ -271,7 +286,10 @@ static void autocomplete(t_line *line, t_completions *comps)
 
 	if (!comps->matches_count)
 	{
-		clean(comps);
+		clean_suggestions(comps);
+		free(comps->ctx);
+		free(comps->word);
+		free(comps);
 		return ;
 	}
 	sort_by_length(comps);
@@ -357,9 +375,9 @@ void get_binaries(char **envs)
 // =================================================
 // END OF GET BINARIES
 
-void suggestions_env(t_line *line, t_completions **comps)
+int suggestions_env(t_line *line, t_completions **comps)
 {
-	if ((*comps)->ctx == CTX_ENV)
+	if (ft_strcmp((*comps)->ctx, CTX_ENV) == 0)
 	{
 		char **cpy = line->envs;
 		int i = 0;
@@ -385,6 +403,7 @@ void suggestions_env(t_line *line, t_completions **comps)
 			i++;
 		}
 		//(*comps)->suggestions[i] = NULL;
-		return ;
+		return (1);
 	}
+	return (0);
 }

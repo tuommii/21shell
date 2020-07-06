@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 21:30:22 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 23:56:39 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,6 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor);
 void get_completions(t_completions **comps);
 void get_binaries(char  **envs);
 char	**init_env(char **env);
-
-
+int suggestions_env(t_line *line, t_completions **comps);
 
 #endif
