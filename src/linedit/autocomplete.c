@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 15:18:08 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 16:30:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,36 +126,56 @@ void get_binaries(char **envs)
 // sets comps->word to current word (string thats under or behind cursor)
 static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 {
-	int pos;
-	int copy = cursor;
+	int x = cursor;
+	int len = ft_strlen(buffer);
 
-	if (cursor > 0)
+	// input is empty
+	if (!x && buffer[x] == '\0')
 	{
-		copy--;
+		ft_printf("\ninput is empty\n");
+		return ft_strdup("");
 	}
 
-
-	// Only spaces
-	if (ft_isspace(buffer[copy]))
+	// cursor is at end of string
+	if (x == len)
 	{
-		while (copy > 0 && ft_isspace(buffer[copy]))
-			copy--;
-		if(!copy)
-			return ft_strdup("");
+		ft_printf("\ncursor at end of input\n");
+		x--;
+		while (x > 0 && !ft_isspace(buffer[x]))
+			x--;
 	}
 
-	// Jokin muu ku space
-	copy = cursor;
-	if (cursor > 0)
+	// cursor is middle of something
+
+	// cursor is top of space
+	else if (ft_isspace(buffer[x]))
 	{
-		copy--;
+		ft_printf("\ncursor at top of space\n");
+		if (ft_isspace(buffer[x - 1]))
+		{
+			return ft_strdup(" ");
+		}
+		if (x > 0)
+			x--;
+		while (x > 0 && !ft_isspace(buffer[x]))
+			x--;
 	}
-	while (copy > 0 && !ft_isspace(buffer[copy]))
-		copy--;
-	int len = cursor - copy;
-	char *res = malloc(sizeof(char) * len + 1);
-	ft_strncpy(res, buffer + pos, len);
-	res[len] = '\0';
+
+	// cursor is top of string
+	else if (!ft_isspace(buffer[x]))
+	{
+		ft_printf("\ncursor at top of string\n");
+		while (x > 0 && !ft_isspace(buffer[x]))
+			x--;
+		// return ft_strdup("");
+	}
+
+	int size = cursor - x;
+	char *res = malloc(sizeof(char) * size + 1);
+	ft_printf("\n%d %d\n", x, size);
+	ft_strncpy(res, buffer + x, size);
+	res[size] = '\0';
+	ft_printf("\nword:%s\n", res);
 	return res;
 
 
@@ -472,7 +492,7 @@ static void autocomplete(t_line *line, t_completions *comps)
 	suggestions(line, &comps);
 	char **cpy = comps->suggestions;
 
-	ft_printf("\nCopied suggestions without segfault\n");
+	// ft_printf("\nCopied suggestions without segfault\n");
 
 	if (!(comps->word = get_current_word(line->input, line->pos)))
 		return ;
@@ -482,7 +502,7 @@ static void autocomplete(t_line *line, t_completions *comps)
 
 	filter(comps);
 
-	ft_printf("\nFiltered\n");
+	// ft_printf("\nFiltered\n");
 	if (!comps->matches_count)
 	{
 		clean(comps);
@@ -503,7 +523,7 @@ void handle_autocomplete(t_line *line)
 
 	if (!(comps = get_context(line->input, line->pos)))
 		return ;
-	ft_printf("\n%s\n", comps->ctx);
+	// ft_printf("\n%s\n", comps->ctx);
 	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 	{
 		free(comps);
