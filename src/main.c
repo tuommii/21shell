@@ -77,6 +77,25 @@ static void		run_21(t_line *line)
 	toggle_raw(1, 0);
 }
 
+/*
+** Read from stdin, tokenize input and send to parser
+*/
+
+void			run_21_stdin(void)
+{
+	char	*input;
+	t_lexer	*lexer;
+
+	listen_signals();
+	get_next_line(0, &input);
+	tokenize(&lexer, input);
+	if (lexer->flags & DEBUG_LEXER)
+		lexer_debug(lexer);
+	else
+		parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
+	lexer_del(&lexer);
+}
+
 int				main(int argc, char **argv, char **environment)
 {
 	t_line *line;
