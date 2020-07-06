@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "linedit.h"
+#include "shell.h"
 
 /*
 ** Depending on cursor position, apppend or insert char and redraw input
@@ -141,12 +142,13 @@ char		*linedit(t_line *line)
 		else if(line->key == CTRL_K)
 		{
 			line->was_copy = 1;
-			char *new = ft_strjoin("echo ", create_copy_str(line));
-			char *new2 = ft_strjoin(new, COPY);
-			ft_strdel(&new);
+			copy_to_clipboard(create_copy_str(line));
+			// char *new = ft_strjoin("echo ", create_copy_str(line));
+			// char *new2 = ft_strjoin(new, " | clip.exe");  // because windows
+			// ft_strdel(&new);
 			// Free this
-			ft_printf("COPY!\n");
-			return new2;
+			// ft_printf("\nCOPY! %s\n", new2);
+			// continue ;
 		}
 	}
 	return (NULL);
