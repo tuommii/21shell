@@ -78,7 +78,7 @@ static void		run_21(t_line *line)
 }
 
 /*
-** Read from stdin, tokenize input and send to parser
+** Helper when commands are piped to shell or read from file
 */
 
 void			run_21_stdin(void)

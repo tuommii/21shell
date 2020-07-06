@@ -17,6 +17,7 @@ SRC_NAME 	= 	main.c \
 				builtins/setenv.c \
 				builtins/unsetenv.c \
 				builtins/utils.c \
+				exec/copy.c \
 				exec/exec.c \
 				exec/index.c \
 				exec/open.c \

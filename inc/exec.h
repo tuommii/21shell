@@ -29,6 +29,7 @@ int						exec_status(int status);
 int						exec_preprocess(int save[3], t_ast *ast);
 int						dup21(int dst, int src, char *msg);
 int						pipe_heredoc(t_token *dlarr);
+int                     copy_to_clipboard(char *input);
 
 int						is_builtin(char *cmd);
 int						exec_builtin(char **cmd);
