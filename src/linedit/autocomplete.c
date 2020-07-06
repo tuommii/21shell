@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 08:44:05 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 09:34:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,59 @@
 // make those checks, that doesnt require moving cursor
 static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 {
-
-	if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
+	if (cursor < 0)
 	{
-		// ft_printf("TOP OF CHAR\n");
 		return (CTX_DISCARD);
 	}
 
-	if (!buffer || !cursor)
+	if (buffer[cursor] == '$')
 	{
-		return (CTX_EXEC);
+		return (CTX_DISCARD);
 	}
+	else if (buffer[cursor] == '<')
+	{
+		return (CTX_DISCARD);
+	}
+	else if (buffer[cursor] == '>')
+	{
+		return (CTX_DISCARD);
+	}
+	else if (buffer[cursor] == '|')
+	{
+		return (CTX_DISCARD);
+	}
+	else if (buffer[cursor] == ';')
+	{
+		return (CTX_DISCARD);
+	}
+	else if (buffer[cursor] == '-')
+	{
+		return (CTX_DISCARD);
+	}
+	else if (buffer[cursor] == '=')
+	{
+		return (CTX_DISCARD);
+	}
+	// if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
+	// {
+	// 	// ft_printf("TOP OF CHAR\n");
+	// }
+
+	// if (!buffer || !cursor)
+	// {
+	// 	ft_printf("EXEC OR");
+	// 	return (CTX_EXEC);
+	// }
 
 	if (cursor > ft_strlen(buffer))
 	{
-		// ft_printf("CURSOR > LEN\n");
+		ft_printf("CURSOR > LEN\n");
 		return (CTX_DISCARD);
 	}
 
 	if (buffer[cursor] == ' ' && buffer[cursor - 1] == ' ')
 	{
-		// ft_printf("SPACES\n");
+		ft_printf("SPACES\n");
 		return (CTX_DISCARD);
 	}
 
@@ -59,9 +91,27 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 
 	while (cursor && buffer[cursor] != ' ')
 		cursor--;
-	// if (!cursor)
+
 	if (!cursor)
+	{
+		while (buffer[cursor] != '\0')
+		{
+			if (buffer[cursor] == '/')
+			{
+				comps->ctx = CTX_PATH;
+				return (comps);
+			}
+			else if (buffer[cursor] == '$')
+			{
+				comps->ctx = CTX_ENV;
+				return (comps);
+			}
+			cursor++;
+		}
+		ft_printf("EXEC NO CURSOR");
 		comps->ctx = CTX_EXEC;
+	}
+
 	else if (buffer[cursor] == '$' || buffer[cursor + 1] == '$' || buffer[cursor - 1] == '$')
 		comps->ctx = CTX_ENV;
 	else if (buffer[cursor - 1] == '|' || buffer[cursor - 1] == ';')
@@ -328,6 +378,7 @@ void handle_autocomplete(t_line *line)
 
 	if (!(comps = get_context(line->input, line->pos)))
 		return ;
+	ft_printf("\n%s\n", comps->ctx);
 	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 	{
 		free(comps);
