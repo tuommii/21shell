@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 12:42:01 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 13:07:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,15 +420,20 @@ static void autocomplete(t_line *line, t_completions *comps)
 {
 	suggestions(line, &comps);
 	char **cpy = comps->suggestions;
-	// int i = 0;
-	ft_printf("JEE: %s\n", comps->suggestions[0]);
 
-	ft_printf("\nmaded\n");
+	ft_printf("\nCopied suggestions without segfault\n");
+
 	current_word(line, comps);
-	ft_printf("\ncurrent:%s\n", comps->word);
+
+	ft_printf("\nCurrent word is:%s\n", comps->word);
+
+
+	if (!comps->word[0])
+		return ;
 
 	filter(comps);
-	ft_printf("\nmaded 2\n");
+
+	ft_printf("\nFiltered\n");
 	if (!comps->matches_count)
 	{
 		clean(comps);
