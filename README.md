@@ -30,6 +30,11 @@ make
 ./21sh
 ```
 
+## Unittests
+```sh
+python test-suite/tests.py
+```
+
 ## Keyboard shorcuts
 | KEY | ACTION |
 |---------|---------|
