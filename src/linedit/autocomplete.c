@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 00:00:53 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 00:13:39 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ static void filter(t_completions *comps)
 		return ;
 
 	char *cpy = comps->word;
-	if (cpy[0] == '$')
+	if (cpy[0] == '$' && cpy[1])
 	{
 		cpy++;
 	}
@@ -201,7 +201,7 @@ static void sort_by_length(t_completions *comps)
 	int i = 0;
 	char *temp;
 
-	while (i < comps->matches_count - 1)
+	while (i < comps->matches_count - 1 && i < MAX_MATCHES - 1)
 	{
 		int a = ft_strlen(comps->matches[i]);
 		int b = ft_strlen(comps->matches[i + 1]);
