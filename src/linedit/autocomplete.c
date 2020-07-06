@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 11:12:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 13:07:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 }
 
 // get all available suggestions for right context
-void suggestions(t_completions **comps)
+void suggestions(t_line *line, t_completions **comps)
 {
 	if ((*comps)->ctx == CTX_EXEC)
 	{
@@ -200,6 +200,7 @@ void suggestions(t_completions **comps)
 	{
 		char *example[] = {"-all-flag", "-help-flag", "-version-flag", NULL};
 		char **pp = example;
+
 		(*comps)->suggestions = malloc(sizeof(char *) * 4);
 		int i = 0;
 		while (*pp)
@@ -230,25 +231,37 @@ void suggestions(t_completions **comps)
 	}
 	else if ((*comps)->ctx == CTX_ENV)
 	{
-		char *example[] = {"$HOME-EXAMPLE", "$USER-EXAMPLE", "$CWD", NULL};
-		char **pp = example;
-		(*comps)->suggestions = malloc(sizeof(char *) * 4);
+		char **cpy = line->envs;
 		int i = 0;
-		while (*pp)
+		while (*cpy)
 		{
-			(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
-			ft_strcpy((*comps)->suggestions[i], *pp);
+			//ft_printf("%d %s\n",(*comps)->count,  *cpy);
+			//(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*cpy) + 1);
+			//ft_strcpy((*comps)->suggestions[i], *cpy);
+			cpy++;
 			i++;
-			pp++;
 		}
+		char **cpy2 = line->envs;
 		(*comps)->count = i;
+		ft_printf("\n%d\n", i);
+		(*comps)->suggestions = malloc(sizeof(char *) * i + 1);
+
+		i = 0;
+		while (i < (*comps)->count)
+		{
+			int len = ft_strlen(line->envs[i]) + 1;
+			(*comps)->suggestions[i] = malloc(sizeof(char) * len);
+			ft_strcpy((*comps)->suggestions[i], line->envs[i]);
+			i++;
+		}
+		//(*comps)->suggestions[i] = NULL;
 		return ;
 	}
 	// Example
 	// char *example[] = {"echo", "echo-example-3", "echo-example", NULL};
 	// char **pp = example;
-	// (*comps)->suggestions = malloc(sizeof(char *) * 4);
 	// int i = 0;
+	// (*comps)->suggestions = malloc(sizeof(char *) * 4);
 	// while (*pp)
 	// {
 	// 	(*comps)->suggestions[i] = malloc(sizeof(char) * ft_strlen(*pp) + 1);
@@ -275,6 +288,8 @@ static void current_word(t_line *line, t_completions *comps)
 	if (pos)
 		pos++;
 	while (line->input[pos] == '\"')
+		pos++;
+	while (line->input[pos] == '$')
 		pos++;
 	int len = line->pos - pos;
 	ft_bzero(comps->word, INPUT_BUFFER);
@@ -403,9 +418,22 @@ static void clean(t_completions *comps)
 // complete word based on current word
 static void autocomplete(t_line *line, t_completions *comps)
 {
-	suggestions(&comps);
+	suggestions(line, &comps);
+	char **cpy = comps->suggestions;
+
+	ft_printf("\nCopied suggestions without segfault\n");
+
 	current_word(line, comps);
+
+	ft_printf("\nCurrent word is:%s\n", comps->word);
+
+
+	if (!comps->word[0])
+		return ;
+
 	filter(comps);
+
+	ft_printf("\nFiltered\n");
 	if (!comps->matches_count)
 	{
 		clean(comps);
