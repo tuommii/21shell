@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 13:07:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 14:24:16 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 	while (cursor && buffer[cursor] != ' ')
 		cursor--;
 
+	// TODO: Make some first char func
 	if (!cursor)
 	{
 		while (buffer[cursor] != '\0')
@@ -151,7 +152,13 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 			}
 			else if (buffer[cursor] == '$')
 			{
+				ft_printf("ENV1");
 				comps->ctx = CTX_ENV;
+				return (comps);
+			}
+			else if (buffer[cursor] == ' ' && buffer[0] != ' ')
+			{
+				comps->ctx = CTX_EXEC;
 				return (comps);
 			}
 			cursor++;
@@ -171,7 +178,10 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 	else if (buffer[cursor + 1] == '/' || buffer[cursor + 1] == '.')
 		comps->ctx = CTX_PATH;
 	else if (buffer[cursor - 1] == '$')
+	{
+		ft_printf("ENV2");
 		comps->ctx = CTX_ENV;
+	}
 	else
 		comps->ctx = CTX_PATH;
 	return (comps);
@@ -286,6 +296,8 @@ static void current_word(t_line *line, t_completions *comps)
 	while (pos && line->input[pos] != ' ')
 		pos--;
 	if (pos)
+		pos++;
+	if (line->input[pos] == ' ')
 		pos++;
 	while (line->input[pos] == '\"')
 		pos++;
