@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "linedit.h"
+#include "shell.h"
 
 static void	check_tty(void)
 {
@@ -22,11 +23,11 @@ static void	check_tty(void)
 		ft_dprintf(OUTPUT, "No terminal name");
 		exit(1);
 	}
-	// TODO: Run file
+	// If command is given as a stdin file, run shell once (for testing purposes)
 	if (!isatty(STDIN_FILENO))
 	{
-		ft_printf("stdin is not a tty\n");
-		// ft_strdel(&name);
+		// ft_printf("stdin is not a tty\n");
+		run_21_stdin();
 		exit(1);
 	}
 	if (tgetent(buffer, name) != 1)

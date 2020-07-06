@@ -88,5 +88,6 @@ void					lexer_debug(t_lexer *lexer);
 void					array_debug(char **arr);
 void					ast_debug(t_ast *root, int ws);
 void					exit_error(int err, char *msg);
+void					run_21_stdin(void);
 
 #endif
