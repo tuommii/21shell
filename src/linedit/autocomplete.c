@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 18:41:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 19:34:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,15 @@ static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 	{
 		return (CTX_DISCARD);
 	}
-	// if (ft_strchr(CTX_DISCARD_STR, buffer[cursor]) && buffer[cursor] != '\0')
-	// {
-	// 	// ft_printf("TOP OF CHAR\n");
-	// }
 
-	// if (!buffer || !cursor)
-	// {
-	// 	ft_printf("EXEC OR");
-	// 	return (CTX_EXEC);
-	// }
 
 	if (cursor > ft_strlen(buffer))
 	{
-		ft_printf("CURSOR > LEN\n");
 		return (CTX_DISCARD);
 	}
 
 	if (buffer[cursor] == ' ' && buffer[cursor - 1] == ' ')
 	{
-		ft_printf("SPACES\n");
 		return (CTX_DISCARD);
 	}
 
@@ -123,7 +112,7 @@ void get_binaries(char **envs)
 // END OF GET BINARIES
 
 
-// sets comps->word to current word (string thats under or behind cursor)
+// returns string until to cursor, discards spaces
 static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 {
 	int x = cursor;
@@ -132,7 +121,6 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 	// input is empty
 	if (!x && buffer[x] == '\0')
 	{
-		ft_printf("\ninput is empty\n");
 		return ft_strdup("");
 	}
 
@@ -145,7 +133,6 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 	// cursor is at end of string
 	if (x == len)
 	{
-		ft_printf("\ncursor at end of input\n");
 		x--;
 		while (x > 0 && !ft_isspace(buffer[x]))
 			x--;
@@ -156,7 +143,6 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 	// cursor is top of space
 	else if (ft_isspace(buffer[x]))
 	{
-		ft_printf("\ncursor at top of space\n");
 		x--;
 		if (ft_isspace(buffer[x]))
 		{
@@ -173,47 +159,19 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 	// cursor is top of string
 	else if (!ft_isspace(buffer[x]))
 	{
-		ft_printf("\ncursor at top of string\n");
 		while (x > 0 && !ft_isspace(buffer[x]))
 			x--;
 		// return ft_strdup("");
 	}
 
-	if (x)
+	if (x || ft_isspace(buffer[x]))
 		x++;
+	ft_printf("\n%d\n", x);
 	int size = cursor - x;
 	char *res = malloc(sizeof(char) * size + 1);
-	ft_printf("\n%d %d\n", x, size);
 	ft_strncpy(res, buffer + x, size);
 	res[size] = '\0';
-	ft_printf("\nword:%s\n", res);
 	return res;
-
-
-	// if (!cursor)
-	// {
-	// 	return ft_strdup("");
-	// }
-	// pos = cursor - 1;
-	// while (pos && buffer[cursor] && !ft_isspace(buffer[cursor]))
-	// 	pos--;
-	// if (!pos)
-	// 	return ft_strdup("");
-	// if (pos)
-	// 	pos++;
-	// if (buffer[cursor] == ' ')
-	// 	pos++;
-	// // while (line->input[pos] == '\"')
-	// // 	pos++;
-	// // while (line->input[pos] == '$')
-	// // 	pos++;
-	// int len = cursor - pos;
-
-	// char *res = malloc(sizeof(char) * len + 1);
-	// //ft_bzero(comps->word, INPUT_BUFFER);
-	// ft_strncpy(res, buffer + pos, len);
-	// res[len] = '\0';
-	// return res;
 }
 
 // decide context
@@ -227,60 +185,28 @@ t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)
 	// if ((comps->ctx = check_wo_moving_cursor(buffer, cursor)))
 	// 	return (comps);
 
-	char *word = get_current_word(buffer, cursor);
-	ft_printf("\nCurrent word is: [%s], [%d]\n", word, cursor);
+	comps->word = get_current_word(buffer, cursor);
+	ft_printf("\nCurrent word is: [%s], [%d]\n", comps->word, cursor);
 
-	// Discard extra spaces
-	while (buffer[cursor] == ' ')
-		cursor--;
-
-	while (cursor && buffer[cursor] != ' ')
-		cursor--;
-
-	// TODO: Make some first char func
-	if (!cursor)
+	if (comps->word[0] == '\0' || (ft_strlen(comps->word) - cursor) <= 0)
 	{
-		while (buffer[cursor] != '\0')
-		{
-			if (buffer[cursor] == '/')
-			{
-				comps->ctx = CTX_PATH;
-				return (comps);
-			}
-			else if (buffer[cursor] == '$')
-			{
-				ft_printf("ENV1");
-				comps->ctx = CTX_ENV;
-				return (comps);
-			}
-			else if (buffer[cursor] == ' ' && buffer[0] != ' ')
-			{
-				comps->ctx = CTX_EXEC;
-				return (comps);
-			}
-			cursor++;
-		}
-		ft_printf("EXEC NO CURSOR");
 		comps->ctx = CTX_EXEC;
 	}
 
-	else if (buffer[cursor] == '$' || buffer[cursor + 1] == '$' || buffer[cursor - 1] == '$')
+	else if (comps->word[0] == '$')
+	{
 		comps->ctx = CTX_ENV;
-	else if (buffer[cursor - 1] == '|' || buffer[cursor - 1] == ';')
-		comps->ctx = CTX_EXEC;
-	else if (buffer[cursor + 1] == '|' || buffer[cursor + 1] == ';')
-		comps->ctx = CTX_EXEC;
-	else if (buffer[cursor + 1] == '-')
+	}
+
+	else if (comps->word[0] == '-')
+	{
 		comps->ctx = CTX_FLAG;
-	else if (buffer[cursor + 1] == '/' || buffer[cursor + 1] == '.')
-		comps->ctx = CTX_PATH;
-	else if (buffer[cursor - 1] == '$')
-	{
-		ft_printf("ENV2");
-		comps->ctx = CTX_ENV;
 	}
-	else
+
+	else if (comps->word[0] == '/' || comps->word[0] == '.')
+	{
 		comps->ctx = CTX_PATH;
+	}
 	return (comps);
 }
 
@@ -492,6 +418,7 @@ static void clean(t_completions *comps)
 		comps->suggestions[i] = NULL;
 		i++;
 	}
+	free(comps->word);
 	free(comps->suggestions);
 	free(comps);
 }
@@ -508,8 +435,8 @@ static void autocomplete(t_line *line, t_completions *comps)
 	if (!(comps->word = get_current_word(line->input, line->pos)))
 		return ;
 
-	if (!comps->word[0])
-		return ;
+	// if (!comps->word[0])
+	// 	return ;
 
 	filter(comps);
 
@@ -534,9 +461,10 @@ void handle_autocomplete(t_line *line)
 
 	if (!(comps = get_context(line->input, line->pos)))
 		return ;
-	// ft_printf("\n%s\n", comps->ctx);
+	ft_printf("\n%s\n", comps->ctx);
 	if (ft_strcmp(comps->ctx, CTX_DISCARD) == 0)
 	{
+		free(comps->word);
 		free(comps);
 		return ;
 	}
