@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 16:30:33 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 18:41:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,12 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 		return ft_strdup("");
 	}
 
+	// cursor is top of first char
+	if (x && !ft_isspace(buffer[x]) && ft_isspace(buffer[x - 1]))
+	{
+		return ft_strdup(" ");
+	}
+
 	// cursor is at end of string
 	if (x == len)
 	{
@@ -151,14 +157,17 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 	else if (ft_isspace(buffer[x]))
 	{
 		ft_printf("\ncursor at top of space\n");
-		if (ft_isspace(buffer[x - 1]))
+		x--;
+		if (ft_isspace(buffer[x]))
 		{
 			return ft_strdup(" ");
 		}
-		if (x > 0)
-			x--;
+		// if (x > 0)
+		// 	x--;
 		while (x > 0 && !ft_isspace(buffer[x]))
+		{
 			x--;
+		}
 	}
 
 	// cursor is top of string
@@ -170,6 +179,8 @@ static char *get_current_word(char buffer[INPUT_BUFFER], int cursor)
 		// return ft_strdup("");
 	}
 
+	if (x)
+		x++;
 	int size = cursor - x;
 	char *res = malloc(sizeof(char) * size + 1);
 	ft_printf("\n%d %d\n", x, size);
