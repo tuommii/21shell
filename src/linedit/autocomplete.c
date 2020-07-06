@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 09:34:47 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 11:12:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,54 @@ static char *check_wo_moving_cursor(char buffer[INPUT_BUFFER], int cursor)
 
 	return (NULL);
 }
+
+
+// =================================================
+// GET BINARIES
+
+static int	ft_env_exists(char *name, char *given, int len_given)
+{
+	if (ft_strncmp(name, given, len_given) == 0 \
+	&& name[len_given] && name[len_given] == '=')
+		return (1);
+	return (0);
+}
+
+char		*ft_getenv(char *name, char **envs)
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = ft_strlen(name);
+	if (!name || ft_strequ(name, "$"))
+		return (NULL);
+	while (envs[i])
+	{
+		if (ft_env_exists(envs[i], name, len))
+			return (&envs[i][len + 1]);
+		i++;
+	}
+	return (NULL);
+}
+
+
+void get_binaries(char **envs)
+{
+	char **paths;
+
+	paths = ft_strsplit(ft_getenv("PATH", envs), ':');
+	int i = 0;
+	while (paths != NULL && paths[i])
+	{
+		ft_printf("%s\n", paths[i]);
+		i++;
+	}
+	if (paths != NULL)
+		ft_free_arr(paths);
+}
+// =================================================
+// END OF GET BINARIES
 
 // decide context
 t_completions *get_context(char buffer[INPUT_BUFFER], int cursor)

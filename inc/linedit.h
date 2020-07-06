@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 10:42:12 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 11:10:32 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ typedef struct				s_line
 	struct s_hist			*hist;
 	int						hist_count;
 	int						hist_i;
+	char 					**envs;
 
 	// struct s_suggestions	suggestions;
 	// t_autocomp_cb			*autocomplete;
@@ -219,6 +220,9 @@ void						apped_or_insert(t_line *line, char c);
 void handle_autocomplete(t_line *line);
 t_completions *get_context(char buffer[INPUT_BUFFER], int cursor);
 void get_completions(t_completions **comps);
+void get_binaries(char  **envs);
+char	**init_env(char **env);
+
 
 
 #endif

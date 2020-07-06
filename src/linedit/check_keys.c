@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 10:42:24 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/06 11:08:32 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	check_command_keys(t_line *line)
 {
 	if (line->key == TAB)
 	{
-		handle_autocomplete(line);
+		//handle_autocomplete(line);
+		get_binaries(line->envs);
 		return (1);
 	}
 	else if (line->key == BACKSPACE)
