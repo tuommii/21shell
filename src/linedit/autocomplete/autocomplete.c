@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 11:51:51 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 14:13:23 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 // get all available suggestions for right context
 void set_suggestions(t_line *line, t_completer **ac)
 {
+
+	while(*(line->execs))
+	{
+		ft_printf("Miikak\n%s\n", *(line->execs));
+		line->execs++;
+	}
+
 	if (suggestions_env(line, ac))
 		return ;
 
