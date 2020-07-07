@@ -41,7 +41,12 @@ SRC_NAME 	= 	main.c \
 				linedit/history.c \
 				linedit/history_actions.c \
 				linedit/clipboard.c \
-				linedit/autocomplete.c \
+				linedit/autocomplete/autocomplete.c \
+				linedit/autocomplete/env.c \
+				linedit/autocomplete/execs.c \
+				linedit/autocomplete/buffer.c \
+				linedit/autocomplete/filter.c \
+				linedit/autocomplete/clean.c \
 				parser/ast.c \
 				parser/astutil.c \
 				parser/expand.c \
@@ -64,7 +69,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p obj/builtins
 	@mkdir -p obj/exec
 	@mkdir -p obj/lexer
-	@mkdir -p obj/linedit
+	@mkdir -p obj/linedit/autocomplete
 	@mkdir -p obj/parser
 	@gcc -c $(FLAGS) $(INC) $< -o $@
 

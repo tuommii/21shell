@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 23:56:39 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 08:22:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,10 +218,38 @@ void						apped_or_insert(t_line *line, char c);
 ** AUTOCOMPLETE
 */
 void handle_autocomplete(t_line *line);
-char *get_context(char buffer[INPUT_BUFFER], int cursor);
 void get_completions(t_completions **comps);
 void get_binaries(char  **envs);
 char	**init_env(char **env);
+
+
 int suggestions_env(t_line *line, t_completions **comps);
+char		*ft_getenv(char *name, char **envs);
+
+
+/*
+** AC buffer
+*/
+char *get_word_at(char buffer[INPUT_BUFFER], int cursor);
+void	delete_word(t_line *line, char *word);
+void	insert_word(t_line *line, char *word);
+
+/*
+** AC filter
+*/
+char *get_context(char buffer[INPUT_BUFFER], int cursor);
+void filter(t_completions *comps);
+void sort_by_length(t_completions *comps);
+
+/*
+** AC clean
+*/
+void ac_clean_suggestions(t_completions *ac);
+void ac_clean_matches(t_completions *ac);
+void ac_clean_rest(t_completions *ac);
+void ac_clean(t_completions *ac);
+
+
+
 
 #endif
