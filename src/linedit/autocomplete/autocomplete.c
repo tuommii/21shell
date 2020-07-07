@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 15:34:02 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 15:58:41 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,12 @@
 // get all available suggestions for right context
 void set_suggestions(t_line *line, t_completer **ac)
 {
-	//ft_printf("\nCALLED: %s\n", line->execs[0]);
 	int j = 0;
 	while(*line->execs != NULL)
 	{
 		ft_printf("\n[%d:%s]\n", j, *line->execs);
 		line->execs++;
 		j++;
-	}
-
-	if ((*ac)->ctx)
-	{
-		//(*ac)->suggestions = line->execs;
-		//return ;
 	}
 
 	if (suggestions_env(line, ac))
