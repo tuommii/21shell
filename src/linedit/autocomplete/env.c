@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:03:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 08:12:41 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 08:55:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,23 @@ static int count_envs(char **envs)
 	return (i);
 }
 
-int suggestions_env(t_line *line, t_completions **comps)
+int suggestions_env(t_line *line, t_completer **ac)
 {
 	char **cpy;
 	int i;
 
-	if (ft_strcmp((*comps)->ctx, CTX_ENV) != 0)
+	if (ft_strcmp((*ac)->ctx, CTX_ENV) != 0)
 		return (0);
 
-	(*comps)->count = count_envs(line->envs);
-	(*comps)->suggestions = malloc(sizeof(char *) * (*comps)->count + 1);
+	(*ac)->count = count_envs(line->envs);
+	(*ac)->suggestions = malloc(sizeof(char *) * (*ac)->count + 1);
 
 	i = 0;
-	while (i < (*comps)->count)
+	while (i < (*ac)->count)
 	{
 		int len = ft_strlen(line->envs[i]) + 1;
-		(*comps)->suggestions[i] = malloc(sizeof(char) * len);
-		ft_strcpy((*comps)->suggestions[i], line->envs[i]);
+		(*ac)->suggestions[i] = malloc(sizeof(char) * len);
+		ft_strcpy((*ac)->suggestions[i], line->envs[i]);
 		i++;
 	}
 	return (1);

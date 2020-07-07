@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 08:22:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 08:56:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@
 # define CTX_DISCARD_STR "|;<>-$"
 # define MAX_MATCHES 10
 
-typedef struct				s_completions
+typedef struct				s_completer
 {
 	char					**suggestions;
 	// Suggestions count
@@ -112,7 +112,7 @@ typedef struct				s_completions
 	char					*ctx;
 	int						i;
 	char					*word;
-}							t_completions;
+}							t_completer;
 
 // typedef char				**(t_autocomp_cb)(const char *ctx);
 
@@ -218,12 +218,12 @@ void						apped_or_insert(t_line *line, char c);
 ** AUTOCOMPLETE
 */
 void handle_autocomplete(t_line *line);
-void get_completions(t_completions **comps);
+void get_completions(t_completer *ac);
 void get_binaries(char  **envs);
 char	**init_env(char **env);
 
 
-int suggestions_env(t_line *line, t_completions **comps);
+int suggestions_env(t_line *line, t_completer **ac);
 char		*ft_getenv(char *name, char **envs);
 
 
@@ -238,16 +238,16 @@ void	insert_word(t_line *line, char *word);
 ** AC filter
 */
 char *get_context(char buffer[INPUT_BUFFER], int cursor);
-void filter(t_completions *comps);
-void sort_by_length(t_completions *comps);
+void filter(t_completer *ac);
+void sort_by_length(t_completer *ac);
 
 /*
 ** AC clean
 */
-void ac_clean_suggestions(t_completions *ac);
-void ac_clean_matches(t_completions *ac);
-void ac_clean_rest(t_completions *ac);
-void ac_clean(t_completions *ac);
+void ac_clean_suggestions(t_completer *ac);
+void ac_clean_matches(t_completer *ac);
+void ac_clean_rest(t_completer *ac);
+void ac_clean(t_completer *ac);
 
 
 
