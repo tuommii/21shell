@@ -6,18 +6,11 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 23:35:10 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 00:45:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
-
-
-static char *git_branch(char *cwd)
-{
-	char *path = ft_pathjoin(cwd, ".git/HEAD");
-	return (path);
-}
 
 static char *parse_deepest(char *path)
 {
@@ -36,69 +29,70 @@ static char *parse_deepest(char *path)
 	return (ft_strdup(path+(len-delta)));
 }
 
+static char *git_branch(char *cwd)
+{
+	char *line;
+	char *path = ft_pathjoin(cwd, ".git/HEAD");
+	int fd = open(path, O_RDONLY);
+	free(path);
+
+	if (fd == -1)
+		return (NULL);
+
+	get_next_line(fd, &line);
+	char *branch = parse_deepest(line);
+	free(line);
+	return (branch);
+}
+
+static int handle_readmore(t_line *line)
+{
+	if (!line->readmore)
+		return (0);
+	ft_strcpy(line->prompt, ">");
+	line->prompt_len = 1;
+	ft_putstr(FT_GREEN);
+	if (!line->was_copy)
+		ft_putstr(line->prompt);
+	ft_putstr(FT_RESET);
+	line->was_copy = 0;
+	return (1);
+}
+
 void		print_prompt(t_line *line)
 {
 	// char	host[INPUT_BUFFER + 1];
 	// gethostname(host, INPUT_BUFFER);
+	char *prompt;
+	char *branch;
+	char *temp;
+	char *temp2;
 	char	cwd[INPUT_BUFFER + 1];
 
-	if (line->readmore)
-	{
-		ft_bzero(line->prompt, INPUT_BUFFER);
-		ft_strcpy(line->prompt, ">");
-		line->prompt_len = 1;
-		ft_putstr(FT_GREEN);
-		if (!line->was_copy)
-			ft_putstr(line->prompt);
-		ft_putstr(FT_RESET);
-		line->was_copy = 0;
-		return ;
-	}
-
 	ft_bzero(line->prompt, INPUT_BUFFER);
-
+	if (handle_readmore(line))
+		return ;
 
 	getcwd(cwd, INPUT_BUFFER);
-	char *curr = parse_deepest(cwd);
-
-
-	char *git_file = git_branch(cwd);
-	int fd = open(git_file, O_RDONLY);
-
-	char *with_branch2;
-	if (fd != -1)
+	char *dir = parse_deepest(cwd);
+	if (!(branch = git_branch(cwd)))
 	{
-		char *res;
-		get_next_line(fd, &res);
-		char *branch = parse_deepest(res);
-		free(res);
-
-		char *with_branch = ft_strjoin(curr, " git:");
-		with_branch2 = ft_strjoin(with_branch,  branch);
-		free(branch);
-		free(with_branch);
-	}
-	free(git_file);
-
-	char *prompt;
-	if (fd != -1)
-	{
-		prompt = ft_strjoin(with_branch2, "$>");
-		free(with_branch2);
+		prompt = ft_strjoin(dir, "$>");
 	}
 	else
 	{
-		prompt = ft_strjoin(curr, "$>");
+		temp = ft_strjoin(dir, " on git:");
+		temp2 = ft_strjoin(temp, branch);
+		prompt = ft_strjoin(temp2, "$>");
+		free(temp);
+		free(temp2);
+		free(branch);
 	}
+	free(dir);
 
 	ft_strcpy(line->prompt, prompt);
-
 	free(prompt);
-	free(curr);
-
-
 	line->prompt_len = ft_strlen(line->prompt);
-
 	ft_putstr(FT_GREEN);
 	if (!line->was_copy)
 		ft_putstr(line->prompt);
