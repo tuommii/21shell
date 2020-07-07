@@ -92,6 +92,27 @@ class Shelltests(unittest.TestCase):
         command = ["cd", "/bin/pwd"]
         self.compare_shells(command)
 
+    def test_13_redir(self):
+        command = ["echo", "firstline", ">", "test-suite/resources/testfile", ";", "cat", "test-suite/resources/testfile", "|", "cat"]
+        expected = b'firstline\n'
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, expected)
+        self.assertEqual(err, b'')
+
+    def test_14_no_permission(self):
+        command = ["./test-suite/resources/testbin"]
+        expected = b'21sh: permission denied: ./test-suite/resources/testbin\n'
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+
+    def test_15_pipes(self):
+        command = ["cat", "<", "test-suite/resources/testfile2", "|", "wc", "-c"]
+        expected = b'40\n'
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, expected)
+        self.assertEqual(err, b'')
+
 
 if __name__ == '__main__':
     unittest.main()

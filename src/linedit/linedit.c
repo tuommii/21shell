@@ -142,13 +142,14 @@ char		*linedit(t_line *line)
 		else if(line->key == CTRL_K)
 		{
 			line->was_copy = 1;
-			copy_to_clipboard(create_copy_str(line));
-			// char *new = ft_strjoin("echo ", create_copy_str(line));
-			// char *new2 = ft_strjoin(new, " | clip.exe");  // because windows
-			// ft_strdel(&new);
+			// Let's just do special parsing for copying
+			// copy_to_clipboard(create_copy_str(line));
+			char *new = ft_strjoin("echo ", create_copy_str(line));
+			char *new2 = ft_strjoin(new, " | clip.exe");  // because windows
+			ft_strdel(&new);
 			// Free this
 			// ft_printf("\nCOPY! %s\n", new2);
-			continue ;
+			return (new2);
 		}
 	}
 	return (NULL);
