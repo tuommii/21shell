@@ -6,15 +6,64 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/05 19:22:46 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 22:59:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
+
+static char *parse_cwd(char *path)
+{
+	int delta = 0;
+	int i = 0;
+	while (path[i])
+		i++;
+	int len = i;
+	while (path[i] != '/')
+	{
+		delta++;
+		i--;
+	}
+	if (path[0] && path[1])
+		delta--;
+	return (ft_strdup(path+(len-delta)));
+}
+
 void		print_prompt(t_line *line)
 {
+	char	host[INPUT_BUFFER + 1];
+	char	cwd[INPUT_BUFFER + 1];
+
+	if (line->readmore)
+	{
+		ft_bzero(line->prompt, INPUT_BUFFER);
+		ft_strcpy(line->prompt, ">");
+		line->prompt_len = 1;
+		ft_putstr(FT_GREEN);
+		if (!line->was_copy)
+			ft_putstr(line->prompt);
+		ft_putstr(FT_RESET);
+		line->was_copy = 0;
+		return ;
+	}
+
+	gethostname(host, INPUT_BUFFER);
 	ft_putstr(FT_GREEN);
+	ft_bzero(line->prompt, INPUT_BUFFER);
+	getcwd(cwd, INPUT_BUFFER);
+	char *curr = parse_cwd(cwd);
+
+	char *prompt = ft_strjoin(curr, "$>");
+
+	ft_strcpy(line->prompt, prompt);
+
+	free(prompt);
+	free(curr);
+
+
+	line->prompt_len = ft_strlen(line->prompt);
+
 	if (!line->was_copy)
 		ft_putstr(line->prompt);
 	ft_putstr(FT_RESET);

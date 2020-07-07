@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 21:03:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 22:31:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,12 @@ t_line		*create_line_editor(void)
 	line->hist = NULL;
 	line->execs = NULL;
 	line->envs = NULL;
-	line->prompt = "$>";
+	ft_bzero(line->prompt, INPUT_BUFFER);
+	ft_strcpy(line->prompt, "$>");
 	line->prompt_len = 2;
 	line->was_copy = 0;
 	line->pos = 0;
+	line->readmore = 0;
 	line->is_cut = 0;
 	ft_bzero(line->input, INPUT_BUFFER);
 	ft_bzero(line->cpy, INPUT_BUFFER);

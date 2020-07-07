@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 20:48:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 22:31:19 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ typedef struct				s_line
 	char					cpy[INPUT_BUFFER + 1];
 	char					internal[INPUT_BUFFER +1];
 	int						len;
-	char					*prompt;
+	char					*prompt[INPUT_BUFFER + 1];
 	int						prompt_len;
 	int						key;
 	int						pos;
@@ -146,6 +146,7 @@ typedef struct				s_line
 	struct s_hist			*hist;
 	int						hist_count;
 	int						hist_i;
+	int						readmore;
 	char 					**envs;
 	char					**execs;
 

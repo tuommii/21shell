@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 10:36:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 10:44:44 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 22:32:41 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,15 @@ static void	handle_enter_readmore(t_line *line, int nl_flag)
 char		*read_more(t_line *line, int nl_flag)
 {
 	toggle_raw(0, 0);
-	line->prompt = "> ";
-	line->prompt_len = ft_strlen(line->prompt);
+	// ft_bzero(line->prompt, INPUT_BUFFER);
+	// ft_strcpy(line->prompt, ">");
+	// line->prompt_len = ft_strlen(line->prompt);
+	// ft_putstr(FT_GREEN);
+	// ft_putstr(line->prompt);
+	// ft_putstr(FT_RESET);
+
+
+	line->readmore = 1;
 	print_prompt(line);
 	while (42)
 	{
