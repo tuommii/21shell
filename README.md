@@ -32,7 +32,7 @@ make
 
 ## Unittests
 ```sh
-python test-suite/tests.py
+python3 test-suite/tests.py
 ```
 
 ## Keyboard shorcuts
