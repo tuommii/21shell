@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:08:40 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 08:10:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 11:05:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	delete_word(t_line *line, char *word)
 
 	while (len)
 	{
+		ft_printf("\n%c\n", line->input[line->pos-1]);
 		ft_insert(line->input, line->pos, 0);
 		line->pos--;
 		line->len--;
