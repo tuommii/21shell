@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 09:49:56 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 11:50:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ void filter(t_completer *ac)
 	int i = -1;
 	while (++i < ac->count)
 	{
-		ft_printf("\n%s\n", ac->suggestions[i]);
-		// ft_printf("\nDEBUG:%s, %s, %d\n", ac->suggestions[i], cpy, len);
+		//ft_printf("\n%s\n", ac->suggestions[i]);
 		if (!ac->suggestions[i])
 		{
 			continue ;

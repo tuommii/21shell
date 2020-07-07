@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 08:55:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 11:51:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void autocomplete(t_line *line, t_completer *ac)
 
 	if (!ac->matches_count)
 	{
+		tputs(tgetstr("vb", NULL), 1, &print_char);
 		ac_clean_suggestions(ac);
 		ac_clean_rest(ac);
 		return ;
@@ -80,7 +81,7 @@ void handle_autocomplete(t_line *line)
 	if (!(ac->ctx = get_context(line->input, line->pos)))
 		return ;
 
-	ft_printf("\n%s\n", ac->ctx);
+	//ft_printf("\n%s\n", ac->ctx);
 
 	if (ft_strcmp(ac->ctx, CTX_DISCARD) == 0)
 	{
