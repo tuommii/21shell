@@ -6,14 +6,20 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 22:59:04 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 23:35:10 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
 
-static char *parse_cwd(char *path)
+static char *git_branch(char *cwd)
+{
+	char *path = ft_pathjoin(cwd, ".git/HEAD");
+	return (path);
+}
+
+static char *parse_deepest(char *path)
 {
 	int delta = 0;
 	int i = 0;
@@ -32,7 +38,8 @@ static char *parse_cwd(char *path)
 
 void		print_prompt(t_line *line)
 {
-	char	host[INPUT_BUFFER + 1];
+	// char	host[INPUT_BUFFER + 1];
+	// gethostname(host, INPUT_BUFFER);
 	char	cwd[INPUT_BUFFER + 1];
 
 	if (line->readmore)
@@ -48,13 +55,41 @@ void		print_prompt(t_line *line)
 		return ;
 	}
 
-	gethostname(host, INPUT_BUFFER);
-	ft_putstr(FT_GREEN);
 	ft_bzero(line->prompt, INPUT_BUFFER);
-	getcwd(cwd, INPUT_BUFFER);
-	char *curr = parse_cwd(cwd);
 
-	char *prompt = ft_strjoin(curr, "$>");
+
+	getcwd(cwd, INPUT_BUFFER);
+	char *curr = parse_deepest(cwd);
+
+
+	char *git_file = git_branch(cwd);
+	int fd = open(git_file, O_RDONLY);
+
+	char *with_branch2;
+	if (fd != -1)
+	{
+		char *res;
+		get_next_line(fd, &res);
+		char *branch = parse_deepest(res);
+		free(res);
+
+		char *with_branch = ft_strjoin(curr, " git:");
+		with_branch2 = ft_strjoin(with_branch,  branch);
+		free(branch);
+		free(with_branch);
+	}
+	free(git_file);
+
+	char *prompt;
+	if (fd != -1)
+	{
+		prompt = ft_strjoin(with_branch2, "$>");
+		free(with_branch2);
+	}
+	else
+	{
+		prompt = ft_strjoin(curr, "$>");
+	}
 
 	ft_strcpy(line->prompt, prompt);
 
@@ -64,6 +99,7 @@ void		print_prompt(t_line *line)
 
 	line->prompt_len = ft_strlen(line->prompt);
 
+	ft_putstr(FT_GREEN);
 	if (!line->was_copy)
 		ft_putstr(line->prompt);
 	ft_putstr(FT_RESET);
