@@ -2,6 +2,11 @@ import os
 from subprocess import Popen, PIPE
 from multiprocessing import Process
 
+def get_leaks(results):
+    lst = results.split('\n')
+    for i, line in enumerate(lst):
+        if 'LEAK SUMMARY' in line:
+            return lst[i + 1]
 
 def valgrind_wrapper(program, command):
     valgrind = ["valgrind", "--leak-check=full"]
@@ -14,10 +19,7 @@ def valgrind_wrapper(program, command):
     p_shell.wait()
     results = err.decode()
     if "definitely lost: 0 bytes in 0 blocks" not in results:
-        print(f'Leaks in command: {command}')
-        return results
-    else:
-        return None
+        print(f'LEAKS SUMMARY FOR: {command}:\n\t{get_leaks(results)}')
 
 
 class QueueProcess:

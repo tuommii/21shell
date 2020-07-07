@@ -11,8 +11,8 @@ class Shelltests(unittest.TestCase):
         self.their_shell = '/bin/bash'
         self.our_shell = f'{os.path.abspath(os.getcwd())}/21sh'
         self.tail = True if "TRUE" in "%s" % os.getenv("VG_TAIL") else False
-        binary = shutil.which('valgrind')
-        if binary is not None:
+        valgrind_binary = shutil.which('valgrind')
+        if valgrind_binary is not None:
             self.valgrind = True
         else:
             self.valgrind = False
@@ -137,6 +137,21 @@ class Shelltests(unittest.TestCase):
         out, err = self.exec_shell(command)
         self.assertEqual(out, expected)
         self.assertEqual(err, b'')
+        self.valgrind_leaks(command)
+
+    def test_16_redir(self):
+        command = ["cat", "doesnotexist", "2>&1"]
+        self.compare_shells(command)
+        self.valgrind_leaks(command)
+
+    def test_17_redir(self):
+        command = ["cat", "doesnotexist", ">", "/dev/null"]
+        self.compare_shells(command)
+        self.valgrind_leaks(command)
+
+    def test_18_redir(self):
+        command = ["echo", "An error occurred, bye!", ">&2"]
+        self.compare_shells(command)
         self.valgrind_leaks(command)
 
 
