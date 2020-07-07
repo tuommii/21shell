@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 15:50:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 20:48:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "libft.h"
 
 # define INPUT_BUFFER 4096
-# define MAX_MATCHES 10
+# define MAX_MATCHES 300
 # define OUTPUT STDOUT_FILENO
 # define MAX_HISTORY 3
 
@@ -99,7 +99,6 @@
 
 // TODO: Reset context with  "|;" and what else?
 # define CTX_DISCARD_STR "|;<>-$"
-# define MAX_MATCHES 10
 
 typedef struct				s_completer
 {

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 11:10:57 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 21:03:03 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ t_line		*create_line_editor(void)
 	line->hist_i = 0;
 	line->cols = get_cols();
 	line->hist = NULL;
+	line->execs = NULL;
+	line->envs = NULL;
 	line->prompt = "$>";
 	line->prompt_len = 2;
 	line->was_copy = 0;
