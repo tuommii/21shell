@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 08:16:46 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 08:39:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,18 @@ void filter(t_completions *comps)
 	}
 
 	int len = ft_strlen(cpy);
-	int i = 0;
-	int count = 0;
 
-	while (i < comps->count)
+	int count = 0;
+	int i = -1;
+	while (++i < comps->count)
 	{
-		if (ft_strncmp(comps->suggestions[i], cpy, len) == 0)
-		{
-			if (ft_strlen(comps->suggestions[i]) > len)
-			{
-				comps->matches[count] = malloc(sizeof(char) * ft_strlen(comps->suggestions[i]) + 1);
-				ft_strcpy(comps->matches[count], comps->suggestions[i]);
-				count++;
-			}
-		}
-		i++;
+		if (ft_strncmp(comps->suggestions[i], cpy, len) != 0)
+			continue ;
+		if (ft_strlen(comps->suggestions[i]) <= len)
+			continue ;
+		comps->matches[count] = malloc(sizeof(char) * ft_strlen(comps->suggestions[i]) + 1);
+		ft_strcpy(comps->matches[count], comps->suggestions[i]);
+		count++;
 	}
 	comps->matches_count = count;
 }
@@ -104,8 +101,6 @@ void sort_by_length(t_completions *comps)
 			i = 0;
 		}
 		else
-		{
 			i++;
-		}
 	}
 }
