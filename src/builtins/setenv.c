@@ -26,6 +26,8 @@ void	set_env(char *key, char *value)
 	int		i;
 	char	*tmp;
 
+	if (!g_sh.env)
+		return ;
 	tmp = ft_strjoin(key, "=");
 	i = find_env(key);
 	if (g_sh.env[i])

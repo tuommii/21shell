@@ -100,4 +100,5 @@ int				cd_builtin(char **args)
 		return (move_to(getenv("OLDPWD"), 1));
 	else
 		return (move_to(args[0], 0));
+	return (0);
 }

@@ -129,7 +129,10 @@ char		*linedit(t_line *line)
 		line->cols = get_cols();
 		line->key = keypress();
 		if (check_terminating_keys(line))
+		{
+			ft_putendl("");
 			return (NULL);
+		}
 		else if (line->key == ENTER)
 		{
 			handle_enter(line);

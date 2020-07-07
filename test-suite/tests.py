@@ -50,9 +50,13 @@ class Shelltests(unittest.TestCase):
             leaks = QueueProcess(valgrind_wrapper, self.tail, self.our_shell, command)
             leaks.start()
 
-    # def test_00(self):
-    #     command = ["/bin/ls", "-t"]
-    #     self.compare_shells(command)
+    def test_00_syntax(self):
+        command = [";"]
+        expected = b"21sh: syntax error near unexpected token `;'\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
 
     def test_01_basic(self):
         command = ["/bin/pwd"]
@@ -99,16 +103,16 @@ class Shelltests(unittest.TestCase):
         self.compare_shells(command)
         self.valgrind_leaks(command)
 
-    # def test_10(self):
-    #     command = ["mkdir", "test", ";", "cd", "test", ";", "ls", "-a", ";", "ls", "|", "cat", "|", "wc", "-c", ">", "fifi", ";", "cat", "fifi"]
-    #     our_out, our_err = self.exec_shell(command)
-        # self.exec_shell(["rm", "-rf", "test"])
-        # their_out, their_err = self.exec_shell(command, real=True)
-        # self.exec_shell(["rm", "-rf", "test"], real=True)
+    def test_10_chained(self):
+        command = ["mkdir", "test", ";", "cd", "test", ";", "ls", "-a", ";", "ls", "|", "cat", "|", "wc", "-c", ">", "fifi", ";", "cat", "fifi"]
+        our_out, our_err = self.exec_shell(command)
+        self.exec_shell(["rm", "-rf", "test"])
+        their_out, their_err = self.exec_shell(command, real=True)
+        self.exec_shell(["rm", "-rf", "test"], real=True)
 
-    # def test_11_cd_and_pwd(self):
-    #     command = ["cd", "../", ";", "cd", ";", "/bin/pwd"]
-    #     self.compare_shells(command)
+    def test_11_cd_and_pwd(self):
+        command = ["cd", "../", ";", "cd", ";", "/bin/pwd"]
+        self.compare_shells(command)
 
     def test_12_not_dir(self):
         command = ["cd", "/bin/pwd"]
