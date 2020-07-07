@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 08:56:44 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 13:55:55 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <dirent.h>
 # include <term.h>
 # include <unistd.h>
 
@@ -147,6 +148,7 @@ typedef struct				s_line
 	int						hist_count;
 	int						hist_i;
 	char 					**envs;
+	char					**execs;
 
 	// struct s_suggestions	suggestions;
 	// t_autocomp_cb			*autocomplete;
@@ -219,7 +221,6 @@ void						apped_or_insert(t_line *line, char c);
 */
 void handle_autocomplete(t_line *line);
 void get_completions(t_completer *ac);
-void get_binaries(char  **envs);
 char	**init_env(char **env);
 
 
@@ -249,7 +250,10 @@ void ac_clean_matches(t_completer *ac);
 void ac_clean_rest(t_completer *ac);
 void ac_clean(t_completer *ac);
 
-
+/*
+** AC binaries
+*/
+char **get_execs(char  **envs);
 
 
 #endif
