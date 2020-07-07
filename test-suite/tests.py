@@ -1,7 +1,8 @@
 import os
-import sys
+import shutil
 import unittest
-from subprocess import Popen, PIPE
+from subprocess import call, Popen, PIPE
+from utils import QueueProcess, valgrind_wrapper
 
 
 class Shelltests(unittest.TestCase):
@@ -9,6 +10,13 @@ class Shelltests(unittest.TestCase):
     def setUp(self):
         self.their_shell = '/bin/bash'
         self.our_shell = f'{os.path.abspath(os.getcwd())}/21sh'
+        self.tail = True if "TRUE" in "%s" % os.getenv("VG_TAIL") else False
+        binary = shutil.which('valgrind')
+        if binary is not None:
+            self.valgrind = True
+        else:
+            self.valgrind = False
+            print('Valgrind not available')
 
     def tearDown(self):
         pass
@@ -20,13 +28,13 @@ class Shelltests(unittest.TestCase):
         cmd_list = ["/bin/echo"] + command
         p_command = Popen(cmd_list, stdout=PIPE)
         if real is True:
-            shell = Popen([self.their_shell], stdin=p_command.stdout, stdout=PIPE, stderr=PIPE)
+            p_shell = Popen([self.their_shell], stdin=p_command.stdout, stdout=PIPE, stderr=PIPE)
         else:
-            shell = Popen([self.our_shell], stdin=p_command.stdout, stdout=PIPE, stderr=PIPE)
+            p_shell = Popen([self.our_shell], stdin=p_command.stdout, stdout=PIPE, stderr=PIPE)
         p_command.stdout.close()
         p_command.wait()
-        stdout, stderr = shell.communicate()
-        shell.wait()
+        stdout, stderr = p_shell.communicate()
+        p_shell.wait()
         return stdout, stderr
 
     def compare_shells(self, command):
@@ -37,6 +45,11 @@ class Shelltests(unittest.TestCase):
         self.assertEqual(our_out, their_out)
         self.assertEqual(our_err, their_err)
 
+    def valgrind_leaks(self, command):
+        if self.valgrind is True:
+            leaks = QueueProcess(valgrind_wrapper, self.tail, self.our_shell, command)
+            leaks.start()
+
     # def test_00(self):
     #     command = ["/bin/ls", "-t"]
     #     self.compare_shells(command)
@@ -44,38 +57,47 @@ class Shelltests(unittest.TestCase):
     def test_01_basic(self):
         command = ["/bin/pwd"]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     def test_02_echo(self):
         command = ["   ", "/bin/echo", "  testing....  "]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     def test_03_fake_binary(self):
         command = ["fake_file_name", "-o", "/"]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     def test_04_empty_multi(self):
         command = ["  ", ""]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     def test_05_empty1(self):
         command = [""]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     def test_06_empty2(self):
         command = ["      "]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
-    # def test_07(self):
-    #     command = ["echo", "$?", "$?", "\t$?  "]
-    #     self.compare_shells(command)
+    def test_07_last_exec(self):
+        command = ["echo", "$?", "$?", "\t$?  "]
+        self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     def test_08_exit(self):
         command = ["exit", "1"]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     def test_09_cd_not_exist(self):
         command = ["cd", "/doesnotexist"]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     # def test_10(self):
     #     command = ["mkdir", "test", ";", "cd", "test", ";", "ls", "-a", ";", "ls", "|", "cat", "|", "wc", "-c", ">", "fifi", ";", "cat", "fifi"]
@@ -91,6 +113,7 @@ class Shelltests(unittest.TestCase):
     def test_12_not_dir(self):
         command = ["cd", "/bin/pwd"]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
 
     def test_13_redir(self):
         command = ["echo", "firstline", ">", "test-suite/resources/testfile", ";", "cat", "test-suite/resources/testfile", "|", "cat"]
@@ -98,6 +121,7 @@ class Shelltests(unittest.TestCase):
         out, err = self.exec_shell(command)
         self.assertEqual(out, expected)
         self.assertEqual(err, b'')
+        self.valgrind_leaks(command)
 
     def test_14_no_permission(self):
         command = ["./test-suite/resources/testbin"]
@@ -105,6 +129,7 @@ class Shelltests(unittest.TestCase):
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
 
     def test_15_pipes(self):
         command = ["cat", "<", "test-suite/resources/testfile2", "|", "wc", "-c"]
@@ -112,6 +137,7 @@ class Shelltests(unittest.TestCase):
         out, err = self.exec_shell(command)
         self.assertEqual(out, expected)
         self.assertEqual(err, b'')
+        self.valgrind_leaks(command)
 
 
 if __name__ == '__main__':
