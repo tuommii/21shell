@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:08:40 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 11:05:36 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/07 11:34:08 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ void	delete_word(t_line *line, char *word)
 			break;
 		line->pos++;
 		len++;
+	}
+
+	// Do not remove strating $
+	if (line->input[line->pos - len] == '$')
+	{
+		len--;
 	}
 
 	while (len)
