@@ -148,7 +148,7 @@ char		*linedit(t_line *line)
 			// ft_strdel(&new);
 			// Free this
 			// ft_printf("\nCOPY! %s\n", new2);
-			// continue ;
+			continue ;
 		}
 	}
 	return (NULL);
