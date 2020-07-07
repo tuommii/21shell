@@ -36,13 +36,13 @@ static int	pipe_to_right(int fd[2], t_ast *right)
 	pid_t	pid_right;
 	int		status_right;
 
-	ft_putendl("exec pipe right");
+	// ft_putendl("exec pipe right");
 	status_right = 0;
 	if ((pid_right = fork()) == -1)
 		exit_error(FORK_ERR, STR_FORK_ERR);
 	if (!pid_right)
 	{
-		ft_putendl("exec pipe right pid 0");
+		// ft_putendl("exec pipe right pid 0");
 		close(fd[1]);
 		dup21(fd[0], STDIN_FILENO, right->token->data);
 		if (right->parent->parent && right->parent->parent->type & T_PIPE)
@@ -54,7 +54,7 @@ static int	pipe_to_right(int fd[2], t_ast *right)
 	}
 	else
 	{
-		ft_putendl("exec pipe right else");
+		// ft_putendl("exec pipe right else");
 		close(fd[1]);
 		waitpid(pid_right, &status_right, 0);
 	}
@@ -71,7 +71,7 @@ int			execute_pipeline(t_ast *left, t_ast *right)
 	int		status;
 	pid_t	pid_left;
 
-	ft_putendl("exec pipe left");
+	// ft_putendl("exec pipe left");
 	if (pipe(fd) == -1)
 	{
 		print_error(PIPE_ERR, left->left->token->data);
@@ -81,14 +81,14 @@ int			execute_pipeline(t_ast *left, t_ast *right)
 		exit_error(FORK_ERR, STR_FORK_ERR);
 	else if (!pid_left)
 	{
-		ft_putendl("exec pipe left no pid");
+		// ft_putendl("exec pipe left no pid");
 		close(fd[0]);
 		dup21(fd[1], STDOUT_FILENO, left->token->data);
 		exit(execute_command(left, PIPE_EXEC));
 	}
 	else
 	{
-		ft_putendl("exec pipe left else");
+		// ft_putendl("exec pipe left else");
 		status = pipe_to_right(fd, right);
 		close(fd[0]);
 		waitpid(pid_left, NULL, 0);

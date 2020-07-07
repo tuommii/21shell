@@ -5,3 +5,4 @@ a.out
 .vscode
 .test
 venv/
+__pycache__

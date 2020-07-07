@@ -12,6 +12,16 @@
 
 #include "shell.h"
 
+static char			*helper(char *var)
+{
+	if (!ft_strcmp(var, "$?"))
+		return (ft_itoa(g_sh.status));
+	else if (getenv(var + 1))
+		return (ft_strdup(getenv(var + 1)));
+	else
+		return (NULL);
+}
+
 static void			parse_dollar(char **data)
 {
 	int		i;
@@ -27,10 +37,12 @@ static void			parse_dollar(char **data)
 				&& !ft_isspace(tmp[i]))
 			i++;
 		var = ft_strsub(tmp, 0, i);
-		if ((value = getenv(var + 1)))
+		value = helper(var);
+		if (value)
 		{
 			tmp = *data;
 			*data = ft_strreplace(tmp, var, value);
+			free(value);
 			ft_strdel(&tmp);
 			tmp = *data;
 		}
