@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 13:26:43 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 14:01:50 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,31 @@ void handle_autocomplete(t_line *line)
 	}
 	ft_printf("\n%s\n", ac->word);
 
+	char **suggestions;
+
 	if ((ft_strcmp(ac->ctx, CTX_EXEC)) == 0)
 	{
-		ft_printf("\n%s\n", ac->execs[0]);
-		ft_printf("\n%s\n", ac->envs[0]);
+		filter(ac, ac->execs, ac->execs_count);
+		ft_printf("\nalive\n");
+		// ft_printf("\n%s\n", ac->execs[0]);
+		// ft_printf("\n%s\n", ac->envs[0]);
 	}
+	else if ((ft_strcmp(ac->ctx, CTX_ENV)) == 0)
+	{
+		filter(ac, ac->envs, ac->envs_count);
+		ft_printf("\nalive\n");
+	}
+	ft_printf("\nalive\n");
+
+	if (ac->matches_count == 0)
+		return ;
+
+	sort_by_length(ac);
+	delete_word(line, ac->word);
+	insert_word(line, ac->matches[0]);
+	ac_clean_matches(ac);
+	// ac_clean_rest(ac);
+	// ac_clean(ac);
 
 	// //ft_printf("\n%s\n", ac->ctx);
 

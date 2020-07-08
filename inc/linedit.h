@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 13:20:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 13:48:58 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ void	insert_word(t_line *line, char *word);
 ** AC filter
 */
 char *get_context(char buffer[INPUT_BUFFER], int cursor);
-void filter(t_completer *ac);
+void filter(t_completer *ac,  char **arr, int c);
 void sort_by_length(t_completer *ac);
 
 /*

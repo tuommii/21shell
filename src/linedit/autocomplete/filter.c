@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 13:25:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 13:57:45 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 
 	if (!(word = get_word_at(buffer, cursor)))
 	{
-		free(word);
 		return (NULL);
 	}
 
@@ -55,7 +54,7 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 }
 
 // copy suitable suggestions only
-void filter(t_completer *ac)
+void filter(t_completer *ac,  char **arr, int c)
 {
 	if (!ac->word)
 		return ;
@@ -65,27 +64,36 @@ void filter(t_completer *ac)
 	{
 		cpy++;
 	}
-
 	int len = ft_strlen(cpy);
 	// ft_printf("\nLEN: %d, WORD: %s\n", len, cpy);
 
 	int count = 0;
-	int i = -1;
-	while (++i < ac->count)
+	int i = 0;
+	while (i < c)
 	{
 		//ft_printf("\n%s\n", ac->suggestions[i]);
-		if (!ac->suggestions[i])
+		if (!arr[i])
 		{
+			i++;
 			continue ;
 		}
-		if (ft_strncmp(ac->suggestions[i], cpy, len) != 0)
+		ft_printf("\nalive\n");
+		if (ft_strncmp(arr[i], cpy, len) != 0)
+		{
+			i++;
 			continue ;
-		if (ft_strlen(ac->suggestions[i]) <= len)
+		}
+		if (ft_strlen(arr[i]) <= len)
+		{
+			i++;
 			continue ;
-		ac->matches[count] = malloc(sizeof(char) * ft_strlen(ac->suggestions[i]) + 1);
-		ft_strcpy(ac->matches[count], ac->suggestions[i]);
+		}
+		ac->matches[count] = malloc(sizeof(char) * ft_strlen(arr[i]) + 1);
+		ft_strcpy(ac->matches[count], arr[i]);
 		count++;
+		i++;
 	}
+	ft_printf("\nALIVE\n");
 	ac->matches_count = count;
 }
 
