@@ -11,12 +11,7 @@ class Shelltests(unittest.TestCase):
         self.their_shell = '/bin/bash'
         self.our_shell = f'{os.path.abspath(os.getcwd())}/21sh'
         self.tail = True if "TRUE" in "%s" % os.getenv("VG_TAIL") else False
-        valgrind_binary = shutil.which('valgrind')
-        if valgrind_binary is not None:
-            self.valgrind = True
-        else:
-            self.valgrind = False
-            print('Valgrind not available')
+        self.valgrind = True if shutil.which('valgrind') is not None else False
 
     def tearDown(self):
         pass
@@ -46,7 +41,7 @@ class Shelltests(unittest.TestCase):
         self.assertEqual(our_err, their_err)
 
     def valgrind_leaks(self, command):
-        if self.valgrind is True:
+        if self.valgrind:
             leaks = QueueProcess(valgrind_wrapper, self.tail, self.our_shell, command)
             leaks.start()
 
@@ -109,6 +104,8 @@ class Shelltests(unittest.TestCase):
         self.exec_shell(["rm", "-rf", "test"])
         their_out, their_err = self.exec_shell(command, real=True)
         self.exec_shell(["rm", "-rf", "test"], real=True)
+        self.assertEqual(our_out, their_out)
+        self.assertEqual(our_err, their_err)
 
     def test_11_cd_and_pwd(self):
         command = ["cd", "../", ";", "cd", ";", "/bin/pwd"]
@@ -156,6 +153,14 @@ class Shelltests(unittest.TestCase):
     def test_18_redir(self):
         command = ["echo", "An error occurred, bye!", ">&2"]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
+
+    def test_19_syntax(self):
+        command = ["echo", "moro", "|", "cat", ";", "|"]
+        expected = b"21sh: syntax error near unexpected token `|'\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
         self.valgrind_leaks(command)
 
 
