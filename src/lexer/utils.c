@@ -21,7 +21,7 @@ void	lexer_del(t_lexer **lexer)
 	t_token	*tmp;
 	t_token	*prev;
 
-	if (!lexer || !*lexer || !(*lexer)->first)
+	if (!lexer || !*lexer)
 		return ;
 	tmp = (*lexer)->first;
 	while (tmp)

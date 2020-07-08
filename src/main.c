@@ -89,11 +89,9 @@ void			run_21_stdin(void)
 	listen_signals();
 	get_next_line(0, &input);
 	tokenize(&lexer, input);
-	if (lexer->flags & DEBUG_LEXER)
-		lexer_debug(lexer);
-	else
-		parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
+	parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
 	lexer_del(&lexer);
+	ft_strdel(&input);
 }
 
 int				main(int argc, char **argv, char **environment)
