@@ -150,8 +150,6 @@ char		*linedit(t_line *line)
 			char *new = ft_strjoin("echo ", create_copy_str(line));
 			char *new2 = ft_strjoin(new, " | clip.exe");  // because windows
 			ft_strdel(&new);
-			// Free this
-			// ft_printf("\nCOPY! %s\n", new2);
 			return (new2);
 		}
 	}

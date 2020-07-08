@@ -58,6 +58,7 @@ int			aggregate_fds(t_token *token)
 /*
 ** Aggregate fd's if >& or <& etc.
 ** Open a file and redirect if >>, >, <
+** Pipe if heredoc <<
 */
 
 static int	check_redirection_type(t_token *tmp)
