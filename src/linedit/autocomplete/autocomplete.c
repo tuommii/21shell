@@ -6,68 +6,38 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 09:14:18 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 13:26:43 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-// get all available suggestions for right context
-void set_suggestions(t_line *line, t_completer **ac)
-{
-	int j = 0;
-	char **cpy = line->execs;
-	while(*cpy != NULL)
-	{
-		cpy++;
-		j++;
-	}
-
-	(*ac)->suggestions = NULL;
-
-	if (suggestions_env(line, ac))
-		return ;
-
-	// if (!((*ac)->suggestions = get_execs(line->envs)))
-	// {
-	// 	ft_printf("\nPROBLEM\n");
-	// 	return ;
-	// }
-	// (*ac)->count = j;
-}
-
-
 // complete word based on current word
-static void autocomplete(t_line *line, t_completer *ac)
-{
-	set_suggestions(line, &ac);
+// static void autocomplete(t_line *line, t_completer *ac)
+// {
+// 	if (!(ac->word = get_word_at(line->input, line->pos)))
+// 	{
+// 		ac_clean_suggestions(ac);
+// 		free(ac->ctx);
+// 		free(ac);
+// 		return ;
+// 	}
+// 	ft_printf("\n%s\n", ac->word);
+// 	// after this, matches and matches_count is available
+// 	filter(ac);
 
-	if (!(ac->word = get_word_at(line->input, line->pos)))
-	{
-		ac_clean_suggestions(ac);
-		free(ac->ctx);
-		free(ac);
-		return ;
-	}
-
-	// ft_printf("\nCOUNT: %d\n", ac->count);
-
-	// after this, matches and matches_count is available
-	filter(ac);
-
-	if (!ac->matches_count)
-	{
-		tputs(tgetstr("vb", NULL), 1, &print_char);
-		ac_clean_suggestions(ac);
-		ac_clean_rest(ac);
-		return ;
-	}
-	sort_by_length(ac);
-	delete_word(line, ac->word);
-	// Shortest is first
-	insert_word(line, ac->matches[0]);
-	ac_clean(ac);
-}
+// 	if (!ac->matches_count)
+// 	{
+// 		tputs(tgetstr("vb", NULL), 1, &print_char);
+// 		ac_clean_rest(ac);
+// 		return ;
+// 	}
+// 	sort_by_length(ac);
+// 	delete_word(line, ac->word);
+// 	// Shortest is first
+// 	insert_word(line, ac->matches[0]);
+// 	ac_clean(ac);
+// }
 
 // called when tab is pressed
 void handle_autocomplete(t_line *line)
@@ -87,6 +57,15 @@ void handle_autocomplete(t_line *line)
 	ac = line->ac;
 	if (!(ac->ctx = get_context(line->input, line->pos)))
 		return ;
+
+	if (!(ac->word = get_word_at(line->input, line->pos)))
+	{
+		free(ac->ctx);
+		free(ac);
+		return ;
+	}
+	ft_printf("\n%s\n", ac->word);
+
 	if ((ft_strcmp(ac->ctx, CTX_EXEC)) == 0)
 	{
 		ft_printf("\n%s\n", ac->execs[0]);

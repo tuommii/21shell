@@ -6,11 +6,20 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:03:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 09:52:46 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 13:16:46 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
+
+static int get_envname_last_index(char *str)
+{
+	char *cpy = str;
+	int i = 0;
+	while (cpy[i] && cpy[i] != '=')
+		i++;
+	return (i);
+}
 
 static int count_envs(char **envs)
 {
@@ -27,38 +36,35 @@ static int count_envs(char **envs)
 	return (i);
 }
 
-static int get_envname_last_index(char *str)
-{
-	char *cpy = str;
-	int i = 0;
-	while (cpy[i] && cpy[i] != '=')
-		i++;
-	return (i);
-}
-
-int suggestions_env(t_line *line, t_completer **ac)
+void load_envs(t_completer *ac, char **envs)
 {
 	char **cpy;
 	int i;
 
-	if (ft_strcmp((*ac)->ctx, CTX_ENV) != 0)
-		return (0);
-
-	(*ac)->count = count_envs(line->envs);
-	(*ac)->suggestions = malloc(sizeof(char *) * (*ac)->count + 1);
+	ac->envs_count = count_envs(envs);
+	ft_printf("\nENV: %d\n", ac->envs_count);
+	ac->envs = malloc(sizeof(char *) * ac->envs_count);
+	i = 0;
+	while (i < ac->envs_count)
+	{
+		int last = get_envname_last_index(envs[i]);
+		// if (!last)
+		// 	last = 1;
+		ac->envs[i] = malloc(sizeof(char) * last + 1);
+		ft_strncpy(ac->envs[i], envs[i], last);
+		ac->envs[i][last] = '\0';
+		//ft_printf("\n%d\n", i);
+		i++;
+		// ft_printf("\nalive\n");
+	}
+	ac->envs[i] = NULL;
 
 	i = 0;
-	while (i < (*ac)->count)
+	while (i < ac->envs_count)
 	{
-		int last = get_envname_last_index(line->envs[i]);
-		// int len = ft_strlen(line->envs[i]);
-		(*ac)->suggestions[i] = malloc(sizeof(char) * last + 1);
-		ft_strncpy((*ac)->suggestions[i], line->envs[i], last);
-		(*ac)->suggestions[i][last] = '\0';
-		// ft_printf("\n[%d, %s]\n", last, (*ac)->suggestions[i]);
+		ft_printf("\n%s\n", ac->envs[i]);
 		i++;
 	}
-	return (1);
 }
 
 static int	ft_env_exists(char *name, char *given, int len_given)

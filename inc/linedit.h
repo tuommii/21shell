@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 08:54:59 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 13:20:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ char	**init_env(char **env);
 
 
 int suggestions_env(t_line *line, t_completer **ac);
+void load_envs(t_completer *ac, char **envs);
 char		*ft_getenv(char *name, char **envs);
 
 
