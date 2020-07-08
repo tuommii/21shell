@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 22:31:19 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 08:54:59 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,15 @@
 typedef struct				s_completer
 {
 	char					**suggestions;
+
+	char 					**envs;
+	int						envs_count;
+
+	char					**execs;
+	int						execs_count;
+
+	char 					**paths;
+	int						paths_count;
 	// Suggestions count
 	int						count;
 
@@ -147,8 +156,12 @@ typedef struct				s_line
 	int						hist_count;
 	int						hist_i;
 	int						readmore;
+
+	t_completer				*ac;
 	char 					**envs;
+	int						envs_count;
 	char					**execs;
+	int 					execs_count;
 
 	// struct s_suggestions	suggestions;
 	// t_autocomp_cb			*autocomplete;
@@ -253,7 +266,8 @@ void ac_clean(t_completer *ac);
 /*
 ** AC binaries
 */
-char **get_execs(char  **envs);
+char **get_execs(t_completer *ac, char  **envs);
+t_completer *create_completer(void);
 
 
 #endif

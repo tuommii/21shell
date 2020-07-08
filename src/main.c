@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/07 21:38:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 09:09:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,12 @@ int				main(int argc, char **argv, char **environment)
 	line = NULL;
 	linedit_setup();
 	line = create_line_editor();
-	line->execs = get_execs(environment);
-	line->envs = init_env(environment);
+
+	// Autocompleter
+	line->ac = create_completer();
+	get_execs(line->ac, environment);
+	line->ac->envs = init_env(environment);
+
 	create_shell(environment, line);
 	display_banner();
 	run_21(line);
