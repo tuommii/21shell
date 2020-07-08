@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 09:03:44 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 14:49:23 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ char **files_from_dir(t_completer **ac, char *path, int *i)
 		return (NULL);
 	}
 
-	ft_printf("STARTING WHILE WITH I: %d\n", *i);
 	while ((de = readdir(dir)) != NULL)
 	{
 		(*ac)->execs[*i] = malloc(sizeof(char) * ft_strlen(de->d_name) + 1);
 		ft_strcpy((*ac)->execs[*i], de->d_name);
-		ft_printf("\n%d: %s\n", *i, (*ac)->execs[*i]);
 		*i += 1;
 	}
 
@@ -84,7 +82,7 @@ static int count_files(char *path)
 }
 
 // opendir is allowed
-char **get_execs(t_completer *ac, char **envs)
+char **load_execs(t_completer *ac, char **envs)
 {
 	char **paths;
 	char **files;
@@ -100,7 +98,6 @@ char **get_execs(t_completer *ac, char **envs)
 		ac->execs_count += count_files(paths[i]);
 		i++;
 	}
-	ft_printf("\nCOUNTED: %d\n", ac->execs_count);
 
 	if (!(ac->execs = malloc(sizeof(char *) * ac->execs_count + 1)))
 	{
@@ -112,7 +109,6 @@ char **get_execs(t_completer *ac, char **envs)
 	int k = 0;
 	while (paths != NULL && paths[j])
 	{
-		ft_printf("Looking: %s\n", paths[j]);
 		files_from_dir(&ac, paths[j], &k);
 		j++;
 	}

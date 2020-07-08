@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 13:57:45 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 14:39:33 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 }
 
 // copy suitable suggestions only
-void filter(t_completer *ac,  char **arr, int c)
+void filter(t_completer *ac,  char **arr, int count)
 {
 	if (!ac->word)
 		return ;
@@ -67,9 +67,9 @@ void filter(t_completer *ac,  char **arr, int c)
 	int len = ft_strlen(cpy);
 	// ft_printf("\nLEN: %d, WORD: %s\n", len, cpy);
 
-	int count = 0;
 	int i = 0;
-	while (i < c)
+	int match_count = 0;
+	while (i < count)
 	{
 		//ft_printf("\n%s\n", ac->suggestions[i]);
 		if (!arr[i])
@@ -77,7 +77,6 @@ void filter(t_completer *ac,  char **arr, int c)
 			i++;
 			continue ;
 		}
-		ft_printf("\nalive\n");
 		if (ft_strncmp(arr[i], cpy, len) != 0)
 		{
 			i++;
@@ -88,13 +87,12 @@ void filter(t_completer *ac,  char **arr, int c)
 			i++;
 			continue ;
 		}
-		ac->matches[count] = malloc(sizeof(char) * ft_strlen(arr[i]) + 1);
-		ft_strcpy(ac->matches[count], arr[i]);
-		count++;
+		ac->matches[match_count] = malloc(sizeof(char) * ft_strlen(arr[i]) + 1);
+		ft_strcpy(ac->matches[match_count], arr[i]);
+		match_count++;
 		i++;
 	}
-	ft_printf("\nALIVE\n");
-	ac->matches_count = count;
+	ac->matches_count = match_count;
 }
 
 // sort comp->matches by length so we get shortest first
