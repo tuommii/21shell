@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 14:49:23 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 15:02:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_completer *create_completer(void)
 }
 
 // TODO: check is file and is executable
-char **files_from_dir(t_completer **ac, char *path, int *i)
+char **files_from_dir(t_completer *ac, char *path, int *i)
 {
 	struct dirent *de;
 	DIR *dir;
@@ -53,8 +53,8 @@ char **files_from_dir(t_completer **ac, char *path, int *i)
 
 	while ((de = readdir(dir)) != NULL)
 	{
-		(*ac)->execs[*i] = malloc(sizeof(char) * ft_strlen(de->d_name) + 1);
-		ft_strcpy((*ac)->execs[*i], de->d_name);
+		ac->execs[*i] = malloc(sizeof(char) * ft_strlen(de->d_name) + 1);
+		ft_strcpy(ac->execs[*i], de->d_name);
 		*i += 1;
 	}
 
@@ -62,7 +62,7 @@ char **files_from_dir(t_completer **ac, char *path, int *i)
 	return (execs);
 }
 
-static int count_files(char *path)
+int count_files(char *path)
 {
 	DIR *dir;
 
@@ -109,7 +109,7 @@ char **load_execs(t_completer *ac, char **envs)
 	int k = 0;
 	while (paths != NULL && paths[j])
 	{
-		files_from_dir(&ac, paths[j], &k);
+		files_from_dir(ac, paths[j], &k);
 		j++;
 	}
 

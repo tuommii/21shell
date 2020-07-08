@@ -41,8 +41,9 @@ SRC_NAME 	= 	main.c \
 				linedit/history_actions.c \
 				linedit/clipboard.c \
 				linedit/autocomplete/autocomplete.c \
-				linedit/autocomplete/env.c \
+				linedit/autocomplete/envs.c \
 				linedit/autocomplete/execs.c \
+				linedit/autocomplete/paths.c \
 				linedit/autocomplete/buffer.c \
 				linedit/autocomplete/filter.c \
 				linedit/autocomplete/clean.c \

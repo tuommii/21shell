@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 00:45:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 15:10:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ void		print_prompt(t_line *line)
 		return ;
 
 	getcwd(cwd, INPUT_BUFFER);
+	load_paths(line->ac, cwd);
+
+	// ft_printf("\n%s\n", line->ac->paths[0]);
+	// ft_printf("\n%s\n", line->ac->paths[1]);
+	// ft_printf("\n%s\n", line->ac->paths[2]);
+
 	char *dir = parse_deepest(cwd);
 	if (!(branch = git_branch(cwd)))
 	{

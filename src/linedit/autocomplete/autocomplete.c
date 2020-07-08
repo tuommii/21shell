@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 14:35:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 15:11:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ void handle_autocomplete(t_line *line)
 	else if ((ft_strcmp(line->ac->ctx, CTX_ENV)) == 0)
 	{
 		filter(line->ac, line->ac->envs, line->ac->envs_count);
+	}
+	else if ((ft_strcmp(line->ac->ctx, CTX_PATH)) == 0)
+	{
+		filter(line->ac, line->ac->paths, line->ac->paths_count);
 	}
 	else
 	{

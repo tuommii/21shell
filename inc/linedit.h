@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 14:49:43 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/08 15:03:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,9 @@ void ac_clean(t_completer *ac);
 */
 char **load_execs(t_completer *ac, char  **envs);
 t_completer *create_completer(void);
+int count_files(char *path);
+void load_paths(t_completer *ac, char *cwd);
+
 
 
 #endif
