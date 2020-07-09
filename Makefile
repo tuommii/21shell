@@ -32,6 +32,7 @@ SRC_NAME 	= 	main.c \
 				linedit/linedit.c \
 				linedit/read_more.c \
 				linedit/redraw.c \
+				linedit/prompt.c \
 				linedit/check_keys.c \
 				linedit/movement_line.c \
 				linedit/movement_row.c \
