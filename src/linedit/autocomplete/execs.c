@@ -6,24 +6,22 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 17:11:51 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 22:32:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
 // TODO: check is file and is executable
-char **files_from_dir(t_completer *ac, char *path, int *i)
+void files_from_dir(t_completer *ac, char *path, int *i)
 {
 	struct dirent *de;
 	DIR *dir;
-	char **execs;
 
 	dir = opendir(path);
 	if (dir == NULL)
 	{
 		ft_printf("\nOPEN DIR 1 count ERROR!\n");
-		return (NULL);
 	}
 
 	while ((de = readdir(dir)) != NULL)
@@ -33,13 +31,18 @@ char **files_from_dir(t_completer *ac, char *path, int *i)
 		*i += 1;
 	}
 
-	closedir(dir);
-	return (execs);
+	if ((closedir(dir)) == -1)
+	{
+		ft_printf("\nOPEN DIR 1 count ERROR!\n");
+	}
 }
 
 int count_files(char *path)
 {
 	DIR *dir;
+
+	if (!path)
+		return (0);
 
 	dir = opendir(path);
 	if (dir == NULL)
@@ -52,50 +55,58 @@ int count_files(char *path)
 	int i = 0;
 	while (readdir(dir) != NULL)
 		i++;
-	closedir(dir);
+	if ((closedir(dir)) == -1)
+	{
+		ft_printf("\nOPEN DIR 1 count ERROR!\n");
+		return (0);
+	}
 	return (i);
 }
 
 // opendir is allowed
-char **load_execs(t_completer *ac, char **envs)
+void load_execs(t_completer *ac, char **envs)
 {
 	char **paths;
-	char **files;
 
-	files = NULL;
-	paths = ft_strsplit(ft_getenv("PATH", envs), ':');
+	paths = NULL;
+	if (!(paths = ft_strsplit(ft_getenv("PATH", envs), ':')))
+		return ;
 
-	int i = 0;
-	ac->execs_count = 0;
-
-	while (paths != NULL && paths[i])
+	char **h = paths;
+	while (*paths != NULL)
 	{
-		ac->execs_count += count_files(paths[i]);
-		i++;
+		ac->execs_count += count_files(*paths);
+		paths++;
 	}
 
-	if (!(ac->execs = malloc(sizeof(char *) * ac->execs_count + 1)))
+
+	paths = h;
+
+
+	if (!(ac->execs = malloc(sizeof(char *) * (ac->execs_count + 1))))
 	{
-		ft_printf("\nMALLOC ERR: %d\n", i);
 		ft_freestrarr(paths);
-		return (NULL);
+		return ;
 	}
 
-	char **head = ac->execs;
+	// char **head;
+	// head = NULL;
+	// head = ac->execs;
 
-	int j = 0;
-	int k = 0;
-	while (paths != NULL && paths[j])
+	// int j = 0;
+	int i = 0;
+	while (*paths != NULL)
 	{
-		files_from_dir(ac, paths[j], &k);
-		j++;
+		files_from_dir(ac, *paths, &i);
+		paths++;
+		// j++;
 	}
-	ft_freestrarr(paths);
+	ft_freestrarr(h);
 
+	// ac->execs = head;
 
 	// if (!(files = files_from_dir("/bin/")))
 	// 	return (NULL);
 	// if (paths != NULL)
 	// 	ft_free_arr(paths);
-	return (head);
 }

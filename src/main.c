@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 17:09:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 22:12:18 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int				main(int argc, char **argv, char **environment)
 	line->ac = create_completer();
 	load_execs(line->ac, environment);
 	load_envs(line->ac, environment);
+	// load paths later
 
 	create_shell(environment, line);
 	display_banner();

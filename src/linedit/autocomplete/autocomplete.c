@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 11:24:17 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 21:38:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,15 @@ t_completer *create_completer(void)
 		ac->matches[i] = NULL;
 		i++;
 	}
-
-	ac->len = 0;
-	ac->word = NULL;
-	ac->matches_count = 0;
 	ac->ctx = NULL;
-	ac->count = 0;
+	ac->word = NULL;
+	ac->execs_count = 0;
+	ac->matches_count = 0;
+	ac->envs_count = 0;
+	ac->execs = NULL;
+
+	ac->execs = NULL;
+	ac->envs = NULL;
+	ac->paths = NULL;
 	return (ac);
 }

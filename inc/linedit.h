@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 11:09:36 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 22:00:55 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@
 
 typedef struct				s_completer
 {
-	char					**suggestions;
+	char					*matches[MAX_MATCHES];
+	int 					matches_count;
 
 	char 					**envs;
 	int						envs_count;
@@ -112,14 +113,8 @@ typedef struct				s_completer
 
 	char 					**paths;
 	int						paths_count;
-	// Suggestions count
-	int						count;
 
-	char					*matches[MAX_MATCHES];
-	int 					matches_count;
-	int 					len;
 	char					*ctx;
-	int						i;
 	char					*word;
 }							t_completer;
 
@@ -263,7 +258,7 @@ void ac_clean(t_completer *ac);
 /*
 ** AC binaries
 */
-char **load_execs(t_completer *ac, char  **envs);
+void load_execs(t_completer *ac, char  **envs);
 t_completer *create_completer(void);
 int count_files(char *path);
 void load_paths(t_completer *ac, char *cwd);
