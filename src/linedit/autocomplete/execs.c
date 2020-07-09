@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 15:02:51 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 10:49:18 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char **load_execs(t_completer *ac, char **envs)
 	if (!(ac->execs = malloc(sizeof(char *) * ac->execs_count + 1)))
 	{
 		ft_printf("\nMALLOC ERR: %d\n", i);
+		ft_freestrarr(paths);
 		return (NULL);
 	}
 
@@ -112,6 +113,7 @@ char **load_execs(t_completer *ac, char **envs)
 		files_from_dir(ac, paths[j], &k);
 		j++;
 	}
+	ft_freestrarr(paths);
 
 
 	// if (!(files = files_from_dir("/bin/")))

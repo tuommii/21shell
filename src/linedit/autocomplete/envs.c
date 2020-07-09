@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:03:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 15:00:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 10:09:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void load_envs(t_completer *ac, char **envs)
 	int i;
 
 	ac->envs_count = count_envs(envs);
-	ac->envs = malloc(sizeof(char *) * ac->envs_count);
+	ac->envs = malloc(sizeof(char *) * (ac->envs_count + 1));
 	i = 0;
 	while (i < ac->envs_count)
 	{

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 15:05:55 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 10:51:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void		run_21(t_line *line)
 	listen_signals();
 	while ((input = linedit(line)) != NULL)
 	{
+		ft_freestrarr(line->ac->paths);
 		toggle_raw(1, 0);
 		tokenize(&lexer, input);
 		if (lexer->flags & DEBUG_LEXER)

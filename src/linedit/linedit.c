@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/06 11:06:28 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 10:36:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,10 @@ static char *create_copy_str(t_line *line)
 
 char		*linedit(t_line *line)
 {
+	char	cwd[INPUT_BUFFER + 1];
+
+	getcwd(cwd, INPUT_BUFFER);
+	load_paths(line->ac, cwd);
 	print_prompt(line);
 	while (1337)
 	{

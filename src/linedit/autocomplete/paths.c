@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 14:54:55 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 15:09:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 10:09:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void load_paths(t_completer *ac, char *cwd)
 	}
 
 
-	ac->paths = malloc(sizeof(char *) * ac->paths_count);
+	ac->paths = malloc(sizeof(char *) * (ac->paths_count + 1));
 
 	int i = 0;
 	while ((de = readdir(dir)) != NULL)

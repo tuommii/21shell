@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/08 09:12:10 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 10:53:58 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ void		cleanup(t_line *line)
 	erase_input(line);
 	free_history(&line->hist);
 
-	// TODO: Fix
-	// ft_freestrarr(line->ac->envs);
+	// TODO: This segfaults. Fix
 	// ft_freestrarr(line->ac->execs);
+	ft_freestrarr(line->ac->envs);
+
+
 
 	free(line->ac);
 	free(line);

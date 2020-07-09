@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:26:50 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 09:49:51 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 10:35:35 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void		print_prompt(t_line *line)
 		return ;
 
 	getcwd(cwd, INPUT_BUFFER);
-	load_paths(line->ac, cwd);
 
 	// ft_printf("\n%s\n", line->ac->paths[0]);
 	// ft_printf("\n%s\n", line->ac->paths[1]);
