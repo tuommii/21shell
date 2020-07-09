@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 09:56:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 11:19:58 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 void handle_autocomplete(t_line *line)
 {
 	if (!(line->ac->ctx = get_context(line->input, line->pos)))
+	{
+		free(line->ac->word);
 		return ;
+	}
 
 	if (!(line->ac->word = get_word_at(line->input, line->pos)))
 	{
+		free(line->ac->word);
 		free(line->ac->ctx);
 		return ;
 	}
@@ -50,11 +54,15 @@ void handle_autocomplete(t_line *line)
 	}
 	else
 	{
+		free(line->ac->word);
+		free(line->ac->ctx);
 		return ;
 	}
 
 	if (line->ac->matches_count == 0)
 	{
+		free(line->ac->word);
+		free(line->ac->ctx);
 		tputs(tgetstr("vb", NULL), 1, &print_char);
 		return ;
 	}
