@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:26:50 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 10:35:35 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 18:43:56 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,48 +69,71 @@ static int handle_readmore(t_line *line)
 	return (1);
 }
 
-void		print_prompt(t_line *line)
+// void		print_prompt(t_line *line)
+// {
+// 	// char	host[INPUT_BUFFER + 1];
+// 	// gethostname(host, INPUT_BUFFER);
+// 	char *prompt;
+// 	char *branch;
+// 	char *temp;
+// 	char *temp2;
+// 	char	cwd[INPUT_BUFFER + 1];
+
+// 	ft_bzero(line->prompt, INPUT_BUFFER);
+// 	if (handle_readmore(line))
+// 		return ;
+
+// 	getcwd(cwd, INPUT_BUFFER);
+
+// 	// ft_printf("\n%s\n", line->ac->paths[0]);
+// 	// ft_printf("\n%s\n", line->ac->paths[1]);
+// 	// ft_printf("\n%s\n", line->ac->paths[2]);
+
+// 	char *dir = deepest_folder(cwd);
+// 	if (!(branch = git_branch(cwd)))
+// 	{
+// 		prompt = ft_strjoin(dir, "$>");
+// 	}
+// 	else
+// 	{
+// 		temp = ft_strjoin(dir, " on git:");
+// 		temp2 = ft_strjoin(temp, branch);
+// 		prompt = ft_strjoin(temp2, "$>");
+// 		free(temp);
+// 		free(temp2);
+// 		free(branch);
+// 	}
+// 	free(dir);
+
+// 	ft_strcpy(line->prompt, prompt);
+// 	free(prompt);
+// 	line->prompt_len = ft_strlen(line->prompt);
+// 	ft_putstr(FT_GREEN);
+// 	if (!line->was_copy)
+// 		ft_putstr(line->prompt);
+// 	ft_putstr(FT_RESET);
+// 	line->was_copy = 0;
+// }
+
+void print_prompt(t_line *line)
 {
-	// char	host[INPUT_BUFFER + 1];
-	// gethostname(host, INPUT_BUFFER);
-	char *prompt;
-	char *branch;
-	char *temp;
-	char *temp2;
-	char	cwd[INPUT_BUFFER + 1];
-
-	ft_bzero(line->prompt, INPUT_BUFFER);
-	if (handle_readmore(line))
+	if (line->readmore)
+	{
+		ft_bzero(line->prompt, INPUT_BUFFER);
+		ft_strcpy(line->prompt, ">");
+		line->prompt_len = 1;
+		ft_putstr(FT_GREEN);
+		if (!line->was_copy)
+			ft_putstr(line->prompt);
+		ft_putstr(FT_RESET);
+		line->was_copy = 0;
 		return ;
-
-	getcwd(cwd, INPUT_BUFFER);
-
-	// ft_printf("\n%s\n", line->ac->paths[0]);
-	// ft_printf("\n%s\n", line->ac->paths[1]);
-	// ft_printf("\n%s\n", line->ac->paths[2]);
-
-	char *dir = deepest_folder(cwd);
-	if (!(branch = git_branch(cwd)))
-	{
-		prompt = ft_strjoin(dir, "$>");
 	}
-	else
-	{
-		temp = ft_strjoin(dir, " on git:");
-		temp2 = ft_strjoin(temp, branch);
-		prompt = ft_strjoin(temp2, "$>");
-		free(temp);
-		free(temp2);
-		free(branch);
-	}
-	free(dir);
 
-	ft_strcpy(line->prompt, prompt);
-	free(prompt);
-	line->prompt_len = ft_strlen(line->prompt);
+	//gethostname(host, INPUT_BUFFER);
+	// ft_bzero(line->prompt, INPUT_BUFFER);
 	ft_putstr(FT_GREEN);
 	if (!line->was_copy)
 		ft_putstr(line->prompt);
 	ft_putstr(FT_RESET);
-	line->was_copy = 0;
 }
