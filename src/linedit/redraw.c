@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 09:26:45 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 19:33:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	check_newline(t_line *line, int *rows)
 	}
 }
 
-static void	print1(int rows, int pos)
+static void	move_up(int rows, int pos)
 {
 	char *tmp;
 
@@ -35,7 +35,7 @@ static void	print1(int rows, int pos)
 	free(tmp);
 }
 
-static void	print2(int col)
+static void	move_right(int col)
 {
 	char *tmp;
 
@@ -60,10 +60,10 @@ void		redraw_input(t_line *line)
 	check_newline(line, &rows);
 	pos = (line->prompt_len + line->pos + line->cols) / line->cols;
 	if (rows - pos > 0)
-		print1(rows, pos);
+		move_up(rows, pos);
 	col = (line->prompt_len + line->pos) % line->cols;
 	if (col)
-		print2(col);
+		move_right(col);
 	else
 		ft_putstr("\r");
 	line->old_pos = line->pos;
