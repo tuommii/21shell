@@ -6,35 +6,11 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 11:02:29 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 11:23:17 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
-
-
-t_completer *create_completer(void)
-{
-	t_completer *ac;
-
-	ac = NULL;
-	if (!(ac = malloc(sizeof(t_completer))))
-		return (NULL);
-
-	int i = 0;
-	while (i < MAX_MATCHES)
-	{
-		ac->matches[i] = NULL;
-		i++;
-	}
-
-	ac->len = 0;
-	ac->word = NULL;
-	ac->matches_count = 0;
-	ac->ctx = NULL;
-	ac->count = 0;
-	return (ac);
-}
 
 // TODO: check is file and is executable
 char **files_from_dir(t_completer *ac, char *path, int *i)

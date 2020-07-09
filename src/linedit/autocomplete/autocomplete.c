@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 11:19:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 11:24:17 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,27 @@ void handle_autocomplete(t_line *line)
 	free(line->ac->word);
 	free(line->ac->ctx);
 	redraw_input(line);
+}
+
+t_completer *create_completer(void)
+{
+	t_completer *ac;
+
+	ac = NULL;
+	if (!(ac = malloc(sizeof(t_completer))))
+		return (NULL);
+
+	int i = 0;
+	while (i < MAX_MATCHES)
+	{
+		ac->matches[i] = NULL;
+		i++;
+	}
+
+	ac->len = 0;
+	ac->word = NULL;
+	ac->matches_count = 0;
+	ac->ctx = NULL;
+	ac->count = 0;
+	return (ac);
 }

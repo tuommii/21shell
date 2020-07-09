@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 11:17:57 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 13:27:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,39 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 {
 	char *word;
 	char *ctx;
+	char *p;
 
 	if (!(word = get_word_at(buffer, cursor)))
 	{
-		free(word);
 		return (NULL);
+	}
+
+	if (cursor)
+	{
+		if (buffer[cursor - 1] == '|' || buffer[cursor - 1] == ';')
+		{
+			ctx = ft_strdup(CTX_EXEC);
+			free(word);
+			return (ctx);
+		}
+		int c = cursor - ft_strlen(word);
+		c--;
+		while (buffer[c] == ' ')
+			c--;
+		if (buffer[c] == '|' || buffer[c] == ';')
+		{
+			ctx = ft_strdup(CTX_EXEC);
+			free(word);
+			return (ctx);
+		}
+		ctx = ft_strdup(CTX_PATH);
 	}
 
 	if (word[0] == '\0' || (ft_strlen(word) - cursor) <= 0)
 	{
 		ctx = ft_strdup(CTX_EXEC);
 	}
+
 
 	else if (word[0] == '$')
 	{
@@ -37,6 +59,11 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 	else if (word[0] == '-')
 	{
 		ctx = ft_strdup(CTX_FLAG);
+	}
+
+	else if (word[0] == '|' || word[0] == ';')
+	{
+		ctx = ft_strdup(CTX_EXEC);
 	}
 
 	else if (!cursor && buffer[cursor] == ' ')
