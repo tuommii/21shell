@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 22:32:07 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 22:40:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,18 @@ void load_execs(t_completer *ac, char **envs)
 	if (!(paths = ft_strsplit(ft_getenv("PATH", envs), ':')))
 		return ;
 
-	char **h = paths;
-	while (*paths != NULL)
+	char **head = paths;
+	while (*head != NULL)
 	{
-		ac->execs_count += count_files(*paths);
-		paths++;
+		ac->execs_count += count_files(*head);
+		head++;
 	}
 
 
-	paths = h;
+	head = paths;
 
 
-	if (!(ac->execs = malloc(sizeof(char *) * (ac->execs_count + 1))))
+	if (!(ac->execs = ft_memalloc(sizeof(char *) * (ac->execs_count + 1))))
 	{
 		ft_freestrarr(paths);
 		return ;
@@ -95,13 +95,13 @@ void load_execs(t_completer *ac, char **envs)
 
 	// int j = 0;
 	int i = 0;
-	while (*paths != NULL)
+	while (*head != NULL)
 	{
-		files_from_dir(ac, *paths, &i);
-		paths++;
+		files_from_dir(ac, *head, &i);
+		head++;
 		// j++;
 	}
-	ft_freestrarr(h);
+	ft_freestrarr(paths);
 
 	// ac->execs = head;
 

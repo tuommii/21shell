@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:26:50 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 18:43:56 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 22:46:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ static int handle_readmore(t_line *line)
 {
 	if (!line->readmore)
 		return (0);
-	ft_strcpy(line->prompt, ">");
+	ft_strcpy((char *)line->prompt, ">");
 	line->prompt_len = 1;
 	ft_putstr(FT_GREEN);
 	if (!line->was_copy)
-		ft_putstr(line->prompt);
+		ft_putstr((char *)line->prompt);
 	ft_putstr(FT_RESET);
 	line->was_copy = 0;
 	return (1);
@@ -120,11 +120,11 @@ void print_prompt(t_line *line)
 	if (line->readmore)
 	{
 		ft_bzero(line->prompt, INPUT_BUFFER);
-		ft_strcpy(line->prompt, ">");
+		ft_strcpy((char *)line->prompt, ">");
 		line->prompt_len = 1;
 		ft_putstr(FT_GREEN);
 		if (!line->was_copy)
-			ft_putstr(line->prompt);
+			ft_putstr((const char *)line->prompt);
 		ft_putstr(FT_RESET);
 		line->was_copy = 0;
 		return ;
@@ -134,6 +134,6 @@ void print_prompt(t_line *line)
 	// ft_bzero(line->prompt, INPUT_BUFFER);
 	ft_putstr(FT_GREEN);
 	if (!line->was_copy)
-		ft_putstr(line->prompt);
+		ft_putstr((const char *)line->prompt);
 	ft_putstr(FT_RESET);
 }
