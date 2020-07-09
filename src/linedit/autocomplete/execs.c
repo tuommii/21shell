@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 11:23:17 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 17:11:51 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char **load_execs(t_completer *ac, char **envs)
 		return (NULL);
 	}
 
+	char **head = ac->execs;
+
 	int j = 0;
 	int k = 0;
 	while (paths != NULL && paths[j])
@@ -95,5 +97,5 @@ char **load_execs(t_completer *ac, char **envs)
 	// 	return (NULL);
 	// if (paths != NULL)
 	// 	ft_free_arr(paths);
-	return (files);
+	return (head);
 }

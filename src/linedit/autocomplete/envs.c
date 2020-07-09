@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:03:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 10:09:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 17:16:16 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void load_envs(t_completer *ac, char **envs)
 	int i;
 
 	ac->envs_count = count_envs(envs);
-	ac->envs = malloc(sizeof(char *) * (ac->envs_count + 1));
+	if (!(ac->envs = malloc(sizeof(char *) * (ac->envs_count + 1))))
+		return ;
+	char **head = ac->envs;
 	i = 0;
 	while (i < ac->envs_count)
 	{
@@ -57,6 +59,7 @@ void load_envs(t_completer *ac, char **envs)
 		// ft_printf("\nalive\n");
 	}
 	ac->envs[i] = NULL;
+	ac->envs = head;
 }
 
 static int	ft_env_exists(char *name, char *given, int len_given)
