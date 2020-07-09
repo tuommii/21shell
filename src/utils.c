@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/09 10:53:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 11:11:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ void		create_shell(char **environ, t_line *line)
 	g_sh.line = line;
 }
 
+
+static void clean_execs(t_completer *ac)
+{
+	int i = 0;
+	while (i < ac->execs_count)
+	{
+		free(ac->execs[i]);
+		i++;
+	}
+	free(ac->execs);
+}
+
 /*
 ** Cleanup on exit
 */
@@ -56,11 +68,9 @@ void		cleanup(t_line *line)
 	free_history(&line->hist);
 
 	// TODO: This segfaults. Fix
-	// ft_freestrarr(line->ac->execs);
 	ft_freestrarr(line->ac->envs);
-
-
-
+	ft_freestrarr(line->ac->paths);
+	clean_execs(line->ac);
 	free(line->ac);
 	free(line);
 	ft_freestrarr(g_sh.env);

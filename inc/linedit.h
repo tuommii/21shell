@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 15:03:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 11:09:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,6 @@ typedef struct				s_line
 	int						readmore;
 
 	t_completer				*ac;
-	char 					**envs;
-	int						envs_count;
-	char					**execs;
-	int 					execs_count;
 
 	// struct s_suggestions	suggestions;
 	// t_autocomp_cb			*autocomplete;

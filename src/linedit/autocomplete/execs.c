@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 10:49:18 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/09 11:02:29 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_completer *create_completer(void)
 	ac->word = NULL;
 	ac->matches_count = 0;
 	ac->ctx = NULL;
-	ac->suggestions = NULL;
 	ac->count = 0;
 	return (ac);
 }
