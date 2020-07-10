@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:21:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/19 18:58:01 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/10 13:04:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void		*read_open_quote(char **data, int wquote)
+static void		read_open_quote(char **data, int wquote)
 {
 	t_line	*line;
 	char	*input;

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 12:54:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:12:03 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void files_from_dir(t_completer *ac, char *path, int *i)
 	dir = opendir(path);
 	if (dir == NULL)
 	{
-		ft_putstr("Error while openind dir\n");
+		ft_putstr("Error while opening dir\n");
 		return ;
 	}
 	while ((de = readdir(dir)) != NULL)
@@ -46,7 +46,7 @@ int count_files(char *path)
 	dir = opendir(path);
 	if (dir == NULL)
 	{
-		ft_putstr("Error while openind dir\n");
+		ft_putstr("Error while opening dir\n");
 		return (0);
 	}
 	int i = 0;

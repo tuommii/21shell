@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 12:40:53 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:03:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char *check_ctx_reset(char buffer[INPUT_BUFFER], int cursor, char *word)
 			c--;
 		while (c && buffer[c] == ' ')
 			c--;
-		if (c && buffer[c] == '|' || buffer[c] == ';')
+		if (c && (buffer[c] == '|' || buffer[c] == ';'))
 		{
 			ctx = ft_strdup(CTX_EXEC);
 			free(word);
