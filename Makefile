@@ -47,7 +47,7 @@ SRC_NAME 	= 	main.c \
 				linedit/autocomplete/paths.c \
 				linedit/autocomplete/buffer.c \
 				linedit/autocomplete/filter.c \
-				linedit/autocomplete/clean.c \
+				linedit/autocomplete/utils.c \
 				parser/ast.c \
 				parser/astutil.c \
 				parser/expand.c \

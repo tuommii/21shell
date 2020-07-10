@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 22:12:18 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 10:04:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static void		run_21(t_line *line)
 		lexer_del(&lexer);
 		toggle_raw(0, 0);
 	}
+	ft_freestrarr(line->ac->paths);
 	toggle_raw(1, 0);
 }
 

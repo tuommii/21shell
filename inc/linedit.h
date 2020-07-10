@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 22:00:55 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 11:20:29 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,10 +250,8 @@ void sort_by_length(t_completer *ac);
 /*
 ** AC clean
 */
-void ac_clean_suggestions(t_completer *ac);
 void ac_clean_matches(t_completer *ac);
 void ac_clean_rest(t_completer *ac);
-void ac_clean(t_completer *ac);
 
 /*
 ** AC binaries
@@ -262,7 +260,7 @@ void load_execs(t_completer *ac, char  **envs);
 t_completer *create_completer(void);
 int count_files(char *path);
 void load_paths(t_completer *ac, char *cwd);
-
+void clean_ctx_word(t_completer *ac);
 
 
 #endif

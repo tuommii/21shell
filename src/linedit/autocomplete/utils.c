@@ -1,37 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/07 08:17:21 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/08 13:22:46 by mtuomine         ###   ########.fr       */
+/*   Created: 2020/07/10 11:14:51 by mtuomine          #+#    #+#             */
+/*   Updated: 2020/07/10 11:20:13 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-void ac_clean_rest(t_completer *ac)
+void	insert_word(t_line *line, char *word)
+{
+	while (*word)
+	{
+		apped_or_insert(line, *word);
+		word++;
+	}
+}
+
+void clean_ctx_word(t_completer *ac)
 {
 	free(ac->word);
 	free(ac->ctx);
+}
+
+void ac_clean_rest(t_completer *ac)
+{
+	clean_ctx_word(ac);
 	free(ac);
 }
 
 void ac_clean_matches(t_completer *ac)
 {
 	int i = 0;
+	// TODO: Maybe check MAX
 	while (i < ac->matches_count)
 	{
 		free(ac->matches[i]);
 		ac->matches[i] = NULL;
 		i++;
 	}
-}
-
-void ac_clean(t_completer *ac)
-{
-	ac_clean_matches(ac);
-	ac_clean_rest(ac);
 }
