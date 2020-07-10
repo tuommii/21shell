@@ -6,23 +6,16 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 21:28:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 12:40:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-// decide context
-char *get_context(char buffer[INPUT_BUFFER], int cursor)
+static char *check_ctx_reset(char buffer[INPUT_BUFFER], int cursor, char *word)
 {
-	char *word;
+	int c;
 	char *ctx;
-	char *p;
-
-	if (!(word = get_word_at(buffer, cursor)))
-	{
-		return (NULL);
-	}
 
 	if (cursor)
 	{
@@ -32,7 +25,7 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 			free(word);
 			return (ctx);
 		}
-		int c = cursor - ft_strlen(word);
+		c = cursor - ft_strlen(word);
 		if (c)
 			c--;
 		while (c && buffer[c] == ' ')
@@ -44,39 +37,33 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 			return (ctx);
 		}
 	}
+	return (NULL);
+}
 
+// decide context
+char *get_context(char buffer[INPUT_BUFFER], int cursor)
+{
+	char *word;
+	char *ctx;
+	char *p;
+
+	if (!(word = get_word_at(buffer, cursor)))
+		return (NULL);
+	if ((ctx = check_ctx_reset(buffer, cursor, word)))
+		return (ctx);
 	if (word[0] == '\0' || (ft_strlen(word) - cursor) <= 0)
-	{
 		ctx = ft_strdup(CTX_EXEC);
-	}
-
-
 	else if (word[0] == '$')
-	{
 		ctx = ft_strdup(CTX_ENV);
-	}
-
 	else if (word[0] == '-')
-	{
 		ctx = ft_strdup(CTX_FLAG);
-	}
-
 	else if (word[0] == '|' || word[0] == ';')
-	{
 		ctx = ft_strdup(CTX_EXEC);
-	}
-
 	else if (!cursor && buffer[cursor] == ' ')
-	{
 		ctx = ft_strdup(CTX_EXEC);
-	}
-
-	// TODO: recursive with ' '
-	// else if (word[0] == '/' || word[0] == '.' || word[0] == ' ')
+	// TODO: recursive with ' ' ?
 	else
-	{
 		ctx = ft_strdup(CTX_PATH);
-	}
 	free(word);
 	return (ctx);
 }
@@ -84,56 +71,45 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 // copy suitable suggestions only
 void filter(t_completer *ac,  char **arr, int count)
 {
-	if (!ac->word)
-		return ;
+	char *cpy;
+	int len;
+	int i;
 
-	char *cpy = ac->word;
+	cpy = ac->word;
 	if (cpy[0] == '$' && cpy[1])
-	{
 		cpy++;
-	}
-	int len = ft_strlen(cpy);
-	// ft_printf("\nLEN: %d, WORD: %s\n", len, cpy);
-
-	int i = 0;
-	int match_count = 0;
+	len = ft_strlen(cpy);
+	i = 0;
+	ac->matches_count = 0;
 	while (i < count)
 	{
-		//ft_printf("\n%s\n", ac->suggestions[i]);
-		if (!arr[i])
-		{
+		if (!arr[i] || ft_strlen(arr[i]) <= len)
 			i++;
-			continue ;
-		}
-		if (ft_strncmp(arr[i], cpy, len) != 0)
-		{
+		else if (ft_strncmp(arr[i], cpy, len) != 0)
 			i++;
-			continue ;
-		}
-		if (ft_strlen(arr[i]) <= len)
+		else
 		{
+			ac->matches[ac->matches_count] = malloc(sizeof(char) * ft_strlen(arr[i]) + 1);
+			ft_strcpy(ac->matches[ac->matches_count], arr[i]);
+			ac->matches_count++;
 			i++;
-			continue ;
 		}
-		ac->matches[match_count] = malloc(sizeof(char) * ft_strlen(arr[i]) + 1);
-		ft_strcpy(ac->matches[match_count], arr[i]);
-		match_count++;
-		i++;
 	}
-	ac->matches_count = match_count;
 }
 
 // sort comp->matches by length so we get shortest first
 void sort_by_length(t_completer *ac)
 {
-	int i = 0;
+	int i;
 	char *temp;
+	int a;
+	int b;
 
-	while (i < ac->matches_count - 1 && i < MAX_MATCHES - 1)
+	i = 0;
+	while (i < ac->matches_count - 1 && i < MAX_MATCHES)
 	{
-		// TODO: Optimize
-		int a = ft_strlen(ac->matches[i]);
-		int b = ft_strlen(ac->matches[i + 1]);
+		a = ft_strlen(ac->matches[i]);
+		b = ft_strlen(ac->matches[i + 1]);
 		if (a > b)
 		{
 			temp = ac->matches[i];
