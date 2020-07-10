@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 13:59:00 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 14:14:55 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:04:40 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	cut_to_end(t_line *line)
 	if (!len)
 		return (1);
 	ft_bzero(line->internal, INPUT_BUFFER);
-	ft_strncpy(line->internal, line->input+line->pos, len);
+	ft_strncpy(line->internal, line->input + line->pos, len);
 	while (line->len > line->pos)
 	{
 		ft_insert(line->input, line->len, 0);
@@ -52,13 +52,14 @@ int	cut_to_end(t_line *line)
 int	yank(t_line *line)
 {
 	int len;
+	int i;
 
 	len = ft_strlen(line->internal);
 	if (!len || (line->len + len) > INPUT_BUFFER)
 		return (1);
 	if (line->pos != line->len)
 	{
-		int i = -1;
+		i = -1;
 		while (++i < len)
 			ft_insert(line->input, line->pos + i + 1, line->internal[i]);
 	}

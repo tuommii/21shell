@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 22:45:43 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:05:46 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,16 @@ static void	check_tty(void)
 		ft_dprintf(OUTPUT, "No terminal name");
 		exit(1);
 	}
-	// If command is given as a stdin file, run shell once (for testing purposes)
 	if (!isatty(STDIN_FILENO))
 	{
-		// ft_printf("stdin is not a tty\n");
 		run_21_stdin();
 		exit(1);
 	}
 	if (tgetent(buffer, name) != 1)
 	{
 		ft_dprintf(OUTPUT, "No database or No entry found\n");
-		// ft_strdel(&name);
 		exit(1);
 	}
-	// ft_strdel(&name);
 }
 
 /*
