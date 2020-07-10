@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 21:17:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 21:25:42 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,13 @@ int	check_copy_paste_del(t_line *line)
 		return (cut_to_end(line));
 	else if (line->key == CTRL_K)
 	{
-		char *eka[3];
+		char *eka[4];
 		char *toka[4];
 
 		eka[0] = "echo";
-		eka[1] = line->input;
-		eka[2] = (char *)0;
+		eka[1] = "-n";
+		eka[2] = line->input;
+		eka[3] = (char *)0;
 
 		toka[0] = "xclip";
 		toka[1] = "-selection";
