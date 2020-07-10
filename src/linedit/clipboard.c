@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 20:57:00 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 21:15:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ t_clipboard **clip, char *paste_cmd[5], int p[2])
 	read(p[0], buf, INPUT_BUFFER);
 	if (buf[0] == '\0')
 		return ;
-	ft_printf("\nBUFFER:%s\n", buf);
 	format_to_clipboard(buf, clip);
 }
 
-void		external_paste_cmd(t_clipboard *clip)
+void		external_paste(t_clipboard *clip)
 {
 	char	*paste_cmd[5];
 	int		p[2];
@@ -98,32 +97,4 @@ void		clipboard_draw(t_line *line)
 	line->len += len;
 	line->pos += len;
 	redraw_input(line);
-}
-
-char *create_copy_str(t_line *line)
-{
-	int len;
-	int i;
-	char *replaced;
-	char *new;
-
-	len = ft_strlen(COPY);
-	new = malloc(sizeof(char) * (line->len + 3));
-	new[0] = '\'';
-	i = 1;
-	while (i <= line->len)
-	{
-		new[i] = line->input[i-1];
-		i++;
-	}
-	new[i] = '\'';
-	new[i+1] = '\0';
-	new = &new[0];
-	char c = '"';
-	replaced = ft_strreplace(new, &c, "\"");
-	// ft_bzero(line->clipboard.content, INPUT_BUFFER);
-	// ft_strcpy(line->clipboard.content, replaced);
-	ft_strdel(&new);
-	ft_strdel(&replaced);
-	return line->clipboard.content;
 }

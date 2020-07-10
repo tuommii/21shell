@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 19:09:00 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 21:18:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,6 @@ char		*linedit(t_line *line)
 			continue ;
 		else if (which_action(line))
 			continue ;
-		else if ((cpy = check_copy(line)))
-			return (cpy);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 19:36:23 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 21:19:30 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,6 @@ int							g_was_copy;
 char						*read_more(t_line *line, int nl_flag);
 // void						linedit_completion_cb \
 (t_line *line, t_autocomp_cb *cb);
-void						external_paste_cmd(t_clipboard *clip);
-void						clipboard_draw(t_line *line);
 void						linedit_setup(void);
 void						toggle_raw(int reset, int save_old);
 int							get_cols(void);
@@ -183,7 +181,6 @@ int							check_command_keys(t_line *line);
 int							check_ctrl_arrow_keys(t_line *line);
 int							check_copy_paste_del(t_line *line);
 int							check_terminating_keys(t_line *line);
-char						*check_copy(t_line *line);
 void						listen_signals(void);
 void						watch_kill(t_line *line);
 int							keypress(void);
@@ -203,8 +200,8 @@ char						*linedit(t_line *line);
 int							cut_to_start(t_line *line);
 int							cut_to_end(t_line *line);
 int							yank(t_line *line);
-int							external_paste(t_line *line);
-char						*create_copy_str(t_line *line);
+void						external_paste(t_clipboard *clip);
+void						clipboard_draw(t_line *line);
 
 /*
 ** HISTORY

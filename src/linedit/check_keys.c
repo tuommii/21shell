@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 20:54:06 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 21:17:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ int	check_copy_paste_del(t_line *line)
 	if (line->key == DELETE || (line->key == CTRL_D && line->len))
 		return (handle_delete(line));
 	else if (line->key == CTRL_P)
-		return (external_paste(line));
+	{
+		external_paste(&line->clipboard);
+		clipboard_draw(line);
+		return (1);
+	}
 	else if (line->key == CTRL_W)
 		return (cut_to_start(line));
 	else if (line->key == CTRL_A)
@@ -97,23 +101,6 @@ int	check_terminating_keys(t_line *line)
 		return (1);
 	}
 	return (0);
-}
-
-char *check_copy(t_line *line)
-{
-	if(line->key != CTRL_K)
-		return (NULL);
-	ft_printf("\nCOPY\n");
-	return (NULL);
-	// line->was_copy = 1;
-	// // Let's just do special parsing for copying
-	// // copy_to_clipboard(create_copy_str(line));
-	// char *new = ft_strjoin("printf ", create_copy_str(line));
-	// // char *new2 = ft_strjoin(new, " | clip.exe");  // because windows
-	// char *new2 = ft_strjoin(new, COPY);
-	// //ft_printf("\nNEW2: %s\n", new2);
-	// ft_strdel(&new);
-	// return (new2);
 }
 
 int join( char *com1[], char *com2[] )
