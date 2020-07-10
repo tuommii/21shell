@@ -21,7 +21,7 @@ Cursor can be anywhere and it recognizes:
 #### Other
 - Multiline support
 - History
-- Copy/Paste text between different windows
+- Copy/Paste text between different windows (xclip on Linux)
 
 ## Try It
 Compile and run with:

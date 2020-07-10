@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 19:37:17 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 20:57:00 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	format_to_clipboard(char *buf, t_clipboard **clip)
 */
 
 static void	exec_paste_cmd(pid_t pid, \
-t_clipboard **clip, char *paste_cmd[3], int p[2])
+t_clipboard **clip, char *paste_cmd[5], int p[2])
 {
 	extern char	**environ;
 	char		buf[INPUT_BUFFER + 1];
@@ -58,18 +58,21 @@ t_clipboard **clip, char *paste_cmd[3], int p[2])
 	read(p[0], buf, INPUT_BUFFER);
 	if (buf[0] == '\0')
 		return ;
+	ft_printf("\nBUFFER:%s\n", buf);
 	format_to_clipboard(buf, clip);
 }
 
 void		external_paste_cmd(t_clipboard *clip)
 {
-	char	*paste_cmd[3];
+	char	*paste_cmd[5];
 	int		p[2];
 	pid_t	pid;
 
-	paste_cmd[0] = PASTE_CMD;
-	paste_cmd[1] = PASTE_PARAM;
-	paste_cmd[2] = NULL;
+	paste_cmd[0] = "xclip";
+	paste_cmd[1] = "-selection";
+	paste_cmd[2] = "clipboard";
+	paste_cmd[3] = "-o";
+	paste_cmd[4] = (char *)0;
 	pipe(p);
 	pid = fork();
 	exec_paste_cmd(pid, &clip, paste_cmd, p);

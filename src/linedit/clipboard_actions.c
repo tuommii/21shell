@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 13:59:00 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 19:24:34 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 20:31:56 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,12 @@ int	yank(t_line *line)
 
 int	external_paste(t_line *line)
 {
-	if (!line->is_cut)
-		external_paste_cmd(&line->clipboard);
-	line->is_cut = 0;
+	// if (!line->is_cut)
+	ft_printf("\nBEFORE:%s\n", line->clipboard.content);
+	external_paste_cmd(&line->clipboard);
+	// line->is_cut = 0;
+	ft_printf("\nAFTER:%s\n", line->clipboard.content);
 	clipboard_draw(line);
-	ft_bzero(line->clipboard.content, INPUT_BUFFER);
+	// ft_bzero(line->clipboard.content, INPUT_BUFFER);
 	return (1);
 }
