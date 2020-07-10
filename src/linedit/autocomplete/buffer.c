@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:08:40 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 11:18:07 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 08:54:14 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ void	delete_word(t_line *line, char *word)
 
 void	insert_word(t_line *line, char *word)
 {
-	int i = 0;
-
 	while (*word)
 	{
 		apped_or_insert(line, *word);
