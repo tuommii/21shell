@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 13:59:00 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 15:04:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:24:34 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	yank(t_line *line)
 int	external_paste(t_line *line)
 {
 	if (!line->is_cut)
-		clipboard_update(&line->clipboard);
+		external_paste_cmd(&line->clipboard);
 	line->is_cut = 0;
 	clipboard_draw(line);
 	ft_bzero(line->clipboard.content, INPUT_BUFFER);

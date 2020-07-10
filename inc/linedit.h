@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 15:39:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:36:23 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@
 # endif
 
 # ifdef __APPLE__
-#  define COPY_CMD "pbaste"
-#  define COPY_PATH "/usr/bin/pbpaste"
-#  define COPY_PARAM ""
+#  define PASTE_CMD "pbaste"
+#  define PASTE_PATH "/usr/bin/pbpaste"
+#  define PASTE_PARAM ""
 # elif __linux__
-#  define COPY_CMD "xclip"
-#  define COPY_PATH "/usr/bin/xclip"
-#  define COPY_PARAM "-o"
+#  define PASTE_CMD "xclip"
+#  define PASTE_PATH "/usr/bin/xclip"
+#  define PASTE_PARAM "-o"
 # endif
 
 # ifdef __APPLE__
@@ -167,7 +167,7 @@ int							g_was_copy;
 char						*read_more(t_line *line, int nl_flag);
 // void						linedit_completion_cb \
 (t_line *line, t_autocomp_cb *cb);
-void						clipboard_update(t_clipboard *clip);
+void						external_paste_cmd(t_clipboard *clip);
 void						clipboard_draw(t_line *line);
 void						linedit_setup(void);
 void						toggle_raw(int reset, int save_old);

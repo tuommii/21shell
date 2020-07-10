@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 15:43:27 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:09:00 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,35 +95,6 @@ static void	handle_enter(t_line *line)
 	ft_strcpy(line->cpy, line->input);
 	reposition(line);
 }
-
-char *create_copy_str(t_line *line)
-{
-	int len;
-	int i;
-	char *replaced;
-	char *new;
-
-	len = ft_strlen(COPY);
-	new = malloc(sizeof(char) * (line->len + 3));
-	new[0] = '\"';
-	i = 1;
-	while (i <= line->len)
-	{
-		new[i] = line->input[i-1];
-		i++;
-	}
-	new[i] = '\"';
-	new[i+1] = '\0';
-	new = &new[0];
-	char c = '"';
-	replaced = ft_strreplace(new, &c, "\"");
-	ft_bzero(line->clipboard.content, INPUT_BUFFER);
-	ft_strcpy(line->clipboard.content, replaced);
-	ft_strdel(&new);
-	ft_strdel(&replaced);
-	return line->clipboard.content;
-}
-
 
 char		*linedit(t_line *line)
 {
