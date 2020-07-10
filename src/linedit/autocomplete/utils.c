@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:14:51 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 11:20:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:54:21 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,23 @@ void	insert_word(t_line *line, char *word)
 	}
 }
 
-void clean_ctx_word(t_completer *ac)
+void	clean_ctx_word(t_completer *ac)
 {
 	free(ac->word);
 	free(ac->ctx);
 }
 
-void ac_clean_rest(t_completer *ac)
+void	ac_clean_rest(t_completer *ac)
 {
 	clean_ctx_word(ac);
 	free(ac);
 }
 
-void ac_clean_matches(t_completer *ac)
+void	ac_clean_matches(t_completer *ac)
 {
-	int i = 0;
-	// TODO: Maybe check MAX
+	int i;
+
+	i = 0;
 	while (i < ac->matches_count)
 	{
 		free(ac->matches[i]);

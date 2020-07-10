@@ -6,16 +6,16 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 13:03:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:53:24 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-static char *check_ctx_reset(char buffer[INPUT_BUFFER], int cursor, char *word)
+static char	*check_ctx_reset(char buffer[INPUT_BUFFER], int cursor, char *word)
 {
-	int c;
-	char *ctx;
+	int		c;
+	char	*ctx;
 
 	if (cursor)
 	{
@@ -40,8 +40,7 @@ static char *check_ctx_reset(char buffer[INPUT_BUFFER], int cursor, char *word)
 	return (NULL);
 }
 
-// decide context
-char *get_context(char buffer[INPUT_BUFFER], int cursor)
+char		*get_context(char buffer[INPUT_BUFFER], int cursor)
 {
 	char *word;
 	char *ctx;
@@ -61,19 +60,17 @@ char *get_context(char buffer[INPUT_BUFFER], int cursor)
 		ctx = ft_strdup(CTX_EXEC);
 	else if (!cursor && buffer[cursor] == ' ')
 		ctx = ft_strdup(CTX_EXEC);
-	// TODO: recursive with ' ' ?
 	else
 		ctx = ft_strdup(CTX_PATH);
 	free(word);
 	return (ctx);
 }
 
-// copy suitable suggestions only
-void filter(t_completer *ac,  char **arr, int count)
+void		filter(t_completer *ac, char **arr, int count)
 {
-	char *cpy;
-	int len;
-	int i;
+	char	*cpy;
+	int		len;
+	int		i;
 
 	cpy = ac->word;
 	if (cpy[0] == '$' && cpy[1])
@@ -89,7 +86,8 @@ void filter(t_completer *ac,  char **arr, int count)
 			i++;
 		else
 		{
-			ac->matches[ac->matches_count] = malloc(sizeof(char) * ft_strlen(arr[i]) + 1);
+			ac->matches[ac->matches_count] = \
+			malloc(sizeof(char) * ft_strlen(arr[i]) + 1);
 			ft_strcpy(ac->matches[ac->matches_count], arr[i]);
 			ac->matches_count++;
 			i++;
@@ -97,13 +95,12 @@ void filter(t_completer *ac,  char **arr, int count)
 	}
 }
 
-// sort comp->matches by length so we get shortest first
-void sort_by_length(t_completer *ac)
+void		sort_by_length(t_completer *ac)
 {
-	int i;
-	char *temp;
-	int a;
-	int b;
+	int		i;
+	char	*temp;
+	int		a;
+	int		b;
 
 	i = 0;
 	while (i < ac->matches_count - 1 && i < MAX_MATCHES)

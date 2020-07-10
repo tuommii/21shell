@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 11:20:29 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:25:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,25 +196,34 @@ t_line						*create_line_editor(void);
 char						*linedit(t_line *line);
 
 /*
+** CLIPBOARD
+*/
+
+int							cut_to_start(t_line *line);
+int							cut_to_end(t_line *line);
+int							yank(t_line *line);
+int							external_paste(t_line *line);
+
+/*
 ** HISTORY
 */
 
 int							hist_append(t_hist **head, char *str);
 void						hist_print(t_hist *node);
 t_hist						*hist_pop(t_hist **head, int index);
-void						hist_prev(t_line *line);
-void						hist_next(t_line *line);
+int							hist_prev(t_line *line);
+int							hist_next(t_line *line);
 
 /*
 ** GOTO
 */
 
-void						goto_end(t_line *line);
-void						goto_begin(t_line *line);
-void						goto_row_down(t_line *line);
-void						goto_row_up(t_line *line);
-void						goto_prev_word(t_line *line);
-void						goto_next_word(t_line *line);
+int							goto_end(t_line *line);
+int							goto_begin(t_line *line);
+int							goto_row_down(t_line *line);
+int							goto_row_up(t_line *line);
+int							goto_prev_word(t_line *line);
+int							goto_next_word(t_line *line);
 void						erase_input(t_line *line);
 void						clear_rows(t_line *line);
 void						reposition(t_line *line);
@@ -223,7 +232,7 @@ void						apped_or_insert(t_line *line, char c);
 /*
 ** AUTOCOMPLETE
 */
-void handle_autocomplete(t_line *line);
+int	handle_autocomplete(t_line *line);
 void get_completions(t_completer *ac);
 char	**init_env(char **env);
 

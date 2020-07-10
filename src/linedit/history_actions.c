@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 10:41:49 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 10:49:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:25:01 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-void		hist_next(t_line *line)
+int			hist_next(t_line *line)
 {
 	t_hist *node;
 
@@ -26,9 +26,10 @@ void		hist_next(t_line *line)
 		goto_end(line);
 		line->hist_i++;
 	}
+	return (1);
 }
 
-void		hist_prev(t_line *line)
+int			hist_prev(t_line *line)
 {
 	t_hist *node;
 
@@ -51,4 +52,5 @@ void		hist_prev(t_line *line)
 		line->pos = line->len;
 		redraw_input(line);
 	}
+	return (1);
 }

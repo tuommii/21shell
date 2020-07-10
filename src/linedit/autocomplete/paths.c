@@ -6,17 +6,17 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 14:54:55 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 13:02:34 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:53:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-void load_paths(t_completer *ac, char *cwd)
+void	load_paths(t_completer *ac, char *cwd)
 {
-	struct dirent *de;
-	DIR *dir;
-	char **head;
+	struct dirent	*de;
+	DIR				*dir;
+	char			**head;
 
 	ac->paths_count = count_files(cwd);
 	dir = opendir(cwd);

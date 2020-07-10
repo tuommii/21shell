@@ -41,6 +41,7 @@ SRC_NAME 	= 	main.c \
 				linedit/history.c \
 				linedit/history_actions.c \
 				linedit/clipboard.c \
+				linedit/clipboard_actions.c \
 				linedit/autocomplete/autocomplete.c \
 				linedit/autocomplete/envs.c \
 				linedit/autocomplete/execs.c \
@@ -83,7 +84,7 @@ main:
 	./21sh
 
 fclean: clean
-	make -C $(LIBFT_DIR)/ fclean
+	make -C $(LIBFT_DIR) fclean
 	rm -rf $(NAME)
 
 test:

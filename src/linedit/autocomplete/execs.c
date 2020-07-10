@@ -6,17 +6,16 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 13:12:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:50:15 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-// TODO: check is file and is executable
-void files_from_dir(t_completer *ac, char *path, int *i)
+void	files_from_dir(t_completer *ac, char *path, int *i)
 {
-	struct dirent *de;
-	DIR *dir;
+	struct dirent	*de;
+	DIR				*dir;
 
 	dir = opendir(path);
 	if (dir == NULL)
@@ -37,9 +36,10 @@ void files_from_dir(t_completer *ac, char *path, int *i)
 	}
 }
 
-int count_files(char *path)
+int		count_files(char *path)
 {
 	DIR *dir;
+	int i;
 
 	if (!path)
 		return (0);
@@ -49,7 +49,7 @@ int count_files(char *path)
 		ft_putstr("Error while opening dir\n");
 		return (0);
 	}
-	int i = 0;
+	i = 0;
 	while (readdir(dir) != NULL)
 		i++;
 	if ((closedir(dir)) == -1)
@@ -60,12 +60,11 @@ int count_files(char *path)
 	return (i);
 }
 
-// opendir is allowed
-void load_execs(t_completer *ac, char **envs)
+void	load_execs(t_completer *ac, char **envs)
 {
-	char **paths;
-	char **head;
-	int i = 0;
+	char	**paths;
+	char	**head;
+	int		i;
 
 	if (!(paths = ft_strsplit(ft_getenv("PATH", envs), ':')))
 		return ;

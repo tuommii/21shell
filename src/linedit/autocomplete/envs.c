@@ -6,16 +6,16 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:03:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 12:47:23 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:48:36 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-static int get_envname_last_index(char *str)
+static int	get_envname_last_index(char *str)
 {
-	char *cpy;
-	int i;
+	char	*cpy;
+	int		i;
 
 	cpy = str;
 	i = 0;
@@ -24,7 +24,7 @@ static int get_envname_last_index(char *str)
 	return (i);
 }
 
-static int count_envs(char **envs)
+static int	count_envs(char **envs)
 {
 	char	**temp;
 	int		i;
@@ -47,12 +47,12 @@ static int	ft_env_exists(char *name, char *given, int len_given)
 	return (0);
 }
 
-void load_envs(t_completer *ac, char **envs)
+void		load_envs(t_completer *ac, char **envs)
 {
-	char **cpy;
-	char **head;
-	int i;
-	int last;
+	char	**cpy;
+	char	**head;
+	int		i;
+	int		last;
 
 	ac->envs_count = count_envs(envs);
 	if (!(ac->envs = malloc(sizeof(char *) * (ac->envs_count + 1))))

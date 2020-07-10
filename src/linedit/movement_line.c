@@ -6,31 +6,33 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:40:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/22 10:47:31 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:17:43 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-void	goto_end(t_line *line)
+int	goto_end(t_line *line)
 {
 	if (line->pos != line->len)
 	{
 		line->pos = line->len;
 		redraw_input(line);
 	}
+	return (1);
 }
 
-void	goto_begin(t_line *line)
+int	goto_begin(t_line *line)
 {
 	if (line->pos != 0)
 	{
 		line->pos = 0;
 		redraw_input(line);
 	}
+	return (1);
 }
 
-void	goto_prev_word(t_line *line)
+int	goto_prev_word(t_line *line)
 {
 	if (line->len > 0 && line->pos > 0)
 	{
@@ -45,9 +47,10 @@ void	goto_prev_word(t_line *line)
 		}
 		redraw_input(line);
 	}
+	return (1);
 }
 
-void	goto_next_word(t_line *line)
+int	goto_next_word(t_line *line)
 {
 	while (line->pos < line->len && line->input[line->pos] == ' ')
 	{
@@ -62,4 +65,5 @@ void	goto_next_word(t_line *line)
 		line->pos++;
 	}
 	redraw_input(line);
+	return (1);
 }

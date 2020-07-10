@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 11:16:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:21:31 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-static int which_context(t_completer *ac)
+static int	which_context(t_completer *ac)
 {
 	if ((ft_strcmp(ac->ctx, CTX_EXEC)) == 0)
 	{
@@ -34,21 +34,19 @@ static int which_context(t_completer *ac)
 	return (1);
 }
 
-static int check_errors(t_line *line)
+static int	check_errors(t_line *line)
 {
 	if (!(line->ac->ctx = get_context(line->input, line->pos)))
 	{
 		free(line->ac->word);
 		return (1);
 	}
-
 	if (!(line->ac->word = get_word_at(line->input, line->pos)))
 	{
 		clean_ctx_word(line->ac);
 		return (1);
 	}
-
-	if(!line->ac->word[0])
+	if (!line->ac->word[0])
 	{
 		clean_ctx_word(line->ac);
 		return (1);
@@ -60,38 +58,35 @@ static int check_errors(t_line *line)
 ** Called when tab is pressed
 */
 
-void handle_autocomplete(t_line *line)
+int			handle_autocomplete(t_line *line)
 {
 	if (check_errors(line))
-		return ;
-
+		return (1);
 	if (which_context(line->ac))
-		return ;
-
+		return (1);
 	if (line->ac->matches_count == 0)
 	{
 		clean_ctx_word(line->ac);
 		tputs(tgetstr("vb", NULL), 1, &print_char);
-		return ;
+		return (1);
 	}
-
 	sort_by_length(line->ac);
 	delete_word(line, line->ac->word);
 	insert_word(line, line->ac->matches[0]);
 	ac_clean_matches(line->ac);
 	clean_ctx_word(line->ac);
 	redraw_input(line);
+	return (1);
 }
 
-t_completer *create_completer(void)
+t_completer	*create_completer(void)
 {
-	t_completer *ac;
-	int i;
+	t_completer	*ac;
+	int			i;
 
 	ac = NULL;
 	if (!(ac = malloc(sizeof(t_completer))))
 		return (NULL);
-
 	i = 0;
 	while (i < MAX_MATCHES)
 	{

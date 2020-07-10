@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:42:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 21:03:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:22:05 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-void	goto_row_down(t_line *line)
+int		goto_row_down(t_line *line)
 {
 	int rows;
 	int rpos;
@@ -31,9 +31,10 @@ void	goto_row_down(t_line *line)
 			redraw_input(line);
 		}
 	}
+	return (1);
 }
 
-void	goto_row_up(t_line *line)
+int		goto_row_up(t_line *line)
 {
 	int rpos;
 
@@ -43,6 +44,7 @@ void	goto_row_up(t_line *line)
 		line->pos -= line->cols;
 		redraw_input(line);
 	}
+	return (1);
 }
 
 /*
