@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 10:02:38 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:43:27 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,17 @@ static void	handle_enter(t_line *line)
 	reposition(line);
 }
 
-static char *create_copy_str(t_line *line)
+char *create_copy_str(t_line *line)
 {
-	int len = ft_strlen(COPY);
-	char *new = malloc(sizeof(char) * (line->len + 3));
+	int len;
+	int i;
+	char *replaced;
+	char *new;
+
+	len = ft_strlen(COPY);
+	new = malloc(sizeof(char) * (line->len + 3));
 	new[0] = '\"';
-	int i = 1;
+	i = 1;
 	while (i <= line->len)
 	{
 		new[i] = line->input[i-1];
@@ -110,8 +115,8 @@ static char *create_copy_str(t_line *line)
 	new[i] = '\"';
 	new[i+1] = '\0';
 	new = &new[0];
-	char s = '"';
-	char *replaced = ft_strreplace(new, &s, "\\\"");
+	char c = '"';
+	replaced = ft_strreplace(new, &c, "\"");
 	ft_bzero(line->clipboard.content, INPUT_BUFFER);
 	ft_strcpy(line->clipboard.content, replaced);
 	ft_strdel(&new);
@@ -123,6 +128,7 @@ static char *create_copy_str(t_line *line)
 char		*linedit(t_line *line)
 {
 	char	cwd[INPUT_BUFFER + 1];
+	char	*cpy;
 
 	getcwd(cwd, INPUT_BUFFER);
 	load_paths(line->ac, cwd);
@@ -146,16 +152,8 @@ char		*linedit(t_line *line)
 			continue ;
 		else if (which_action(line))
 			continue ;
-		else if(line->key == CTRL_K)
-		{
-			line->was_copy = 1;
-			// Let's just do special parsing for copying
-			// copy_to_clipboard(create_copy_str(line));
-			char *new = ft_strjoin("echo ", create_copy_str(line));
-			char *new2 = ft_strjoin(new, " | clip.exe");  // because windows
-			ft_strdel(&new);
-			return (new2);
-		}
+		else if ((cpy = check_copy(line)))
+			return (cpy);
 	}
 	return (NULL);
 }

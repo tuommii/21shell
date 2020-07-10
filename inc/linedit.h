@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 14:25:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:39:38 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # endif
 
 # ifdef __APPLE__
-#  define COPY " | pbpaste"
+#  define COPY " | pbcopy"
 # elif __linux__
 #  define COPY " | xclip -sel clip"
 # endif
@@ -183,6 +183,7 @@ int							check_command_keys(t_line *line);
 int							check_ctrl_arrow_keys(t_line *line);
 int							check_copy_paste_del(t_line *line);
 int							check_terminating_keys(t_line *line);
+char						*check_copy(t_line *line);
 void						listen_signals(void);
 void						watch_kill(t_line *line);
 int							keypress(void);
@@ -203,6 +204,7 @@ int							cut_to_start(t_line *line);
 int							cut_to_end(t_line *line);
 int							yank(t_line *line);
 int							external_paste(t_line *line);
+char						*create_copy_str(t_line *line);
 
 /*
 ** HISTORY
