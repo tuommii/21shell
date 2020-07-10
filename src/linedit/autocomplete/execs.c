@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/09 22:40:24 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/10 12:54:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ void files_from_dir(t_completer *ac, char *path, int *i)
 	dir = opendir(path);
 	if (dir == NULL)
 	{
-		ft_printf("\nOPEN DIR 1 count ERROR!\n");
+		ft_putstr("Error while openind dir\n");
+		return ;
 	}
-
 	while ((de = readdir(dir)) != NULL)
 	{
 		ac->execs[*i] = malloc(sizeof(char) * ft_strlen(de->d_name) + 1);
 		ft_strcpy(ac->execs[*i], de->d_name);
 		*i += 1;
 	}
-
 	if ((closedir(dir)) == -1)
 	{
-		ft_printf("\nOPEN DIR 1 count ERROR!\n");
+		ft_putstr("Error while closing dir\n");
+		return ;
 	}
 }
 
@@ -43,21 +43,18 @@ int count_files(char *path)
 
 	if (!path)
 		return (0);
-
 	dir = opendir(path);
 	if (dir == NULL)
 	{
-		ft_printf("\nOPEN DIR 1 count ERROR!\n");
+		ft_putstr("Error while openind dir\n");
 		return (0);
 	}
-
-	// get count
 	int i = 0;
 	while (readdir(dir) != NULL)
 		i++;
 	if ((closedir(dir)) == -1)
 	{
-		ft_printf("\nOPEN DIR 1 count ERROR!\n");
+		ft_putstr("Error while closing dir\n");
 		return (0);
 	}
 	return (i);
@@ -67,46 +64,28 @@ int count_files(char *path)
 void load_execs(t_completer *ac, char **envs)
 {
 	char **paths;
+	char **head;
+	int i = 0;
 
-	paths = NULL;
 	if (!(paths = ft_strsplit(ft_getenv("PATH", envs), ':')))
 		return ;
-
-	char **head = paths;
+	head = paths;
 	while (*head != NULL)
 	{
 		ac->execs_count += count_files(*head);
 		head++;
 	}
-
-
 	head = paths;
-
-
 	if (!(ac->execs = ft_memalloc(sizeof(char *) * (ac->execs_count + 1))))
 	{
 		ft_freestrarr(paths);
 		return ;
 	}
-
-	// char **head;
-	// head = NULL;
-	// head = ac->execs;
-
-	// int j = 0;
-	int i = 0;
+	i = 0;
 	while (*head != NULL)
 	{
 		files_from_dir(ac, *head, &i);
 		head++;
-		// j++;
 	}
 	ft_freestrarr(paths);
-
-	// ac->execs = head;
-
-	// if (!(files = files_from_dir("/bin/")))
-	// 	return (NULL);
-	// if (paths != NULL)
-	// 	ft_free_arr(paths);
 }
