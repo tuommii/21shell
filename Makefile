@@ -34,15 +34,15 @@ SRC_NAME 	= 	main.c \
 				linedit/redraw.c \
 				linedit/prompt.c \
 				linedit/dispatcher.c \
-				linedit/movement_line.c \
-				linedit/movement_row.c \
-				linedit/movement_cursor.c \
 				linedit/utils.c \
 				linedit/history.c \
-				linedit/history_actions.c \
-				linedit/clipboard.c \
-				linedit/copy.c \
-				linedit/clipboard_actions.c \
+				linedit/actions/cut.c \
+				linedit/actions/copy.c \
+				linedit/actions/cursor.c \
+				linedit/actions/history.c \
+				linedit/actions/line.c \
+				linedit/actions/paste.c \
+				linedit/actions/row.c \
 				linedit/autocomplete/autocomplete.c \
 				linedit/autocomplete/envs.c \
 				linedit/autocomplete/execs.c \
@@ -73,6 +73,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p obj/exec
 	@mkdir -p obj/lexer
 	@mkdir -p obj/linedit/autocomplete
+	@mkdir -p obj/linedit/actions
 	@mkdir -p obj/parser
 	@gcc -c $(FLAGS) $(INC) $< -o $@
 
