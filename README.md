@@ -8,7 +8,42 @@
 	<img width=320 src="shell.gif">
 </p>
 
-## Features
+### Challenge
+Stability. TODO
+
+#### Restrictions
+- Max **25 lines** per function
+- Max **5 functions** per **.c file**
+- Comments are only allowed outside of functions
+- All defines, and typedef must be done in header files
+
+#### Functions allowed
+```
+- malloc, free
+- access
+- open, close, read, write
+- opendir, readdir, closedir
+- getcwd, chdir
+- stat, lstat, fstat
+- fork, execve
+- wait, waitpid, wait3, wait4
+- signal, kill
+- exit
+- pipe
+- dup, dup2
+- isatty, ttyname, ttyslot
+- ioctl
+- getenv
+- tcsetattr, tcgetattr
+- tgetent
+- tgetflag
+- tgetnum
+- tgetstr
+- tgoto
+- tputs
+```
+
+### Features
 
 #### Context-Aware Autocompleter (WIP)
 Cursor can be anywhere and it recognizes:
@@ -23,19 +58,19 @@ Cursor can be anywhere and it recognizes:
 - History
 - Copy/Paste text between different windows (xclip on Linux)
 
-## Try It
+### Try It
 Compile and run with:
 ```bash
 make
 ./21sh
 ```
 
-## Unittests
+### Unittests
 ```sh
 python3 test-suite/tests.py
 ```
 
-## Keyboard shorcuts
+### Keyboard shorcuts
 | KEY | ACTION |
 |---------|---------|
 | <kbd>CTRL + LEFT</kbd> | Moves cursor one word **left** |
