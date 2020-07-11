@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 16:19:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:11:11 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,7 @@ static void	handle_enter(t_line *line)
 
 char		*linedit(t_line *line)
 {
-	char	cwd[INPUT_BUFFER];
-
-	getcwd(cwd, INPUT_BUFFER);
-	load_paths(line->ac, cwd);
-	line->cwd = deepest_folder(cwd);
-	line->branch = git_branch(cwd);
-	print_prompt(line, line->cwd, line->branch);
-
+	set_prompt(line);
 	while (1337)
 	{
 		watch_kill(line);

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:26:50 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 16:19:57 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:40:29 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,23 @@ char	*git_branch(char *cwd)
 	return (branch);
 }
 
+static int handle_readmore(t_line *line)
+{
+	if (!line->readmore)
+		return (0);
+	ft_bzero(line->prompt, INPUT_BUFFER);
+	ft_strcpy((char *)line->prompt, ">");
+	line->prompt_len = 1;
+	ft_putstr(FT_GREEN);
+	ft_putstr((const char *)line->prompt);
+	ft_putstr(FT_RESET);
+	return (1);
+}
+
 void		print_prompt(t_line *line, char *cwd, char *branch)
 {
-	if (line->readmore)
-	{
-		ft_bzero(line->prompt, INPUT_BUFFER);
-		ft_strcpy((char *)line->prompt, ">");
-		line->prompt_len = 1;
-		ft_putstr(FT_GREEN);
-		ft_putstr((const char *)line->prompt);
-		ft_putstr(FT_RESET);
+	if (handle_readmore(line))
 		return ;
-	}
 	line->prompt_len = 2;
 	if (cwd)
 	{
@@ -89,107 +94,13 @@ void		print_prompt(t_line *line, char *cwd, char *branch)
 	ft_putstr(FT_RESET);
 }
 
-// void branch(pid_t pid, char *git_cmd[5], int p[2], t_line *line)
-// {
-// 	char		buf[INPUT_BUFFER + 1];
-// 	int			j;
-// 	char		*formatted;
+void set_prompt(t_line *line)
+{
+	char	cwd[INPUT_BUFFER];
 
-// 	line->branch = NULL;
-// 	if (pid == 0)
-// 	{
-// 		dup2(p[1], STDOUT_FILENO);
-// 		close(p[0]);
-// 		if (execve("/usr/bin/git", git_cmd, line->envp) == -1)
-// 		{
-// 			line->branch = NULL;
-// 			return ;
-// 		}
-// 		return (NULL);
-// 	}
-// 	wait(&pid);
-// 	int status;
-// 	if (status = WEXITSTATUS(pid) != -2)
-// 	{
-// 		ft_printf("\nstatus: %d\n", status);
-// 		line->branch = NULL;
-// 		return ;
-// 	}
-// 	close(p[1]);
-// 	ft_bzero(buf, INPUT_BUFFER);
-// 	read(p[0], buf, INPUT_BUFFER);
-// 	ft_printf("\n%s\n", buf);
-// 	int len = ft_strlen(buf);
-// 	if (!len);
-// 	{
-// 		line->branch = NULL;
-// 		return ;
-// 	}
-// 	line->branch = malloc(sizeof(char) * (len));
-// 	ft_memcpy(line->branch, buf, len-1);
-// 	line->branch[len-1] = '\0';
-// 	return ;
-// }
-
-// void get_branch(t_line *line)
-// {
-// 	char	*git_cmd[5];
-// 	int		p[2];
-// 	pid_t	pid;
-
-// 	git_cmd[0] = "git";
-// 	git_cmd[1] = "symbolic-ref";
-// 	git_cmd[2] = "--short";
-// 	git_cmd[3] = "HEAD";
-// 	git_cmd[4] = (char *)0;
-// 	pipe(p);
-// 	pid = fork();
-// 	branch(pid, git_cmd, p, line);
-// }
-
-
-
-
-
-/*
-** void		print_prompt(t_line *line)
-** {
-** 	// char	host[INPUT_BUFFER + 1];
-** 	// gethostname(host, INPUT_BUFFER);
-** 	char *prompt;
-** 	char *branch;
-** 	char *temp;
-** 	char *temp2;
-** 	char	cwd[INPUT_BUFFER + 1];
-** 	ft_bzero(line->prompt, INPUT_BUFFER);
-** 	if (handle_readmore(line))
-** 		return ;
-** 	getcwd(cwd, INPUT_BUFFER);
-** 	// ft_printf("\n%s\n", line->ac->paths[0]);
-** 	// ft_printf("\n%s\n", line->ac->paths[1]);
-** 	// ft_printf("\n%s\n", line->ac->paths[2]);
-** 	char *dir = deepest_folder(cwd);
-** 	if (!(branch = git_branch(cwd)))
-** 	{
-** 		prompt = ft_strjoin(dir, "$>");
-** 	}
-** 	else
-** 	{
-** 		temp = ft_strjoin(dir, " on git:");
-** 		temp2 = ft_strjoin(temp, branch);
-** 		prompt = ft_strjoin(temp2, "$>");
-** 		free(temp);
-** 		free(temp2);
-** 		free(branch);
-** 	}
-** 	free(dir);
-** 	ft_strcpy(line->prompt, prompt);
-** 	free(prompt);
-** 	line->prompt_len = ft_strlen(line->prompt);
-** 	ft_putstr(FT_GREEN);
-** 	if (!line->was_copy)
-** 		ft_putstr(line->prompt);
-** 	ft_putstr(FT_RESET);
-** 	line->was_copy = 0;
-** }
-*/
+	getcwd(cwd, INPUT_BUFFER);
+	load_paths(line->ac, cwd);
+	line->cwd = deepest_folder(cwd);
+	line->branch = git_branch(cwd);
+	print_prompt(line, line->cwd, line->branch);
+}

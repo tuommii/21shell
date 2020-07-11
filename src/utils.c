@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/11 16:18:22 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:13:26 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 ** Initialize environment variable array
 */
 
-// I might need this also
-char	**init_env(char **env)
+static char	**init_env(char **env)
 {
 	int		i;
 	int		size;

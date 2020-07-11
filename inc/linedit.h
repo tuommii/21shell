@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 19:43:23 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:21:46 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@
 #  define COPY " | xclip -sel clip"
 # endif
 
-
-
 # define KEYBOARD_BUFFER 6
 # define TAB 9
 # define ENTER 10
@@ -90,17 +88,10 @@
 # define END_KEY 188
 
 
-// TODO: Enum?
 # define CTX_EXEC "EXEC"
 # define CTX_FLAG "FLAG"
 # define CTX_PATH "PATH"
 # define CTX_ENV "ENV"
-# define CTX_DISCARD "DISCARD"
-
-
-
-// TODO: Reset context with  "|;" and what else?
-# define CTX_DISCARD_STR "|;<>-$"
 
 typedef struct				s_completer
 {
@@ -119,8 +110,6 @@ typedef struct				s_completer
 	char					*ctx;
 	char					*word;
 }							t_completer;
-
-// typedef char				**(t_autocomp_cb)(const char *ctx);
 
 typedef struct				s_clipboard {
 	char					content[INPUT_BUFFER + 1];
@@ -148,20 +137,14 @@ typedef struct				s_line
 	int						lines_used;
 	int						cols;
 	int						is_cut;
-	struct s_hist			*hist;
 	int						hist_count;
 	int						hist_i;
 	int						readmore;
-
 	char					**envp;
 	char					*cwd;
 	char					*branch;
-
+	struct s_hist			*hist;
 	t_completer				*ac;
-
-	// struct s_suggestions	suggestions;
-	// t_autocomp_cb			*autocomplete;
-
 	struct s_clipboard		clipboard;
 }							t_line;
 
@@ -169,38 +152,26 @@ int							g_kill;
 int							g_cont;
 int							g_was_copy;
 
-char						*read_more(t_line *line, int nl_flag);
-void						linedit_setup(void);
-void						toggle_raw(int reset, int save_old);
-int							get_cols(void);
-void						redraw_input(t_line *line);
-void						clear_rows(t_line *line);
-int							print_char(int c);
-int							is_empty(char *str);
-void						free_history(t_hist **hist);
+/*
+** DISPATCHER
+*/
+
 int							which_action(t_line *line);
 int							check_arrow_keys(t_line *line);
 int							check_command_keys(t_line *line);
 int							check_ctrl_arrow_keys(t_line *line);
 int							check_copy_paste_del(t_line *line);
 int							check_terminating_keys(t_line *line);
-void						listen_signals(void);
-void						watch_kill(t_line *line);
-int							keypress(void);
-int							handle_right_key(t_line *line);
-int							handle_left_key(t_line *line);
-int							handle_backspace(t_line *line);
-int							handle_delete(t_line *line);
-t_line						*create_line_editor(void);
 
-char						*linedit(t_line *line);
+/*
+** PROMPT
+*/
 
-
-
+void						set_prompt(t_line *line);
 void						print_prompt(t_line *line, char *cwd, char *branch);
-char	*deepest_folder(char *path);
-void	get_branch(t_line *line);
-char 	*git_branch(char *cwd);
+char						*deepest_folder(char *path);
+void						get_branch(t_line *line);
+char						*git_branch(char *cwd);
 
 /*
 ** CLIPBOARD
@@ -213,8 +184,6 @@ void						external_paste(t_clipboard *clip);
 int							external_copy(t_line *line);
 void						clipboard_draw(t_line *line);
 
-
-
 /*
 ** HISTORY
 */
@@ -224,6 +193,7 @@ void						hist_print(t_hist *node);
 t_hist						*hist_pop(t_hist **head, int index);
 int							hist_prev(t_line *line);
 int							hist_next(t_line *line);
+void						free_history(t_hist **hist);
 
 /*
 ** GOTO
@@ -238,24 +208,24 @@ int							goto_next_word(t_line *line);
 void						erase_input(t_line *line);
 void						clear_rows(t_line *line);
 void						reposition(t_line *line);
-void						apped_or_insert(t_line *line, char c);
 
 /*
 ** AUTOCOMPLETE
 */
-int	handle_autocomplete(t_line *line);
-void get_completions(t_completer *ac);
-char	**init_env(char **env);
 
-
-int suggestions_env(t_line *line, t_completer **ac);
-void load_envs(t_completer *ac, char **envs);
-char		*ft_getenv(char *name, char **envs);
-
+int							handle_autocomplete(t_line *line);
+void						load_execs(t_completer *ac, char  **envs);
+void						load_envs(t_completer *ac, char **envs);
+t_completer					*create_completer(void);
+int							count_files(char *path);
+void						load_paths(t_completer *ac, char *cwd);
+void						clean_ctx_word(t_completer *ac);
+char						*ft_getenv(char *name, char **envs);
 
 /*
 ** AC buffer
 */
+
 char *get_word_at(char buffer[INPUT_BUFFER], int cursor);
 void	delete_word(t_line *line, char *word);
 void	insert_word(t_line *line, char *word);
@@ -263,6 +233,7 @@ void	insert_word(t_line *line, char *word);
 /*
 ** AC filter
 */
+
 char *get_context(char buffer[INPUT_BUFFER], int cursor);
 void filter(t_completer *ac,  char **arr, int count);
 void sort_by_length(t_completer *ac);
@@ -270,17 +241,30 @@ void sort_by_length(t_completer *ac);
 /*
 ** AC clean
 */
+
 void ac_clean_matches(t_completer *ac);
 void ac_clean_rest(t_completer *ac);
 
 /*
-** AC binaries
+** Misc
 */
-void load_execs(t_completer *ac, char  **envs);
-t_completer *create_completer(void);
-int count_files(char *path);
-void load_paths(t_completer *ac, char *cwd);
-void clean_ctx_word(t_completer *ac);
 
+char						*read_more(t_line *line, int nl_flag);
+void						linedit_setup(void);
+void						toggle_raw(int reset, int save_old);
+int							get_cols(void);
+void						redraw_input(t_line *line);
+void						clear_rows(t_line *line);
+int							print_char(int c);
+void						apped_or_insert(t_line *line, char c);
+void						listen_signals(void);
+void						watch_kill(t_line *line);
+int							keypress(void);
+int							handle_right_key(t_line *line);
+int							handle_left_key(t_line *line);
+int							handle_backspace(t_line *line);
+int							handle_delete(t_line *line);
+t_line						*create_line_editor(void);
+char						*linedit(t_line *line);
 
 #endif
