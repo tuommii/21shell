@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 10:36:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 10:52:15 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:08:15 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-static void	handle_enter_readmore(t_line *line, int nl_flag)
+static void	handle_enter(t_line *line, int nl_flag)
 {
 	if (*line->input)
 	{
@@ -49,7 +49,7 @@ char		*read_more(t_line *line, int nl_flag)
 		}
 		if (line->key == ENTER)
 		{
-			handle_enter_readmore(line, nl_flag);
+			handle_enter(line, nl_flag);
 			toggle_raw(1, 0);
 			return (ft_strdup(line->cpy));
 		}
