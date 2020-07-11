@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 20:20:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 12:56:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:19:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,21 @@ int			which_action(t_line *line)
 		redraw_input(line);
 	}
 	else if ((ret = check_arrow_keys(line)))
+	{
 		;
+	}
 	else if ((ret = check_ctrl_arrow_keys(line)))
+	{
 		;
+	}
 	else if ((ret = check_copy_paste_del(line)))
+	{
 		;
+	}
 	else if ((ret = check_others(line)))
+	{
 		;
+	}
 	return (ret);
 }
 
@@ -98,7 +106,6 @@ static void	handle_enter(t_line *line)
 
 char		*linedit(t_line *line)
 {
-	char	*cpy;
 	char	cwd[INPUT_BUFFER];
 
 	getcwd(cwd, INPUT_BUFFER);

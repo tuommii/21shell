@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 10:31:50 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:23:02 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,90 @@ int	check_ctrl_arrow_keys(t_line *line)
 		return (goto_row_down(line));
 	return (0);
 }
+
+
+static int join( char *com1[], char *com2[], char **envp)
+{
+    int p[2];       /* pipe */
+    int status;     /* status */
+
+    /* create child to run commands */
+    switch( fork() )
+    {
+        case -1:
+            /* fork was unsuccessful */
+            ft_putstr("unable to fork!\n");
+            return( -1 );
+
+        case 0:
+            /* child process */
+            break;
+
+        default:
+            /* parent process */
+            wait(&status);
+            return (status);
+    }
+
+    /* remainder of routine executed by child */
+
+    /* create pipe */
+    if (pipe(p) < 0) /* can use 'p' since address */
+    {
+        ft_putstr("unable to pipe!\n" );
+        return(-1);
+    }
+
+	// Error otherwise ?
+	// char *envp[2] = {"$DISPLAY=:0", 0};
+    /* create another process */
+    switch( fork() )
+    {
+        case -1:
+            /* fork was unsuccessful */
+            ft_putstr("unable to fork!\n");
+            return (-1);
+
+        case 0:
+            /* child process */
+            close(1);    /* close standard output */
+
+            /* make standard output go to pipe */
+            dup(p[1]);
+
+            close(p[0]);       /* close file descriptors */
+            close(p[1]);
+
+            /* execute command 1 */
+			// ft_printf("\nENV%s\n", envs[0]);
+			execve("/bin/echo", com1, envp);
+            // execvp( com1[0], com1 );
+
+            /* if execvp returns, error occured */
+            ft_putstr("first execvp call failed!\n");
+            return( -1 );
+
+        default:
+            /* parent process */
+            close(0);     /* close standard input */
+
+            /* make standard input come from pipe */
+            dup(p[0]);
+
+            close(p[0]);       /* close file descriptors */
+            close(p[1]);
+
+            /* execute command 2 */
+			execve("/usr/bin/xclip", com2, envp);
+            // execvp( com2[0], com2 );
+
+            /* if execvp returns, error occured */
+            ft_putstr("second execvp call failed!\n");
+            return (-1);
+    }
+}
+
+
 
 int	check_copy_paste_del(t_line *line)
 {
@@ -106,85 +190,4 @@ int	check_terminating_keys(t_line *line)
 		return (1);
 	}
 	return (0);
-}
-
-int join( char *com1[], char *com2[], char **envp)
-{
-    int p[2];       /* pipe */
-    int status;     /* status */
-
-    /* create child to run commands */
-    switch( fork() )
-    {
-        case -1:
-            /* fork was unsuccessful */
-            printf( "unable to fork!\n" );
-            return( -1 );
-
-        case 0:
-            /* child process */
-            break;
-
-        default:
-            /* parent process */
-            wait( &status );
-            return( status );
-    }
-
-    /* remainder of routine executed by child */
-
-    /* create pipe */
-    if( pipe( p ) < 0 ) /* can use 'p' since address */
-    {
-        printf( "unable to pipe!\n" );
-        return( -1 );
-    }
-
-	// Error otherwise ?
-	// char *envp[2] = {"$DISPLAY=:0", 0};
-    /* create another process */
-    switch( fork() )
-    {
-        case -1:
-            /* fork was unsuccessful */
-            printf( "unable to fork!\n" );
-            return( -1 );
-
-        case 0:
-            /* child process */
-            close( 1 );    /* close standard output */
-
-            /* make standard output go to pipe */
-            dup( p[1] );
-
-            close( p[0] );       /* close file descriptors */
-            close( p[1] );
-
-            /* execute command 1 */
-			// ft_printf("\nENV%s\n", envs[0]);
-			execve("/bin/echo", com1, envp);
-            // execvp( com1[0], com1 );
-
-            /* if execvp returns, error occured */
-            printf( "first execvp call failed!\n" );
-            return( -1 );
-
-        default:
-            /* parent process */
-            close( 0 );     /* close standard input */
-
-            /* make standard input come from pipe */
-            dup( p[0] );
-
-            close( p[0] );       /* close file descriptors */
-            close( p[1] );
-
-            /* execute command 2 */
-			execve("/usr/bin/xclip", com2, envp);
-            // execvp( com2[0], com2 );
-
-            /* if execvp returns, error occured */
-            printf( "second execvp call failed!\n" );
-            return( -1 );
-    }
 }

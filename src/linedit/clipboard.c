@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 21:15:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:23:53 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ t_clipboard **clip, char *paste_cmd[5], int p[2])
 {
 	extern char	**environ;
 	char		buf[INPUT_BUFFER + 1];
-	int			j;
-	char		*formatted;
 
 	if (pid == 0)
 	{

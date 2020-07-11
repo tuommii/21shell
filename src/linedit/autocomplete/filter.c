@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:14:34 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 13:53:24 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:25:45 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char		*get_context(char buffer[INPUT_BUFFER], int cursor)
 {
 	char *word;
 	char *ctx;
-	char *p;
 
 	if (!(word = get_word_at(buffer, cursor)))
 		return (NULL);
@@ -69,7 +68,7 @@ char		*get_context(char buffer[INPUT_BUFFER], int cursor)
 void		filter(t_completer *ac, char **arr, int count)
 {
 	char	*cpy;
-	int		len;
+	size_t	len;
 	int		i;
 
 	cpy = ac->word;

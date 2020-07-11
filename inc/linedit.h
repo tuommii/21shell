@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 12:55:58 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:20:30 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <dirent.h>
 # include <term.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # include "libft.h"
 
@@ -168,8 +170,6 @@ int							g_cont;
 int							g_was_copy;
 
 char						*read_more(t_line *line, int nl_flag);
-// void						linedit_completion_cb \
-(t_line *line, t_autocomp_cb *cb);
 void						linedit_setup(void);
 void						toggle_raw(int reset, int save_old);
 int							get_cols(void);

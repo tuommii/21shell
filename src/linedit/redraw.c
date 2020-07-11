@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 19:15:37 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 12:12:33 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:19:37 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void		redraw_input(t_line *line)
 	int		rows;
 	int		pos;
 	int		col;
-	char	*tmp;
 
 	rows = (line->prompt_len + line->len + line->cols - 1) / line->cols;
 	clear_rows(line);

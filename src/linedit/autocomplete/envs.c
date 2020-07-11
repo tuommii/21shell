@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:03:03 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 13:48:36 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:24:21 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static int	ft_env_exists(char *name, char *given, int len_given)
 
 void		load_envs(t_completer *ac, char **envs)
 {
-	char	**cpy;
 	char	**head;
 	int		i;
 	int		last;

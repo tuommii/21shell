@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:26:50 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 13:05:39 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:19:57 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,6 @@ char	*git_branch(char *cwd)
 	branch = deepest_folder(line);
 	free(line);
 	return (branch);
-}
-
-static int	handle_readmore(t_line *line)
-{
-	if (!line->readmore)
-		return (0);
-	ft_strcpy((char *)line->prompt, ">");
-	line->prompt_len = 1;
-	ft_putstr(FT_GREEN);
-	ft_putstr((char *)line->prompt);
-	ft_putstr(FT_RESET);
-	return (1);
 }
 
 void		print_prompt(t_line *line, char *cwd, char *branch)

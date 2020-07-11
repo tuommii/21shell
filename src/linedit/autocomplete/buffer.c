@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:08:40 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 13:47:49 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:24:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	goto_word_begin(char buffer[INPUT_BUFFER], int *x)
 		(*x)--;
 }
 
-static char	*checks(char buffer[INPUT_BUFFER], int x, int len)
+static char	*checks(char buffer[INPUT_BUFFER], int x)
 {
 	if (!x && buffer[x] == '\0')
 		return (ft_strdup(""));
@@ -51,7 +51,7 @@ char		*get_word_at(char buffer[INPUT_BUFFER], int cursor)
 
 	len = ft_strlen(buffer);
 	x = cursor;
-	if ((res = checks(buffer, x, len)) != NULL)
+	if ((res = checks(buffer, x)) != NULL)
 		return (res);
 	if (x-- == len)
 		goto_word_begin(buffer, &x);

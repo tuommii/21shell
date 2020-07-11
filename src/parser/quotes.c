@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:21:20 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/10 13:04:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:26:12 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void		read_open_quote(char **data, int wquote)
 
 int				open_quote(t_lexer **lexer, int wquote)
 {
-	char	*new;
 	char	err_msg;
 
 	read_open_quote(&(*lexer)->last->data, wquote);

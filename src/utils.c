@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/10 10:05:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:18:22 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,6 @@ void		create_shell(char **environ, t_line *line)
 	g_sh.line = line;
 }
 
-
-static void clean_execs(t_completer *ac)
-{
-	int i = 0;
-	while (i < ac->execs_count)
-	{
-		free(ac->execs[i]);
-		i++;
-	}
-	free(ac->execs);
-}
 
 /*
 ** Cleanup on exit
