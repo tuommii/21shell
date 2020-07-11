@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 17:01:28 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 19:43:23 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,9 +210,8 @@ int							cut_to_start(t_line *line);
 int							cut_to_end(t_line *line);
 int							yank(t_line *line);
 void						external_paste(t_clipboard *clip);
+int							external_copy(t_line *line);
 void						clipboard_draw(t_line *line);
-
-int join( char *com1[], char *com2[], char **envp);
 
 
 

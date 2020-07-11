@@ -33,7 +33,7 @@ SRC_NAME 	= 	main.c \
 				linedit/read_more.c \
 				linedit/redraw.c \
 				linedit/prompt.c \
-				linedit/check_keys.c \
+				linedit/dispatcher.c \
 				linedit/movement_line.c \
 				linedit/movement_row.c \
 				linedit/movement_cursor.c \
@@ -41,7 +41,7 @@ SRC_NAME 	= 	main.c \
 				linedit/history.c \
 				linedit/history_actions.c \
 				linedit/clipboard.c \
-				linedit/join.c \
+				linedit/copy.c \
 				linedit/clipboard_actions.c \
 				linedit/autocomplete/autocomplete.c \
 				linedit/autocomplete/envs.c \
