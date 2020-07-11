@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 10:24:20 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 12:55:58 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ typedef struct				s_line
 	int						old_pos;
 	int						lines_used;
 	int						cols;
-	int						was_copy;
 	int						is_cut;
 	struct s_hist			*hist;
 	int						hist_count;
@@ -153,6 +152,8 @@ typedef struct				s_line
 	int						readmore;
 
 	char					**envp;
+	char					*cwd;
+	char					*branch;
 
 	t_completer				*ac;
 
@@ -190,10 +191,16 @@ int							handle_right_key(t_line *line);
 int							handle_left_key(t_line *line);
 int							handle_backspace(t_line *line);
 int							handle_delete(t_line *line);
-void						print_prompt(t_line *line);
 t_line						*create_line_editor(void);
 
 char						*linedit(t_line *line);
+
+
+
+void						print_prompt(t_line *line, char *cwd, char *branch);
+char	*deepest_folder(char *path);
+void	get_branch(t_line *line);
+char 	*git_branch(char *cwd);
 
 /*
 ** CLIPBOARD

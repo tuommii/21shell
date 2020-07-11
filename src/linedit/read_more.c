@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 10:36:23 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 13:55:15 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 10:52:15 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char		*read_more(t_line *line, int nl_flag)
 {
 	toggle_raw(0, 0);
 	line->readmore = 1;
-	print_prompt(line);
+	print_prompt(line, NULL, NULL);
 	while (42)
 	{
 		line->cols = get_cols();
