@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 21:25:42 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 10:31:50 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ int	check_copy_paste_del(t_line *line)
 		return (cut_to_end(line));
 	else if (line->key == CTRL_K)
 	{
-		char *eka[4];
+		char *eka[3];
 		char *toka[4];
+
 
 		eka[0] = "echo";
 		eka[1] = "-n";
@@ -86,7 +87,10 @@ int	check_copy_paste_del(t_line *line)
 		toka[2] = "clipboard";
 		toka[3] = (char *)0;
 
-		join(eka, toka);
+		// int a[2];
+
+		// write(a[1], line->input, ft_strlen(line->input));
+		join(eka, toka, line->envp);
 
 		// ft_printf("\nCOPY\n");
 		return (1);
@@ -104,7 +108,7 @@ int	check_terminating_keys(t_line *line)
 	return (0);
 }
 
-int join( char *com1[], char *com2[] )
+int join( char *com1[], char *com2[], char **envp)
 {
     int p[2];       /* pipe */
     int status;     /* status */
@@ -136,6 +140,8 @@ int join( char *com1[], char *com2[] )
         return( -1 );
     }
 
+	// Error otherwise ?
+	// char *envp[2] = {"$DISPLAY=:0", 0};
     /* create another process */
     switch( fork() )
     {
@@ -155,7 +161,9 @@ int join( char *com1[], char *com2[] )
             close( p[1] );
 
             /* execute command 1 */
-            execvp( com1[0], com1 );
+			// ft_printf("\nENV%s\n", envs[0]);
+			execve("/bin/echo", com1, envp);
+            // execvp( com1[0], com1 );
 
             /* if execvp returns, error occured */
             printf( "first execvp call failed!\n" );
@@ -172,7 +180,8 @@ int join( char *com1[], char *com2[] )
             close( p[1] );
 
             /* execute command 2 */
-            execvp( com2[0], com2 );
+			execve("/usr/bin/xclip", com2, envp);
+            // execvp( com2[0], com2 );
 
             /* if execvp returns, error occured */
             printf( "second execvp call failed!\n" );

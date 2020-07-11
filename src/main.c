@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 10:04:07 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 10:24:49 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int				main(int argc, char **argv, char **environment)
 	// Autocompleter
 	line->ac = NULL;
 	line->ac = create_completer();
+	line->envp = environment;
 	load_execs(line->ac, environment);
 	load_envs(line->ac, environment);
 	// load paths later

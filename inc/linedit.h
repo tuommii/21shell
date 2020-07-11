@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 21:19:30 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 10:24:20 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ typedef struct				s_line
 	int						hist_count;
 	int						hist_i;
 	int						readmore;
+
+	char					**envp;
 
 	t_completer				*ac;
 
