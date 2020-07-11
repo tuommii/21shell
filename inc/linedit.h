@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 20:21:46 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 22:50:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,30 @@
 #  define TIOCGSIZE TIOCGWINSZ
 # endif
 
-# ifdef __APPLE__
-#  define PASTE_CMD "pbaste"
-#  define PASTE_PATH "/usr/bin/pbpaste"
-#  define PASTE_PARAM ""
-# elif __linux__
-#  define PASTE_CMD "xclip"
-#  define PASTE_PATH "/usr/bin/xclip"
-#  define PASTE_PARAM "-o"
-# endif
+#  define CMD_ARR(S) char **cmd_arr[S];
 
 # ifdef __APPLE__
-#  define COPY " | pbcopy"
+#  define PASTE_NAME "pbpaste"
+#  define PASTE_PATH "/usr/bin/pbpaste"
+#  define PASTE_PARAM (char *)0
+#  define COPY_PATH "/usr/bin/pbcopy"
+#  define COPY_NAME "pbcopy"
+#  define COPY_PARAM (char *)0
+#  define PASTE_ARR_SIZE 2
+#  define COPY_ARR_SIZE 2
 # elif __linux__
-#  define COPY " | xclip -sel clip"
+#  define PASTE_ARR_SIZE 5
+#  define PASTE_NAME "xclip"
+#  define PASTE_PATH "/usr/bin/xclip"
+#  define PASTE_PARAM "-selection"
+#  define PASTE_PARAM2 "clipboard"
+#  define PASTE_PARAM3 "-o"
+
+#  define COPY_ARR_SIZE 4
+#  define COPY_PATH "/usr/bin/xclip"
+#  define COPY_NAME "xclip"
+#  define COPY_PARAM "-selection"
+#  define COPY_PARAM2 "clipboard"
 # endif
 
 # define KEYBOARD_BUFFER 6

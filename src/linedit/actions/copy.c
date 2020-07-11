@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 17:00:45 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 19:58:50 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 22:39:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void handle_else(int p[2], char *cmd2[], char **envp)
 	dup(p[0]);
 	close(p[0]);
 	close(p[1]);
-	execve("/usr/bin/xclip", cmd2, envp);
+	execve(COPY_PATH, cmd2, envp);
 }
 
 static int run_copy(char *cmd1[], char *cmd2[], char **envp)
@@ -60,17 +60,22 @@ static int run_copy(char *cmd1[], char *cmd2[], char **envp)
 
 int	external_copy(t_line *line)
 {
-	char *echo[3];
-	char *copy[4];
+	char *echo[4];
+	char *copy[COPY_ARR_SIZE];
 
 	echo[0] = "echo";
 	echo[1] = "-n";
 	echo[2] = line->input;
 	echo[3] = (char *)0;
-	copy[0] = "xclip";
-	copy[1] = "-selection";
-	copy[2] = "clipboard";
-	copy[3] = (char *)0;
+	copy[0] = COPY_NAME;
+	if (COPY_PARAM)
+	{
+		copy[1] = COPY_PARAM;
+		copy[2] = COPY_PARAM2;
+		copy[3] = (char *)0;
+	}
+	else
+		copy[0] = COPY_PARAM;
 	run_copy(echo, copy, line->envp);
 	return (1);
 }

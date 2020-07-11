@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 10:40:07 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 19:58:44 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/11 22:45:16 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,20 @@ t_clipboard **clip, char *paste_cmd[5], int p[2])
 
 void		external_paste(t_clipboard *clip)
 {
-	char	*paste_cmd[5];
+	char	*paste_cmd[PASTE_ARR_SIZE];
 	int		p[2];
 	pid_t	pid;
 
-	paste_cmd[0] = "xclip";
-	paste_cmd[1] = "-selection";
-	paste_cmd[2] = "clipboard";
-	paste_cmd[3] = "-o";
-	paste_cmd[4] = (char *)0;
+	paste_cmd[0] = PASTE_NAME;
+	if (PASTE_PARAM)
+	{
+		paste_cmd[1] = PASTE_PARAM;
+		paste_cmd[2] = PASTE_PARAM2;
+		paste_cmd[3] = PASTE_PARAM3;
+		paste_cmd[4] = (char *)0;
+	}
+	else
+		paste_cmd[1] = PASTE_PARAM;
 	pipe(p);
 	pid = fork();
 	exec_paste_cmd(pid, &clip, paste_cmd, p);
