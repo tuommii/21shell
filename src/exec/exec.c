@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:44:25 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/18 13:03:40 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 15:18:36 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int		check_binary(char *path, char **args, struct stat attr, \
 		}
 		return (EXEC_OK);
 	}
+	ft_dprintf(STDERR_FILENO, "21sh: %s: command not found\n", path);
+	free(path);
 	return (EXEC_ERROR);
 }
 

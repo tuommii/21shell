@@ -163,6 +163,14 @@ class Shelltests(unittest.TestCase):
         self.assertEqual(err, expected)
         self.valgrind_leaks(command)
 
+    def test_20_misc(self):
+        command = ["libft"]
+        expected = b"21sh: libft: command not found\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
+
 
 if __name__ == '__main__':
     unittest.main()
