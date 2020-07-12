@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 17:00:45 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 22:39:47 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 09:38:05 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	external_copy(t_line *line)
 		copy[3] = (char *)0;
 	}
 	else
-		copy[0] = COPY_PARAM;
+		copy[1] = COPY_PARAM;
 	run_copy(echo, copy, line->envp);
 	return (1);
 }
