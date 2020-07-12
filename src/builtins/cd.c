@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:55:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/13 19:24:31 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 16:13:48 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static int		move_to(char *path, int print)
 	char	buffer[BUF_SIZE + 1];
 
 	errno = 0;
+	pwd = ft_strdup(get_env("PWD"));
 	if (!chdir(path))
 	{
-		pwd = ft_strdup(getenv("PWD"));
 		set_env("OLDPWD", pwd);
-		cwd = getcwd(buffer, BUF_SIZE);
+		cwd = ft_strdup(getcwd(buffer, BUF_SIZE));
 		set_env("PWD", cwd);
 		print ? print_path(cwd) : PASS;
 		free(pwd);
@@ -97,7 +97,7 @@ int				cd_builtin(char **args)
 	else if (args[0] && args[1])
 		return (change_pwd(args));
 	else if (ft_strequ(args[0], "-"))
-		return (move_to(getenv("OLDPWD"), 1));
+		return (move_to(get_env("OLDPWD"), 1));
 	else
 		return (move_to(args[0], 0));
 	return (0);

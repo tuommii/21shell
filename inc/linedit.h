@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linedit.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 11:53:00 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 16:15:55 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define BRANCH_BUFFER PROMPT_BUFFER / 2 - 2
 # define MAX_MATCHES 300
 # define OUTPUT STDOUT_FILENO
-# define MAX_HISTORY 3
+# define MAX_HISTORY 20
 
 /*
 ** Linux support

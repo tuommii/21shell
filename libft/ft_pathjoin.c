@@ -3,36 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pathjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 09:03:59 by mtuomine          #+#    #+#             */
-/*   Updated: 2019/12/11 10:10:36 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 16:12:08 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "stdlib.h"
 
-char	*ft_pathjoin(char *a, char *b)
+/*
+**		Join two strings into a valid path
+*/
+
+char			*ft_pathjoin(char *s1, char *s2)
 {
-	char *temp;
-	char *res;
+	char	*path;
+	char	*tmp;
 
-	if (a == NULL)
+	if (s1[ft_strlen(s1) - 1] == '/' && s2[0] == '/')
+		path = ft_strjoin(s1, s2 + 1);
+	else if (s1[ft_strlen(s1) - 1] == '/' || s2[0] == '/')
+		path = ft_strjoin(s1, s2);
+	else
 	{
-		if (b == NULL)
-			return (ft_strnew(1));
-		return (ft_strdup(b));
+		tmp = ft_strjoin(s1, "/");
+		path = ft_strjoin(tmp, s2);
+		free(tmp);
 	}
-	if (b == NULL)
-		return (ft_strdup(a));
-	temp = NULL;
-	res = NULL;
-	if (!ft_endswith(a, "/"))
-	{
-		temp = ft_strjoinch(a, '/');
-		res = ft_strjoin(temp, b);
-		ft_strdel(&temp);
-		return (res);
-	}
-	return (ft_strjoin(a, b));
+	return (path);
 }

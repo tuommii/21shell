@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:23:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/12 10:28:08 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 16:04:42 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static char			*helper(char *var)
 {
 	if (!ft_strcmp(var, "$?"))
 		return (ft_itoa(g_sh.status));
-	else if (getenv(var + 1))
-		return (ft_strdup(getenv(var + 1)));
+	else if (get_env(var + 1))
+		return (ft_strdup(get_env(var + 1)));
 	else
 		return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 17:01:10 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/07 15:32:20 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 16:07:30 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_env(char *key, char *value)
 	i = find_env(key);
 	if (g_sh.env[i])
 	{
-		free(g_sh.env[i]);
+		ft_strdel(&g_sh.env[i]);
 		if (value)
 			g_sh.env[i] = ft_strjoin(tmp, value);
 		else
