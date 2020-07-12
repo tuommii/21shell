@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 09:50:14 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 11:53:00 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # include "libft.h"
 
 # define INPUT_BUFFER 4096
+# define PROMPT_BUFFER 2048
+# define CWD_BUFFER PROMPT_BUFFER / 2 - 2
+# define BRANCH_BUFFER PROMPT_BUFFER / 2 - 2
 # define MAX_MATCHES 300
 # define OUTPUT STDOUT_FILENO
 # define MAX_HISTORY 3
@@ -135,7 +138,7 @@ typedef struct				s_line
 	char					cpy[INPUT_BUFFER + 1];
 	char					internal[INPUT_BUFFER + 1];
 	int						len;
-	char					*prompt[INPUT_BUFFER + 1];
+	char					*prompt[PROMPT_BUFFER + 1];
 	int						prompt_len;
 	int						key;
 	int						pos;
@@ -147,8 +150,8 @@ typedef struct				s_line
 	int						hist_i;
 	int						readmore;
 	char					**envp;
-	char					cwd[INPUT_BUFFER + 1];
-	char					branch[INPUT_BUFFER + 1];
+	char					cwd[CWD_BUFFER + 1];
+	char					branch[BRANCH_BUFFER + 1];
 	struct s_hist			*hist;
 	t_completer				*ac;
 	struct s_clipboard		clipboard;

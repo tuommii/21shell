@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:26:50 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 09:44:05 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 11:52:03 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	handle_readmore(t_line *line)
 {
 	if (!line->readmore)
 		return (0);
-	ft_bzero(line->prompt, INPUT_BUFFER);
+	ft_bzero(line->prompt, PROMPT_BUFFER);
 	ft_strcpy((char *)line->prompt, ">");
 	line->prompt_len = 1;
 	ft_putstr(FT_GREEN);
@@ -99,18 +99,18 @@ void		print_prompt(t_line *line, char *cwd, char *branch)
 
 void		set_prompt(t_line *line)
 {
-	char	cwd[INPUT_BUFFER];
+	char	cwd[CWD_BUFFER];
 	char	*dir;
 	char	*branch;
 
-	getcwd(cwd, INPUT_BUFFER);
+	getcwd(cwd, CWD_BUFFER);
 	load_paths(line->ac, cwd);
 	dir = deepest_folder(cwd);
 	branch = git_branch(cwd);
-	ft_bzero(line->cwd, INPUT_BUFFER);
+	ft_bzero(line->cwd, CWD_BUFFER);
 	if (dir)
 		ft_strcpy(line->cwd, dir);
-	ft_bzero(line->branch, INPUT_BUFFER);
+	ft_bzero(line->branch, BRANCH_BUFFER);
 	if (branch)
 		ft_strcpy(line->branch, branch);
 	print_prompt(line, line->cwd, line->branch);

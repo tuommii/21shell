@@ -16,8 +16,10 @@ Stability. TODO
 - Max **5 functions** per **.c file**
 - Comments are only allowed outside of functions
 - All defines, and typedef must be done in header files
+- No leaks
+- No unexpected quits
 
-#### Functions allowed
+#### Allowed functions
 ```
 malloc, free
 access
