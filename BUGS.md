@@ -1,6 +1,8 @@
 ### Buglist
 
 Some found bugs:
+- [ ] If input contains only existing directory name, no command not found error is printed
+and that also leaks memory
 - [ ] write newline after CTRL+D
 - [ ] `cd -` causes EOF error and goes to wrong dir sometime. Also prints
 extra '/'

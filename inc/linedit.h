@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 22:50:44 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 08:13:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,8 @@ typedef struct				s_line
 	int						hist_i;
 	int						readmore;
 	char					**envp;
-	char					*cwd;
-	char					*branch;
+	char					cwd[INPUT_BUFFER + 1];
+	char					branch[INPUT_BUFFER + 1];
 	struct s_hist			*hist;
 	t_completer				*ac;
 	struct s_clipboard		clipboard;
