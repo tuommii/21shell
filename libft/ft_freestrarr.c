@@ -6,10 +6,11 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 10:34:35 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 10:35:54 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 10:48:35 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 void	ft_freestrarr(char **arr)

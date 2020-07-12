@@ -6,10 +6,11 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 15:00:33 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/12 10:37:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 10:49:06 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 void	*ft_realloc(void *ptr, size_t old_s, size_t new_s)
