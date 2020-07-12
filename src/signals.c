@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/02 12:50:13 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 10:23:40 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void		watch_kill(t_line *line)
 		erase_input(line);
 		ioctl(OUTPUT, TIOCSTI, "\n");
 		g_kill = 0;
-		// cleanup(line);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/11 20:13:26 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 10:24:17 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void		create_shell(char **environ, t_line *line)
 	g_sh.env = init_env(environ);
 	g_sh.line = line;
 }
-
 
 /*
 ** Cleanup on exit

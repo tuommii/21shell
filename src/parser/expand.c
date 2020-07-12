@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:23:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/18 12:35:54 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 10:28:08 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ static char			*helper(char *var)
 		return (ft_strdup(getenv(var + 1)));
 	else
 		return (NULL);
+}
+
+static void			clean(char *value, char *tmp)
+{
+	free(value);
+	ft_strdel(&tmp);
 }
 
 static void			parse_dollar(char **data)
@@ -42,8 +48,7 @@ static void			parse_dollar(char **data)
 		{
 			tmp = *data;
 			*data = ft_strreplace(tmp, var, value);
-			free(value);
-			ft_strdel(&tmp);
+			clean(value, tmp);
 			tmp = *data;
 		}
 		tmp++;
