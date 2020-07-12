@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 21:08:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/18 13:04:07 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 09:27:57 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int			execute_pipeline(t_ast *left, t_ast *right)
 	int		status;
 	pid_t	pid_left;
 
+	status = 0;
 	// ft_putendl("exec pipe left");
 	if (pipe(fd) == -1)
 	{

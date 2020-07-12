@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:34:01 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/19 18:57:31 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 09:29:22 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	remove_quotes(t_token *token, int wquote)
 	char	*clean;
 	t_token *tmp;
 
+	clean = NULL;
 	tmp = token;
 	while (tmp->next)
 		tmp = tmp->next;

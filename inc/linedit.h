@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 08:13:44 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 09:28:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,12 @@
 #  define PASTE_NAME "pbpaste"
 #  define PASTE_PATH "/usr/bin/pbpaste"
 #  define PASTE_PARAM (char *)0
+#  define PASTE_PARAM2 (char *)0
+#  define PASTE_PARAM3 (char *)0
 #  define COPY_PATH "/usr/bin/pbcopy"
 #  define COPY_NAME "pbcopy"
 #  define COPY_PARAM (char *)0
+#  define COPY_PARAM2 (char *)0
 #  define PASTE_ARR_SIZE 2
 #  define COPY_ARR_SIZE 2
 # elif __linux__
