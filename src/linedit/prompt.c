@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:26:50 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 08:25:19 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 09:44:05 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Returns last item after '/
 */
 
-char	*deepest_folder(char *path)
+char		*deepest_folder(char *path)
 {
 	int delta;
 	int i;
@@ -39,7 +39,7 @@ char	*deepest_folder(char *path)
 	return (ft_strdup(path + (len - delta)));
 }
 
-char	*git_branch(char *cwd)
+char		*git_branch(char *cwd)
 {
 	char	*line;
 	char	*path;
@@ -57,7 +57,7 @@ char	*git_branch(char *cwd)
 	return (branch);
 }
 
-static int handle_readmore(t_line *line)
+static int	handle_readmore(t_line *line)
 {
 	if (!line->readmore)
 		return (0);
@@ -72,19 +72,22 @@ static int handle_readmore(t_line *line)
 
 void		print_prompt(t_line *line, char *cwd, char *branch)
 {
+	int cwd_len;
+	int branch_len;
+
 	if (handle_readmore(line))
 		return ;
 	line->prompt_len = 2;
 	if (cwd[0])
 	{
-		int cwd_len = ft_strlen(cwd);
+		cwd_len = ft_strlen(cwd);
 		ft_putstr(FT_GREEN);
 		ft_putstr((const char *)cwd);
 		line->prompt_len += cwd_len;
 	}
 	if (branch[0])
 	{
-		int branch_len = ft_strlen(branch);
+		branch_len = ft_strlen(branch);
 		ft_putstr(FT_BLUE);
 		ft_putstr(" on ");
 		ft_putstr(branch);
@@ -94,7 +97,7 @@ void		print_prompt(t_line *line, char *cwd, char *branch)
 	ft_putstr(FT_RESET);
 }
 
-void set_prompt(t_line *line)
+void		set_prompt(t_line *line)
 {
 	char	cwd[INPUT_BUFFER];
 	char	*dir;
@@ -102,10 +105,8 @@ void set_prompt(t_line *line)
 
 	getcwd(cwd, INPUT_BUFFER);
 	load_paths(line->ac, cwd);
-
 	dir = deepest_folder(cwd);
 	branch = git_branch(cwd);
-
 	ft_bzero(line->cwd, INPUT_BUFFER);
 	if (dir)
 		ft_strcpy(line->cwd, dir);

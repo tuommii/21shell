@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 09:38:09 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 09:50:14 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@
 # ifndef TIOCGSIZE
 #  define TIOCGSIZE TIOCGWINSZ
 # endif
-
-#  define CMD_ARR(S) char **cmd_arr[S];
 
 # ifdef __APPLE__
 #  define PASTE_NAME "pbpaste"
@@ -100,7 +98,6 @@
 # define HOME_KEY 190
 # define END_KEY 188
 
-
 # define CTX_EXEC "EXEC"
 # define CTX_FLAG "FLAG"
 # define CTX_PATH "PATH"
@@ -109,17 +106,13 @@
 typedef struct				s_completer
 {
 	char					*matches[MAX_MATCHES];
-	int 					matches_count;
-
-	char 					**envs;
+	int						matches_count;
+	char					**envs;
 	int						envs_count;
-
 	char					**execs;
 	int						execs_count;
-
-	char 					**paths;
+	char					**paths;
 	int						paths_count;
-
 	char					*ctx;
 	char					*word;
 }							t_completer;
@@ -140,7 +133,7 @@ typedef struct				s_line
 {
 	char					input[INPUT_BUFFER + 1];
 	char					cpy[INPUT_BUFFER + 1];
-	char					internal[INPUT_BUFFER +1];
+	char					internal[INPUT_BUFFER + 1];
 	int						len;
 	char					*prompt[INPUT_BUFFER + 1];
 	int						prompt_len;
@@ -227,7 +220,7 @@ void						reposition(t_line *line);
 */
 
 int							handle_autocomplete(t_line *line);
-void						load_execs(t_completer *ac, char  **envs);
+void						load_execs(t_completer *ac, char **envs);
 void						load_envs(t_completer *ac, char **envs);
 t_completer					*create_completer(void);
 int							count_files(char *path);
@@ -239,24 +232,24 @@ char						*ft_getenv(char *name, char **envs);
 ** AC buffer
 */
 
-char *get_word_at(char buffer[INPUT_BUFFER], int cursor);
-void	delete_word(t_line *line, char *word);
-void	insert_word(t_line *line, char *word);
+char						*get_word_at(char buffer[INPUT_BUFFER], int cursor);
+void						delete_word(t_line *line, char *word);
+void						insert_word(t_line *line, char *word);
 
 /*
 ** AC filter
 */
 
-char *get_context(char buffer[INPUT_BUFFER], int cursor);
-void filter(t_completer *ac,  char **arr, int count);
-void sort_by_length(t_completer *ac);
+char						*get_context(char buffer[INPUT_BUFFER], int cursor);
+void						filter(t_completer *ac, char **arr, int count);
+void						sort_by_length(t_completer *ac);
 
 /*
 ** AC clean
 */
 
-void ac_clean_matches(t_completer *ac);
-void ac_clean_rest(t_completer *ac);
+void						ac_clean_matches(t_completer *ac);
+void						ac_clean_rest(t_completer *ac);
 
 /*
 ** Misc

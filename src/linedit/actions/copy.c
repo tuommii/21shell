@@ -6,13 +6,13 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 17:00:45 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 09:38:05 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 09:41:47 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 
-static void handle_id_zero(int p[2], char *cmd1[], char **envp)
+static void	handle_id_zero(int p[2], char *cmd1[], char **envp)
 {
 	close(1);
 	dup(p[1]);
@@ -21,7 +21,7 @@ static void handle_id_zero(int p[2], char *cmd1[], char **envp)
 	execve("/bin/echo", cmd1, envp);
 }
 
-static void handle_else(int p[2], char *cmd2[], char **envp)
+static void	handle_else(int p[2], char *cmd2[], char **envp)
 {
 	close(0);
 	dup(p[0]);
@@ -30,11 +30,11 @@ static void handle_else(int p[2], char *cmd2[], char **envp)
 	execve(COPY_PATH, cmd2, envp);
 }
 
-static int run_copy(char *cmd1[], char *cmd2[], char **envp)
+static int	run_copy(char *cmd1[], char *cmd2[], char **envp)
 {
-	int p[2];
-	int status;
-	pid_t id;
+	int		p[2];
+	int		status;
+	pid_t	id;
 
 	if ((id = fork()) == -1)
 		return (-1);
@@ -58,7 +58,7 @@ static int run_copy(char *cmd1[], char *cmd2[], char **envp)
 	return (0);
 }
 
-int	external_copy(t_line *line)
+int			external_copy(t_line *line)
 {
 	char *echo[4];
 	char *copy[COPY_ARR_SIZE];
