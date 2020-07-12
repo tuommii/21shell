@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 10:23:40 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 21:14:31 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	handle_sigcont(void)
 {
 	g_cont = 1;
 	toggle_raw(0, 0);
-	listen_signals();
 	ioctl(OUTPUT, TIOCSTI, "");
 }
 
@@ -53,7 +52,9 @@ void		watch_kill(t_line *line)
 	if (g_cont)
 	{
 		line->cols = get_cols();
+		listen_signals();
 		redraw_input(line);
+		g_cont = 0;
 	}
 	else if (g_kill)
 	{
