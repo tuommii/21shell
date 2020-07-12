@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 12:23:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/12 16:04:42 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 18:42:16 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void			parse_tilde(char **data)
 	tmp = *data;
 	while ((tmp = ft_strchr(tmp, '~')))
 	{
-		if ((value = getenv("HOME")))
+		if ((value = get_env("HOME")))
 		{
 			tmp = *data;
 			*data = ft_strreplace(tmp, "~", value);

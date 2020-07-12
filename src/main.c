@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 10:23:10 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 18:07:04 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void			run_21_stdin(void)
 	char	*input;
 	t_lexer	*lexer;
 
+	g_sh.mode = 1;
 	listen_signals();
 	get_next_line(0, &input);
 	tokenize(&lexer, input);

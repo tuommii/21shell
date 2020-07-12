@@ -6,7 +6,7 @@
 /*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:55:11 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/12 16:13:48 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 18:15:40 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ static int		move_to(char *path, int print)
 	char	buffer[BUF_SIZE + 1];
 
 	errno = 0;
-	pwd = ft_strdup(get_env("PWD"));
+	pwd = get_env("PWD");
 	if (!chdir(path))
 	{
 		set_env("OLDPWD", pwd);
-		cwd = ft_strdup(getcwd(buffer, BUF_SIZE));
+		cwd = getcwd(buffer, BUF_SIZE);
 		set_env("PWD", cwd);
 		print ? print_path(cwd) : PASS;
-		free(pwd);
 		return (EXEC_OK);
 	}
 	else
@@ -55,7 +54,7 @@ static int		change_pwd(char **args)
 	int		status;
 	char	*cwd;
 
-	cwd = ft_strdup(getenv("PWD"));
+	cwd = get_env("PWD");
 	if (args[2])
 	{
 		ft_putendl("cd: too many arguments");
@@ -72,7 +71,6 @@ static int		change_pwd(char **args)
 		ft_printf("cd: string not in pwd: %s\n", args[0]);
 		status = EXEC_ERROR;
 	}
-	free(cwd);
 	return (status);
 }
 
@@ -85,8 +83,8 @@ int				cd_builtin(char **args)
 {
 	char	*home;
 
-	home = getenv("HOME");
-	if (!args[0] || ft_strequ(args[0], getenv("USER"))
+	home = get_env("HOME");
+	if (!args[0] || ft_strequ(args[0], get_env("USER"))
 				|| ft_strequ(args[0], "--"))
 	{
 		if (home)

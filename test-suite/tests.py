@@ -171,6 +171,20 @@ class Shelltests(unittest.TestCase):
         self.assertEqual(err, expected)
         self.valgrind_leaks(command)
 
+    def test_21_cd(self):
+        command = ["cd", "..", ";", "cd", "--", ";", "cd", "-", ";", "cd"]
+        self.valgrind_leaks(command)
+
+    def test_22_cd(self):
+        command = ["cd", "~/..////", ";", "pwd ;"]
+        self.compare_shells(command)
+        self.valgrind_leaks(command)
+
+    def test_23_chain(self):
+        command = ["echo", "\"'moro'\"", "|", "cat", ";", "echo"]
+        self.compare_shells(command)
+        self.valgrind_leaks(command)
+
 
 if __name__ == '__main__':
     unittest.main()

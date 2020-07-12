@@ -36,8 +36,6 @@
 - [x] MIIKKA check these -> `echo "pwd" | ./21sh`
 
 
-
-Works now
 ```sh
 mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
 ```

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 08:05:47 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 13:50:15 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/12 18:13:06 by srouhe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	files_from_dir(t_completer *ac, char *path, int *i)
 
 	dir = opendir(path);
 	if (dir == NULL)
-	{
-		ft_putstr("Error while opening dir\n");
 		return ;
-	}
 	while ((de = readdir(dir)) != NULL)
 	{
 		ac->execs[*i] = malloc(sizeof(char) * ft_strlen(de->d_name) + 1);
