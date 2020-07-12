@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: vkuokka <vkuokka@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 18:07:04 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/12 19:50:29 by vkuokka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,13 @@ void			run_21_stdin(void)
 
 	g_sh.mode = 1;
 	listen_signals();
-	get_next_line(0, &input);
-	tokenize(&lexer, input);
-	parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
-	lexer_del(&lexer);
-	ft_strdel(&input);
+	while (get_next_line(0, &input))
+	{
+		tokenize(&lexer, input);
+		parser(&lexer) == PARSER_OK ? execute_all(lexer) : PASS;
+		lexer_del(&lexer);
+		ft_strdel(&input);
+	}
 }
 
 int				main(int argc, char **argv, char **environment)
