@@ -55,7 +55,8 @@ static int		check_binary(char *path, char **args, struct stat attr, \
 		}
 		return (EXEC_OK);
 	}
-	ft_dprintf(STDERR_FILENO, "21sh: %s: command not found\n", path);
+	else if (S_ISDIR(attr.st_mode))
+		print_error(EISDIR, path);
 	free(path);
 	return (EXEC_ERROR);
 }
@@ -125,7 +126,7 @@ int				execute_command(t_ast *ast, int exec_type)
 			r = exec_builtin(cmd);
 		else if ((r = binaries(cmd, exec_type) != EXEC_ERROR))
 			r = EXEC_OK;
-		else if (!lstat(cmd[0], &attr))
+		else if (!lstat(cmd[0], &attr) && ft_strchr(cmd[0], '/'))
 			r = check_binary(ft_strdup(cmd[0]), cmd, attr, exec_type);
 		else
 		{

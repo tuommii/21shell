@@ -58,4 +58,5 @@ char		*read_more(t_line *line, int nl_flag)
 		else if (which_action(line))
 			continue ;
 	}
+	return (NULL);
 }
