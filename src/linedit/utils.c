@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 11:27:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/06/22 11:03:19 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 08:31:06 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ int		keypress(void)
 	return (code);
 }
 
-void	free_history(t_hist **hist)
-{
-	t_hist *temp;
-
-	temp = NULL;
-	while (*hist != NULL)
-	{
-		temp = *hist;
-		*hist = (*hist)->next;
-		ft_strdel(&temp->str);
-		free(temp);
-		temp = NULL;
-	}
-}
-
 int		print_char(int c)
 {
 	return (write(STDIN_FILENO, &c, 1));
@@ -67,4 +52,13 @@ void	erase_input(t_line *line)
 	line->pos = 0;
 	line->len = 0;
 	line->lines_used = 1;
+}
+
+int		path_exist(char *path)
+{
+	struct stat sb;
+
+	if (lstat(path, &sb) != 0)
+		return (0);
+	return (1);
 }

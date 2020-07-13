@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:27:19 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 09:42:12 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 08:32:44 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_copy_paste_del(t_line *line)
 {
 	if (line->key == DELETE || (line->key == CTRL_D && line->len))
 		return (handle_delete(line));
-	else if (line->key == CTRL_P)
+	else if (line->key == CTRL_P && path_exist(PASTE_PATH))
 	{
 		external_paste(&line->clipboard);
 		clipboard_draw(line);
@@ -71,7 +71,7 @@ int	check_copy_paste_del(t_line *line)
 		return (yank(line));
 	else if (line->key == CTRL_E)
 		return (cut_to_end(line));
-	else if (line->key == CTRL_K)
+	else if (line->key == CTRL_K && path_exist(COPY_PATH))
 		return (external_copy(line));
 	return (0);
 }

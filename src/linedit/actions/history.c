@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 10:41:49 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 19:58:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 08:30:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,23 @@ int			hist_prev(t_line *line)
 		redraw_input(line);
 	}
 	return (1);
+}
+
+/*
+** TODO: Move this
+*/
+
+void	free_history(t_hist **hist)
+{
+	t_hist *temp;
+
+	temp = NULL;
+	while (*hist != NULL)
+	{
+		temp = *hist;
+		*hist = (*hist)->next;
+		ft_strdel(&temp->str);
+		free(temp);
+		temp = NULL;
+	}
 }
