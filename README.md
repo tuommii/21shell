@@ -78,7 +78,7 @@ python3 test-suite/tests.py
 | <kbd>ESC</kbd> | Quit |
 
 
-#### Restrictions
+### Restrictions
 - Max **25 lines** per function
 - Max **5 functions** per **.c file**
 - Comments are only allowed outside of functions
@@ -111,6 +111,14 @@ tgetstr
 tgoto
 tputs
 ```
+
+### Bonus
+
+This is what the shell looked like when development started
+
+<p>
+	<img width=320 src="old.gif">
+</p>
 
 <div align='center'>
     <sub>Created by <a href='https://github.com/rouhija'>Sami Rouhe (srouhe)</a> and <a href='https://github.com/tuommii'>Miikka Tuominen (mtuomine)</a></sub>
