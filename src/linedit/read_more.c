@@ -11,27 +11,14 @@
 /* ************************************************************************** */
 
 #include "linedit.h"
-#include "shell.h"
 
 static void	append_to_hist(t_line *line, int nl_flag)
 {
-	char	*append;
-	// if (*line->input)
-	// {
-	// 	line->hist_count += hist_append(&line->hist, line->input);
-	// 	if (line->hist_count > MAX_HISTORY)
-	// 		line->hist_count = MAX_HISTORY;
-	// }
-	// line->hist_i = 0;
 	ft_strcpy(line->cpy, line->input);
 	if (nl_flag)
 		ft_strncat(line->cpy, "\n", 1);
-	// ft_putendl(line->cpy);
-	append = ft_strdup(line->cpy);
-	ft_strncat(g_sh.line->hist->str, append, ft_strlen(line->cpy));
-	free(append);
 	ft_putstr("\n\r");
-	// erase_input(line);
+	erase_input(line);
 }
 
 /*

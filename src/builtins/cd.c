@@ -95,7 +95,9 @@ int				cd_builtin(char **args)
 	else if (args[0] && args[1])
 		return (change_pwd(args));
 	else if (ft_strequ(args[0], "-"))
+	{
 		return (move_to(get_env("OLDPWD"), 1));
+	}
 	else
 		return (move_to(args[0], 0));
 	return (0);
