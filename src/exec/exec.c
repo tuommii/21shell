@@ -129,10 +129,7 @@ int				execute_command(t_ast *ast, int exec_type)
 		else if (!lstat(cmd[0], &attr) && ft_strchr(cmd[0], '/'))
 			r = check_binary(ft_strdup(cmd[0]), cmd, attr, exec_type);
 		else
-		{
-			ft_dprintf(STDERR_FILENO, "21sh: %s: command not found\n", cmd[0]);
-			r = EXEC_ERROR;
-		}
+			r = exec_errors(cmd[0]);
 		ft_freestrarr(cmd);
 	}
 	restore_fd(ast, save);

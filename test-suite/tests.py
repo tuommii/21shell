@@ -1,5 +1,6 @@
 import os
 import shutil
+import pathlib
 import unittest
 from subprocess import call, Popen, PIPE
 from utils import QueueProcess, valgrind_wrapper
@@ -9,7 +10,8 @@ class Shelltests(unittest.TestCase):
 
     def setUp(self):
         self.their_shell = '/bin/bash'
-        self.our_shell = f'{os.path.abspath(os.getcwd())}/21sh'
+        self.root = pathlib.Path(__file__).parent.absolute().parent
+        self.our_shell = f'{self.root}/21sh'
         self.tail = True if "TRUE" in "%s" % os.getenv("VG_TAIL") else False
         self.valgrind = True if shutil.which('valgrind') is not None else False
 
@@ -183,6 +185,30 @@ class Shelltests(unittest.TestCase):
     def test_23_chain(self):
         command = ["echo", "\"'moro'\"", "|", "cat", ";", "echo"]
         self.compare_shells(command)
+        self.valgrind_leaks(command)
+
+    def test_24_permission(self):
+        command = ["./libft"]
+        expected = b"21sh: is a directory: ./libft\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
+
+    def test_25_permission(self):
+        command = ["./Makefile"]
+        expected = b"21sh: permission denied: ./Makefile\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
+
+    def test_26_permission(self):
+        command = ["cd", ";", "./Makefile"]
+        expected = b"21sh: ./Makefile: No such file or directory\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
         self.valgrind_leaks(command)
 
 

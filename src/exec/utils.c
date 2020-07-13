@@ -106,3 +106,21 @@ void	restore_fd(t_ast *ast, int save[3])
 		tmp = tmp->next;
 	}
 }
+
+/*
+** Helper function if executable or command is not found.
+*/
+
+int		exec_errors(char *cmd)
+{
+	if (ft_strchr(cmd, '/'))
+	{
+		ft_dprintf(STDERR_FILENO, "21sh: %s: No such file or directory\n", cmd);
+		return (EXEC_ERROR);			
+	}
+	else
+	{
+		ft_dprintf(STDERR_FILENO, "21sh: %s: command not found\n", cmd);
+		return (EXEC_ERROR);
+	}
+}
