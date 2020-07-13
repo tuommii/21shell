@@ -1,6 +1,6 @@
 
 <h1 align="center">
-	(WIP) Shell
+	21shell - Our own shell
 	<br><br>
 </h1>
 
@@ -8,20 +8,37 @@
 	<img width=320 src="shell.gif">
 </p>
 
-Developing continues on a different repository.
+>This was a big and very challenging project, see [restrictions](#Restrictions) we had.
+>Developing continues on a different repository.
+
+<!--
+SCC is tool used
+-->
+
+```
+───────────────────────────────────────────────────────────────────────────────
+Language                 Files     Lines   Blanks  Comments     Code Complexity
+───────────────────────────────────────────────────────────────────────────────
+C                          155      8124      745      1970     5409       1509
+C Header                     8       883      120       151      612          0
+Makefile                     2       254       27        11      216          0
+Markdown                     2       153       22         0      131          0
+Python                       2       315       12         1      302         21
+gitignore                    2        15        0         0       15          0
+───────────────────────────────────────────────────────────────────────────────
+Total                      171      9744      926      2133     6685       1530
+───────────────────────────────────────────────────────────────────────────────
+Estimated Cost to Develop $198,587
+Estimated Schedule Effort 8.300657 months
+Estimated People Required 2.833962
+───────────────────────────────────────────────────────────────────────────────
+```
 
 ### Features
-
-#### Context-Aware Autocompleter
-Cursor can be anywhere and it recognizes:
-- Executables
-- Envinronment variables
-- Paths
-
-#### Other
+- Dynamic Context-Aware Autocompleter
 - Multiline support
 - History
-- Copy/Paste text between different windows (OS X, Linux needs xclip installed)
+- Global clipboard with support of OS X and Linux (xclip)
 
 ### Try It
 Compile and run with:
