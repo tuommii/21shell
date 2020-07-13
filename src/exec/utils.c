@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:03:38 by srouhe            #+#    #+#             */
-/*   Updated: 2020/04/18 13:04:19 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/13 13:32:25 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int		exec_errors(char *cmd)
 	if (ft_strchr(cmd, '/'))
 	{
 		ft_dprintf(STDERR_FILENO, "21sh: %s: No such file or directory\n", cmd);
-		return (EXEC_ERROR);			
+		return (EXEC_ERROR);
 	}
 	else
 	{

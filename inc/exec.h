@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:09:50 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/12 10:31:03 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 13:32:59 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int						exec_preprocess(int save[3], t_ast *ast);
 int						dup21(int dst, int src, char *msg);
 int						pipe_heredoc(t_token *dlarr);
 int						copy_to_clipboard(char *input);
-int		                exec_errors(char *cmd);
+int						exec_errors(char *cmd);
 
 int						is_builtin(char *cmd);
 int						exec_builtin(char **cmd);
