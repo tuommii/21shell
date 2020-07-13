@@ -81,7 +81,7 @@ class Shelltests(unittest.TestCase):
         self.valgrind_leaks(command)
 
     def test_06_empty2(self):
-        command = ["      "]
+        command = ["   \t   "]
         self.compare_shells(command)
         self.valgrind_leaks(command)
 
@@ -210,6 +210,21 @@ class Shelltests(unittest.TestCase):
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
         self.valgrind_leaks(command)
+
+    def test_26_misc(self):
+        command = ["echo", "stuff to a file", ">", ".test", ";", "cat", ".test", "|", "grep", "file"]
+        expected = b"stuff to a file\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, expected)
+        self.assertEqual(err, b'')
+        self.valgrind_leaks(command)
+
+        command = ["echo", "second line", ">>", ".test", ";", "cat", "<", ".test"]
+        expected = b"stuff to a file\nsecond line\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, expected)
+        self.assertEqual(err, b'')
+        self.exec_shell(["rm", "-rf", ".test"])
 
 
 if __name__ == '__main__':
