@@ -8,7 +8,7 @@
 	<img width=320 src="shell.gif">
 </p>
 
->This was a big, challenging and most time-consuming programming project currently available that Hive Helsinki offers.
+>This was a big, challenging and most time-consuming project that Hive Helsinki currently offers.
 >See also [restrictions](#Restrictions) we had. Developing continues on a different repository.
 
 <!--
