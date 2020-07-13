@@ -19,10 +19,13 @@
 static int	trailing_pipe(t_lexer **lexer)
 {
 	char	*input;
+	t_line	*line;
 
-	if (!(input = read_more(g_sh.line, 0)))
+	line = create_line_editor();
+	if (!(input = read_more(line, 0)))
 		return (PARSER_ERROR);
 	add_token(*lexer, input, STRING);
+	free_line_editor(line);
 	return (PARSER_OK);
 }
 

@@ -14,6 +14,7 @@
 
 static void		read_open_quote(char **data, int wquote)
 {
+	t_line	*line;
 	char	*input;
 	char	*tmp;
 	int		flag;
@@ -22,7 +23,8 @@ static void		read_open_quote(char **data, int wquote)
 	tmp = *data;
 	*data = ft_strjoin(tmp, "\n");
 	ft_strdel(&tmp);
-	while ((input = read_more(g_sh.line, 1)) != NULL)
+	line = create_line_editor();
+	while ((input = read_more(line, 1)) != NULL)
 	{
 		if (ft_lfind(input, wquote) != -1)
 			flag = 1;
@@ -33,6 +35,7 @@ static void		read_open_quote(char **data, int wquote)
 		if (flag)
 			break ;
 	}
+	free_line_editor(line);
 	if (!flag)
 		ft_strdel(data);
 }

@@ -14,12 +14,15 @@
 
 static char	*read_heredoc(char *r, char *d)
 {
+	t_line	*line;
 	char	*in;
 
-	while ((in = read_more(g_sh.line, 1)) != NULL)
+	line = create_line_editor();
+	while ((in = read_more(line, 1)) != NULL)
 	{
 		if (!ft_strncmp(in, d, ft_strlen(d) - 1) && in[ft_strlen(d)] == '\n')
 		{
+			free_line_editor(line);
 			free(in);
 			return (r);
 		}
@@ -32,6 +35,7 @@ static char	*read_heredoc(char *r, char *d)
 		}
 		free(in);
 	}
+	free_line_editor(line);
 	r ? free(r) : PASS;
 	return (NULL);
 }
