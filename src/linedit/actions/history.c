@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 10:41:49 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/13 08:30:25 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 09:49:58 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			hist_prev(t_line *line)
 ** TODO: Move this
 */
 
-void	free_history(t_hist **hist)
+void		free_history(t_hist **hist)
 {
 	t_hist *temp;
 

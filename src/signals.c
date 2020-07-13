@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/13 09:09:07 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 09:49:30 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void		watch_kill(t_line *line)
 	}
 	else if (g_kill)
 	{
-	 	rows = calc_rows_used(line);
+		rows = calc_rows_used(line);
 		rpos = calc_row_pos(line);
 		erase_input(line);
 		if (rpos != rows)
 		{
 			ft_putstr("\x1b[");
-			ft_putnbr(rows-rpos);
+			ft_putnbr(rows - rpos);
 			ft_putchar('B');
 		}
 		ioctl(OUTPUT, TIOCSTI, "\n");
