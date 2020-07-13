@@ -8,8 +8,8 @@
 	<img width=320 src="shell.gif">
 </p>
 
->This was a big and very challenging project, see [restrictions](#Restrictions) we had.
->Developing continues on a different repository.
+>This was a big, challenging and currently most time-consuming programming project that Hive Helsinki offers.
+>See also [restrictions](#Restrictions) we had. Developing continues on a different repository.
 
 <!--
 SCC is tool used
