@@ -68,7 +68,7 @@ python3 test-suite/tests.py
 | <kbd>CTRL + W</kbd> | **Cut** from start to cursor
 | <kbd>CTRL + E</kbd> | **Cut** from cursor to end
 | <kbd>CTRL + A</kbd> | **Yank**, internal paste
-| <kbd>CTRL + K</kbd> | (WIP) **Copy**. Copy current input to clipboard |
+| <kbd>CTRL + K</kbd> | **Copy**. Copy current input to clipboard |
 | <kbd>CTRL + P</kbd> | External **Paste** |
 | <kbd>LEFT</kbd> | Moves cursor left |
 | <kbd>RIGHT</kbd> | Moves cursor right |
