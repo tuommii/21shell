@@ -11,21 +11,27 @@
 /* ************************************************************************** */
 
 #include "linedit.h"
+#include "shell.h"
 
-static void	handle_enter(t_line *line, int nl_flag)
+static void	append_to_hist(t_line *line, int nl_flag)
 {
-	if (*line->input)
-	{
-		line->hist_count += hist_append(&line->hist, line->input);
-		if (line->hist_count > MAX_HISTORY)
-			line->hist_count = MAX_HISTORY;
-	}
-	line->hist_i = 0;
+	char	*append;
+	// if (*line->input)
+	// {
+	// 	line->hist_count += hist_append(&line->hist, line->input);
+	// 	if (line->hist_count > MAX_HISTORY)
+	// 		line->hist_count = MAX_HISTORY;
+	// }
+	// line->hist_i = 0;
 	ft_strcpy(line->cpy, line->input);
 	if (nl_flag)
 		ft_strncat(line->cpy, "\n", 1);
+	// ft_putendl(line->cpy);
+	append = ft_strdup(line->cpy);
+	ft_strncat(g_sh.line->hist->str, append, ft_strlen(line->cpy));
+	free(append);
 	ft_putstr("\n\r");
-	erase_input(line);
+	// erase_input(line);
 }
 
 /*
@@ -49,7 +55,7 @@ char		*read_more(t_line *line, int nl_flag)
 		}
 		if (line->key == ENTER)
 		{
-			handle_enter(line, nl_flag);
+			append_to_hist(line, nl_flag);
 			toggle_raw(1, 0);
 			return (ft_strdup(line->cpy));
 		}

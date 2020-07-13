@@ -38,6 +38,7 @@
 
 ```sh
 mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi
+valgrind --leak-check=full --track-origins=yes ./21sh
 ```
 
 ### Refrences
