@@ -5,6 +5,9 @@
 - add trailing slash '/' if file is dir
 - print all suggestions / tab changes suggestion
 - recursive git branch checking or git command, seperate from print_prompt() - its called in redraw()
+- prompt/cwd/branch over row
+- ctrl+c after cat
+
 
 - echo==14735== Warning: noted but unhandled ioctl 0x5412 with no size/direction hints. README_MISSING_SYSCALL_OR_IOCTL
 - tokenize -> init_lexer LEAKS! If no inpu, just ENTER
