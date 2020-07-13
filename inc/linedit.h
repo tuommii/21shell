@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/13 08:33:37 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 09:08:08 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,8 @@ void						ac_clean_rest(t_completer *ac);
 ** Misc
 */
 
+int							calc_rows_used(t_line *line);
+int							calc_row_pos(t_line *line);
 int							path_exist(char *path);
 char						*read_more(t_line *line, int nl_flag);
 void						linedit_setup(void);

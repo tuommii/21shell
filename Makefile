@@ -30,6 +30,7 @@ SRC_NAME 	= 	main.c \
 				lexer/utils.c \
 				linedit/setup.c \
 				linedit/linedit.c \
+				linedit/calc.c \
 				linedit/read_more.c \
 				linedit/redraw.c \
 				linedit/prompt.c \

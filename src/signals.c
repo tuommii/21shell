@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:43:13 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 22:22:14 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 09:09:07 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void		watch_kill(t_line *line)
 	}
 	else if (g_kill)
 	{
-	 	rows = (line->prompt_len + line->len + line->cols - 1) / line->cols;
-		rpos = (line->prompt_len + line->old_pos + line->cols) / line->cols;
+	 	rows = calc_rows_used(line);
+		rpos = calc_row_pos(line);
 		erase_input(line);
 		if (rpos != rows)
 		{

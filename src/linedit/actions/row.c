@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 10:42:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/11 19:58:48 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/13 09:10:04 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,13 @@ void	reposition(t_line *line)
 
 void	clear_rows(t_line *line)
 {
-	int plen;
 	int rows;
 	int rpos;
 	int old_rows;
 	int j;
 
-	plen = line->prompt_len;
-	rows = (plen + line->len + line->cols - 1) / line->cols;
-	rpos = (plen + line->old_pos + line->cols) / line->cols;
+	rows = calc_rows_used(line);
+	rpos = calc_row_pos(line);
 	old_rows = line->lines_used;
 	if (rows > line->lines_used)
 		line->lines_used = rows;
