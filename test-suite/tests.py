@@ -226,6 +226,19 @@ class Shelltests(unittest.TestCase):
         self.assertEqual(err, b'')
         self.exec_shell(["rm", "-rf", ".test"])
 
+    def test_27_misc(self):
+        command = [".."]
+        self.compare_shells(command)
+        self.valgrind_leaks(command)
+
+    def test_28_misc(self):
+        command = ["."]
+        expected = b"21sh: .: command not found\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
+
 
 if __name__ == '__main__':
     unittest.main()

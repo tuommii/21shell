@@ -74,11 +74,12 @@ static int		binaries(char **cmd, int exec_type)
 	struct stat		attr;
 
 	i = 0;
-	path = ft_strsplit(getenv("PATH"), ':');
+	path = ft_strsplit(get_env("PATH"), ':');
 	while (path && path[i])
 	{
 		exec = ft_pathjoin(path[i], cmd[0]);
-		if (!lstat(exec, &attr))
+		if (!lstat(exec, &attr) && \
+			!(!ft_strcmp(cmd[0], ".") || !ft_strcmp(cmd[0], "..")))
 		{
 			ft_freestrarr(path);
 			return (check_binary(exec, cmd, attr, exec_type));
