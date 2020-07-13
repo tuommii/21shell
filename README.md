@@ -8,57 +8,20 @@
 	<img width=320 src="shell.gif">
 </p>
 
-### Challenge
-Stability. TODO
-
-#### Restrictions
-- Max **25 lines** per function
-- Max **5 functions** per **.c file**
-- Comments are only allowed outside of functions
-- All defines, and typedef must be done in header files
-- No leaks
-- No unexpected quits
-
-#### Allowed functions
-```
-malloc, free
-access
-open, close, read, write
-opendir, readdir, closedir
-getcwd, chdir
-stat, lstat, fstat
-fork, execve
-wait, waitpid, wait3, wait4
-signal, kill
-exit
-pipe
-dup, dup2
-isatty, ttyname, ttyslot
-ioctl
-getenv
-tcsetattr, tcgetattr
-tgetent
-tgetflag
-tgetnum
-tgetstr
-tgoto
-tputs
-```
+Developing continues on a different repository.
 
 ### Features
 
-#### Context-Aware Autocompleter (WIP)
+#### Context-Aware Autocompleter
 Cursor can be anywhere and it recognizes:
-- Built-ins
 - Executables
 - Envinronment variables
 - Paths
-- Flags (?)
 
 #### Other
 - Multiline support
 - History
-- Copy/Paste text between different windows (xclip on Linux)
+- Copy/Paste text between different windows (OS X, Linux needs xclip installed)
 
 ### Try It
 Compile and run with:
@@ -96,6 +59,41 @@ python3 test-suite/tests.py
 | <kbd>DOWN</kbd> | Go back one command |
 | <kbd>BACKSPACE</kbd> | Delete on char left of cursor and move cursor left |
 | <kbd>ESC</kbd> | Quit |
+
+
+#### Restrictions
+- Max **25 lines** per function
+- Max **5 functions** per **.c file**
+- Comments are only allowed outside of functions
+- All defines, and typedef must be done in header files
+- No leaks
+- No unexpected quits
+
+#### Allowed functions
+```
+malloc, free
+access
+open, close, read, write
+opendir, readdir, closedir
+getcwd, chdir
+stat, lstat, fstat
+fork, execve
+wait, waitpid, wait3, wait4
+signal, kill
+exit
+pipe
+dup, dup2
+isatty, ttyname, ttyslot
+ioctl
+getenv
+tcsetattr, tcgetattr
+tgetent
+tgetflag
+tgetnum
+tgetstr
+tgoto
+tputs
+```
 
 <div align='center'>
     <sub>Created by <a href='https://github.com/rouhija'>Sami Rouhe (srouhe)</a> and <a href='https://github.com/tuommii'>Miikka Tuominen (mtuomine)</a></sub>
