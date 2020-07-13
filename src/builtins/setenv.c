@@ -15,10 +15,15 @@
 char	*parse_quotes(char *s)
 {
 	char	quote[2];
+	char	*helper;
+	char	*r;
 
 	quote[0] = '"';
 	quote[1] = '\0';
-	return (ft_strreplace(ft_strdup(s), quote, ""));
+	helper = ft_strdup(s);
+	r = ft_strreplace(helper, quote, "");
+	free(helper);
+	return (r);
 }
 
 void	set_env(char *key, char *value)
@@ -63,7 +68,7 @@ int		setenv_builtin(char **args)
 		display_env();
 	else if (args[1] && args[2])
 	{
-		ft_putendl("setenv: too many arguments.");
+		ft_putendl_fd("21sh: setenv: too many arguments.", STDERR_FILENO);
 		return (EXEC_ERROR);
 	}
 	else if (args[1])

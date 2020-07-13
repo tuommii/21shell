@@ -41,18 +41,17 @@ int				unsetenv_builtin(char **args)
 	i = 0;
 	if (!args[0])
 	{
-		ft_putendl("unsetenv: too few arguments.");
+		ft_putendl_fd("21sh: unsetenv: too few arguments.", STDERR_FILENO);
 		return (EXEC_ERROR);
 	}
-	else
+	if (!g_sh.env)
+		return (EXEC_ERROR);
+	while (args[i])
 	{
-		while (args[i])
-		{
-			pos = find_env(args[i]);
-			if (g_sh.env[pos])
-				unset_env(pos);
-			i++;
-		}
+		pos = find_env(args[i]);
+		if (g_sh.env[pos])
+			unset_env(pos);
+		i++;
 	}
 	return (EXEC_OK);
 }

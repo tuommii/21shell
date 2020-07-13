@@ -239,6 +239,36 @@ class Shelltests(unittest.TestCase):
         self.assertEqual(err, expected)
         self.valgrind_leaks(command)
 
+    def test_29_env(self):
+        command = ["setenv", "FOO", "bar", ";", "unsetenv", "FOO"]
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, b'')
+        self.valgrind_leaks(command)
+
+    def test_30_env(self):
+        command = ["setenv", "FOO", "bar", "value"]
+        expected = b"21sh: setenv: too many arguments.\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
+
+    def test_31_env(self):
+        command = ["unsetenv", "FOO", "bar", "value"]
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, b'')
+        self.valgrind_leaks(command)
+
+    def test_32_env(self):
+        command = ["unsetenv"]
+        expected = b"21sh: unsetenv: too few arguments.\n"
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
+
 
 if __name__ == '__main__':
     unittest.main()
