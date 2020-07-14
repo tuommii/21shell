@@ -41,6 +41,12 @@ Estimated People Required 2.833962
 - Global clipboard with support of OS X and Linux (xclip)
 
 ### Try It
+
+On Debian-based distros, install `xclip` and `termcaps` with:
+```
+sudo apt-get install libncurses5-dev xclip
+```
+
 Compile and run with:
 ```bash
 make
