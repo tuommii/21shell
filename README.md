@@ -40,7 +40,7 @@ Estimated People Required 2.833962
 - History
 - Global clipboard with support of OS X and Linux (xclip)
 
-### Try It
+### Try It (OS X and Linux)
 
 On Linux you might need to install `xclip` and `termcaps` with (Debian-based distros):
 ```
