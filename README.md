@@ -42,7 +42,7 @@ Estimated People Required 2.833962
 
 ### Try It
 
-On Debian-based distros, install `xclip` and `termcaps` with:
+On Linux you might need to install `xclip` and `termcaps` with (Debian-based distros):
 ```
 sudo apt-get install libncurses5-dev xclip
 ```
