@@ -38,6 +38,12 @@
 - [x] Resizing the window makes prompt disappear
 - [x] MIIKKA check these -> `echo "pwd" | ./21sh`
 
+- cat + ctrl+c prompt
+- double prompt
+- tab possibility
+- heredoc end ctrl+d as eof
+- pitkä komento missä read more, kursori ekalla rivillä menee tilttii
+
 
 ```sh
 mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi

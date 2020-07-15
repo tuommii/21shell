@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: snake <snake@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 12:24:19 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/12 18:16:12 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/15 15:49:33 by snake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	**init_env(char **env)
 
 void		create_shell(char **environ, t_line *line)
 {
-	g_sh.mode = 0;
 	g_sh.env = init_env(environ);
 	g_sh.line = line;
 }

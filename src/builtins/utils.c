@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srouhe <srouhe@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: snake <snake@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:56:31 by srouhe            #+#    #+#             */
-/*   Updated: 2020/07/12 18:15:16 by srouhe           ###   ########.fr       */
+/*   Updated: 2020/07/15 15:49:56 by snake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ char			*get_env(char *var)
 	char	*parsed;
 
 	i = 0;
-	if (g_sh.mode == 1)
-		return (getenv(var));
 	while (g_sh.env[i])
 	{
 		parsed = ft_strsub(g_sh.env[i], 0, ft_lfind(g_sh.env[i], '='));

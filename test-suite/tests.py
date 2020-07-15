@@ -9,9 +9,10 @@ from utils import QueueProcess, valgrind_wrapper
 class Shelltests(unittest.TestCase):
 
     def setUp(self):
+        self.version = '21sh'
         self.their_shell = '/bin/bash'
         self.root = pathlib.Path(__file__).parent.absolute().parent
-        self.our_shell = f'{self.root}/21sh'
+        self.our_shell = f'{self.root}/{self.version}'
         self.tail = True if "TRUE" in "%s" % os.getenv("VG_TAIL") else False
         self.valgrind = True if shutil.which('valgrind') is not None else False
 
@@ -37,8 +38,8 @@ class Shelltests(unittest.TestCase):
     def compare_shells(self, command):
         our_out, our_err = self.exec_shell(command)
         their_out, their_err = self.exec_shell(command, real=True)
-        our_err = our_err.replace(b"21sh: ", b"")
-        their_err = their_err.replace(b"/bin/bash: line 1: ", b"")
+        our_err = our_err.replace(f"{self.version}: ".encode(), b"")
+        their_err = their_err.replace(f"/bin/bash: line 1: ".encode(), b"")
         self.assertEqual(our_out, their_out)
         self.assertEqual(our_err, their_err)
 
@@ -49,7 +50,7 @@ class Shelltests(unittest.TestCase):
 
     def test_00_syntax(self):
         command = [";"]
-        expected = b"21sh: syntax error near unexpected token `;'\n"
+        expected = f"{self.version}: syntax error near unexpected token `;'\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -128,7 +129,7 @@ class Shelltests(unittest.TestCase):
 
     def test_14_no_permission(self):
         command = ["./test-suite/resources/testbin"]
-        expected = b'21sh: permission denied: ./test-suite/resources/testbin\n'
+        expected = f'{self.version}: permission denied: ./test-suite/resources/testbin\n'.encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -159,7 +160,7 @@ class Shelltests(unittest.TestCase):
 
     def test_19_syntax(self):
         command = ["echo", "moro", "|", "cat", ";", "|"]
-        expected = b"21sh: syntax error near unexpected token `|'\n"
+        expected = f"{self.version}: syntax error near unexpected token `|'\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -167,7 +168,7 @@ class Shelltests(unittest.TestCase):
 
     def test_20_misc(self):
         command = ["libft"]
-        expected = b"21sh: libft: command not found\n"
+        expected = f"{self.version}: libft: command not found\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -189,7 +190,7 @@ class Shelltests(unittest.TestCase):
 
     def test_24_permission(self):
         command = ["./libft"]
-        expected = b"21sh: is a directory: ./libft\n"
+        expected = f"{self.version}: is a directory: ./libft\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -197,7 +198,7 @@ class Shelltests(unittest.TestCase):
 
     def test_25_permission(self):
         command = ["./Makefile"]
-        expected = b"21sh: permission denied: ./Makefile\n"
+        expected = f"{self.version}: permission denied: ./Makefile\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -205,7 +206,7 @@ class Shelltests(unittest.TestCase):
 
     def test_26_permission(self):
         command = ["cd", ";", "./Makefile"]
-        expected = b"21sh: ./Makefile: No such file or directory\n"
+        expected = f"{self.version}: ./Makefile: No such file or directory\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -233,7 +234,7 @@ class Shelltests(unittest.TestCase):
 
     def test_28_misc(self):
         command = ["."]
-        expected = b"21sh: .: command not found\n"
+        expected = f"{self.version}: .: command not found\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -248,7 +249,7 @@ class Shelltests(unittest.TestCase):
 
     def test_30_env(self):
         command = ["setenv", "FOO", "bar", "value"]
-        expected = b"21sh: setenv: too many arguments.\n"
+        expected = f"{self.version}: setenv: too many arguments.\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
@@ -263,10 +264,25 @@ class Shelltests(unittest.TestCase):
 
     def test_32_env(self):
         command = ["unsetenv"]
-        expected = b"21sh: unsetenv: too few arguments.\n"
+        expected = f"{self.version}: unsetenv: too few arguments.\n".encode()
         out, err = self.exec_shell(command)
         self.assertEqual(out, b'')
         self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
+
+    def test_33_env(self):
+        command = ["unsetenv", "PATH", ";", "ls"]
+        expected = f"21sh: ls: command not found\n".encode()
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, expected)
+        self.valgrind_leaks(command)
+
+    def test_33_env(self):
+        command = ["unsetenv", "PATH", ";", "unsetenv", "PATH", ";", "setenv", "PATH", "\"/bin\"", ";", "cd"]
+        out, err = self.exec_shell(command)
+        self.assertEqual(out, b'')
+        self.assertEqual(err, b'')
         self.valgrind_leaks(command)
 
 

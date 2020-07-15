@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: snake <snake@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:33:42 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/13 08:29:11 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/15 15:51:07 by snake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void			run_21_stdin(void)
 	char	*input;
 	t_lexer	*lexer;
 
-	g_sh.mode = 1;
 	listen_signals();
 	while (get_next_line(0, &input))
 	{
@@ -106,7 +105,7 @@ int				main(int argc, char **argv, char **environment)
 	if (!argc || !argv || !environment)
 		return (1);
 	line = NULL;
-	linedit_setup();
+	linedit_setup(environment);
 	line = create_line_editor();
 	line->ac = NULL;
 	line->ac = create_completer();

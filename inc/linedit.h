@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linedit.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: snake <snake@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:34:56 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/13 09:08:08 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/15 15:52:13 by snake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ int							calc_rows_used(t_line *line);
 int							calc_row_pos(t_line *line);
 int							path_exist(char *path);
 char						*read_more(t_line *line, int nl_flag);
-void						linedit_setup(void);
+void						linedit_setup(char **environment);
 void						toggle_raw(int reset, int save_old);
 int							get_cols(void);
 void						redraw_input(t_line *line);

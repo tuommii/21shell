@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: snake <snake@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 19:46:38 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/12 11:49:49 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/15 15:51:46 by snake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linedit.h"
 #include "shell.h"
 
-static void	check_tty(void)
+static void	check_tty(char **environment)
 {
 	char buffer[2048];
 	char *name;
@@ -25,6 +25,7 @@ static void	check_tty(void)
 	}
 	if (!isatty(STDIN_FILENO))
 	{
+		create_shell(environment, NULL);
 		run_21_stdin();
 		exit(1);
 	}
@@ -60,10 +61,10 @@ void		toggle_raw(int reset, int save_old)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &new_config);
 }
 
-void		linedit_setup(void)
+void		linedit_setup(char **environment)
 {
 	g_kill = 0;
-	check_tty();
+	check_tty(environment);
 	toggle_raw(0, 1);
 	tputs(tgetstr("cl", NULL), 1, print_char);
 }

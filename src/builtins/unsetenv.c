@@ -30,7 +30,6 @@ static void		unset_env(int pos)
 /*
 **		Built in unsetenv command.
 **		One or multiple arguments.
-**		Persist deleted env for later recovery.
 */
 
 int				unsetenv_builtin(char **args)
