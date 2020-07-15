@@ -6,7 +6,7 @@
 /*   By: mtuomine <mtuomine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 13:36:24 by mtuomine          #+#    #+#             */
-/*   Updated: 2020/07/10 14:21:31 by mtuomine         ###   ########.fr       */
+/*   Updated: 2020/07/15 17:01:00 by mtuomine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static int	check_errors(t_line *line)
 
 int			handle_autocomplete(t_line *line)
 {
+	if (line->readmore)
+		return (1);
 	if (check_errors(line))
 		return (1);
 	if (which_context(line->ac))
